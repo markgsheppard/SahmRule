@@ -155,21 +155,20 @@ p {
     margin: 0 0 0 23px;
 }
 
+/* TopNav styling */
 .navStyle ul li a {
-    display: block;
-    font-size: 14px;
-    color: #222222;
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none;
-    text-transform: uppercase;
+    font-size: 12px; /* Adjust font size to make it smaller */
+    padding: 5px 10px; /* Reduce padding for smaller nav items */
+    color: #222222; /* Default text color */
+    background: #F9F9F9; /* Background color for links */
+    text-transform: uppercase; /* Keep text uppercase */
     font-weight: 600;
     transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
 }
 
 .navStyle ul li a:hover {
-    color: #3498db;
+    color: #222; /* Keep the text color dark */
+    background: #333333; /* Change background color on hover to dark grey */
 }
 
 .navStyle > li > a:hover, .nav > li > a:focus {
