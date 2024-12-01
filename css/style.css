@@ -125,8 +125,9 @@ p {
 
 .navbar {
     border: 0px solid #fff;
-    min-height: 30px;
+    min-height: 20px; /* Adjust the minimum height for a smaller navbar */
     margin-bottom: 0px;
+    border-bottom: 1px solid #e0e0e0; /* Add a very light grey line below the navbar */
 }
 
 .navbar-inverse .navbar-nav > li > a {
