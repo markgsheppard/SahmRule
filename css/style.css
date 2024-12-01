@@ -125,7 +125,7 @@ p {
 
 .navbar {
     border: 0px solid #fff;
-    min-height: 40px;
+    min-height: 30px;
     margin-bottom: 0px;
 }
 
@@ -166,7 +166,7 @@ p {
 }
 
 .navStyle ul li a:hover {
-    color: #222; /* Keep the text color dark */
+    color: #888888; /* Keep the text color dark */
     background: #333333; /* Change background color on hover to dark grey */
 }
 
