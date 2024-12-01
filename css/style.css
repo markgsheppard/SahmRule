@@ -160,7 +160,6 @@ p {
     font-size: 12px; /* Adjust font size to make it smaller */
     padding: 5px 10px; /* Reduce padding for smaller nav items */
     color: #222222; /* Default text color */
-    background: #F9F9F9; /* Background color for links */
     text-transform: uppercase; /* Keep text uppercase */
     font-weight: 600;
     transition: all 0.2s ease-in-out;
@@ -173,24 +172,24 @@ p {
 
 .navStyle > li > a:hover, .nav > li > a:focus {
     text-decoration: none;
-    color: #3498db;
+    color: #545454;
     background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    color: #3498db;
+    color: #545454;
     background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-    color: #3498db;
+    color: #545454;
     background-color: transparent;
 }
 
 .navStyle > li.active > a,
 .navStyle > li.active > a:hover {
     text-decoration: none;
-    color: #3498db;
+    color: #545454;
     background-color: transparent;
 }
 
@@ -210,7 +209,7 @@ p {
 ---------------------------------*/
 
 .top_cont_outer {
-    background: #3498db;
+    background: #545454;
     position: relative;
     background: url(../img/slide-1z.jpg) top center no-repeat;
     background-size: 100% auto; /* Scales width to fit container, height adjusts proportionally */
@@ -257,7 +256,7 @@ p {
 
 .top_left_cont h2 strong {
     font-weight: 700;
-	color:#3498db;
+	color:#545454;
 }
 
 .top_left_cont p {
@@ -293,13 +292,13 @@ a.read_more{
 }
 a.read_more2:hover, a.read_more:hover {
     background: #fff;
-    color: #3498db;
+    color: #545454;
     border: 1px solid #fff;
 }
 a.read_more:hover {
     background: #fff;
-    color: #3498db;
-    border: 1px solid #3498db;
+    color: #545454;
+    border: 1px solid #545454;
 }
 
 	
@@ -353,7 +352,7 @@ left: 0px;
 }
 
 .service_icon i {
-    color: #3498db;
+    color: #545454;
     font-size: 40px;
     margin-top: 0;
     position: relative;
@@ -448,18 +447,18 @@ a.contact_btn {
     text-align: center;
     line-height: 49px;
     font-size: 16px;
-    color: #3498db;
+    color: #545454;
     border-radius: 3px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
-    border: 2px solid #3498db;
+    border: 2px solid #545454;
     transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
 }
 
 a.contact_btn:hover {
-    background: #3498db;
+    background: #545454;
     color: #fff;
 }
 
@@ -504,7 +503,7 @@ a.contact_btn:hover {
 }
 
 .Portfolio-nav li a:hover {
-    background: #3498db;
+    background: #545454;
     color: #fff;
     text-decoration: none;
 }
@@ -534,7 +533,7 @@ a.contact_btn:hover {
 }
 
 .Portfolio-nav li a.current {
-    background: #3498db;
+    background: #545454;
     color: #fff;
     text-decoration: none;
 }
@@ -624,7 +623,7 @@ img {
 
 
 .client_logos {
-    background: #3498db;
+    background: #545454;
     padding: 60px 0;
     margin-top: 60px;
 }
