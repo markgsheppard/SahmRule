@@ -157,7 +157,7 @@ p {
 
 /* TopNav styling */
 .navStyle ul li a {
-    font-size: 12px; /* Adjust font size to make it smaller */
+    font-size: 9px; /* Adjust font size to make it smaller */
     padding: 5px 10px; /* Reduce padding for smaller nav items */
     color: #222222; /* Default text color */
     text-transform: uppercase; /* Keep text uppercase */
