@@ -125,21 +125,21 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     `);
   }
 
-function renderLegend() {
-  const legendLabels = {
-    "No_HS": "No High School",
-    "High_School": "High School",
-    "Some_College": "Some College",
-    "Bachelor_or_Higher": "Bachelor or Higher",
-  };
+  function renderLegend() {
+    const legendLabels = {
+      no_HS: "No High School",
+      high_school: "High School",
+      some_college: "Some College",
+      bachelor: "Bachelor's Degree",
+      adv_degree: "Advanced Degree",
+    };
 
-  vSwatches({
-    container: legend,
-    scale: colorScale,
-    format: (key) => legendLabels[key] || key, // Use the readable label if it exists, otherwise fallback to the key
-  });
-}
-
+    vSwatches({
+      container: legend,
+      scale: colorScale,
+      format: (key) => legendLabels[key] || key,
+    });
+  }
 
   function resize() {
     const newWidth = body.node().clientWidth;
@@ -241,135 +241,11 @@ function renderLegend() {
       .attr("d", (d) => line(d.values));
   }
 
-  function renderThreshold() {
-    const thresholdValue = 0.5;
-
-    thresholdG.attr("transform", `translate(0,${yScale(thresholdValue)})`);
-
-    thresholdG
-      .selectChildren(".threshold-line")
-      .data([null])
-      .join((enter) =>
-        enter
-          .append("line")
-          .attr("class", "threshold-line")
-          .attr("x1", marginLeft)
-      )
-      .attr("x2", width - marginRight);
-
-    thresholdG
-      .selectChildren(".threshold-text")
-      .data(["↑ Recession", "↓ Non-Recession"])
-      .join((enter) =>
-        enter
-          .append("text")
-          .attr("class", "threshold-text")
-          .attr("x", marginLeft)
-          .attr("dy", (d, i) => (i ? "0.71em" : null))
-          .attr("y", (d, i) => (i ? 4 : -4))
-          .text((d) => d)
-      );
-  }
-
-  function renderFocus() {
-    focusG.attr("transform", `translate(${xScale(dates[iFocus])},0)`);
-
-    focusG
-      .selectChildren(".focus-line")
-      .data([null])
-      .join((enter) =>
-        enter
-          .append("line")
-          .attr("class", "focus-line")
-          .attr("y1", marginTop)
-          .attr("y2", height - marginBottom)
-      );
-
-    focusG
-      .selectChildren(".focus-circle")
-      .data(series, (d) => d.key)
-      .join((enter) =>
-        enter
-          .append("circle")
-          .attr("class", "focus-circle")
-          .attr("r", focusCircleRadius)
-          .attr("fill", (d) => colorScale(d.key))
-      )
-      .attr("display", (d) => (d.values[iFocus] === null ? "none" : null))
-      .attr("cy", (d) =>
-        d.values[iFocus] === null ? height : yScale(d.values[iFocus])
-      );
-  }
-
-  function entered(event) {
-    focusG.attr("display", null);
-    moved(event);
-  }
-
-  function moved(event) {
-    const [mx, my] = d3.pointer(event);
-    const date = xScale.invert(mx);
-    const i = d3.bisectCenter(dates, date);
-    if (iFocus !== i) {
-      iFocus = i;
-      renderFocus();
-      tooltip.show(tooltipContent());
-    }
-    tooltip.move(xScale(dates[i]), my);
-  }
-
-  function left() {
-    iFocus = null;
-    focusG.attr("display", "none");
-    tooltip.hide();
-  }
-
-  function beforeAnimate() {
-    const clipId = el.id + "Clip";
-
-    periodsG.attr("clip-path", `url(#${clipId})`);
-    seriesG.attr("clip-path", `url(#${clipId})`);
-    svg
-      .attr("pointer-events", "none")
-      .append("defs")
-      .append("clipPath")
-      .attr("id", clipId)
-      .append("rect")
-      .attr("width", 0)
-      .attr("height", height);
-  }
-
-  function animate() {
-    const defs = svg.select("defs");
-    defs
-      .select("clipPath rect")
-      .transition()
-      .duration(2500)
-      .delay(500)
-      .ease(d3.easeLinear)
-      .attr("width", width)
-      .on("end", () => {
-        defs.remove();
-        periodsG.attr("clip-path", null);
-        seriesG.attr("clip-path", null);
-        svg.attr("pointer-events", null);
-      });
-  }
-
-  function renderFooter() {
-    footer.html(/*html*/ `
-        <div>Source: Claudia Sahm, Bureau of Labor Statistics (BLS)</div>
-        <div>Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.</div>
-        <div>The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months' minimum average.</div>
-        <div>Author: Mark G. Sheppard</div>
-      `);
-  }
-
   function processData(data, factor) {
     const keysByFactor = {
       Race: ["white", "asian", "hispanic", "black"],
       "U-Measures": ["U1", "U2", "U3", "U4", "U5", "U6"],
-      Education: ["no_HS", "some_college", "bachelor", "masters", "adv_degree",],
+      Education: ["no_HS", "high_school", "some_college", "bachelor", "adv_degree"],
     };
 
     const filtered = data
@@ -411,42 +287,5 @@ function renderLegend() {
     periods = periods.map((period) => [period[0], period[period.length - 1]]);
 
     return { dates, series, periods };
-  }
-
-  function tooltipContent() {
-    return /*html*/ `
-    <div>
-      <div class="tip__title">${d3.utcFormat("%b %-d, %Y")(dates[iFocus])}</div>
-      <table class="tip__body">
-        <tbody>
-          ${series
-            .filter((d) => d.values[iFocus] !== null)
-            .sort(
-              (a, b) =>
-                d3.descending(a.values[iFocus], b.values[iFocus]) ||
-                d3.ascending(a.index, b.index)
-            )
-            .map(
-              (d) => /*html*/ `
-            <tr>
-              <td>
-                <div class="swatch">
-                  <div class="swatch__swatch" style="background-color: ${colorScale(
-                    d.key
-                  )}"></div>
-                  <div class="swatch__label">${d.key}</div>
-                </div>
-              </td>
-              <td>
-                ${d3.format(".2f")(d.values[iFocus])}
-              </td>
-            </tr>  
-          `
-            )
-            .join("")}
-        </tbody>
-      </table>
-    </div>
-    `;
   }
 }
