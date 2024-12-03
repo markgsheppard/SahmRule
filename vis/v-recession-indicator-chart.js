@@ -360,7 +360,7 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     const keysByFactor = {
       Race: ["white", "asian", "hispanic", "black"],
       "U-Measures": ["U1", "U2", "U3", "U4", "U5", "U6"],
-      Education: ["less_than_high_school", "high_school", "some_college", "bachelor_or_higher"],
+      Education: ["no_HS", "some_college", "bachelors", "masters", "adv_degree"],
     };
 
     const filtered = data
