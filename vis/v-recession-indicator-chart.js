@@ -117,29 +117,20 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
       "U-Measures": "The Sahm Rule by U-Measures",
       Education: "The Sahm Rule by Education",
     };
-    header.html(/*html*/ 
+    header.html(/*html*/ `
       <div class="title">${titleByFactor[factor]}</div>
       <div class="subtitle">The Sahm Recession Indicator, Disaggregated by ${factor}</div>
       <div class="subtitle">Shown with Reference Lines and Recessions</div>
       <div class="subtitle">Data from ${dates[0].getUTCFullYear()} to Present.</div>
-    );
+    `);
   }
 
-function renderLegend() {
-  const legendLabels = {
-    "No_HS": "No High School",
-    "High_School": "High School",
-    "Some_College": "Some College",
-    "Bachelor_or_Higher": "Bachelor or Higher",
-  };
-
-  vSwatches({
-    container: legend,
-    scale: colorScale,
-    format: (key) => legendLabels[key] || key, // Use the readable label if it exists, otherwise fallback to the key
-  });
-}
-
+  function renderLegend() {
+    vSwatches({
+      container: legend,
+      scale: colorScale,
+    });
+  }
 
   function resize() {
     const newWidth = body.node().clientWidth;
@@ -179,7 +170,7 @@ function renderLegend() {
 
   function rendXAxis() {
     xAxisG
-      .attr("transform", translate(0,${height - marginBottom}))
+      .attr("transform", `translate(0,${height - marginBottom})`)
       .call(
         d3
           .axisBottom(xScale)
@@ -244,7 +235,7 @@ function renderLegend() {
   function renderThreshold() {
     const thresholdValue = 0.5;
 
-    thresholdG.attr("transform", translate(0,${yScale(thresholdValue)}));
+    thresholdG.attr("transform", `translate(0,${yScale(thresholdValue)})`);
 
     thresholdG
       .selectChildren(".threshold-line")
@@ -272,7 +263,7 @@ function renderLegend() {
   }
 
   function renderFocus() {
-    focusG.attr("transform", translate(${xScale(dates[iFocus])},0));
+    focusG.attr("transform", `translate(${xScale(dates[iFocus])},0)`);
 
     focusG
       .selectChildren(".focus-line")
@@ -327,8 +318,8 @@ function renderLegend() {
   function beforeAnimate() {
     const clipId = el.id + "Clip";
 
-    periodsG.attr("clip-path", url(#${clipId}));
-    seriesG.attr("clip-path", url(#${clipId}));
+    periodsG.attr("clip-path", `url(#${clipId})`);
+    seriesG.attr("clip-path", `url(#${clipId})`);
     svg
       .attr("pointer-events", "none")
       .append("defs")
@@ -357,19 +348,19 @@ function renderLegend() {
   }
 
   function renderFooter() {
-    footer.html(/*html*/ 
+    footer.html(/*html*/ `
         <div>Source: Claudia Sahm, Bureau of Labor Statistics (BLS)</div>
         <div>Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.</div>
         <div>The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months' minimum average.</div>
         <div>Author: Mark G. Sheppard</div>
-      );
+      `);
   }
 
   function processData(data, factor) {
     const keysByFactor = {
       Race: ["white", "asian", "hispanic", "black"],
       "U-Measures": ["U1", "U2", "U3", "U4", "U5", "U6"],
-      Education: ["no_HS", "some_college", "bachelor", "masters", "adv_degree",],
+      Education: ["less_than_high_school", "high_school", "some_college", "bachelor_or_higher"],
     };
 
     const filtered = data
@@ -414,7 +405,7 @@ function renderLegend() {
   }
 
   function tooltipContent() {
-    return /*html*/ 
+    return /*html*/ `
     <div>
       <div class="tip__title">${d3.utcFormat("%b %-d, %Y")(dates[iFocus])}</div>
       <table class="tip__body">
@@ -427,7 +418,7 @@ function renderLegend() {
                 d3.ascending(a.index, b.index)
             )
             .map(
-              (d) => /*html*/ 
+              (d) => /*html*/ `
             <tr>
               <td>
                 <div class="swatch">
@@ -441,12 +432,12 @@ function renderLegend() {
                 ${d3.format(".2f")(d.values[iFocus])}
               </td>
             </tr>  
-          
+          `
             )
             .join("")}
         </tbody>
       </table>
     </div>
-    ;
+    `;
   }
 }
