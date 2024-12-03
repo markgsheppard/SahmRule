@@ -107,6 +107,95 @@
 <!--Aboutus--> 
 
 
+
+
+
+
+
+	
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <!-- Demo CSS -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Open Sans", serif;
+      }
+
+      main {
+        width: min(100% - 32px, 1200px);
+        margin: 80px auto;
+      }
+
+      main > * + * {
+        margin-block-start: 80px;
+      }
+    </style>
+    <!-- Vis CSS -->
+    <link rel="stylesheet" href="vis/v-style.css" />
+  </head>
+  <body>
+    <main>
+      <div id="sahmRecessionIndicatorByRace"></div>
+      <div id="sahmRecessionIndicatorByUMeasures"></div>
+    </main>
+    <!-- D3 JS (Vis JS dependency) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <!-- Demo JS -->
+    <script type="module">
+      import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
+
+      d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByRace"),
+          data: data,
+          factor: "Race",
+        });
+      });
+
+      d3.csv("./vis/data/U1_to_U6_unemployment_data.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByUMeasures"),
+          data: data,
+          factor: "U-Measures",
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 <!--Service-->
 <section id="service">
   <div class="container">
