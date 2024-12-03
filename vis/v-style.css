@@ -1,0 +1,200 @@
+.v {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #404040;
+  --color-gray-800: #262626;
+  --color-gray-900: #171717;
+  --color-gray-950: #0a0a0a;
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  --max-content-width: 52em;
+
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-800);
+  background-color: var(--color-white);
+}
+
+.v .figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.v .header,
+.v .footer {
+  max-width: var(--max-content-width);
+}
+
+.v .title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.v .subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.v .footer {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+}
+
+.v .legend {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.v .swatches {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-800);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2em;
+}
+
+.v .swatch {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.v .swatch__swatch {
+  width: 1em;
+  height: 1em;
+  border-radius: 2px;
+}
+
+.v .swatch__label {
+  text-transform: capitalize;
+}
+
+.v .tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-600);
+  border-radius: 4px;
+  padding: 0.5em 0.75em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.15);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.15s linear, opacity 0.15s linear;
+}
+
+.v .tip table {
+  border-collapse: collapse;
+}
+
+.v .tip td:first-child {
+  padding-inline-end: 0.25em;
+}
+
+.v .tip td:last-child {
+  padding-inline-start: 0.25em;
+  text-align: end;
+  font-weight: var(--font-weight-semibold);
+}
+
+.v .tip.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.v .body {
+  position: relative;
+}
+
+.v .svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.v .axis-g text {
+  font-size: var(--font-size-sm);
+  fill: var(--color-gray-600);
+}
+
+.v .axis-g .title-text {
+  fill: var(--color-gray-600);
+}
+
+.v .axis-g line {
+  stroke: var(--color-gray-300);
+  stroke-linecap: round;
+  stroke-dasharray: 1 7;
+}
+
+.v.recession-indicator-chart .period-rect {
+  fill: var(--color-gray-100);
+}
+
+.v.recession-indicator-chart .series-path {
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.v.recession-indicator-chart .threshold-line {
+  stroke: var(--color-gray-300);
+}
+
+.v.recession-indicator-chart .threshold-text {
+  font-size: var(--font-size-sm);
+  fill: var(--color-gray-600);
+  stroke: var(--color-white);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4px;
+  paint-order: stroke;
+}
+
+.v.recession-indicator-chart .focus-line {
+  stroke: var(--color-gray-600);
+}
+
+.v.recession-indicator-chart .focus-circle {
+  stroke: var(--color-white);
+  stroke-width: 1.5px;
+}
