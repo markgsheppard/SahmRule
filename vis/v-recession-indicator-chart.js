@@ -125,12 +125,21 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     `);
   }
 
-  function renderLegend() {
-    vSwatches({
-      container: legend,
-      scale: colorScale,
-    });
-  }
+function renderLegend() {
+  const legendLabels = {
+    "No_HS": "No High School",
+    "High_School": "High School",
+    "Some_College": "Some College",
+    "Bachelor_or_Higher": "Bachelor or Higher",
+  };
+
+  vSwatches({
+    container: legend,
+    scale: colorScale,
+    format: (key) => legendLabels[key] || key, // Use the readable label if it exists, otherwise fallback to the key
+  });
+}
+
 
   function resize() {
     const newWidth = body.node().clientWidth;
