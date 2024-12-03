@@ -115,6 +115,7 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     const titleByFactor = {
       Race: "Racial Recessions",
       "U-Measures": "The Sahm Rule by U-Measures",
+      Education: "The Sahm Rule by Education",
     };
     header.html(/*html*/ `
       <div class="title">${titleByFactor[factor]}</div>
@@ -359,6 +360,7 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     const keysByFactor = {
       Race: ["white", "asian", "hispanic", "black"],
       "U-Measures": ["U1", "U2", "U3", "U4", "U5", "U6"],
+      Education: ["no_HS", "some_college", "bachelor", "masters", "adv_degree",],
     };
 
     const filtered = data
