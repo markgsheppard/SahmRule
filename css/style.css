@@ -23,11 +23,11 @@ h2.custom-heading {
 
 h2.custom-heading .italic-small {
     font-style: italic; /* Italicized text */
-    font-size: 0.6em; /* Smaller text */
+    font-size: 0.4em; /* Smaller text */
     vertical-align: middle; /* Align to middle of the line */
     line-height: normal; /* Ensure line-height does not conflict */
     position: relative;
-    top: -2px; /* Negative value moves it up */
+    top: -1px; /* Negative value moves it up */
 }
 
 
