@@ -286,6 +286,7 @@ p {
     line-height: 20px;
     text-align: left;
     margin: 0 0 0 100px;
+}
 
 /* Correct the unclosed brace for a.read_more, a.read_more2 */
 a.read_more, a.read_more2 {
