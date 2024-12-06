@@ -280,12 +280,12 @@ p {
 }
 
 .top_left_cont p {
-    font-size: 16px;
-    color: #fff;
+    font-size: 12px;
+    color: #6f6f6f;
     margin: 0 0 30px 0;
-    line-height: 26px;
-	text-align:center;
-}
+    line-height: 20px;
+    text-align: left;
+    margin: 0 0 0 100px;
 
 a.read_more, a.read_more2 {
     font-family: 'Raleway', sans-serif;
