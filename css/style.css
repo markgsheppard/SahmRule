@@ -17,6 +17,7 @@ h2.custom-heading {
     color: #272727; /* Text color */
     text-align: center; /* Center-align text */
     margin: 0 0 25px 0;
+    text-transform: none; /* Prevent all caps */
 }
 
 h2.custom-heading .italic-small {
