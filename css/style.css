@@ -304,8 +304,9 @@ a.read_more, a.read_more2 {
     background: transparent;
     color: #fff;
     border: 1px solid #fff;
-	margin:0 auto;
+    margin: 0 auto;
 }
+	
 a.read_more{
 	 color: #3C3C3C;
 	 border: 1px solid #3C3C3C;
