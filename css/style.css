@@ -10,19 +10,22 @@ Licence under Creative Commons Attribution 3.0
 
 /* Reset
 ---------------------------------*/
-.custom-heading {
-    font-family: Georgia, serif; /* Georgia font or similar */
-    font-size: 38px; /* Adjust as needed */
+/* Ensure specificity to override other h2 styles */
+h2.custom-heading {
+    font-family: Georgia, serif !important; /* Force Georgia or similar serif font */
+    font-size: 38px; /* Main heading size */
     color: #272727; /* Text color */
-    text-align: center; /* Optional: Center-align the text */
+    text-align: center; /* Center-align text */
     margin: 0 0 25px 0;
 }
 
-.custom-heading .italic-small {
-    font-style: italic;
-    font-size: 0.8em; /* Makes it smaller */
-    vertical-align: middle; /* Aligns it to the middle of the line */
+h2.custom-heading .italic-small {
+    font-style: italic; /* Italicized text */
+    font-size: 0.8em; /* Smaller text */
+    vertical-align: middle; /* Align to middle of the line */
+    line-height: normal; /* Ensure line-height does not conflict */
 }
+
 
 
 ul {
