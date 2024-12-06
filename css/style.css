@@ -264,12 +264,11 @@ p {
 }
 
 .top_left_cont h2 {
-    font-size: 40px;
-    color: #FFF;
-    line-height: 52px;
-    margin: 0 0 26px 0;
+    font-size: 30px;
+    color: #272727;
+    margin: 0 0 0 100px;
     font-family: 'Raleway', sans-serif;
-    text-align: center;
+    text-align: left;
 }
 
 .top_left_cont h2 strong {
