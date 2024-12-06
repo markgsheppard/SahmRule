@@ -211,7 +211,7 @@ p {
 .top_cont_outer {
     background: #545454;
     position: relative;
-    background: url(../img/slide-1z.jpg) top center no-repeat;
+    background: #f9f9f9; /* Sets the new background color */
     background-size: 100% auto; /* Scales width to fit container, height adjusts proportionally */
     height: 400px; /* Can still set a height for the container */
 }
