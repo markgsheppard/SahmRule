@@ -132,7 +132,10 @@
 	merely saying that labor market conditions are simply different.
 </p>
 
-<!DOCTYPE html>
+
+
+
+	<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -176,6 +179,7 @@
       import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
       d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+        // Render the graph once
         vRecessionIndicatorChart({
           el: document.getElementById("sahmRecessionIndicatorByRace"),
           data: data,
@@ -185,6 +189,7 @@
     </script>
   </body>
 </html>
+
 
 	
 	
