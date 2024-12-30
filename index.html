@@ -132,28 +132,26 @@
 	merely saying that labor market conditions are simply different.
     </p>
 
-    <main>
-        <div id="sahmRecessionIndicatorByRace"></div>
-    </main>
-</div>
+  <main>
+    <div id="sahmRecessionIndicatorByRace"></div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script type="module">
-  import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
+    import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
-  // Load and render the Race graph
-  d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
-    const raceChartElement = document.getElementById("sahmRecessionIndicatorByRace");
-    
-    // Ensure that the graph is only rendered if the element is empty
-    if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
-      vRecessionIndicatorChart({
-        el: raceChartElement,
-        data: data,
-        factor: "Race",
-      });
-    }
-  });
+    // Render the Race Graph only once
+    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+        const raceChartElement = document.getElementById("sahmRecessionIndicatorByRace");
+
+        if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
+            vRecessionIndicatorChart({
+                el: raceChartElement,
+                data: data,
+                factor: "Race",
+            });
+        }
+    });
 </script>
 </div>
 		
