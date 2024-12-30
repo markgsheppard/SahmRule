@@ -154,7 +154,9 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <h1>Modified Sahm Rule</h1>
 <p>
@@ -167,16 +169,12 @@
     \]
 </div>
 <p>where:</p>
-<ul style="list-style-type: circle; color: grey;">
-    <li style="display: inline; margin-right: 20px;">
-        \[
-        \lambda_{i,t} = y^{\text{k-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}
-        \]
+<ul style="list-style-type: none; padding: 0; margin: 0;">
+    <li style="display: inline-block; margin-right: 20px;">
+        \(\lambda_{i,t} = y^{\text{k-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}\)
     </li>
-    <li style="display: inline;">
-        \[
-        \gamma_{j,t} = \min_{t-11 \leq k \leq t} y^{\text{k-month}}_{j,k}
-        \]
+    <li style="display: inline-block;">
+        \(\gamma_{j,t} = \min_{t-11 \leq k \leq t} y^{\text{k-month}}_{j,k}\)
     </li>
 </ul>
 <p>
@@ -203,6 +201,10 @@
         Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
     </li>
 </ul>
+
+
+
+	
 
 	
 </div>
