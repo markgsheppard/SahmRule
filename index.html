@@ -159,7 +159,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<h2>Modified Sahm Rule</h2>
+<h1>Modified Sahm Rule</h1>
 <p>
     The Modified Sahm Rule consists of two components: the minuend, \( \lambda_{i,t} \), and the subtrahend, \( \gamma_{j,t} \). 
     The Modified Sahm Rule is defined as:
@@ -170,14 +170,16 @@
     \]
 </div>
 <p>where:</p>
-<ul style="list-style-type: none; padding: 0; margin: 0;">
-    <li style="display: inline-block; margin-right: 20px;">
-        \(\lambda_{i,t} = \overline{y}^{k\text{-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}\)
-    </li>
-    <li style="display: inline-block;">
-        \(\gamma_{j,t} = \min_{t-11 \leq k \leq t} \overline{y}^{k\text{-month}}_{j,k}\)
-    </li>
-</ul>
+<div style="text-align: center; margin-bottom: 20px;">
+    <ul style="list-style-type: none; padding: 0; margin: 0; display: inline-block;">
+        <li style="display: inline-block; margin-right: 20px; font-size: 0.9em;">
+            \(\lambda_{i,t} = \overline{y}^{k\text{-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}\)
+        </li>
+        <li style="display: inline-block; font-size: 0.9em;">
+            \(\gamma_{j,t} = \min_{t-11 \leq k \leq t} \overline{y}^{k\text{-month}}_{j,k}\)
+        </li>
+    </ul>
+</div>
 <p>
     The recession indicator \( R_t \) is triggered when the Sahm Rule exceeds a threshold \( \alpha \):
 </p>
@@ -190,8 +192,11 @@
     \end{cases}
     \]
 </div>
-<p>Note the following:</p>
-<ul style="list-style-type: circle; color: grey; margin-left: 20px;">
+
+<hr style="margin: 30px 0;">
+
+<p style="font-size: 0.9em;">Note the following:</p>
+<ul style="list-style-type: circle; color: grey; margin-left: 20px; font-size: 0.9em;">
     <li>
         \( k \) is typically set to 3 months, but the function can be smoothed over any \( k \)-month average. Generally, subcategories of unemployment with increased volatility require more smoothing.
     </li>
@@ -202,6 +207,7 @@
         Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
     </li>
 </ul>
+
 
 
 
