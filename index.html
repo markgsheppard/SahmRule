@@ -74,25 +74,37 @@
     }
 </style>
 
+<style>
+    /* Reusable link styling */
+    a.animated-link {
+        text-decoration: none;
+        color: #000000; /* Default color */
+        font-weight: normal; /* Normal font weight */
+        transition: color 0.3s, font-weight 0.3s; /* Smooth animation */
+    }
 
-		    
+    a.animated-link:hover {
+        font-weight: bold; /* Bold on hover */
+        color: #4d4d4d; /* Dark grey on hover */
+    }
+</style>
+
 <div style="margin-left: 100px;">
     <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 5px;">
         <span>Working Paper</span>
         <span style="margin-left: 10px;">
-            <a href="your-pdf-link.pdf" class="download-pdf">Download PDF</a>
+            <a href="your-pdf-link.pdf" class="animated-link">Download PDF</a>
         </span>
     </div>
 
-
-		    
-<div style="line-height: 1.5;">
-    <strong style="margin-right: 10px;">
-        <a href="https://www.markgsheppard.com/" target="_blank" style="text-decoration: none; color: inherit;">
-            By Mark G. Sheppard
-        </a>
-    </strong>
-    <span style="font-weight: lighter;">Spring 2025</span>
+    <div style="line-height: 1.5;">
+        <strong style="margin-right: 10px;">
+            <a href="https://www.markgsheppard.com/" target="_blank" class="animated-link">
+                By Mark G. Sheppard
+            </a>
+        </strong>
+        <span style="font-weight: lighter;">Spring 2025</span>
+    </div>
 </div>
 
 		    
