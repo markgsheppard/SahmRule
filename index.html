@@ -153,6 +153,50 @@
         }
     });
 </script>
+
+
+	
+	<h1>Modified Sahm Rule</h1>
+<p>
+    The Modified Sahm Rule consists of two components: the minuend, <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">λ<sub>i,t</sub></span>, and the subtrahend, <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">γ<sub>j,t</sub></span>. 
+    The Modified Sahm Rule is defined as:
+</p>
+<p style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 5px; border-radius: 3px;">
+    Sahm(λ<sub>i,t</sub>, γ<sub>j,t</sub>) = λ<sub>i,t</sub> − γ<sub>j,t</sub>,
+</p>
+<p>where:</p>
+<ul>
+    <li><span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">λ<sub>i,t</sub> = y<sup>k-month</sup><sub>i,t</sub> = (1/k) Σ<sub>j=0</sub><sup>k</sup> y<sub>i,t-j</sub></span></li>
+    <li><span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">γ<sub>j,t</sub> = min<sub>t−11 ≤ k ≤ t</sub> y<sup>k-month</sup><sub>j,k</sub></span></li>
+</ul>
+<p>
+    The recession indicator <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">R<sub>t</sub></span> is triggered when the Sahm Rule exceeds a threshold <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">α</span>:
+</p>
+<p style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 5px; border-radius: 3px;">
+    R<sub>t</sub> =
+    <br>
+    {
+    <br>
+    1 if Sahm(·) &gt; α,
+    <br>
+    0 otherwise.
+    <br>
+    }
+</p>
+<p>Note the following:</p>
+<ul>
+    <li>
+        <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">k</span> is typically set to 3 months, but the function can be smoothed over any <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">k</span>-month average. Generally, subcategories of unemployment with increased volatility require more smoothing.
+    </li>
+    <li>
+        <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">α</span> is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in Michaillat and Saez (2024b).
+    </li>
+    <li>
+        Indices <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">i</span> and <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">j</span> allow for comparing different unemployment measures (e.g., <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">i ≠ j</span>, such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline <span style="font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; padding: 2px; border-radius: 3px;">U-3</span> as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
+    </li>
+</ul>
+
+	
 </div>
 		
 	
