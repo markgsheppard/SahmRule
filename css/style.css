@@ -302,8 +302,8 @@ a.read_more, a.read_more2 {
     font-weight: 600;
     transition: all 0.2s ease-in-out;
     background: transparent;
-    color: #fff;
-    border: 1px solid #fff;
+    color: #6e6e6e;
+    border: 1px solid #6e6e6e;
     margin: 0 auto;
 	margin-top:30px;
 }
