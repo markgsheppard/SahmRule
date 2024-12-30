@@ -128,7 +128,7 @@
     <br>
 	Utilizing labor utilization measures within a <strong>Modified Sahm Rule</strong> reveals more comprehensive measures are more predictive. 
 	Utilizing disaggregated unemployment data, by education, race, gender, etc., compared to the standard subtrahend of U-3, 
-	creating a <strong>Relative Sahm Rule</strong>, can be used to show underlying inequities with in the economy. Allowing for diagnosis beyond
+	creating a <strong>Relative Sahm Rule</strong>, can be used to show underlying inequities within the economy. Allowing for diagnosis beyond
 	merely saying that labor market conditions are simply different.
     </p>
 
@@ -141,16 +141,19 @@
 <script type="module">
   import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
-  // Load and render the Race graph only once
-  if (!document.getElementById("sahmRecessionIndicatorByRace").hasChildNodes()) {
-    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+  // Load and render the Race graph
+  d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+    const raceChartElement = document.getElementById("sahmRecessionIndicatorByRace");
+    
+    // Ensure that the graph is only rendered if the element is empty
+    if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
       vRecessionIndicatorChart({
-        el: document.getElementById("sahmRecessionIndicatorByRace"),
+        el: raceChartElement,
         data: data,
         factor: "Race",
       });
-    });
-  }
+    }
+  });
 </script>
 </div>
 		
