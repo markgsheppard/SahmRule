@@ -138,7 +138,7 @@
                 const targetId = this.getAttribute("href").substring(1);
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    const offset = -80; // Adjust this value to fine-tune the position
+                    const offset = -110; // Adjust this value to fine-tune the position
                     const topPosition = targetElement.getBoundingClientRect().top + window.scrollY + offset;
                     window.scrollTo({
                         top: topPosition,
