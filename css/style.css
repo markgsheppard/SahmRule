@@ -234,7 +234,7 @@ p {
     position: relative;
     background: #f9f9f9; /* Sets the new background color */
     background-size: 100% auto; /* Scales width to fit container, height adjusts proportionally */
-    height: 400px; /* Can still set a height for the container */
+    height: 270px; /* Can still set a height for the container */
 }
 
 .hero_section {
