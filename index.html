@@ -138,7 +138,12 @@
                 const targetId = this.getAttribute("href").substring(1);
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: "smooth" });
+                    const offset = -10; // Adjust this value to fine-tune the position
+                    const topPosition = targetElement.getBoundingClientRect().top + window.scrollY + offset;
+                    window.scrollTo({
+                        top: topPosition,
+                        behavior: "smooth"
+                    });
                 }
             });
         });
@@ -237,6 +242,7 @@ a.scroll-link:hover {
 	
 
 <p>
+	<br></br>
     The Modified Sahm Rule consists of two components: the minuend, \( \lambda_{i,t} \), and the subtrahend, \( \gamma_{j,t} \). 
     The Modified Sahm Rule is defined as:
 </p>
