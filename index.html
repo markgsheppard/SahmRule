@@ -122,36 +122,36 @@
 	
 <div style="font-family: Arial, sans-serif; margin-top:50px; line-height: 1.6; text-align: left; margin-left: 300px; max-width: 900px; font-size:15px;">
     <p>
-        Can we better predict recessions? And can we bend those same tools to meaningfully speak to underlying economic well-being, before those tools break? <br></br>
+        Can we better predict recessions? And can we bend those same tools to meaningfully speak to underlying economic well-being, before those tools break? <br>
 	    Working people connect the economy, and because labor is so central to all aspects of production, many popular recession indicators rely mostly on employment-based measures. 
 	But with so many measures of labor utilization, which metric is the most predictive of recessions, and can we use disaggregated data in recession indicators to say something even deeper about labor market inequities?
-<br></br>
+    <br>
 	Utilizing labor utilization measures within a <strong>Modified Sahm Rule</strong> reveals more comprehensive measures are more predictive. 
 	Utilizing disaggregated unemployment data, by education, race, gender, etc., compared to the standard subtrahend of U-3, 
 	creating a <strong>Relative Sahm Rule</strong>, can be used to show underlying inequities with in the economy. Allowing for diagnosis beyond
 	merely saying that labor market conditions are simply different.
-</p>
+    </p>
 
+    <main>
+        <div id="sahmRecessionIndicatorByRace"></div>
+    </main>
+</div>
 
-<main>
-  <div id="sahmRecessionIndicatorByRace"></div>
-</main>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script type="module">
   import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
-  // Load and render only the Race graph the first time
-  d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
-    vRecessionIndicatorChart({
-      el: document.getElementById("sahmRecessionIndicatorByRace"),
-      data: data,
-      factor: "Race",
+  // Load and render the Race graph only once
+  if (!document.getElementById("sahmRecessionIndicatorByRace").hasChildNodes()) {
+    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+      vRecessionIndicatorChart({
+        el: document.getElementById("sahmRecessionIndicatorByRace"),
+        data: data,
+        factor: "Race",
+      });
     });
-  });
+  }
 </script>
-
-	
-	
 </div>
 		
 	
