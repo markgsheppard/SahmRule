@@ -119,6 +119,44 @@
 <!--Hero_Section--> 
 
 
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollLinks = document.querySelectorAll(".scroll-link");
+        scrollLinks.forEach(link => {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute("href").substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+    });
+</script>
+
+	<style>
+	
+	a.scroll-link {
+    text-decoration: none;
+    color: #000; /* Default link color */
+    font-weight: normal;
+    transition: color 0.3s, font-weight 0.3s; /* Smooth transition */
+}
+
+a.scroll-link:hover {
+    font-weight: bold; /* Bold font on hover */
+    color: #4d4d4d; /* Dark gray hover color */
+}
+	</style>
+
+	
+
 	
 <div style="font-family: Arial, sans-serif; margin-top:50px; line-height: 1.6; text-align: left; margin-left: 300px; max-width: 900px; font-size:15px;">
     <p>
@@ -127,7 +165,7 @@
 	But with so many measures of labor utilization, which metric is the most predictive of recessions, and can we use disaggregated data in recession indicators to say something even deeper about labor market inequities?
     <br></br>
 	Utilizing labor utilization measures within a 
-	<a href="#modifiedSahmRule" class="scroll-link">
+<a href="#modifiedSahmRule" class="scroll-link">
     <strong>Modified Sahm Rule</strong>
 </a>
  reveals more comprehensive measures are more predictive. 
@@ -178,9 +216,9 @@
 </style>
 
 <hr style="margin: 30px 0;">
-	
 
-<section id="modifiedSahmRule">
+	
+<section id="modifiedSahmRule" style="padding-top: 80px;">
     <div class="inner_wrapper fadeInLeft animated wow">
         <div class="container">
             <h1 style="font-size: 1.5em;">Modified Sahm Rule</h1>
