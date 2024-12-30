@@ -119,6 +119,7 @@ p {
 #header_wrapper {
     background: #ffffff;
     padding: 5px 0px;
+	border-bottom: 1px solid #616161;
 }
 
 .header_box {
