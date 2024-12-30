@@ -305,7 +305,11 @@ a.read_more, a.read_more2 {
     color: #fff;
     border: 1px solid #fff;
     margin: 0 auto;
-	margin-top:50px;
+	margin-top:30px;
+}
+
+.top_left_cont.zoomIn.wow.animated p {
+    margin-top: 10px;
 }
 	
 a.read_more{
