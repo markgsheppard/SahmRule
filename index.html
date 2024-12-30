@@ -156,8 +156,22 @@
 
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    /* Animated link styling */
+    a.animated-link {
+        text-decoration: none;
+        color: #000000; /* Default color */
+        font-weight: normal; /* Normal font weight */
+        transition: color 0.3s, font-weight 0.3s; /* Smooth animation */
+    }
+
+    a.animated-link:hover {
+        font-weight: bold; /* Bold on hover */
+        color: #4d4d4d; /* Dark grey on hover */
+    }
+</style>
 
 <h1>Modified Sahm Rule</h1>
 <p>
@@ -201,13 +215,14 @@
         \( k \) is typically set to 3 months, but the function can be smoothed over any \( k \)-month average. Generally, subcategories of unemployment with increased volatility require more smoothing.
     </li>
     <li>
-        \( \alpha \) is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in <a href="https://arxiv.org/pdf/2408.05856" target="_blank" class="animated-link">Michaillat and Saez (2024)</a>.
-    </li>
+        \( \alpha \) is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in 
+        <a href="https://arxiv.org/pdf/2408.05856" target="_blank" class="animated-link">Michaillat and Saez (2024b)</a>.
     </li>
     <li>
         Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
     </li>
 </ul>
+
 
 
 
