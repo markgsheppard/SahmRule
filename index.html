@@ -331,7 +331,46 @@ a.scroll-link:hover {
       <div id="sahmRecessionIndicatorByUMeasures"></div></main></div>
 <!--MYSECTION-->
 
-<div id="sahmRecessionIndicatorByEducation"></div>
+
+
+
+	<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Education Graph</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Open Sans", sans-serif;
+      }
+
+      main {
+        width: min(100% - 32px, 1200px);
+        margin: 80px auto;
+      }
+    </style>
+    <link rel="stylesheet" href="vis/v-style.css" />
+  </head>
+  <body>
+    <main>
+      <div id="sahmRecessionIndicatorByEducation"></div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script type="module">
+      import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
+
+      d3.csv("./vis/data/education_data.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByEducation"),
+          data: data,
+          factor: "Education",
+        });
+      });
+    </script>
+  </body>
+</html>
 
 
 	
