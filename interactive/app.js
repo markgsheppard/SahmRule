@@ -226,9 +226,17 @@ class SahmRuleDashboard {
 		const selectDropdown = d3.select(`#${id}`)
 		const field = id.split('-')[0]
 
-		selectDropdown
-			.selectAll('option')
-			.data(list)
+		const grouped = d3.group(list, d => d.Header);
+
+		const optgroups = selectDropdown
+			.selectAll('optgroup')
+			.data(grouped)
+			.enter()
+			.append('optgroup')
+			.attr('label', d => d[0])
+
+		optgroups.selectAll('option')
+			.data(d => d[1])
 			.enter()
 			.append('option')
 			.text(d => d.Category)
