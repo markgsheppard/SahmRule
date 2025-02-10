@@ -1,4 +1,4 @@
-import { compute_sahm_rule } from './sahm_rule.js'
+import { calculateAccuracyPercent, calculateDaysToNearestDateWithSummary, compute_sahm_rule, getRecessionPeriods, getSahmStarts } from './sahm_rule.js'
 import vRecessionIndicatorChart from '../vis/v-recession-indicator-chart.js'
 
 const data_base_url =
@@ -7,6 +7,16 @@ const data_base_url =
 class SahmRuleChart {
 	constructor(formData) {
 		this.formData = formData
+		this.accuracy_time_range = 200
+		this.committee_time_range = 250
+		this.committee_starts = [
+			new Date("2020-06-08"),
+			new Date("2008-12-01"),
+			new Date("2001-11-26"),
+			new Date("1991-04-25"),
+			new Date("1982-01-06"),
+			new Date("1980-06-03")
+		]
 	}
 
 	async loadDataAndDrawChart(formData) {
@@ -67,6 +77,8 @@ class SahmRuleChart {
 			this.formData.alpha
 		)
 
+		this.updateStats(computed_data)
+
 		const chartElement = document.getElementById('sahm_chart')
 		chartElement.innerHTML = ''
 		vRecessionIndicatorChart({
@@ -74,6 +86,46 @@ class SahmRuleChart {
 			data: computed_data,
 			factor: 'U-Measures'
 		})
+	}
+
+	updateStats(computed_data) {
+		const sahm_starts = getSahmStarts(computed_data)
+		const recession_starts = getRecessionPeriods(
+			this.data.rec_data.filter(d => {
+				const threeMonths = new Date(sahm_starts[0])
+				threeMonths.setMonth(threeMonths.getMonth() - 3)
+				return d.date >= threeMonths
+			})
+		).map(d => d.start)
+
+		const accuracy =
+			Math.round(
+				calculateAccuracyPercent(
+					sahm_starts,
+					recession_starts,
+					this.accuracy_time_range
+				)
+			) + '%'
+
+		const recession_lead_time = Math.round(
+			calculateDaysToNearestDateWithSummary(
+				sahm_starts,
+				recession_starts,
+				this.accuracy_time_range
+			).overall_average_days
+		)
+
+		const committee_lead_time = Math.round(
+			calculateDaysToNearestDateWithSummary(
+				sahm_starts,
+				this.committee_starts,
+				this.committee_time_range
+			).average_days_leading
+		)
+
+		d3.select("#committee_lead_time").html(committee_lead_time)
+		d3.select("#recession_lead_time").html(recession_lead_time)
+		d3.select('#accuracy').html(accuracy)
 	}
 }
 

@@ -33,15 +33,15 @@ export function compute_sahm_rule(
 			// relative_m_mo_min_12mo: relative_m_mo_min_12mo[i],
 			sahm: sahm,
 			sahm_binary: sahm >= alpha_threshold ? 1 : 0,
-      value: sahm,
-      category: "U6"
+			value: sahm,
+			category: 'U6'
 		})
 	}
 
 	return computed_data
 }
 
-function getRecessionPeriods(recession_data) {
+export function getRecessionPeriods(recession_data) {
 	const resp = []
 	let lastRecessionStart = null
 	for (let i = 0; i < recession_data.length; i++) {
@@ -60,7 +60,7 @@ function getRecessionPeriods(recession_data) {
 	return resp
 }
 
-function getSahmStarts(data) {
+export function getSahmStarts(data) {
 	const resp = []
 	let lastStart = null
 	for (let i = 0; i < data.length; i++) {
@@ -76,13 +76,12 @@ function getSahmStarts(data) {
 	return resp
 }
 
-
 // Compare sahm_starts with recession_starts for accuracy
 // - `dates` is an array of date strings (equivalent to `date` column)
 // - `recessionStarts` is an array of date strings (equivalent to `recession_starts$date`)
 // - `accuracyTimeRange` is the number of days for the accuracy range
 
-function calculateAccuracyPercent(
+export function calculateAccuracyPercent(
 	sahmStarts,
 	recessionStarts,
 	accuracyTimeRange
@@ -99,6 +98,61 @@ function calculateAccuracyPercent(
 	const accuracyPercent =
 		(accurate.filter(Boolean).length / sahmStarts.length) * 100
 	return accuracyPercent
+}
+
+export function calculateDaysToNearestDateWithSummary(
+	sahmStarts,
+	referenceDates,
+	accuracyTimeRange
+) {
+	// Step 1: Calculate days to the nearest date for each sahm date
+	const daysToNearest = sahmStarts.map(sahmDate => {
+		// Filter reference dates within the accuracy range
+		const validReferenceDates = referenceDates.filter(refDate => {
+			const diffInDays = Math.abs((sahmDate - refDate) / (1000 * 60 * 60 * 24))
+			return diffInDays <= accuracyTimeRange
+		})
+
+		if (validReferenceDates.length === 0) {
+			// Return 0 if no valid dates exist within the range
+			return 0
+		}
+
+		// Find the nearest reference date
+		const nearestReferenceDate = validReferenceDates.reduce(
+			(closest, current) => {
+				const closestDiff = Math.abs(sahmDate - closest)
+				const currentDiff = Math.abs(sahmDate - current)
+				return currentDiff < closestDiff ? current : closest
+			},
+			validReferenceDates[0]
+		)
+
+		// Calculate the difference in days
+		return (nearestReferenceDate - sahmDate) / (1000 * 60 * 60 * 24)
+	})
+
+	// Step 2: Calculate summary statistics
+	const leadTimes = daysToNearest.filter(days => days > 0) // Positive days (leading)
+	const lagTimes = daysToNearest.filter(days => days < 0) // Negative days (lagging)
+
+	const summary = {
+		average_days_leading:
+			leadTimes.length > 0
+				? leadTimes.reduce((sum, days) => sum + days, 0) / leadTimes.length
+				: null,
+		average_days_lagging:
+			lagTimes.length > 0
+				? lagTimes.reduce((sum, days) => sum + days, 0) / lagTimes.length
+				: null,
+		overall_average_days:
+			daysToNearest.length > 0
+				? daysToNearest.reduce((sum, days) => sum + days, 0) /
+				  daysToNearest.length
+				: null
+	}
+
+	return summary
 }
 
 // Calculate N size moving averages
