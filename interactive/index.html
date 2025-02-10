@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1">
+  <title>The Sahm Rule</title>
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
+  <link href="../css/animate.css" rel="stylesheet" type="text/css">
+  <link href="../interactive/tool.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../vis/v-style.css" />
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <!--[if lt IE 9]>
+    <script src="js/respond-1.1.0.min.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/html5element.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+  <header id="header_wrapper">
+    <div class="container">
+      <div class="header_box">
+        <div class="logo"><a href="#"><img src="../img/logo.png" alt="logo" style="width: 120px; height: auto;"></a>
+        </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+          <div class="navbar-header">
+            <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+              <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          </div>
+          <div id="main-nav" class="collapse navbar-collapse navStyle">
+            <ul class="nav navbar-nav" id="mainNav">
+              <li class="active"><a href="#hero_section" class="scroll-link">Overview</a></li>
+              <li><a href="#aboutUs" class="scroll-link">About</a></li>
+              <li><a href="#service" class="scroll-link">Methodology</a></li>
+              <li><a href="#Portfolio" class="scroll-link">Project</a></li>
+              <li><a href="#clients" class="scroll-link">Data</a></li>
+              <li><a href="#team" class="scroll-link">Contributors</a></li>
+              <li><a href="#contact" class="scroll-link">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div>
+      <h2>Modified Sahm Rule</h2>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-3 col-sm-12 border-right">
+        <div class="title">Results</div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="stat-box">
+              <div class="stat-label">Advance of Committee</div>
+              <div class="metric">1.2</div>
+              <div class="stat-sub-label">Months</div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="stat-box">
+              <div class="stat-label">Advance of Recession</div>
+              <div class="metric">32</div>
+              <div class="stat-sub-label">Days</div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="stat-box">
+              <div class="stat-label">Accuracy</div>
+              <div class="metric">72%</div>
+              <div class="stat-sub-label"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-12">
+        <div class="title">Modifications</div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Base (Minuend)</div>
+              <select class="form-control" id="base-select" value="U6RATE"></select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Relative (Subtrahend)</div>
+              <select class="form-control" id="relative-select" value="U6RATE"></select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Recession</div>
+              <select class="form-control" id="recession-select" value="USREC"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <div class="title">Smoothing Level</div>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="stat-box rows-2">
+                  <div class="stat-label">Base <br /> (Minuend)</div>
+                  <div class="slider-container">
+                    <span class="slider-value">3</span>
+                    <input type="range" min="1" max="12" step="1" value="3" class="form-control" id="k-slider">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="stat-box rows-2">
+                  <div class="stat-label">Relative <br /> (Subtrahend)</div>
+                  <div class="slider-container">
+                    <span class="slider-value">6</span>
+                    <input type="range" min="1" max="24" step="1" value="12" class="form-control" id="m-slider">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="stat-box rows-2">
+                  <div class="stat-label">Time Period</div>
+                  <div class="slider-container">
+                    <span class="slider-value">3</span>
+                    <input type="range" min="6" max="24" step="1" value="13" class="form-control"
+                      id="time-amount-slider">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="stat-box rows-2">
+                  <div class="stat-label">Seasonal</div>
+                  <div class="checkbox-container">
+                    <input type="checkbox" id="seasonal-checkbox">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="stat-box rows-2">
+                  <div class="stat-label">Threshold <br /> (Alpha)</div>
+                  <div class="slider-container">
+                    <span class="slider-value">0.5</span>
+                    <input type="range" min="0" max="1" step="0.1" value="0.5" class="form-control" id="alpha-slider">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>The Sahm Rule by U-Measures</h3>
+        <h5>The Sahm Recession Indicator, Disaggregated by U-Measures</h5>
+        <h5>Show with Reference Lines and Recessions</h5>
+        <h5>Data from 1965 to Present.</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-container" id="sahm_chart"></div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-8">
+        <p>Source: Claudia Sahm, Bureau of Labor Statistics (BLS). <br />
+          Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.
+          <br />
+          The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average
+          rises by 0.50 percentage points or more relative to previous month's minimum average.
+          <br />Author: Mark G. Shepard.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+  <script type="module" type="text/javascript" src="app.js" defer></script>
+</body>
+
+</html>

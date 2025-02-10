@@ -1,0 +1,107 @@
+/* Header Styles
+---------------------------------*/
+#header_wrapper {
+  background: #ffffff;
+  padding: 5px 0px;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.header_box {
+  position: relative;
+}
+
+.logo {
+  float: left;
+  margin-top: 0px;
+  position: relative;
+  z-index: 2;
+}
+
+.res-nav_click {
+  display: none;
+}
+
+
+/* Nav Styles
+---------------------------------*/
+.navbar-inverse {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.navbar {
+  border: 0px solid #fff;
+  min-height: 10px;
+  /* Adjust the minimum height for a smaller navbar */
+  margin-bottom: 0px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: #222;
+}
+
+.navStyle {
+  float: right;
+}
+
+.navStyle ul {
+  list-style: none;
+  padding: 0px;
+}
+
+.navStyle ul li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.navStyle ul li:last-child {
+  margin: 0 0 0 23px;
+}
+
+/* TopNav styling */
+.navStyle ul li a {
+  font-size: 9px;
+  /* Adjust font size to make it smaller */
+  padding: 5px 10px;
+  /* Reduce padding for smaller nav items */
+  color: #222222;
+  /* Default text color */
+  text-transform: uppercase;
+  /* Keep text uppercase */
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.navStyle ul li a:hover {
+  color: #888888;
+  /* Keep the text color dark */
+  background: #333333;
+  /* Change background color on hover to dark grey */
+}
+
+.navStyle>li>a:hover,
+.nav>li>a:focus {
+  text-decoration: none;
+  color: #545454;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus {
+  color: #545454;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus {
+  color: #545454;
+  background-color: transparent;
+}
+
+.navStyle>li.active>a,
+.navStyle>li.active>a:hover {
+  text-decoration: none;
+  color: #545454;
+  background-color: transparent;
+}

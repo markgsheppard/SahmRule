@@ -91,9 +91,15 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
 
   const tooltip = vTooltip({ container: body });
 
-  renderHeader();
+  // Remove this later!!
+  if (!window.location.pathname.includes("interactive")) {
+    renderHeader();
+  }
   renderLegend();
-  renderFooter();
+  // Remove this later!!
+  if (!window.location.pathname.includes("interactive")) {
+    renderFooter();
+  }
 
   new ResizeObserver(resize).observe(body.node());
   const observer = new IntersectionObserver(

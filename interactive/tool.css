@@ -1,0 +1,98 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/css?family=Raleway:800,700,400);
+@import url(http://fonts.googleapis.com/css?family=Signika:400,600);
+@import url(../css/navbar.css);
+
+body {
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.border-right {
+  border-right: 1px solid #eee;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0px 0rem 2rem 0rem;
+}
+
+.label {
+  color: #888888;
+}
+
+.stat-label {
+  text-align: center;
+  align-self: end;
+  font-size: 1.2rem;
+  color: #888888;
+  font-weight: 600;
+  line-height: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.stat-sub-label {
+  text-align: center;
+  align-self: end;
+  font-size: 1rem;
+  color: #888888;
+  font-weight: bold;
+  line-height: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.metric {
+  line-height: 3.5rem;
+  font-size: 3.5rem;
+  color: #888888;
+  font-weight: bold;
+  text-align: center;
+}
+
+.stat-box {
+  display: grid;
+  grid-template-rows: 24px auto auto;
+  gap: 5px;
+}
+
+.stat-box.rows-2 {
+  grid-template-rows: 24px auto;
+}
+
+input.form-control,
+input.form-control:focus {
+  border: none;
+  box-shadow: none;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+select.form-control {
+  font-size: 1.1rem;
+  padding: 6px;
+}
+
+.slider-container {
+  position: relative;
+}
+
+.slider-value {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+.checkbox-container {
+  padding-top: 6px;
+  text-align: center;
+}
