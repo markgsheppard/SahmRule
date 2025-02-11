@@ -16,14 +16,31 @@ body {
   --color-primary-900: #1e3a8a;
 }
 
-.border-right {
-  border-right: 1px solid #eee;
+@media (min-width: 992px) {
+  .lg\:border-right {
+    border-right: 1px solid #eee;
+  }
 }
 
 .title {
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0px 0rem 2rem 0rem;
+  padding: 0rem 0rem 2rem 0rem;
+}
+
+@media (max-width: 992px) {
+  .title {
+    padding: 1rem 0rem 1rem 0rem;
+  }
+}
+
+.text-muted {
+  color: #888888;
+  font-weight: 400;
+}
+
+.text-small {
+  font-size: 1rem;
 }
 
 .label {

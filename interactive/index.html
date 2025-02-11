@@ -57,7 +57,7 @@
     </div>
     <hr />
     <div class="row">
-      <div class="col-md-3 col-sm-12 border-right">
+      <div class="col-md-3 col-sm-12 lg:border-right">
         <div class="title">Results</div>
         <div class="row">
           <div class="col-sm-4">
@@ -78,7 +78,8 @@
 
           <div class="col-sm-4">
             <div class="stat-box">
-              <div class="stat-label">Accuracy</div>
+              <div class="stat-label">Accuracy <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
+              </div>
               <div class="metric" id="accuracy">-</div>
               <div class="stat-sub-label"></div>
             </div>
@@ -91,19 +92,20 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="stat-box rows-2">
-              <div class="stat-label">Base (Minuend)</div>
+              <div class="stat-label">Base <br /> <span class="text-muted text-small">(Minuend)</span></div>
               <select class="form-control" id="base-select" value="U6RATE"></select>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="stat-box rows-2">
-              <div class="stat-label">Relative (Subtrahend)</div>
+              <div class="stat-label">Relative <br /> <span class="text-muted text-small">(Subtrahend)</span></div>
               <select class="form-control" id="relative-select" value="U6RATE"></select>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="stat-box rows-2">
-              <div class="stat-label">Recession</div>
+              <div class="stat-label">Recession <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
+              </div>
               <select class="form-control" id="recession-select" value="USREC"></select>
             </div>
           </div>
@@ -117,7 +119,10 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="stat-box rows-2">
-                  <div class="stat-label">Base <br /> (Minuend)</div>
+                  <div class="stat-label">
+                    Base <br />
+                    <span class="text-muted text-small">(Minuend)</span>
+                  </div>
                   <div class="slider-container">
                     <span class="slider-value"></span>
                     <input type="range" min="1" max="24" step="1" value="3" class="form-control" id="k-slider">
@@ -126,7 +131,9 @@
               </div>
               <div class="col-sm-4">
                 <div class="stat-box rows-2">
-                  <div class="stat-label">Relative <br /> (Subtrahend)</div>
+                  <div class="stat-label">Relative <br />
+                    <span class="text-muted text-small">(Subtrahend)</span>
+                  </div>
                   <div class="slider-container">
                     <span class="slider-value"></span>
                     <input type="range" min="1" max="24" step="1" value="12" class="form-control" id="m-slider">
@@ -135,7 +142,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="stat-box rows-2">
-                  <div class="stat-label">Time Period</div>
+                  <div class="stat-label">Time Period <br /> <span class="text-muted text-small">(Minimum)</span></div>
                   <div class="slider-container">
                     <span class="slider-value"></span>
                     <input type="range" min="3" max="60" step="1" value="13" class="form-control"
@@ -149,7 +156,8 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="stat-box rows-2">
-                  <div class="stat-label">Seasonal</div>
+                  <div class="stat-label">Seasonal <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
+                  </div>
                   <div class="checkbox-container">
                     <input type="checkbox" id="seasonal-checkbox">
                   </div>
@@ -157,7 +165,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="stat-box rows-2">
-                  <div class="stat-label">Threshold <br /> (Alpha)</div>
+                  <div class="stat-label">Threshold <br /> <span class="text-muted text-small">(Alpha)</span></div>
                   <div class="slider-container">
                     <span class="slider-value"></span>
                     <input type="range" min="0" max="1" step="0.1" value="0.5" class="form-control" id="alpha-slider">
