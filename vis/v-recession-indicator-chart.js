@@ -1,7 +1,15 @@
 import vSwatches from "./v-swatches.js";
 import vTooltip from "./v-tooltip.js";
 
-export default function vRecessionIndicatorChart({ el, data, factor }) {
+export default function vRecessionIndicatorChart({ 
+  el, 
+  data, 
+  factor, 
+  threshold = 0.5, 
+  hideHeader, 
+  hideFooter, 
+  hideLegend 
+}) {
   /**
    * Constants
    */
@@ -43,14 +51,17 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     .classed("v recession-indicator-chart", true)
     .append("figure")
     .attr("class", "figure");
+
   const styles = getComputedStyle(figure.node());
+
   const colors = d3.quantize(
     d3.interpolateHcl(
       styles.getPropertyValue(startColor),
       styles.getPropertyValue(endColor)
     ),
-    series.length
+    series.length > 1 ? series.length : 2
   );
+
   const colorScale = d3
     .scaleOrdinal()
     .domain(series.map((d) => d.key))
@@ -91,13 +102,13 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
 
   const tooltip = vTooltip({ container: body });
 
-  // Remove this later!!
-  if (!window.location.pathname.includes("interactive")) {
+  if (!hideHeader) {
     renderHeader();
   }
-  renderLegend();
-  // Remove this later!!
-  if (!window.location.pathname.includes("interactive")) {
+  if (!hideLegend) {
+    renderLegend();
+  }
+  if (!hideFooter) {
     renderFooter();
   }
 
@@ -239,7 +250,7 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
   }
 
   function renderThreshold() {
-    const thresholdValue = 0.5;
+    const thresholdValue = threshold;
 
     thresholdG.attr("transform", `translate(0,${yScale(thresholdValue)})`);
 
@@ -341,8 +352,8 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
     defs
       .select("clipPath rect")
       .transition()
-      .duration(2500)
-      .delay(500)
+      .duration(0)
+      .delay(0)
       .ease(d3.easeLinear)
       .attr("width", width)
       .on("end", () => {
@@ -363,10 +374,12 @@ export default function vRecessionIndicatorChart({ el, data, factor }) {
   }
 
   function processData(data, factor) {
+
     const keysByFactor = {
       Race: ["white", "asian", "hispanic", "black"],
       "U-Measures": ["U1", "U2", "U3", "U4", "U5", "U6"],
       Education: ["no_HS", "some_college", "bachelors", "masters", "adv_degree"],
+      "Modified Sahm Rule": ["Modified Sahm Rule"]
     };
 
     const filtered = data
