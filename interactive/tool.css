@@ -11,6 +11,11 @@ body {
   margin: 0;
 }
 
+#sahm_chart {
+  --color-primary-300: #3b82f6;
+  --color-primary-900: #1e3a8a;
+}
+
 .border-right {
   border-right: 1px solid #eee;
 }
@@ -82,7 +87,7 @@ select.form-control {
 
 .slider-value {
   position: absolute;
-  top: -12px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;

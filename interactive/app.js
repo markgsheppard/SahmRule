@@ -1,4 +1,10 @@
-import { calculateAccuracyPercent, calculateDaysToNearestDateWithSummary, compute_sahm_rule, getRecessionPeriods, getSahmStarts } from './sahm_rule.js'
+import {
+	calculateAccuracyPercent,
+	calculateDaysToNearestDateWithSummary,
+	compute_sahm_rule,
+	getRecessionPeriods,
+	getSahmStarts
+} from './sahm_rule.js'
 import vRecessionIndicatorChart from '../vis/v-recession-indicator-chart.js'
 
 const data_base_url =
@@ -10,12 +16,12 @@ class SahmRuleChart {
 		this.accuracy_time_range = 200
 		this.committee_time_range = 250
 		this.committee_starts = [
-			new Date("2020-06-08"),
-			new Date("2008-12-01"),
-			new Date("2001-11-26"),
-			new Date("1991-04-25"),
-			new Date("1982-01-06"),
-			new Date("1980-06-03")
+			new Date('2020-06-08'),
+			new Date('2008-12-01'),
+			new Date('2001-11-26'),
+			new Date('1991-04-25'),
+			new Date('1982-01-06'),
+			new Date('1980-06-03')
 		]
 	}
 
@@ -72,7 +78,7 @@ class SahmRuleChart {
 			this.data.rec_data,
 			this.formData.k,
 			this.formData.m,
-			this.formData.width,
+			this.formData.timePeriod,
 			this.formData.seasonal,
 			this.formData.alpha
 		)
@@ -84,7 +90,11 @@ class SahmRuleChart {
 		vRecessionIndicatorChart({
 			el: chartElement,
 			data: computed_data,
-			factor: 'U-Measures'
+			factor: "Modified Sahm Rule",
+			hideLegend: false,
+			hideFooter: true,
+			hideHeader: true,
+			threshold: this.formData.alpha
 		})
 	}
 
@@ -123,8 +133,8 @@ class SahmRuleChart {
 			).average_days_leading
 		)
 
-		d3.select("#committee_lead_time").html(committee_lead_time)
-		d3.select("#recession_lead_time").html(recession_lead_time)
+		d3.select('#committee_lead_time').html(committee_lead_time)
+		d3.select('#recession_lead_time').html(recession_lead_time)
 		d3.select('#accuracy').html(accuracy)
 	}
 }
@@ -165,11 +175,23 @@ class SahmRuleDashboard {
 				t => t.Code === defaultSettings.recession
 			),
 			k: 3,
-			m: 3,
-			width: 13,
+			m: 12,
+			timePeriod: 13,
 			seasonal: false,
 			alpha: 0.5
 		}
+
+		// Initialize slider values
+		this.updateSlidervalue(document.getElementById('k-slider'), this.formData.k)
+		this.updateSlidervalue(document.getElementById('m-slider'), this.formData.m)
+		this.updateSlidervalue(
+			document.getElementById('time-period-slider'),
+			this.formData.timePeriod
+		)
+		this.updateSlidervalue(
+			document.getElementById('alpha-slider'),
+			this.formData.alpha
+		)
 
 		this.loadDataAndDrawChart()
 
@@ -201,9 +223,17 @@ class SahmRuleDashboard {
 			this.updateChart()
 		})
 
+		this.listenForLiveChanges('k-slider', value => {
+			this.updateSlidervalue(document.getElementById('k-slider'), value)
+		})
+
 		this.listenForChanges('m-slider', value => {
 			this.formData.m = value
 			this.updateChart()
+		})
+
+		this.listenForLiveChanges('m-slider', value => {
+			this.updateSlidervalue(document.getElementById('m-slider'), value)
 		})
 
 		this.listenForChanges('time-period-slider', value => {
@@ -211,22 +241,45 @@ class SahmRuleDashboard {
 			this.updateChart()
 		})
 
+		this.listenForLiveChanges('time-period-slider', value => {
+			this.updateSlidervalue(
+				document.getElementById('time-period-slider'),
+				value
+			)
+		})
+
 		this.listenForChanges('alpha-slider', value => {
 			this.formData.alpha = value
 			this.updateChart()
 		})
 
-		this.listenForChanges('seasonal-checkbox', value => {
-			this.formData.seasonal = value
+		this.listenForLiveChanges('alpha-slider', value => {
+			this.updateSlidervalue(document.getElementById('alpha-slider'), value)
+		})
+
+		this.listenForChanges('seasonal-checkbox', (value, e) => {
+			this.formData.seasonal = e.target.checked
 			this.updateChart()
 		})
+	}
+
+	updateSlidervalue(el, value) {
+		const thumbPosition = ((value - el.min) / (el.max - el.min)) * 100
+		d3.select(el.parentElement)
+			.select('.slider-value')
+			.html(value)
+			.style(
+				'left',
+				`calc(${thumbPosition}% + (${8 - thumbPosition * 0.15}px))`
+			)
+			.style('transform', 'translateX(-50%)')
 	}
 
 	fillSelectDropdown(id, list, cb) {
 		const selectDropdown = d3.select(`#${id}`)
 		const field = id.split('-')[0]
 
-		const grouped = d3.group(list, d => d.Header);
+		const grouped = d3.group(list, d => d.Header)
 
 		const optgroups = selectDropdown
 			.selectAll('optgroup')
@@ -235,7 +288,8 @@ class SahmRuleDashboard {
 			.append('optgroup')
 			.attr('label', d => d[0])
 
-		optgroups.selectAll('option')
+		optgroups
+			.selectAll('option')
 			.data(d => d[1])
 			.enter()
 			.append('option')
@@ -256,7 +310,13 @@ class SahmRuleDashboard {
 
 	listenForChanges(id, cb) {
 		d3.select(`#${id}`).on('change', e => {
-			cb && cb(e.target.value)
+			cb && cb(e.target.value, e)
+		})
+	}
+
+	listenForLiveChanges(id, cb) {
+		d3.select(`#${id}`).on('input', e => {
+			cb && cb(e.target.value, e)
 		})
 	}
 

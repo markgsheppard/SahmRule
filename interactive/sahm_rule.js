@@ -5,7 +5,7 @@ export function compute_sahm_rule(
 	recession_data,
 	k = 3,
 	m = 3,
-	width = 13,
+	time_period = 13,
 	seasonal = false,
 	alpha_threshold = 0.5
 ) {
@@ -21,11 +21,11 @@ export function compute_sahm_rule(
 
 	const base_k_mo_avg = movingAverage(base, k)
 	const relative_m_mo_avg = movingAverage(relative, m)
-	const relative_m_mo_min_12mo = rollingMin(relative_m_mo_avg, width)
+	const relative_m_mo_min_timePeriod = rollingMin(relative_m_mo_avg, time_period)
 
 	const computed_data = []
 	for (let i = 0; i < n; i++) {
-		const sahm = base_k_mo_avg[i] - relative_m_mo_min_12mo[i]
+		const sahm = base_k_mo_avg[i] - relative_m_mo_min_timePeriod[i]
 		computed_data.push({
 			date: base_data[i].date,
 			recession: recession_data[i]?.value ?? 0,
@@ -34,7 +34,7 @@ export function compute_sahm_rule(
 			sahm: sahm,
 			sahm_binary: sahm >= alpha_threshold ? 1 : 0,
 			value: sahm,
-			category: 'U6'
+			category: 'Modified Sahm Rule'
 		})
 	}
 
