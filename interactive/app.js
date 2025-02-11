@@ -78,9 +78,9 @@ class SahmRuleChart {
 			this.data.rec_data,
 			this.formData.k,
 			this.formData.m,
-			this.formData.timePeriod,
+			this.formData.time_period,
 			this.formData.seasonal,
-			this.formData.alpha
+			this.formData.alpha_threshold
 		)
 
 		this.updateStats(computed_data)
@@ -94,7 +94,7 @@ class SahmRuleChart {
 			hideLegend: false,
 			hideFooter: true,
 			hideHeader: true,
-			threshold: this.formData.alpha
+			threshold: this.formData.alpha_threshold
 		})
 	}
 
@@ -176,9 +176,9 @@ class SahmRuleDashboard {
 			),
 			k: 3,
 			m: 12,
-			timePeriod: 13,
+			time_period: 13,
 			seasonal: false,
-			alpha: 0.5
+			alpha_threshold: 0.5
 		}
 
 		// Initialize slider values
@@ -186,11 +186,11 @@ class SahmRuleDashboard {
 		this.updateSlidervalue(document.getElementById('m-slider'), this.formData.m)
 		this.updateSlidervalue(
 			document.getElementById('time-period-slider'),
-			this.formData.timePeriod
+			this.formData.time_period
 		)
 		this.updateSlidervalue(
 			document.getElementById('alpha-slider'),
-			this.formData.alpha
+			this.formData.alpha_threshold
 		)
 
 		this.loadDataAndDrawChart()
@@ -237,7 +237,7 @@ class SahmRuleDashboard {
 		})
 
 		this.listenForChanges('time-period-slider', value => {
-			this.formData.timePeriod = value
+			this.formData.time_period = value
 			this.updateChart()
 		})
 
@@ -249,7 +249,7 @@ class SahmRuleDashboard {
 		})
 
 		this.listenForChanges('alpha-slider', value => {
-			this.formData.alpha = value
+			this.formData.alpha_threshold = value
 			this.updateChart()
 		})
 
