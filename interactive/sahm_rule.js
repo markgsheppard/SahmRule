@@ -21,11 +21,11 @@ export function compute_sahm_rule(
 
 	const base_k_mo_avg = movingAverage(base, k)
 	const relative_m_mo_avg = movingAverage(relative, m)
-	const relative_m_mo_min_timePeriod = rollingMin(relative_m_mo_avg, time_period)
+	const relative_m_mo_min_time_period = rollingMin(relative_m_mo_avg, time_period)
 
 	const computed_data = []
 	for (let i = 0; i < n; i++) {
-		const sahm = base_k_mo_avg[i] - relative_m_mo_min_timePeriod[i]
+		const sahm = base_k_mo_avg[i] - relative_m_mo_min_time_period[i]
 		computed_data.push({
 			date: base_data[i].date,
 			recession: recession_data[i]?.value ?? 0,
