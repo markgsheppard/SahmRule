@@ -450,7 +450,15 @@ export default function vRecessionIndicatorChart({
               <td>
                 ${d3.format(".2f")(d.values[iFocus])}
               </td>
-            </tr>  
+            </tr>
+            <tr>
+              <td style="padding-top: 6px;">
+                Risk: <strong>${d.values[iFocus] > threshold ? "High" : "Low"}</strong>
+              </td>
+              <td>
+                
+              </td>
+            </tr>
           `
             )
             .join("")}

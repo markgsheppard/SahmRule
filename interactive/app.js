@@ -7,8 +7,18 @@ import {
 } from './sahm_rule.js'
 import vRecessionIndicatorChart from '../vis/v-recession-indicator-chart.js'
 
-const data_base_url =
-	'https://raw.githubusercontent.com/giorgi-ghviniashvili/sahm_rule/refs/heads/main'
+const data_base_url = '../data-source'
+
+const defaultSettings = {
+	base: 'UNRATE',
+	relative: 'UNRATE',
+	recession: 'USREC',
+	k: 3,
+	m: 3,
+	time_period: 13,
+	seasonal: false,
+	alpha_threshold: 0.5
+}
 
 class SahmRuleChart {
 	constructor(formData) {
@@ -90,7 +100,7 @@ class SahmRuleChart {
 		vRecessionIndicatorChart({
 			el: chartElement,
 			data: computed_data,
-			factor: "Modified Sahm Rule",
+			factor: 'Modified Sahm Rule',
 			hideLegend: false,
 			hideFooter: true,
 			hideHeader: true,
@@ -139,12 +149,6 @@ class SahmRuleChart {
 	}
 }
 
-const defaultSettings = {
-	base: 'U6RATE',
-	relative: 'U6RATE',
-	recession: 'USREC'
-}
-
 class SahmRuleDashboard {
 	constructor() {
 		this.datasetsList = []
@@ -174,11 +178,11 @@ class SahmRuleDashboard {
 			recession: this.datasetsList.find(
 				t => t.Code === defaultSettings.recession
 			),
-			k: 3,
-			m: 12,
-			time_period: 13,
-			seasonal: false,
-			alpha_threshold: 0.5
+			k: defaultSettings.k,
+			m: defaultSettings.m,
+			time_period: defaultSettings.time_period,
+			seasonal: defaultSettings.seasonal,
+			alpha_threshold: defaultSettings.alpha_threshold
 		}
 
 		// Initialize slider values
