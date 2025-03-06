@@ -167,7 +167,7 @@ export default function vRecessionIndicatorChart({
     renderYAxis();
     renderSeries();
     renderThreshold();
-    if (!animated) beforeAnimate();
+    if (animated) beforeAnimate();
   }
 
   function renderPeriods() {
