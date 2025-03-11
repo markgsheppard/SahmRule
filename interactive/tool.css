@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+.btn:focus {
+  outline: none !important;
+}
+
 .row.slim > div {
   padding-left: 7.5px;
   padding-right: 7.5px;
@@ -122,4 +126,12 @@ input[type="range"] {
 .checkbox-container {
   padding-top: 6px;
   text-align: center;
+}
+
+.control-buttons {
+  text-align: right;
+}
+
+.series-path.active {
+  stroke: rgb(173, 74, 12);
 }

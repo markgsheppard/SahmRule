@@ -7,7 +7,12 @@ import {
 } from './sahm_rule.js'
 import vRecessionIndicatorChart from '../vis/v-recession-indicator-chart.js'
 
-const data_base_url = '../data-source'
+const getRandomId = () => {
+	return (
+		Math.random().toString(36).substring(2, 15) +
+		Math.random().toString(36).substring(2, 15)
+	)
+}
 
 const defaultSettings = {
 	base: 'UNRATE',
@@ -20,184 +25,235 @@ const defaultSettings = {
 	alpha_threshold: 0.5
 }
 
-class SahmRuleChart {
-	constructor(formData) {
-		this.formData = formData
-		this.accuracy_time_range = 200
-		this.committee_time_range = 250
-		this.committee_starts = [
-			new Date('2020-06-08'),
-			new Date('2008-12-01'),
-			new Date('2001-11-26'),
-			new Date('1991-04-25'),
-			new Date('1982-01-06'),
-			new Date('1980-06-03')
-		]
+const data_base_url = '../data-source'
+
+const accuracy_time_range = 200
+const committee_time_range = 250
+const committee_starts = [
+	new Date('2020-06-08'),
+	new Date('2008-12-01'),
+	new Date('2001-11-26'),
+	new Date('1991-04-25'),
+	new Date('1982-01-06'),
+	new Date('1980-06-03')
+]
+
+const getUrl = series_id => {
+	return `${data_base_url}/data/${series_id}.csv`
+}
+
+class SahmRuleDashboard {
+	constructor() {
+		this.datasetsList = []
+		this.lineConfigs = []
+		this.currentLineId = null
+		this.dataCache = new Map()
+		this.recessionData = new Map()
+
+		this.init()
 	}
 
-	async loadDataAndDrawChart(formData) {
-		this.formData = formData
-		this.data = await this.getData()
-		this.computeAndDrawChart()
+	async addLine() {
+		const config = {
+			id: getRandomId(),
+			...defaultSettings
+		}
+
+		const [base_data, relative_data] = await Promise.all([
+			this.fetchFile(config.base),
+			this.fetchFile(config.relative),
+			this.loadRecessionData(config.recession)
+		])
+
+		config.base_data = base_data
+		config.relative_data = relative_data
+
+		this.lineConfigs.push(config)
+		this.selectLine(config.id)
+
+		this.updateCurrentLine('base', config.base)
+		this.updateCurrentLine('relative', config.relative)
 	}
 
-	getUrl(series_id) {
-		return `${data_base_url}/data/${series_id}.csv`
+	selectLine(id) {
+		this.currentLineId = id
+		this.updateFormElements()
+
+		const config = this.lineConfigs.find(l => l.id === this.currentLineId)
+
+		if (!config) {
+			return
+		}
+
+		this.updateStats(config)
 	}
 
-	async getData() {
-		try {
-			const resp = await Promise.all([
-				d3.csv(this.getUrl(this.formData.base.Code), d3.autoType),
-				d3.csv(this.getUrl(this.formData.relative.Code), d3.autoType),
-				d3.csv(this.getUrl(this.formData.recession.Code), d3.autoType)
-			])
+	async updateCurrentLine(key, value) {
+		const config = this.lineConfigs.find(l => l.id === this.currentLineId)
 
-			const [base_data, relative_data, rec_data] = resp
+		if (!config) {
+			return
+		}
 
-			const dateStart = Math.max(
-				base_data[0].date,
-				relative_data[0].date,
-				rec_data[0].date
+		config[key] = value
+
+		if (key === 'base') {
+			config.base_data = await this.fetchFile(value)
+		} else if (key === 'relative') {
+			config.relative_data = await this.fetchFile(value)
+		} else if (key === 'recession') {
+			await this.loadRecessionData(value)
+		}
+
+		let { base_data, relative_data } = config
+
+		if (key === 'base' || key === 'relative') {
+			const aligned = this.alignData(config)
+			base_data = aligned.base_data
+			relative_data = aligned.relative_data
+		}
+
+		const computed_data = compute_sahm_rule(
+			base_data,
+			relative_data,
+			config.k,
+			config.m,
+			config.time_period,
+			config.seasonal
+		)
+
+		config.computed_data = computed_data
+
+		this.computeStats(computed_data, config)
+		this.updateStats(config)
+		this.drawChart()
+	}
+
+	alignData(config) {
+		const { base_data, relative_data } = config
+
+		const dateStart = Math.max(base_data[0].date, relative_data[0].date)
+
+		const dateEnd = Math.min(
+			base_data[base_data.length - 1].date,
+			relative_data[relative_data.length - 1].date
+		)
+
+		config.start_date = dateStart
+		config.end_date = dateEnd
+
+		return {
+			base_data: base_data.filter(
+				d => d.date >= dateStart && d.date <= dateEnd
+			),
+			relative_data: relative_data.filter(
+				d => d.date >= dateStart && d.date <= dateEnd
 			)
-
-			const dateEnd = Math.min(
-				base_data[base_data.length - 1].date,
-				relative_data[relative_data.length - 1].date,
-				rec_data[rec_data.length - 1].date
-			)
-
-			return {
-				base_data: base_data.filter(
-					d => d.date >= dateStart && d.date <= dateEnd
-				),
-				relative_data: relative_data.filter(
-					d => d.date >= dateStart && d.date <= dateEnd
-				),
-				rec_data: rec_data.filter(d => d.date >= dateStart && d.date <= dateEnd)
-			}
-		} catch (error) {
-			console.error(error)
 		}
 	}
 
-	computeAndDrawChart() {
-		const computed_data = compute_sahm_rule(
-			this.data.base_data,
-			this.data.relative_data,
-			this.data.rec_data,
-			this.formData.k,
-			this.formData.m,
-			this.formData.time_period,
-			this.formData.seasonal,
-			this.formData.alpha_threshold
-		)
+	updateFormElements() {
+		const config = this.lineConfigs.find(l => l.id === this.currentLineId)
 
-		this.updateStats(computed_data)
+		if (!config) {
+			return
+		}
 
-		const chartElement = document.getElementById('sahm_chart')
-		chartElement.innerHTML = ''
-		vRecessionIndicatorChart({
-			el: chartElement,
-			data: computed_data,
-			factor: 'Modified Sahm Rule',
-			hideLegend: false,
-			hideFooter: true,
-			hideHeader: true,
-			threshold: this.formData.alpha_threshold
-		})
+		this.updateSliderValue('#k-slider', config.k)
+		this.updateSliderValue('#m-slider', config.m)
+		this.updateSliderValue('#time-period-slider', config.time_period)
+		this.updateCheckbox('#seasonal-checkbox', config.seasonal)
+		this.updateDropdownValue('#base-select', config.base)
+		this.updateDropdownValue('#relative-select', config.relative)
+		this.updateDropdownValue('#recession-select', config.recession)
 	}
 
-	updateStats(computed_data) {
-		const sahm_starts = getSahmStarts(computed_data)
-		const recession_starts = getRecessionPeriods(
-			this.data.rec_data.filter(d => {
-				const threeMonths = new Date(sahm_starts[0])
-				threeMonths.setMonth(threeMonths.getMonth() - 3)
-				return d.date >= threeMonths
-			})
-		).map(d => d.start)
+	async getDatasetsList() {
+		try {
+			const resp = await d3.csv(`${data_base_url}/datasets.csv`)
+			return resp
+		} catch (error) {
+			console.error(error)
+			return []
+		}
+	}
 
-		const accuracy =
-			Math.round(
-				calculateAccuracyPercent(
-					sahm_starts,
-					recession_starts,
-					this.accuracy_time_range
-				)
-			) + '%'
+	async loadRecessionData(recessionCode) {
+		const resp = await this.fetchFile(recessionCode)
+		this.recessionData = new Map(resp.map(d => [d.date, d.value]))
+	}
+
+	computeStats(computed_data, config) {
+		const sahm_starts = getSahmStarts(computed_data, this.alpha_threshold)
+
+		const threeMonths = new Date(sahm_starts[0])
+		threeMonths.setMonth(threeMonths.getMonth() - 3)
+
+		const rec_data = []
+
+		for (const [date, value] of this.recessionData.entries()) {
+			if (date >= threeMonths) {
+				rec_data.push({
+					date,
+					value
+				})
+			}
+		}
+
+		const recession_starts = getRecessionPeriods(rec_data).map(d => d.start)
+
+		const accuracy = Math.round(
+			calculateAccuracyPercent(
+				sahm_starts,
+				recession_starts,
+				accuracy_time_range
+			)
+		)
 
 		const recession_lead_time = Math.round(
 			calculateDaysToNearestDateWithSummary(
 				sahm_starts,
 				recession_starts,
-				this.accuracy_time_range
+				accuracy_time_range
 			).overall_average_days
 		)
 
 		const committee_lead_time = Math.round(
 			calculateDaysToNearestDateWithSummary(
 				sahm_starts,
-				this.committee_starts,
-				this.committee_time_range
+				committee_starts,
+				committee_time_range
 			).average_days_leading
 		)
 
-		d3.select('#committee_lead_time').html(committee_lead_time)
-		d3.select('#recession_lead_time').html(recession_lead_time)
-		d3.select('#accuracy').html(accuracy)
-	}
-}
-
-class SahmRuleDashboard {
-	constructor() {
-		this.datasetsList = []
-		this.formData = {}
-		this.chart = new SahmRuleChart(this.formData)
-		this.init()
+		config.accuracy = accuracy
+		config.recession_lead_time = recession_lead_time
+		config.committee_lead_time = committee_lead_time
 	}
 
-	async getDatasetsList() {
+	updateStats(config) {
+		d3.select('#accuracy').html(config.accuracy + '%')
+		d3.select('#recession_lead_time').html(config.recession_lead_time)
+		d3.select('#committee_lead_time').html(config.committee_lead_time)
+	}
+
+	async fetchFile(fileId) {
+		if (this.dataCache.has(fileId)) {
+			return this.dataCache.get(fileId)
+		}
+
 		try {
-			const resp = await fetch(`${data_base_url}/datasets.csv`)
-			const csvText = await resp.text()
-			return d3.csvParse(csvText)
+			const resp = await d3.csv(getUrl(fileId), d3.autoType)
+			this.dataCache.set(fileId, resp)
+			return resp
 		} catch (error) {
 			console.error(error)
+			return []
 		}
 	}
 
 	async init() {
 		this.datasetsList = await this.getDatasetsList()
-
-		this.formData = {
-			base: this.datasetsList.find(t => t.Code === defaultSettings.base),
-			relative: this.datasetsList.find(
-				t => t.Code === defaultSettings.relative
-			),
-			recession: this.datasetsList.find(
-				t => t.Code === defaultSettings.recession
-			),
-			k: defaultSettings.k,
-			m: defaultSettings.m,
-			time_period: defaultSettings.time_period,
-			seasonal: defaultSettings.seasonal,
-			alpha_threshold: defaultSettings.alpha_threshold
-		}
-
-		// Initialize slider values
-		this.updateSlidervalue(document.getElementById('k-slider'), this.formData.k)
-		this.updateSlidervalue(document.getElementById('m-slider'), this.formData.m)
-		this.updateSlidervalue(
-			document.getElementById('time-period-slider'),
-			this.formData.time_period
-		)
-		this.updateSlidervalue(
-			document.getElementById('alpha-slider'),
-			this.formData.alpha_threshold
-		)
-
-		this.loadDataAndDrawChart()
 
 		const nonRecessionList = this.datasetsList.filter(
 			d => d.Header !== 'Recessions'
@@ -207,67 +263,96 @@ class SahmRuleDashboard {
 			d => d.Header === 'Recessions'
 		)
 
-		this.fillSelectDropdown('base-select', nonRecessionList, datum => {
-			this.formData.base = datum
-			this.loadDataAndDrawChart()
+		this.fillSelectDropdown('#base-select', nonRecessionList, datum => {
+			this.updateCurrentLine('base', datum.Code)
 		})
 
-		this.fillSelectDropdown('relative-select', nonRecessionList, datum => {
-			this.formData.relative = datum
-			this.loadDataAndDrawChart()
+		this.fillSelectDropdown('#relative-select', nonRecessionList, datum => {
+			this.updateCurrentLine('relative', datum.Code)
 		})
 
-		this.fillSelectDropdown('recession-select', recessionList, datum => {
-			this.formData.recession = datum
-			this.loadDataAndDrawChart()
+		this.fillSelectDropdown('#recession-select', recessionList, async datum => {
+			this.updateCurrentLine('recession', datum.Code)
 		})
 
-		this.listenForChanges('k-slider', value => {
-			this.formData.k = value
-			this.updateChart()
+		this.listenForChanges('#k-slider', value => {
+			this.updateCurrentLine('k', value)
 		})
 
-		this.listenForLiveChanges('k-slider', value => {
-			this.updateSlidervalue(document.getElementById('k-slider'), value)
+		this.listenForChanges('#m-slider', value => {
+			this.updateCurrentLine('m', value)
 		})
 
-		this.listenForChanges('m-slider', value => {
-			this.formData.m = value
-			this.updateChart()
+		this.listenForChanges('#time-period-slider', value => {
+			this.updateCurrentLine('time_period', value)
 		})
 
-		this.listenForLiveChanges('m-slider', value => {
-			this.updateSlidervalue(document.getElementById('m-slider'), value)
+		this.listenForChanges('#alpha-slider', value => {
+			this.alpha_threshold = value
+
+			const config = this.lineConfigs.find(l => l.id === this.currentLineId)
+
+			if (!config) {
+				return
+			}
+
+			this.computeStats(config.computed_data, config)
+			this.updateStats(config)
+			this.chart.updateThreshold(value)
 		})
 
-		this.listenForChanges('time-period-slider', value => {
-			this.formData.time_period = value
-			this.updateChart()
+		this.listenForChanges('#seasonal-checkbox', (value, e) => {
+			this.updateCurrentLine('seasonal', e.target.checked)
 		})
 
-		this.listenForLiveChanges('time-period-slider', value => {
-			this.updateSlidervalue(
-				document.getElementById('time-period-slider'),
-				value
-			)
+		// Add first line
+		this.addLine()
+
+		d3.select('#remove-line-button').on('click', () => {
+			this.removeCurrentLine()
 		})
 
-		this.listenForChanges('alpha-slider', value => {
-			this.formData.alpha_threshold = value
-			this.updateChart()
+		d3.select('#add-line-button').on('click', () => {
+			this.addLine()
 		})
 
-		this.listenForLiveChanges('alpha-slider', value => {
-			this.updateSlidervalue(document.getElementById('alpha-slider'), value)
-		})
+		// this.listenForLiveChanges('time-period-slider', value => {
+		// 	// this.updateSlidervalue(
+		// 	// 	document.getElementById('time-period-slider'),
+		// 	// 	value
+		// 	// )
+		// })
 
-		this.listenForChanges('seasonal-checkbox', (value, e) => {
-			this.formData.seasonal = e.target.checked
-			this.updateChart()
-		})
+		// // Just to update slider label
+		// this.listenForLiveChanges('k-slider', value => {
+		// 	// this.updateCurrentLine('k', value)
+		// 	// this.updateSlidervalue(document.getElementById('k-slider'), value)
+		// })
+
+		// this.listenForLiveChanges('m-slider', value => {
+		// 	// this.updateSlidervalue(document.getElementById('m-slider'), value)
+		// })
+
+		// this.listenForLiveChanges('alpha-slider', value => {
+		// 	this.updateCurrentLine('alpha_threshold', value)
+		// 	// this.updateSlidervalue(document.getElementById('alpha-slider'), value)
+		// })
 	}
 
-	updateSlidervalue(el, value) {
+	removeCurrentLine() {
+		if (this.lineConfigs.length === 1) {
+			return
+		}
+
+		this.lineConfigs = this.lineConfigs.filter(l => l.id !== this.currentLineId)
+		this.currentLineId = this.lineConfigs[0].id
+		this.updateFormElements()
+		this.updateCurrentLine('base', this.lineConfigs[0].base)
+		this.updateCurrentLine('relative', this.lineConfigs[0].relative)
+	}
+
+	updateSliderValue(selector, value) {
+		const el = document.querySelector(selector)
 		const thumbPosition = ((value - el.min) / (el.max - el.min)) * 100
 		d3.select(el.parentElement)
 			.select('.slider-value')
@@ -279,9 +364,16 @@ class SahmRuleDashboard {
 			.style('transform', 'translateX(-50%)')
 	}
 
+	updateCheckbox(selector, value) {
+		document.querySelector(selector).checked = value
+	}
+
+	updateDropdownValue(selector, value) {
+		document.querySelector(selector).value = value
+	}
+
 	fillSelectDropdown(id, list, cb) {
-		const selectDropdown = d3.select(`#${id}`)
-		const field = id.split('-')[0]
+		const selectDropdown = d3.select(id)
 
 		const grouped = d3.group(list, d => d.Header)
 
@@ -298,12 +390,6 @@ class SahmRuleDashboard {
 			.enter()
 			.append('option')
 			.text(d => d.Category)
-			.attr('selected', d => {
-				if (d.Code === this.formData[field].Code) {
-					return true
-				}
-				return null
-			})
 			.attr('value', d => d.Code)
 
 		selectDropdown.on('change', e => {
@@ -313,25 +399,67 @@ class SahmRuleDashboard {
 	}
 
 	listenForChanges(id, cb) {
-		d3.select(`#${id}`).on('change', e => {
+		d3.select(id).on('change', e => {
 			cb && cb(e.target.value, e)
 		})
 	}
 
 	listenForLiveChanges(id, cb) {
-		d3.select(`#${id}`).on('input', e => {
+		d3.select(id).on('input', e => {
 			cb && cb(e.target.value, e)
 		})
 	}
 
-	loadDataAndDrawChart() {
-		this.chart.loadDataAndDrawChart(this.formData)
-	}
+	async drawChart() {
+		const start_date = Math.max(...this.lineConfigs.map(s => s.start_date))
+		const end_date = Math.min(...this.lineConfigs.map(s => s.end_date))
+		
+		let dates = []
 
-	updateChart() {
-		this.chart.formData = this.formData
-		this.chart.computeAndDrawChart()
+		const series_data = this.lineConfigs.map(s => {
+			const filtered_data = s.computed_data
+				.filter(
+					d => !isNaN(+d.value) && d.date >= start_date && d.date <= end_date
+				)
+				.sort((a, b) => d3.ascending(a.date, b.date))
+
+			if (dates.length === 0) {
+				dates = filtered_data.map(d => d.date)
+			}
+
+			return {
+				key: s.id,
+				label: s.base,
+				// active: s.id === this.currentLineId,
+				values: filtered_data.map(d => d.value)
+			}
+		})
+
+		const rec_data = []
+
+		for (const [date, value] of this.recessionData.entries()) {
+			if (date >= start_date && date <= end_date) {
+				rec_data.push({
+					date,
+					value
+				})
+			}
+		}
+
+		const periods = getRecessionPeriods(rec_data).map(d => [d.start, d.end])
+
+		const chartElement = document.getElementById('sahm_chart')
+		chartElement.innerHTML = ''
+
+		this.chart = vRecessionIndicatorChart({
+			el: chartElement,
+			data: { dates, series: series_data, periods },
+			hideLegend: false,
+			hideFooter: true,
+			hideHeader: true,
+			threshold: this.alpha_threshold
+		})
 	}
 }
 
-const app = new SahmRuleDashboard()
+window.app = new SahmRuleDashboard()
