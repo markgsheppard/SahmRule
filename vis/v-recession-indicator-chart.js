@@ -8,7 +8,8 @@ export default function vRecessionIndicatorChart({
   threshold = 0.5, 
   hideHeader, 
   hideFooter, 
-  hideLegend 
+  hideLegend,
+  onLegendClick
 }) {
   /**
    * Constants
@@ -31,7 +32,7 @@ export default function vRecessionIndicatorChart({
 
   // Data
   // const { dates, series, periods } = processData(data, factor);
-  const { dates, series, periods } = data;
+  let { dates, series, periods } = data;
 
   // Scales
   const xScale = d3.scaleUtc().domain(d3.extent(dates));
@@ -149,6 +150,14 @@ export default function vRecessionIndicatorChart({
     vSwatches({
       container: legend,
       scale: colorScale,
+      active: d => series.find(s => s.key === d).active,
+      label: d => series.find(s => s.key === d).label,
+      onClick: (e, d) => {
+        if (!onLegendClick) return;
+        series = series.map(s => ({ ...s, active: s.key === d }));
+        renderLegend();
+        onLegendClick(d);
+      }
     });
   }
 
@@ -427,6 +436,7 @@ export default function vRecessionIndicatorChart({
     return { dates, series, periods };
   }
 
+  // utcFormat converts date to UTC for
   function tooltipContent() {
     return /*html*/ `
     <div>
@@ -448,7 +458,7 @@ export default function vRecessionIndicatorChart({
                   <div class="swatch__swatch" style="background-color: ${colorScale(
                     d.key
                   )}"></div>
-                  <div class="swatch__label">${d.key}</div>
+                  <div class="swatch__label">${d.label}</div>
                 </div>
               </td>
               <td>
@@ -477,5 +487,12 @@ export default function vRecessionIndicatorChart({
       threshold = newThreshold;
       renderThreshold();
     },
+    getData: () => {
+      return {
+        dates,
+        series,
+        periods
+      }
+    }
   }
 }

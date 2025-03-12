@@ -32,10 +32,9 @@ export function compute_sahm_rule(
 			// recession: recession_data[i]?.value ?? 0, TODO: Add recession data
 			// base_k_mo_avg: base_k_mo_avg[i],
 			// relative_m_mo_min_12mo: relative_m_mo_min_12mo[i],
-			sahm: sahm,
+			// sahm: sahm,
 			// sahm_binary: sahm >= alpha_threshold ? 1 : 0,
-			value: sahm,
-			category: 'Modified Sahm Rule'
+			value: sahm
 		})
 	}
 
@@ -66,7 +65,7 @@ export function getSahmStarts(data, alpha_threshold = 0.5) {
 	let lastStart = null
 	for (let i = 0; i < data.length; i++) {
 		const datum = data[i]
-		const sahm_binary = datum.sahm >= alpha_threshold ? 1 : 0
+		const sahm_binary = datum.value >= alpha_threshold ? 1 : 0
 		if (lastStart && sahm_binary === 0) {
 			lastStart = null
 		} else if (!lastStart && sahm_binary === 1) {

@@ -71,8 +71,8 @@ class SahmRuleDashboard {
 		this.lineConfigs.push(config)
 		this.selectLine(config.id)
 
+		// Triggers initial render
 		this.updateCurrentLine('base', config.base)
-		this.updateCurrentLine('relative', config.relative)
 	}
 
 	selectLine(id) {
@@ -105,17 +105,13 @@ class SahmRuleDashboard {
 			await this.loadRecessionData(value)
 		}
 
-		let { base_data, relative_data } = config
-
 		if (key === 'base' || key === 'relative') {
-			const aligned = this.alignData(config)
-			base_data = aligned.base_data
-			relative_data = aligned.relative_data
+			this.alignData(config)
 		}
 
 		const computed_data = compute_sahm_rule(
-			base_data,
-			relative_data,
+			config.base_data,
+			config.relative_data,
 			config.k,
 			config.m,
 			config.time_period,
@@ -132,24 +128,18 @@ class SahmRuleDashboard {
 	alignData(config) {
 		const { base_data, relative_data } = config
 
-		const dateStart = Math.max(base_data[0].date, relative_data[0].date)
-
-		const dateEnd = Math.min(
+		const start_date = Math.max(base_data[0].date, relative_data[0].date)
+		const end_date = Math.min(
 			base_data[base_data.length - 1].date,
 			relative_data[relative_data.length - 1].date
 		)
 
-		config.start_date = dateStart
-		config.end_date = dateEnd
-
-		return {
-			base_data: base_data.filter(
-				d => d.date >= dateStart && d.date <= dateEnd
-			),
-			relative_data: relative_data.filter(
-				d => d.date >= dateStart && d.date <= dateEnd
-			)
-		}
+		config.base_data = base_data.filter(
+			d => d.date >= start_date && d.date <= end_date
+		)
+		config.relative_data = relative_data.filter(
+			d => d.date >= start_date && d.date <= end_date
+		)
 	}
 
 	updateFormElements() {
@@ -159,13 +149,20 @@ class SahmRuleDashboard {
 			return
 		}
 
-		this.updateSliderValue('#k-slider', config.k)
-		this.updateSliderValue('#m-slider', config.m)
-		this.updateSliderValue('#time-period-slider', config.time_period)
+		this.updateSliderLabel('#k-slider', config.k)
+		this.updateSliderLabel('#m-slider', config.m)
+		this.updateSliderLabel('#time-period-slider', config.time_period)
+		this.updateSliderLabel('#alpha-slider', config.alpha_threshold)
+
+		this.updateElementValue('#k-slider', config.k)
+		this.updateElementValue('#m-slider', config.m)
+		this.updateElementValue('#time-period-slider', config.time_period)
+		this.updateElementValue('#alpha-slider', config.alpha_threshold)
+
 		this.updateCheckbox('#seasonal-checkbox', config.seasonal)
-		this.updateDropdownValue('#base-select', config.base)
-		this.updateDropdownValue('#relative-select', config.relative)
-		this.updateDropdownValue('#recession-select', config.recession)
+		this.updateElementValue('#base-select', config.base)
+		this.updateElementValue('#relative-select', config.relative)
+		this.updateElementValue('#recession-select', config.recession)
 	}
 
 	async getDatasetsList() {
@@ -316,27 +313,27 @@ class SahmRuleDashboard {
 			this.addLine()
 		})
 
-		// this.listenForLiveChanges('time-period-slider', value => {
-		// 	// this.updateSlidervalue(
-		// 	// 	document.getElementById('time-period-slider'),
-		// 	// 	value
-		// 	// )
-		// })
+		d3.select('#download-data-button').on('click', () => {
+			this.downloadData()
+		})
 
-		// // Just to update slider label
-		// this.listenForLiveChanges('k-slider', value => {
-		// 	// this.updateCurrentLine('k', value)
-		// 	// this.updateSlidervalue(document.getElementById('k-slider'), value)
-		// })
+		// Just slider labels
 
-		// this.listenForLiveChanges('m-slider', value => {
-		// 	// this.updateSlidervalue(document.getElementById('m-slider'), value)
-		// })
+		this.listenForLiveChanges('#time-period-slider', value => {
+			this.updateSliderLabel('#time-period-slider', value)
+		})
 
-		// this.listenForLiveChanges('alpha-slider', value => {
-		// 	this.updateCurrentLine('alpha_threshold', value)
-		// 	// this.updateSlidervalue(document.getElementById('alpha-slider'), value)
-		// })
+		this.listenForLiveChanges('#k-slider', value => {
+			this.updateSliderLabel('#k-slider', value)
+		})
+
+		this.listenForLiveChanges('#m-slider', value => {
+			this.updateSliderLabel('#m-slider', value)
+		})
+
+		this.listenForLiveChanges('#alpha-slider', value => {
+			this.updateSliderLabel('#alpha-slider', value)
+		})
 	}
 
 	removeCurrentLine() {
@@ -351,7 +348,7 @@ class SahmRuleDashboard {
 		this.updateCurrentLine('relative', this.lineConfigs[0].relative)
 	}
 
-	updateSliderValue(selector, value) {
+	updateSliderLabel(selector, value) {
 		const el = document.querySelector(selector)
 		const thumbPosition = ((value - el.min) / (el.max - el.min)) * 100
 		d3.select(el.parentElement)
@@ -368,7 +365,7 @@ class SahmRuleDashboard {
 		document.querySelector(selector).checked = value
 	}
 
-	updateDropdownValue(selector, value) {
+	updateElementValue(selector, value) {
 		document.querySelector(selector).value = value
 	}
 
@@ -411,16 +408,22 @@ class SahmRuleDashboard {
 	}
 
 	async drawChart() {
-		const start_date = Math.max(...this.lineConfigs.map(s => s.start_date))
-		const end_date = Math.min(...this.lineConfigs.map(s => s.end_date))
-		
+		const start_date = d3.max(this.lineConfigs, conf => {
+			return conf.computed_data.find(d => !isNaN(d.value))?.date
+		})
+
+		const end_date = d3.min(this.lineConfigs, conf => {
+			return conf.computed_data
+				.slice()
+				.reverse()
+				.find(d => !isNaN(d.value))?.date
+		})
+
 		let dates = []
 
 		const series_data = this.lineConfigs.map(s => {
 			const filtered_data = s.computed_data
-				.filter(
-					d => !isNaN(+d.value) && d.date >= start_date && d.date <= end_date
-				)
+				.filter(d => d.date >= start_date && d.date <= end_date)
 				.sort((a, b) => d3.ascending(a.date, b.date))
 
 			if (dates.length === 0) {
@@ -429,8 +432,8 @@ class SahmRuleDashboard {
 
 			return {
 				key: s.id,
-				label: s.base,
-				// active: s.id === this.currentLineId,
+				label: this.datasetsList.find(d => d.Code === s.base)?.Category,
+				active: s.id === this.currentLineId,
 				values: filtered_data.map(d => d.value)
 			}
 		})
@@ -457,8 +460,39 @@ class SahmRuleDashboard {
 			hideLegend: false,
 			hideFooter: true,
 			hideHeader: true,
-			threshold: this.alpha_threshold
+			threshold: this.alpha_threshold,
+			onLegendClick: key => {
+				this.selectLine(key)
+			}
 		})
+	}
+	
+	downloadData() {
+		const { dates, series } = this.chart.getData()
+
+		// Build CSV header row
+		const headers = ['Date', ...series.map(s => s.label)]
+		
+		// Build data rows
+		const rows = dates.map((date, i) => {
+			const values = [date.toISOString().split('T')[0]]
+			series.forEach(s => {
+				values.push(s.values[i])
+			})
+			return values.join(',')
+		})
+
+		// Combine headers and rows
+		const csv = [headers.join(','), ...rows].join('\n')
+
+		// Create and trigger download
+		const blob = new Blob([csv], { type: 'text/csv' })
+		const url = window.URL.createObjectURL(blob)
+		const a = document.createElement('a')
+		a.setAttribute('href', url)
+		a.setAttribute('download', 'sahm_rule_data.csv')
+		a.click()
+		window.URL.revokeObjectURL(url)
 	}
 }
 

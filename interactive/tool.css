@@ -132,6 +132,22 @@ input[type="range"] {
   text-align: right;
 }
 
-.series-path.active {
-  stroke: rgb(173, 74, 12);
+.legend {
+  margin-bottom: 1rem;
+}
+
+.swatch {
+  transition: background-color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-bottom: 1px solid transparent;
+}
+
+.swatch:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.swatch[data-active="true"] {
+  border-bottom: 1px solid rgb(254, 187, 2);
 }
