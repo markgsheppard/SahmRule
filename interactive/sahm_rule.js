@@ -29,11 +29,6 @@ export function compute_sahm_rule(
 		const sahm = base_k_mo_avg[i] - relative_m_mo_min_time_period[i]
 		computed_data.push({
 			date: base_data[i].date,
-			// recession: recession_data[i]?.value ?? 0, TODO: Add recession data
-			// base_k_mo_avg: base_k_mo_avg[i],
-			// relative_m_mo_min_12mo: relative_m_mo_min_12mo[i],
-			// sahm: sahm,
-			// sahm_binary: sahm >= alpha_threshold ? 1 : 0,
 			value: sahm
 		})
 	}
