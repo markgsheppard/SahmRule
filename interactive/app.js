@@ -15,18 +15,19 @@ const getRandomId = () => {
 }
 
 const defaultSettings = {
-	base: 'UNRATE',
-	relative: 'UNRATE',
-	recession: 'USREC',
-	k: 3,
-	m: 3,
-	time_period: 13,
-	seasonal: false,
-	alpha_threshold: 0.5
+	base: 'UNRATE', // Base dataset
+	relative: 'UNRATE', // Relative dataset
+	recession: 'USREC', // Recession dataset. Shared across all lines
+	k: 3, // Base (Minued)
+	m: 3, // Relative (Subtrahend)
+	time_period: 13, // Time period
+	seasonal: false, // Seasonal adjustment
+	alpha_threshold: 0.5 // Alpha threshold. Shared across all lines
 }
 
 const data_base_url = '../data-source'
 
+// Statistics constants
 const accuracy_time_range = 200
 const committee_time_range = 250
 const committee_starts = [
