@@ -2,12 +2,10 @@
 export function compute_sahm_rule(
 	base_data,
 	relative_data,
-	recession_data,
 	k = 3,
 	m = 3,
 	time_period = 13,
-	seasonal = false,
-	alpha_threshold = 0.5
+	seasonal = false
 ) {
 	const n = base_data.length
 	const base = new Float64Array(n).fill(0)
@@ -21,20 +19,17 @@ export function compute_sahm_rule(
 
 	const base_k_mo_avg = movingAverage(base, k)
 	const relative_m_mo_avg = movingAverage(relative, m)
-	const relative_m_mo_min_time_period = rollingMin(relative_m_mo_avg, time_period)
+	const relative_m_mo_min_time_period = rollingMin(
+		relative_m_mo_avg,
+		time_period
+	)
 
 	const computed_data = []
 	for (let i = 0; i < n; i++) {
 		const sahm = base_k_mo_avg[i] - relative_m_mo_min_time_period[i]
 		computed_data.push({
 			date: base_data[i].date,
-			recession: recession_data[i]?.value ?? 0,
-			// base_k_mo_avg: base_k_mo_avg[i],
-			// relative_m_mo_min_12mo: relative_m_mo_min_12mo[i],
-			sahm: sahm,
-			sahm_binary: sahm >= alpha_threshold ? 1 : 0,
-			value: sahm,
-			category: 'Modified Sahm Rule'
+			value: sahm
 		})
 	}
 
@@ -60,14 +55,15 @@ export function getRecessionPeriods(recession_data) {
 	return resp
 }
 
-export function getSahmStarts(data) {
+export function getSahmStarts(data, alpha_threshold = 0.5) {
 	const resp = []
 	let lastStart = null
 	for (let i = 0; i < data.length; i++) {
 		const datum = data[i]
-		if (lastStart && datum.sahm_binary === 0) {
+		const sahm_binary = datum.value >= alpha_threshold ? 1 : 0
+		if (lastStart && sahm_binary === 0) {
 			lastStart = null
-		} else if (!lastStart && datum.sahm_binary === 1) {
+		} else if (!lastStart && sahm_binary === 1) {
 			lastStart = datum.date
 			resp.push(lastStart)
 		}

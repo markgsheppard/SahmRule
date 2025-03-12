@@ -8,7 +8,8 @@ export default function vRecessionIndicatorChart({
   threshold = 0.5, 
   hideHeader, 
   hideFooter, 
-  hideLegend 
+  hideLegend,
+  onLegendClick
 }) {
   /**
    * Constants
@@ -30,7 +31,8 @@ export default function vRecessionIndicatorChart({
   let width, iFocus, animated;
 
   // Data
-  const { dates, series, periods } = processData(data, factor);
+  // const { dates, series, periods } = processData(data, factor);
+  let { dates, series, periods } = data;
 
   // Scales
   const xScale = d3.scaleUtc().domain(d3.extent(dates));
@@ -89,6 +91,7 @@ export default function vRecessionIndicatorChart({
     .on("pointermove", moved)
     .on("pointerleave", left)
     .on("touchstart", (event) => event.preventDefault());
+
   const periodsG = svg.append("g").attr("class", "periods-g");
   const xAxisG = svg.append("g").attr("class", "axis-g");
   const yAxisG = svg.append("g").attr("class", "axis-g");
@@ -97,6 +100,7 @@ export default function vRecessionIndicatorChart({
     .append("g")
     .attr("class", "focus-g")
     .attr("display", "none");
+
   const thresholdG = svg.append("g").attr("class", "threshold-g");
   const footer = figure.append("div").attr("class", "footer");
 
@@ -113,20 +117,20 @@ export default function vRecessionIndicatorChart({
   }
 
   new ResizeObserver(resize).observe(body.node());
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animate();
-          observer.disconnect();
-        }
-      });
-    },
-    {
-      threshold: 0.5,
-    }
-  );
-  observer.observe(svg.node());
+  // const observer = new IntersectionObserver(
+  //   (entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         animate();
+  //         observer.disconnect();
+  //       }
+  //     });
+  //   },
+  //   {
+  //     threshold: 0.5,
+  //   }
+  // );
+  // observer.observe(svg.node());
 
   function renderHeader() {
     const titleByFactor = {
@@ -146,6 +150,14 @@ export default function vRecessionIndicatorChart({
     vSwatches({
       container: legend,
       scale: colorScale,
+      active: d => series.find(s => s.key === d).active,
+      label: d => series.find(s => s.key === d).label,
+      onClick: (e, d) => {
+        if (!onLegendClick) return;
+        series = series.map(s => ({ ...s, active: s.key === d }));
+        renderLegend();
+        onLegendClick(d);
+      }
     });
   }
 
@@ -239,6 +251,7 @@ export default function vRecessionIndicatorChart({
     seriesG
       .attr("fill", "none")
       .selectChildren(".series-path")
+      .classed("active", (d) => d.active)
       .data(series, (d) => d.key)
       .join((enter) =>
         enter
@@ -423,6 +436,7 @@ export default function vRecessionIndicatorChart({
     return { dates, series, periods };
   }
 
+  // utcFormat converts date to UTC for
   function tooltipContent() {
     return /*html*/ `
     <div>
@@ -444,7 +458,7 @@ export default function vRecessionIndicatorChart({
                   <div class="swatch__swatch" style="background-color: ${colorScale(
                     d.key
                   )}"></div>
-                  <div class="swatch__label">${d.key}</div>
+                  <div class="swatch__label">${d.label}</div>
                 </div>
               </td>
               <td>
@@ -466,5 +480,19 @@ export default function vRecessionIndicatorChart({
       </table>
     </div>
     `;
+  }
+
+  return {
+    updateThreshold: (newThreshold) => {
+      threshold = newThreshold;
+      renderThreshold();
+    },
+    getData: () => {
+      return {
+        dates,
+        series,
+        periods
+      }
+    }
   }
 }
