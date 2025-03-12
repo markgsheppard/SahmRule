@@ -136,18 +136,18 @@ input[type="range"] {
   margin-bottom: 1rem;
 }
 
-.swatch {
+.legend .swatch {
   transition: background-color 0.3s ease;
   padding: 0.5rem;
   border-radius: 0.25rem 0.25rem 0 0;
   border-bottom: 1px solid transparent;
 }
 
-.swatch:hover {
+.legend .swatch:hover {
   background-color: #eee;
   cursor: pointer;
 }
 
-.swatch[data-active="true"] {
+.legend .swatch[data-active="true"] {
   border-bottom: 1px solid rgb(254, 187, 2);
 }

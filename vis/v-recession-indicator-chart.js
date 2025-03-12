@@ -466,7 +466,7 @@ export default function vRecessionIndicatorChart({
               </td>
             </tr>
             <tr>
-              <td style="padding-top: 6px;">
+              <td>
                 Risk: <strong>${d.values[iFocus] > threshold ? "High" : "Low"}</strong>
               </td>
               <td>
