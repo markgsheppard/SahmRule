@@ -44,21 +44,28 @@ const getUrl = series_id => {
 
 class SahmRuleDashboard {
 	constructor() {
+		// Track list of available datasets and their configurations
 		this.datasetsList = []
+		// Store configurations for each line series being displayed
 		this.lineConfigs = []
+		// Track which line series is currently selected
 		this.currentLineId = null
+		// Cache fetched data to improve performance
 		this.dataCache = new Map()
+		// Store recession indicator data
 		this.recessionData = new Map()
 
 		this.init()
 	}
 
 	async addLine() {
+		// Creates a new data series with default settings
 		const config = {
 			id: getRandomId(),
 			...defaultSettings
 		}
 
+		// Fetch all required data in parallel
 		const [base_data, relative_data] = await Promise.all([
 			this.fetchFile(config.base),
 			this.fetchFile(config.relative),
@@ -71,11 +78,12 @@ class SahmRuleDashboard {
 		this.lineConfigs.push(config)
 		this.selectLine(config.id)
 
-		// Triggers initial render
+		// Triggers initial render with base data
 		this.updateCurrentLine('base', config.base)
 	}
 
 	selectLine(id) {
+		// Update currently selected line and refresh UI
 		this.currentLineId = id
 		this.updateFormElements()
 
@@ -89,6 +97,7 @@ class SahmRuleDashboard {
 	}
 
 	async updateCurrentLine(key, value) {
+		// Handle updates to any configuration parameter for the current line
 		const config = this.lineConfigs.find(l => l.id === this.currentLineId)
 
 		if (!config) {
@@ -97,6 +106,7 @@ class SahmRuleDashboard {
 
 		config[key] = value
 
+		// Fetch new data if base or relative series changed
 		if (key === 'base') {
 			config.base_data = await this.fetchFile(value)
 		} else if (key === 'relative') {
@@ -105,10 +115,12 @@ class SahmRuleDashboard {
 			await this.loadRecessionData(value)
 		}
 
+		// Realign data if either series changed
 		if (key === 'base' || key === 'relative') {
 			this.alignData(config)
 		}
 
+		// Recompute Sahm rule with updated parameters
 		const computed_data = compute_sahm_rule(
 			config.base_data,
 			config.relative_data,
@@ -120,20 +132,24 @@ class SahmRuleDashboard {
 
 		config.computed_data = computed_data
 
+		// Update statistics and visualization
 		this.computeStats(computed_data, config)
 		this.updateStats(config)
 		this.drawChart()
 	}
 
 	alignData(config) {
+		// Ensure base and relative data series align on same date range
 		const { base_data, relative_data } = config
 
+		// Find overlapping date range
 		const start_date = Math.max(base_data[0].date, relative_data[0].date)
 		const end_date = Math.min(
 			base_data[base_data.length - 1].date,
 			relative_data[relative_data.length - 1].date
 		)
 
+		// Filter both series to matching range
 		config.base_data = base_data.filter(
 			d => d.date >= start_date && d.date <= end_date
 		)
@@ -143,22 +159,26 @@ class SahmRuleDashboard {
 	}
 
 	updateFormElements() {
+		// Update all UI controls to reflect current line's settings
 		const config = this.lineConfigs.find(l => l.id === this.currentLineId)
 
 		if (!config) {
 			return
 		}
 
+		// Update slider labels
 		this.updateSliderLabel('#k-slider', config.k)
 		this.updateSliderLabel('#m-slider', config.m)
 		this.updateSliderLabel('#time-period-slider', config.time_period)
 		this.updateSliderLabel('#alpha-slider', config.alpha_threshold)
 
+		// Update slider values
 		this.updateElementValue('#k-slider', config.k)
 		this.updateElementValue('#m-slider', config.m)
 		this.updateElementValue('#time-period-slider', config.time_period)
 		this.updateElementValue('#alpha-slider', config.alpha_threshold)
 
+		// Update other form controls
 		this.updateCheckbox('#seasonal-checkbox', config.seasonal)
 		this.updateElementValue('#base-select', config.base)
 		this.updateElementValue('#relative-select', config.relative)
@@ -250,16 +270,18 @@ class SahmRuleDashboard {
 	}
 
 	async init() {
+		// Load available datasets
 		this.datasetsList = await this.getDatasetsList()
 
+		// Separate recession indicators from other datasets
 		const nonRecessionList = this.datasetsList.filter(
 			d => d.Header !== 'Recessions'
 		)
-
 		const recessionList = this.datasetsList.filter(
 			d => d.Header === 'Recessions'
 		)
 
+		// Initialize dropdown menus
 		this.fillSelectDropdown('#base-select', nonRecessionList, datum => {
 			this.updateCurrentLine('base', datum.Code)
 		})
@@ -272,6 +294,7 @@ class SahmRuleDashboard {
 			this.updateCurrentLine('recession', datum.Code)
 		})
 
+		// Set up event listeners for all controls
 		this.listenForChanges('#k-slider', value => {
 			this.updateCurrentLine('k', value)
 		})
@@ -302,9 +325,10 @@ class SahmRuleDashboard {
 			this.updateCurrentLine('seasonal', e.target.checked)
 		})
 
-		// Add first line
+		// Create initial line
 		this.addLine()
 
+		// Set up button handlers
 		d3.select('#remove-line-button').on('click', () => {
 			this.removeCurrentLine()
 		})
@@ -317,8 +341,7 @@ class SahmRuleDashboard {
 			this.downloadData()
 		})
 
-		// Just slider labels
-
+		// Set up live update listeners for slider labels
 		this.listenForLiveChanges('#time-period-slider', value => {
 			this.updateSliderLabel('#time-period-slider', value)
 		})
@@ -337,10 +360,12 @@ class SahmRuleDashboard {
 	}
 
 	removeCurrentLine() {
+		// Prevent removing last remaining line
 		if (this.lineConfigs.length === 1) {
 			return
 		}
 
+		// Remove current line and switch to first remaining line
 		this.lineConfigs = this.lineConfigs.filter(l => l.id !== this.currentLineId)
 		this.currentLineId = this.lineConfigs[0].id
 		this.updateFormElements()
@@ -468,12 +493,13 @@ class SahmRuleDashboard {
 	}
 	
 	downloadData() {
+		// Get current chart data
 		const { dates, series } = this.chart.getData()
 
-		// Build CSV header row
+		// Create CSV header with date and series labels
 		const headers = ['Date', ...series.map(s => s.label)]
 		
-		// Build data rows
+		// Convert data to CSV rows
 		const rows = dates.map((date, i) => {
 			const values = [date.toISOString().split('T')[0]]
 			series.forEach(s => {
@@ -482,10 +508,10 @@ class SahmRuleDashboard {
 			return values.join(',')
 		})
 
-		// Combine headers and rows
+		// Combine into final CSV
 		const csv = [headers.join(','), ...rows].join('\n')
 
-		// Create and trigger download
+		// Trigger file download
 		const blob = new Blob([csv], { type: 'text/csv' })
 		const url = window.URL.createObjectURL(blob)
 		const a = document.createElement('a')
