@@ -994,15 +994,15 @@ margin-bottom: 5px;
 
 .footer_bottom span {
     display: block;
-    font-size: 14px;
+    font-size: 10px;
     color: #cccccc;
     text-align: center;
 }
 
 .footer_bottom span a {
     display: inline-block;
-    color: #3498db;
-    font-size: 16px;
+    color: #838383;
+    font-size: 10px;
     transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
