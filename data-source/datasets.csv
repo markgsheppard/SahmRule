@@ -1,0 +1,59 @@
+Header,Category,Code,Date
+Labor Utilization,U1,U1RATE,1/1/48
+Labor Utilization,U2,U2RATE,1/1/67
+Labor Utilization,U3,UNRATE,1/1/48
+Labor Utilization,U4,U4RATE,1/1/94
+Labor Utilization,U5,U5RATE,1/1/94
+Labor Utilization,U6,U6RATE,1/1/94
+Race,Black,LNS14000006,1/1/72
+Race,White,LNS14000003,1/1/54
+Race,Hispanic,LNS14000009,1/1/73
+Race,Asian,LNU04032183,1/1/00
+Education,No Highschool,LNS14027659,1/1/92
+Education,Bachelors,LNS14027662,1/1/92
+Education,Masters,CGMD25O,1/1/00
+Education,Advanced Degree,CGAD25O,1/1/14
+Gender,Male,LNS14000001,1/1/48
+Gender,Female,LNS14000002,1/1/48
+Native/Foreign,Native Born,LNU04073413,1/1/07
+Native/Foreign,Foreign Born,LNU04073395,1/1/07
+Sector,Information,LNU04032237,1/1/00
+Sector,Manufacturing,LNU04032232,1/1/00
+Sector,Hospitality,LNU04032241,1/1/00
+Sector,Oil and Gas,LNU04032230,1/1/00
+Sector,Service,LNU04032218,1/1/00
+Sector,Construction,LNU04032231,1/1/00
+Sector,Retail,LNU04032235,1/1/00
+Sector,Financial,LNU04032238,1/1/00
+Sector,Farming,LNU04032223,1/1/00
+Urban,"New York, New York County, New York",NYNEWY1URN,1/1/90
+Urban,"San Francisco, San Francisco County, California",CASANF0URN,1/1/90
+Urban,"Chicago, Cook County, Illinois",ILCOOK1URN,1/1/90
+Urban,"Pittsburgh, Allegheny County, Pennsylvania",PAALLE3URN,1/1/90
+Urban,"Miami, Miami-Dade County, Florida",FLMIAM6URN,1/1/90
+Urban,"Los Angeles, Los Angeles County, California",CALOSA7URN,1/1/90
+Urban,"Atlanta, Fulton County, Georgia",GAFULT1URN,1/1/90
+Urban,"Houston, Harris County, Texas",TXHARR1URN,1/1/90
+Rural,"Aroostook County, Maine",MEAROO5URN,1/1/90
+Rural,"Ritchie County, West Virginia",WVRITC5URN,1/1/90
+Rural,"Meeker County, Minnesota",MNMEEK3URN,1/1/90
+Rural,"Adams County, North Dakota",NDADAM1URN,1/1/90
+Rural,"Sheridan County, Montana",MTSHER1URN,1/1/90
+Rural,"San Juan County, Utah",UTSANJ7URN,1/1/90
+Rural,"Grant County, Oregon",ORGRAN3URN,1/1/90
+Rural,"Catron County, New Mexico",NMCATR3URN,1/1/90
+Rural,"Bacon County, Georgia",GABACO5URN,1/1/90
+Rural,"Val Verde County, Texas",TXVALV5URN,1/1/90
+Age,16 to 19 years,LNS14000012,1/1/48
+Age,20 to 24 years,LNS14000036,1/1/48
+Age,25 to 34 years,LNS14000089,1/1/48
+Age,35 to 44 years,LNS14000091,1/1/48
+Age,45 to 54 years,LNS14000093,1/1/48
+Age,55 to 64 years,LNU04000095,1/1/48
+Age,65 years and over,LNU04000097,1/1/48
+Recessions,NBER Recession,USREC,1854-01-01
+Recessions,GDP-Based Recession,JHDUSRGDPBR,1/1/67
+Recessions,OECD-Based U.S. Recession,USARECDM,1/1/47
+Other Indicators,Yield Spread,T10Y2Y,6/1/75
+Other Indicators,Uncertainty,USEPUINDXD,1/1/85
+Other Indicators,Consumer Sentinent,UMCSENT,1/1/78
