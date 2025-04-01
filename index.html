@@ -204,22 +204,33 @@ a.scroll-link:hover {
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module">
-    import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
+	    <script type="module">
+      import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
-    // Render the Race Graph only once
-    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
-        const raceChartElement = document.getElementById("sahmRecessionIndicatorByRace");
+      d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByRace"),
+          data: data,
+          factor: "Race",
+        });
+      });
 
-        if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
-            vRecessionIndicatorChart({
-                el: raceChartElement,
-                data: data,
-                factor: "Race",
-            });
-        }
-    });
-</script>
+      d3.csv("./vis/data/U1_to_U6_unemployment_data.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByUMeasures"),
+          data: data,
+          factor: "U-Measures",
+        });
+      });
+
+      d3.csv("./vis/data/education_data.csv").then((data) => {
+        vRecessionIndicatorChart({
+          el: document.getElementById("sahmRecessionIndicatorByEducation"),
+          data: data,
+          factor: "Education",
+        });
+      });
+    </script>
 
 
 
@@ -341,24 +352,6 @@ a.scroll-link:hover {
 
   <main>
       <div id="sahmRecessionIndicatorByUMeasures"></div></main>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module">
-    import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
-
-    // Render the Race Graph only once
-    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
-        const raceChartElement = document.getElementById("sahmRecessionIndicatorByUMeasure");
-
-        if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
-            vRecessionIndicatorChart({
-                el: raceChartElement,
-                data: data,
-                factor: "Race",
-            });
-        }
-    });
-</script>
-	
 <p>
 	The 
 	<a href="#modifiedSahmRule" class="scroll-link";>
