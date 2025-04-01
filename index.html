@@ -173,11 +173,15 @@ a.scroll-link:hover {
 	
 <div style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
     <p>
-        Can we better indicate recessions? Are there coindicators? Do recessions hit all people, all the same, all of the time? Or do some people get hit first, are those recessions more harsh, are they longer? How do we evaluate or compare the mix bag of rule-of-thumb and tea leaf indicators that we do have, can we add rigor to those tools? And maybe most importantly, can we bend those same tools, not just to be more rigorous but to meaningfully speak to underlying economic well-being, before those tools break?<br></br>
-
+        Can we better indicate recessions? Are there coindicators? Do recessions hit all people, all the same, all of the time? Or do some people get hit first, are those recessions more harsh, are they longer? How do we evaluate or compare the mix bag of rule-of-thumb and tea leaf indicators that we do have, can we add rigor to those tools? And maybe most importantly, can we bend those same tools, not just to be more rigorous but to more-meaningfully speak to issues of underlying economic well-being, before those tools break?
+	    <br></br>
 	The <a href="#modifiedSahmRule" class="scroll-link";>
     <strong>Modified Sahm Rule</strong>
-</a> formalizes a method by which parameters can be adjusted in a flexible turning point framework that accepts many different types of data, provides robust and advanced indication of economic downturns, and can be utilized with comprehensive measures of labor utilization to concludes some fairly intuitive results: recessions tend to hit vulnerable populations first.
+</a> formalizes a method by which parameters can be adjusted in a flexible turning point framework that accepts many different types of data, provides robust and advanced indication of economic downturns, and can be utilized with a range of inputs from comprehensive measures of labor utilization to more-sentimental datasets, and collectively concludes on a narrow band of fairly intuitive results: namely, recessions tend to hit vulnerable populations first.
+	<br></br>
+<p>
+	Disaggregating for unemployment by education, gender, race, and so on, reveals that more economically vulnerable populations are more sensitive to changes in the labor market, and by extension recessions themselves. Additionally, more comprehensive measures of labor utilization like U-6 provide leading indication to recession relative to conventional measures of unemployment. Which both match the theoretical understandings of the internal/external margins of labor supply, and are fairly intuitive to explain whereas in a downturn, before a worker is laid off their hours are likely to be reduced.
+</p>
 	<br></br>
 	Working people connect the economy, and because labor is so central to all aspects of production, many popular recession indicators rely mostly on employment-based measures. 
 	But with so many measures of labor utilization, which metric is the most predictive of recessions, and can we use disaggregated data in recession indicators to say something even deeper about labor market inequities?
@@ -337,6 +341,24 @@ a.scroll-link:hover {
 
   <main>
       <div id="sahmRecessionIndicatorByUMeasures"></div></main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script type="module">
+    import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
+
+    // Render the Race Graph only once
+    d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
+        const raceChartElement = document.getElementById("sahmRecessionIndicatorByUMeasure");
+
+        if (raceChartElement && raceChartElement.innerHTML.trim() === "") {
+            vRecessionIndicatorChart({
+                el: raceChartElement,
+                data: data,
+                factor: "Race",
+            });
+        }
+    });
+</script>
+	
 <p>
 	The 
 	<a href="#modifiedSahmRule" class="scroll-link";>
