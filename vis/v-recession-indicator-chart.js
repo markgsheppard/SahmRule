@@ -416,11 +416,11 @@ export default function vRecessionIndicatorChart({
 			Race: ['white', 'asian', 'hispanic', 'black'],
 			'U-Measures': ['U1', 'U2', 'U3', 'U4', 'U5', 'U6'],
 			Education: [
-				'no_HS',
-				'some_college',
-				'bachelors',
-				'masters',
-				'adv_degree'
+				'No Highschool',
+				'Some College',
+				'Bachelors',
+				'Masters',
+				'Advanced Degree'
 			],
 			'Modified Sahm Rule': ['Modified Sahm Rule']
 		}
