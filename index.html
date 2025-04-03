@@ -1,69 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, maximum-scale=1">
-<title>The Sahm Rule</title>
-<link rel="icon" href="favicon.png" type="image/png">
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-<link href="css/style.css" rel="stylesheet" type="text/css"> 
-<link href="css/font-awesome.css" rel="stylesheet" type="text/css"> 
-<link href="css/animate.css" rel="stylesheet" type="text/css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-<script src="https://kit.fontawesome.com/73a8f57229.js" crossorigin="anonymous"></script>
-
-
- 
-<!--[if lt IE 9]>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <title>The Sahm Rule</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet"
+          href="js/fancybox/jquery.fancybox.css"
+          type="text/css"
+          media="screen" />
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          rel="stylesheet">
+    <script src="https://kit.fontawesome.com/73a8f57229.js"
+            crossorigin="anonymous"></script>
+    <!--[if lt IE 9]>
     <script src="js/respond-1.1.0.min.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/html5element.js"></script>
 <![endif]-->
- 
-</head>
-<body>
-
-<!--Header_section-->
-<header id="header_wrapper">
-  <div class="container">
-    <div class="header_box">
-      <div class="logo"><a href="https://markgsheppard.github.io/SahmRule/"><img src="img/logo.png" alt="logo" style="width: 120px; height: auto;"></a></div>
-	  <nav class="navbar navbar-inverse" role="navigation">
-      <div class="navbar-header">
-        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    <!-- Basic SEO Meta Tags -->
+    <meta name="description"
+          content="The Modified Sahm Rule reveals how recessions affect demographics unequally. Using disaggregated unemployment data by education, race, and gender, this research by Mark G. Sheppard builds on Claudia Sahm's methodology to create more responsive recession indicators.">
+    <meta name="keywords"
+          content="Sahm Rule, Modified Sahm Rule, Claudia Sahm, Mark G. Sheppard, Recession indicators, Turning point function, Unemployment signal, Early recession warning, Business Cycle Dating Committee, NBER recession method, Real-time economic indicators, Coindicators of recession, Recession inequality, Who feels recessions first, Disaggregated unemployment analysis, Economic downturn disparities, Inclusive economic indicators, Semi-automatic stabilizers">
+    <meta name="author" content="Mark G. Sheppard">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <!-- Viewport settings for responsive design -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://markgsheppard.github.io/SahmRule/">
+    <!-- Open Graph Tags for Social Media Sharing -->
+    <meta property="og:title"
+          content="The Inequality of Recession: Modified Sahm Rule | Mark G. Sheppard">
+    <meta property="og:description"
+          content="Research showing how disaggregated unemployment data reveals vulnerable groups experience recessions earlier and more intensely. A modified approach to Claudia Sahm's recession indicator.">
+    <meta property="og:image"
+          content="https://markgsheppard.github.io/SahmRule/img/logo.png">
+    <meta property="og:url" content="https://markgsheppard.github.io/SahmRule/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="The Sahm Rule">
+    <meta property="article:author" content="https://www.markgsheppard.com/">
+    <meta property="article:published_time" content="2025-04-01">
+    <meta property="article:section" content="Economics">
+    <meta property="article:tag"
+          content="Sahm Rule, Recession indicators, Labor market disparities">
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+          content="The Inequality of Recession: Modified Sahm Rule by Mark G. Sheppard">
+    <meta name="twitter:description"
+          content="A new approach to the Sahm Rule showing which demographics experience recessions first and most severely through disaggregated unemployment data.">
+    <meta name="twitter:image"
+          content="https://markgsheppard.github.io/SahmRule/img/logo.png">
+    <meta name="twitter:creator" content="@markgsheppard">
+    <!-- Schema.org Markup for Scholarly Article -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "The Inequality of Recession: Modifying the Sahm Rule",
+  "author": {
+    "@type": "Person",
+    "name": "Mark G. Sheppard",
+    "url": "https://www.markgsheppard.com/"
+  },
+  "datePublished": "2025-04",
+  "description": "Modifying unemployment-based recession indicators using disaggregated metrics to create more responsive indicators that reveal labor market disparities.",
+  "keywords": "Sahm Rule, Modified Sahm Rule, Recession indicators, Unemployment signal, Early recession warning, Recession inequality, Economic downturn disparities, Claudia Sahm method",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CUNY Graduate Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10016",
+      "streetAddress": "365 5th Ave"
+    }
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Economic recession indicators"
+    },
+    {
+      "@type": "Thing",
+      "name": "Labor market inequality"
+    },
+    {
+      "@type": "Thing",
+      "name": "Disaggregated unemployment analysis"
+    }
+  ],
+  "isAccessibleForFree": true,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Mark G. Sheppard's Research",
+    "url": "https://www.markgsheppard.com/"
+  }
+}
+    </script>
+    <!-- Additional scholarly citation metadata -->
+    <meta name="citation_title"
+          content="The Inequality of Recession: Modifying the Sahm Rule">
+    <meta name="citation_author" content="Sheppard, Mark G.">
+    <meta name="citation_publication_date" content="2025">
+    <meta name="citation_pdf_url"
+          content="https://markgsheppard.github.io/SahmRule/your-pdf-link.pdf">
+    <meta name="citation_keywords"
+          content="Sahm Rule; Modified Sahm Rule; Recession indicators; Unemployment; Labor market disparities">
+    <!-- Alternate language version if you plan to translate -->
+    <!-- <link rel="alternate" hreflang="es" href="https://markgsheppard.github.io/SahmRule/es/"> -->
+    <!-- Favicon links for various devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <!--Header_section-->
+    <header id="header_wrapper">
+      <div class="container">
+        <div class="header_box">
+          <div class="logo">
+            <a href="https://markgsheppard.github.io/SahmRule/">
+              <img src="img/logo.png" alt="logo" style="width: 120px; height: auto;">
+            </a>
+          </div>
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+              <button type="button"
+                      id="nav-toggle"
+                      class="navbar-toggle"
+                      data-toggle="collapse"
+                      data-target="#main-nav">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div id="main-nav" class="collapse navbar-collapse navStyle">
+              <ul class="nav navbar-nav" id="mainNav">
+                <li class="active">
+                  <a href="#hero_section" class="scroll-link">Overview</a>
+                </li>
+                <li>
+                  <a href="#aboutUs" class="scroll-link">About</a>
+                </li>
+                <li>
+                  <a href="#service" class="scroll-link">Methodology</a>
+                </li>
+                <li>
+                  <a href="https://markgsheppard.github.io/SahmRule/interactive/index.html">Interactive Tool</a>
+                </li>
+                <li>
+                  <a href="#clients" class="scroll-link">Data</a>
+                </li>
+                <li>
+                  <a href="#team" class="scroll-link">Contributors</a>
+                </li>
+                <li>
+                  <a href="#contact" class="scroll-link">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
         </div>
-	    <div id="main-nav" class="collapse navbar-collapse navStyle">
-			<ul class="nav navbar-nav" id="mainNav">
-			  <li class="active"><a href="#hero_section" class="scroll-link">Overview</a></li>
-			  <li><a href="#aboutUs" class="scroll-link">About</a></li>
-			  <li><a href="#service" class="scroll-link">Methodology</a></li>
-			  <li><a href="https://markgsheppard.github.io/SahmRule/interactive/index.html">Interactive Tool</a></li>
-			  <li><a href="#clients" class="scroll-link">Data</a></li>
-			  <li><a href="#team" class="scroll-link">Contributors</a></li>
-			  <li><a href="#contact" class="scroll-link">Contact</a></li>
-			</ul>
       </div>
-	 </nav>
-    </div>
-  </div>
-</header>
-<!--Header_section--> 
-
-<!--Hero_Section-->
-<section id="hero_section" class="top_cont_outer">
-  <div class="hero_wrapper">
-    <div class="container">
-      <div class="hero_section">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="top_left_cont zoomIn wow animated"> 
-		    <h2 class="custom-heading">The Inequality <span class="italic-small">of</span> Recession</h2>
-<p>Modifying unemployment-based recession indicators using disaggregated metrics, such as for labor utilization measures, education, race, and gender, creates more responsive indicators that can also be used to reveal labor market disparities. Adjusting the Sahm Rule can also highlight how vulnerable groups experience downturns earlier and more intensely, providing equitable insights for recession detection and policy design.</p>
-
-		    
-<style>
+    </header>
+    <!--Header_section-->
+    <!--Hero_Section-->
+    <section id="hero_section" class="top_cont_outer">
+      <div class="hero_wrapper">
+        <div class="container">
+          <div class="hero_section">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="top_left_cont zoomIn wow animated">
+                  <h2 class="custom-heading">
+                    The Inequality <span class="italic-small">of</span> Recession
+                  </h2>
+                  <p>
+                    Modifying unemployment-based recession indicators using disaggregated metrics, such as for labor utilization measures, education, race, and gender, creates more responsive indicators that can also be used to reveal labor market disparities. Adjusting the Sahm Rule can also highlight how vulnerable groups experience downturns earlier and more intensely, providing equitable insights for recession detection and policy design.
+                  </p>
+                  <style>
     a.download-pdf {
         text-decoration: none;
         color: #000000;
@@ -75,9 +199,8 @@
         font-weight: bold;
         color: #4d4d4d; /* Dark grey */
     }
-</style>
-
-<style>
+                  </style>
+                  <style>
     /* Reusable link styling */
     a.animated-link {
         text-decoration: none;
@@ -90,49 +213,36 @@
         font-weight: bold; /* Bold on hover */
         color: #4d4d4d; /* Dark grey on hover */
     }
-</style>
-
-<div style="margin-left: 100px;">
-    <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 5px;">
-        <span>Working Paper</span>
-        <span style="margin-left: 10px;">
-            <a href="your-pdf-link.pdf" class="animated-link">Download PDF</a>
-        </span>
-    </div>
-	
-    <div style="line-height: 1.5;">
-        <strong style="margin-right: 10px;"> By 
-            <a href="https://www.markgsheppard.com/" target="_blank" class="animated-link">
-                Mark G. Sheppard
-            </a>
-        </strong>
-        <span style="font-weight: lighter;">Spring 2025</span>
-    </div>
-</div>
-    
-
-
-	</div>
-          </div> 
+                  </style>
+                  <div style="margin-left: 100px;">
+                    <div style="display: flex;
+                                align-items: center;
+                                margin-top: 10px;
+                                margin-bottom: 5px">
+                      <span>Working Paper</span>
+                      <span style="margin-left: 10px;">
+                        <a href="your-pdf-link.pdf" class="animated-link">Download PDF</a>
+                      </span>
+                    </div>
+                    <div style="line-height: 1.5;">
+                      <strong style="margin-right: 10px;"> By
+                        <a href="https://www.markgsheppard.com/"
+                           target="_blank"
+                           class="animated-link">Mark G. Sheppard</a>
+                      </strong>
+                      <span style="font-weight: lighter;">Spring 2025</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<!--Hero_Section--> 
-
-
-
-
-
-
-
-
-	
-	
-
-<!--MYSECTION-->
-<script>
+    </section>
+    <!--Hero_Section-->
+    <!--MYSECTION-->
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const scrollLinks = document.querySelectorAll(".scroll-link");
         scrollLinks.forEach(link => {
@@ -151,10 +261,8 @@
             });
         });
     });
-</script>
-
-	<style>
-	
+    </script>
+    <style>
 	a.scroll-link {
     text-decoration: none;
     color: #000; /* Default link color */
@@ -166,46 +274,51 @@ a.scroll-link:hover {
     font-weight: bold; /* Bold font on hover */
     color: #4d4d4d; /* Dark gray hover color */
 }
-	</style>
-
-	
-
-	
-<div style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
-    <p>
+    </style>
+    <div style="font-family: Arial, sans-serif;
+                margin-top:50px;
+                line-height: 1.6;
+                text-align: left;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 900px;
+                font-size:15px">
+      <p>
         Can we better indicate recessions? Are there coindicators? Do recessions hit all people, all the same, all of the time? Or do some people get hit first, are those recessions more harsh, are they longer? How do we evaluate or compare the mix bag of rule-of-thumb and tea leaf indicators that we do have, can we add rigor to those tools? And maybe most importantly, can we bend those same tools, not just to be more rigorous but to more-meaningfully speak to issues of underlying economic well-being, before those tools break?
-	    <br></br>
-	The <a href="#modifiedSahmRule" class="scroll-link";>
-    <strong>Modified Sahm Rule</strong>
-</a> formalizes a method by which parameters can be adjusted in a flexible turning point framework that accepts many different types of data, provides robust and advanced indication of economic downturns, and can be utilized with a range of inputs from comprehensive measures of labor utilization to more-sentimental datasets, and collectively concludes on a narrow band of fairly intuitive results: namely, recessions tend to hit vulnerable populations first.
-	<br></br>
-<p>
-	Disaggregating for unemployment by education, gender, race, and so on, reveals that more economically vulnerable populations are more sensitive to changes in the labor market, and by extension recessions themselves. Additionally, more comprehensive measures of labor utilization like U-6 provide leading indication to recession relative to conventional measures of unemployment. Which both match the theoretical understandings of the internal/external margins of labor supply, and are fairly intuitive to explain whereas in a downturn, before a worker is laid off their hours are likely to be reduced.
-</p>
-  <main><div id="sahmRecessionIndicatorByUMeasures"></div></main>
-	
-	Working people connect the economy, and because labor is so central to all aspects of production, many popular recession indicators rely mostly on employment-based measures. 
-	But with so many measures of labor utilization, which metric is the most predictive of recessions, and can we use disaggregated data in recession indicators to say something even deeper about labor market inequities?
-    <br></br>
-	Utilizing labor utilization measures within a 
-<a href="#modifiedSahmRule" class="scroll-link";>
-    <strong>Modified Sahm Rule</strong>
-</a>
- reveals more comprehensive measures are more predictive. 
-	Utilizing disaggregated unemployment data, by education, race, gender, etc., compared to the standard subtrahend of U-3, 
-	creating a 
-	<a href="#modifiedSahmRule" class="scroll-link";>
-		<strong>Relative Sahm Rule</strong>
-	</a>, can be used to show underlying inequities within the economy. Allowing for diagnosis beyond
-	merely saying that labor market conditions are simply different.
-    </p>
-
+        <br>
+      </br>
+      The <a href="#modifiedSahmRule" class="scroll-link";>
+      <strong>Modified Sahm Rule</strong>
+    </a> formalizes a method by which parameters can be adjusted in a flexible turning point framework that accepts many different types of data, provides robust and advanced indication of economic downturns, and can be utilized with a range of inputs from comprehensive measures of labor utilization to more-sentimental datasets, and collectively concludes on a narrow band of fairly intuitive results: namely, recessions tend to hit vulnerable populations first.
+    <br>
+  </br>
+  <p>
+    Disaggregating for unemployment by education, gender, race, and so on, reveals that more economically vulnerable populations are more sensitive to changes in the labor market, and by extension recessions themselves. Additionally, more comprehensive measures of labor utilization like U-6 provide leading indication to recession relative to conventional measures of unemployment. Which both match the theoretical understandings of the internal/external margins of labor supply, and are fairly intuitive to explain whereas in a downturn, before a worker is laid off their hours are likely to be reduced.
+  </p>
   <main>
-    <div id="sahmRecessionIndicatorByRace"></div>
+    <div id="sahmRecessionIndicatorByUMeasures"></div>
+  </main>
+  Working people connect the economy, and because labor is so central to all aspects of production, many popular recession indicators rely mostly on employment-based measures.
+  But with so many measures of labor utilization, which metric is the most predictive of recessions, and can we use disaggregated data in recession indicators to say something even deeper about labor market inequities?
+  <br>
+</br>
+Utilizing labor utilization measures within a
+<a href="#modifiedSahmRule" class="scroll-link";>
+  <strong>Modified Sahm Rule</strong>
+</a>
+reveals more comprehensive measures are more predictive.
+Utilizing disaggregated unemployment data, by education, race, gender, etc., compared to the standard subtrahend of U-3,
+creating a
+<a href="#modifiedSahmRule" class="scroll-link";>
+  <strong>Relative Sahm Rule</strong>
+</a>, can be used to show underlying inequities within the economy. Allowing for diagnosis beyond
+merely saying that labor market conditions are simply different.
+</p>
+<main>
+  <div id="sahmRecessionIndicatorByRace"></div>
 </main>
-
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-	    <script type="module">
+<script type="module">
       import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
 
       d3.csv("./vis/data/Race_Sahm.csv").then((data) => {
@@ -231,12 +344,8 @@ a.scroll-link:hover {
           factor: "Education",
         });
       });
-    </script>
-
-
-
+</script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
 <style>
     /* Animated link styling */
     a.animated-link {
@@ -251,122 +360,116 @@ a.scroll-link:hover {
         color: #4d4d4d; /* Dark grey on hover */
     }
 </style>
-
 <hr style="margin: 30px 0;">
-
-	
 <section id="modifiedSahmRule" style="padding: 0; margin: 0;">
-    <div class="inner_wrapper fadeInLeft animated wow" style="padding: 0; margin: 0;">
-        <div class="container" style="padding: 0; margin: 0;">
-            <h1 style="font-size: 1.5em; margin: 0;">Modified Sahm Rule</h1>
-        </div>
+  <div class="inner_wrapper fadeInLeft animated wow"
+       style="padding: 0;
+              margin: 0">
+    <div class="container" style="padding: 0; margin: 0;">
+      <h1 style="font-size: 1.5em; margin: 0;">Modified Sahm Rule</h1>
     </div>
+  </div>
 </section>
-
-	
-
 <p>
-	<br></br>
-    The Modified Sahm Rule consists of two components: the minuend, \( \lambda_{i,t} \), and the subtrahend, \( \gamma_{j,t} \). 
-    The Modified Sahm Rule is defined as:
+  <br>
+</br>
+The Modified Sahm Rule consists of two components: the minuend, \( \lambda_{i,t} \), and the subtrahend, \( \gamma_{j,t} \).
+The Modified Sahm Rule is defined as:
 </p>
 <div class="math">
-    \[
-    \text{Sahm}(\lambda_{i,t}, \gamma_{j,t}) = \lambda_{i,t} - \gamma_{j,t},
-    \]
+  \[
+  \text{Sahm}(\lambda_{i,t}, \gamma_{j,t}) = \lambda_{i,t} - \gamma_{j,t},
+  \]
 </div>
 <p>where:</p>
 <div style="text-align: center; margin-bottom: 20px;">
-    <ul style="list-style-type: none; padding: 0; margin: 0; display: inline-block;">
-        <li style="display: inline-block; margin-right: 20px; font-size: 0.9em;">
-            \(\lambda_{i,t} = \overline{y}^{k\text{-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}\)
-        </li>
-        <li style="display: inline-block; font-size: 0.9em;">
-            \(\gamma_{j,t} = \min_{t-11 \leq k \leq t} \overline{y}^{k\text{-month}}_{j,k}\)
-        </li>
-    </ul>
+  <ul style="list-style-type: none;
+             padding: 0;
+             margin: 0;
+             display: inline-block">
+    <li style="display: inline-block; margin-right: 20px; font-size: 0.9em;">
+      \(\lambda_{i,t} = \overline{y}^{k\text{-month}}_{i,t} = \frac{1}{k} \sum_{j=0}^{k} y_{i,t-j}\)
+    </li>
+    <li style="display: inline-block; font-size: 0.9em;">
+      \(\gamma_{j,t} = \min_{t-11 \leq k \leq t} \overline{y}^{k\text{-month}}_{j,k}\)
+    </li>
+  </ul>
 </div>
-<p>
-    The recession indicator \( R_t \) is triggered when the Sahm Rule exceeds a threshold \( \alpha \):
-</p>
+<p>The recession indicator \( R_t \) is triggered when the Sahm Rule exceeds a threshold \( \alpha \):</p>
 <div class="math">
-    \[
-    R_t =
-    \begin{cases} 
-    1 & \text{if } \text{Sahm}(\cdot) > \alpha, \\
-    0 & \text{otherwise.}
-    \end{cases}
-    \]
+  \[
+  R_t =
+  \begin{cases}
+  1 & \text{if } \text{Sahm}(\cdot) > \alpha, \\
+  0 & \text{otherwise.}
+  \end{cases}
+  \]
 </div>
-
-
-
 <p style="font-size: 0.7em;">Note the following:</p>
-<ul style="list-style-type: circle; color: grey; margin-left: 20px; font-size: 0.7em;">
-    <li>
-        \( k \) is typically set to 3 months, but the function can be smoothed over any \( k \)-month average. Generally, subcategories of unemployment with increased volatility require more smoothing.
-    </li>
-    <li>
-        \( \alpha \) is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in 
-        <a href="https://arxiv.org/pdf/2408.05856" target="_blank" class="animated-link">Michaillat and Saez (2024)</a>.
-    </li>
-    <li>
-        Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
-    </li>
+<ul style="list-style-type: circle;
+           color: grey;
+           margin-left: 20px;
+           font-size: 0.7em">
+  <li>
+    \( k \) is typically set to 3 months, but the function can be smoothed over any \( k \)-month average. Generally, subcategories of unemployment with increased volatility require more smoothing.
+  </li>
+  <li>
+    \( \alpha \) is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in
+    <a href="https://arxiv.org/pdf/2408.05856"
+       target="_blank"
+       class="animated-link">Michaillat and Saez (2024)</a>.
+  </li>
+  <li>
+    Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.
+  </li>
 </ul>
-
 <hr style="margin: 30px 0;">
-	
 </div>
-
-
-
-
-
-
-
-
-<div style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
-    <p>
-        Most of the popular recession indicators now rely on employment data, 
-	    generally unemployment data, even more specifically the U-3 measure of unemployment. 
-	    But what are the benefits of using the most standard measure of unemployment? 
-	    And is there a better metric?
-	    
-	    <br></br>
-	The 
-	<a href="#modifiedSahmRule" class="scroll-link";>
+<div style="font-family: Arial, sans-serif;
+            margin-top:50px;
+            line-height: 1.6;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 900px;
+            font-size:15px">
+  <p>
+    Most of the popular recession indicators now rely on employment data,
+    generally unemployment data, even more specifically the U-3 measure of unemployment.
+    But what are the benefits of using the most standard measure of unemployment?
+    And is there a better metric?
+    <br>
+  </br>
+  The
+  <a href="#modifiedSahmRule" class="scroll-link";>
     <strong>Modified Sahm Rule</strong>
-</a> utilizing different measures of labor utilization highlights the fact that more comprehensive measures,
-	like the U-4 to U-6 measure, are more responsive to changes in the underlying economy. 
-	This becomes intuitive when we understand recessions as effecting the demand for labor, and the more comprehensive 
-	measures of labor utilization are simply better-suited at capturing more sesnitive changes in the labor market. 
-
-<br></br>
- The Modified Sahm Rule, using U-6 measure of labor utilization, is the most responsive indicator. 
-	Providing well-calibrated early warning signs of any concerning trends in the labor market.
-	The Modified Sahm Rule, as opposed to the Relative Sahm Rule, behaves similarly to the Traditional Sahm Rule.
-	Whereas the Relative Sahm Rule is designed to highlight relative differences across the economy, with more exacting diagnosis.
-	The Modified Sahm Rule is designed to simply create faster indicators.
-	
-	
+  </a> utilizing different measures of labor utilization highlights the fact that more comprehensive measures,
+  like the U-4 to U-6 measure, are more responsive to changes in the underlying economy.
+  This becomes intuitive when we understand recessions as effecting the demand for labor, and the more comprehensive
+  measures of labor utilization are simply better-suited at capturing more sesnitive changes in the labor market.
+  <br>
+</br>
+The Modified Sahm Rule, using U-6 measure of labor utilization, is the most responsive indicator.
+Providing well-calibrated early warning signs of any concerning trends in the labor market.
+The Modified Sahm Rule, as opposed to the Relative Sahm Rule, behaves similarly to the Traditional Sahm Rule.
+Whereas the Relative Sahm Rule is designed to highlight relative differences across the economy, with more exacting diagnosis.
+The Modified Sahm Rule is designed to simply create faster indicators.
 <p>
-	The 
-	<a href="#modifiedSahmRule" class="scroll-link";>
+  The
+  <a href="#modifiedSahmRule" class="scroll-link";>
     <strong>Modified Sahm Rule</strong>
-</a> can also be used with unemployment data disaggregated by educational attainment. The Modified Sahm Rule, using unemployment data disaggregated by educational attainment, is the most responsive indicator.
-It provides well-calibrated early warning signs of emerging trends in the labor market.
-Unlike the Relative Sahm Rule, which is designed to highlight disparities across different education levels and provide more nuanced diagnoses,
-the Modified Sahm Rule focuses on delivering faster and broader indicators.
-This makes it particularly useful for identifying shifts in labor utilization that might otherwise go unnoticed in aggregate data.
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Education Graph</title>
-    <style>
+  </a> can also be used with unemployment data disaggregated by educational attainment. The Modified Sahm Rule, using unemployment data disaggregated by educational attainment, is the most responsive indicator.
+  It provides well-calibrated early warning signs of emerging trends in the labor market.
+  Unlike the Relative Sahm Rule, which is designed to highlight disparities across different education levels and provide more nuanced diagnoses,
+  the Modified Sahm Rule focuses on delivering faster and broader indicators.
+  This makes it particularly useful for identifying shifts in labor utilization that might otherwise go unnoticed in aggregate data.
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Education Graph</title>
+      <style>
       body {
         margin: 0;
         font-family: "Open Sans", sans-serif;
@@ -376,144 +479,130 @@ This makes it particularly useful for identifying shifts in labor utilization th
         width: min(100% - 32px, 1200px);
         margin: 80px auto;
       }
-    </style>
-    <link rel="stylesheet" href="vis/v-style.css" />
-  </head>
-  <body>
-    <main>
-      <div id="sahmRecessionIndicatorByEducation"></div>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  </body>
-</html>
-
+      </style>
+      <link rel="stylesheet" href="vis/v-style.css" />
+    </head>
+    <body>
+      <main>
+        <div id="sahmRecessionIndicatorByEducation"></div>
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    </body>
+  </html>
 </div>
 <!--MYSECTION-->
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-<section class="df-wrapper" style="
-    padding-bottom: 50px;
-">
-	<div class="wrapper">
-		<div class="prose" style="padding-top: 32px; text-align: center;">
-			<div class="df-button-wrapper outro-button-wrapper" style="display: flex; justify-content: center; gap: 20px;">
-				<a href="/jmp-dl" style="text-decoration: none;">
-					<div class="df-button" style="background-color: #888888; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center;">
-						Read Paper <i class="fas fa-file-pdf" style="margin-left: 8px;"></i>
-					</div>
-				</a>
-				<a href="https://www.markgsheppard.com/curriculum-vitae" style="text-decoration: none;">
-					<div class="df-button" style="background-color: #888888; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center;">
-						View CV <i class="fas fa-briefcase" style="margin-left: 8px;"></i>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
+<section class="df-wrapper" style=" padding-bottom: 50px; ">
+  <div class="wrapper">
+    <div class="prose" style="padding-top: 32px; text-align: center;">
+      <div class="df-button-wrapper outro-button-wrapper"
+           style="display: flex;
+                  justify-content: center;
+                  gap: 20px">
+        <a href="/jmp-dl" style="text-decoration: none;">
+          <div class="df-button"
+               style="background-color: #888888;
+                      color: white;
+                      padding: 10px 20px;
+                      border-radius: 5px;
+                      font-size: 16px;
+                      display: inline-flex;
+                      align-items: center;
+                      justify-content: center">
+            Read Paper <i class="fas fa-file-pdf" style="margin-left: 8px;"></i>
+          </div>
+        </a>
+        <a href="https://www.markgsheppard.com/curriculum-vitae"
+           style="text-decoration: none">
+          <div class="df-button"
+               style="background-color: #888888;
+                      color: white;
+                      padding: 10px 20px;
+                      border-radius: 5px;
+                      font-size: 16px;
+                      display: inline-flex;
+                      align-items: center;
+                      justify-content: center">
+            View CV <i class="fas fa-briefcase" style="margin-left: 8px;"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
 <!--Footer-->
 <footer class="footer_wrapper" id="contact">
-  <div class="container">
+  <div class="container p-5">
     <section class="page_section contact" id="contact">
-      <div class="contact_section">
-        <h2>Contact</h2>
-        <div class="row">
-          <div class="col-lg-4">
-            
+      <div class="row content-center">
+        <div class="col-lg-8 col-md-6 wow fadeInLeft">
+          <div class="contact_info">
+            <div class="detail mb-2">
+              <h4>Address</h4>
+              <p>365 5th Ave, New York, NY 10016</p>
+            </div>
+            <div class="detail mb-2">
+              <h4>Phone</h4>
+              <p>+1.408.384.2986</p>
+            </div>
+            <div class="detail mb-2">
+              <h4>Email</h4>
+              <p>msheppard [at] gradcenter [dot] cuny [dot] edu</p>
+            </div>
           </div>
-          <div class="col-lg-4">
-           
-          </div>
-          <div class="col-lg-4">
-          
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 wow fadeInLeft">	
-		 <div class="contact_info">
-                            <div class="detail">
-                                <h4>Address</h4>
-                                <p>365 5th Ave, New York, NY 10016</p>
-                            </div>
-                            <div class="detail">
-                                <h4>Phone</h4>
-                                <p>+1.408.384.2986</p>
-                            </div>
-                            <div class="detail">
-                                <h4>Email</h4>
-                                <p>msheppard [at] gradcenter [dot] cuny [dot] edu</p>
-                            </div> 
-                        </div>
-       		  
-			  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-          
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+                rel="stylesheet">
           <ul class="social_links">
-            <li class="twitter animated bounceIn wow delay-02s"><a href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
-            <li class="facebook animated bounceIn wow delay-03s"><a href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
-            <li class="gplus animated bounceIn wow delay-05s"><a href="javascript:void(0)"><i class="fa-brands fa-bluesky"></i></a></li> 
+            <li class="twitter animated bounceIn wow delay-02s">
+              <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="facebook animated bounceIn wow delay-03s">
+              <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="gplus animated bounceIn wow delay-05s">
+              <a href="javascript:void(0)"><i class="fa-brands fa-bluesky"></i></a>
+            </li>
           </ul>
         </div>
-        <div class="col-lg-8 wow fadeInLeft delay-06s">
+        <div class="col-lg-4 col-md-6 wow fadeInLeft delay-06s">
           <div class="form">
-            <input class="input-text" type="text" name="" value="Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-            <input class="input-text" type="text" name="" value="E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-            <textarea class="input-text text-area" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Message *</textarea>
+            <div class="contact_section">
+              <h2>Contact</h2>
+            </div>
+            <input class="input-text"
+                   type="text"
+                   name=""
+                   value="Name *"
+                   onFocus="if(this.value==this.defaultValue)this.value='';"
+                   onBlur="if(this.value=='')this.value=this.defaultValue;">
+            <input class="input-text"
+                   type="text"
+                   name=""
+                   value="E-mail *"
+                   onFocus="if(this.value==this.defaultValue)this.value='';"
+                   onBlur="if(this.value=='')this.value=this.defaultValue;">
+            <textarea class="input-text text-area"
+                      cols="0"
+                      rows="0"
+                      onFocus="if(this.value==this.defaultValue)this.value='';"
+                      onBlur="if(this.value=='')this.value=this.defaultValue;">Message *</textarea>
             <input class="input-btn" type="submit" value="send message">
           </div>
         </div>
       </div>
     </section>
   </div>
-  <div class="container">
-    <div class="footer_bottom"><span>Copyright © 2025,    Design and Visualizations by <a href="http://www.markgsheppard.com">Mark G. Sheppard</a>. </span> </div>
+  <div class="footer_bottom">
+    <span>Copyright © 2025,    Design and Visualizations by <a href="http://www.markgsheppard.com">Mark G. Sheppard</a>. </span>
   </div>
 </footer>
-
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
-<script type="text/javascript" src="js/jquery.nav.js"></script> 
+<script type="text/javascript" src="js/jquery.nav.js"></script>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="js/jquery.isotope.js"></script>
-<script src="js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> 
-<script type="text/javascript" src="js/wow.js"></script> 
+<script src="js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/wow.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
-
 </body>
 </html>
