@@ -988,20 +988,20 @@ margin-bottom: 5px;
 }
 
 .footer_bottom {
-    border-top: 1px solid #3C3A3A;
+    border-top: 1px solid #ffffff;
     padding: 25px 0;
 }
 
 .footer_bottom span {
     display: block;
     font-size: 10px;
-    color: #cccccc;
+    color: #ffffff;
     text-align: center;
 }
 
 .footer_bottom span a {
     display: inline-block;
-    color: #838383;
+    color: #e7e7e7;
     font-size: 10px;
     transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
