@@ -63,7 +63,9 @@ async function fetchFromFRED(seriesId, observationStart) {
 async function main() {
 	const counties = await readAndParseCsvFile(`${data_base_url}/counties.csv`)
 	const recessions = await fetchFromFRED('USREC', '1990-01-01')
-  console.log(counties)
+
+	console.log('Going to fetch data for', counties.length, 'counties')
+
 	const recessionData = new Map(
 		recessions.observations.map(d => [new Date(d.date), +d.value])
 	)
@@ -83,7 +85,8 @@ async function main() {
 			)
 			dataToSave.push({
 				...county,
-				...status
+				...status,
+        last_sahm_value: result[result.length - 1].value
 			})
 			console.log(`Succesfully computed ${county.SeriesId}`)
 		} else {

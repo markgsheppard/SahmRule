@@ -3,10 +3,7 @@ name: Data Update
 on:
   # schedule:
   #   - cron: '0 0 * * *'  # Runs daily at midnight UTC
-  workflow_dispatch:      # Allows manual trigger
-  push:
-    branches:
-      - main
+  workflow_dispatch:       # Allows manual trigger
 
 jobs:
   update-data:
