@@ -31,13 +31,13 @@ async function fetchAndComputeSahm(seriesId) {
 			baseData,
 			config.k,
 			config.m,
-			config.timePeriod,
+			config.time_period,
 			config.seasonal
 		)
 
 		return computedData
 	} catch (error) {
-		console.error(`Error processing ${config.baseId}:`, error)
+		console.error(`Error processing ${seriesId}:`, error)
 	}
 
 	return null

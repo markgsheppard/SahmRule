@@ -3,7 +3,7 @@ library(fredr)
 library(tidyverse)
 library(lubridate)
 
-working_dir <- "~/Documents/SahmRule/data-source"
+working_dir <- "./data-source"
 setwd(working_dir)
 
 # Set your FRED API key
