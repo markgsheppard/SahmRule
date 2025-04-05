@@ -94,8 +94,8 @@ async function main() {
 			console.log(`Failed to compute ${county.SeriesId}`)
 		}
 
-		// Sleep for 5 seconds
-		await new Promise(resolve => setTimeout(resolve, 5000))
+		// Sleep for 1 second (1000ms) to stay under FRED's rate limit of 120 requests/minute
+		await new Promise(resolve => setTimeout(resolve, 1000))
 	}
 
 	const fileName = `./computed/map-data.json`
