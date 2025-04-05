@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Run data update script
-        run: node ./node-script/fetch-and-compute.js
+        run: node ./data-source/fetch-and-compute.js
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
