@@ -10,7 +10,6 @@ jobs:
 
     env:
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-      R_LIBS_USER: ${{ runner.temp }}/Library
       TZ: UTC
       _R_CHECK_SYSTEM_CLOCK_: FALSE
       NOT_CRAN: true
@@ -31,25 +30,25 @@ jobs:
     - name: Cache R packages
       uses: actions/cache@v3
       with:
-        path: ${{ env.R_LIBS_USER }}
+        path: ${{ runner.temp }}/Library
         key: r-lib-${{ runner.os }}-${{ hashFiles('**/*.R', '**/*.Rmd', '**/*.Rproj') }}
         restore-keys: |
           r-lib-${{ runner.os }}-
 
     - name: Create user library directory
       run: mkdir -p $R_LIBS_USER
+      env:
+        R_LIBS_USER: ${{ runner.temp }}/Library
 
     - name: Install R packages
       run: |
         set -e
         Rscript -e 'install.packages(c("httr", "jsonlite", "dplyr", "fredr", "tidyverse", "lubridate"), repos="https://cloud.r-project.org", dependencies=TRUE)'
+      env:
+        R_LIBS_USER: ${{ runner.temp }}/Library
 
     - name: Run FRED data fetch script
       run: Rscript data-source/fetch_files.R
-
-    - name: Commit and push if changes exist
-      run: |
-        git config --global user.name "GitHub Actions Bot"
-        git config --global user.email "actions@github.com"
-        git add .
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update FRED data" && git push)
+      env:
+        FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        R_LIBS_USER: ${{ runner.temp }}/Library
