@@ -1,7 +1,10 @@
 const fs = require('fs')
 const { compute_sahm_rule, computeStats } = require('../sahm/sahm_rule')
 
-const fred_api_key = '6352ad3b393d3ab83709630e61d2b14e'
+const fred_api_key = process.env.FRED_API_KEY
+if (!fred_api_key) {
+	throw new Error('FRED_API_KEY environment variable is not set')
+}
 
 const config = {
 	k: 3, // Base (Minued)
@@ -10,8 +13,6 @@ const config = {
 	seasonal: false, // Seasonal adjustment
 	alpha_threshold: 0.5 // Alpha threshold. Shared across all lines
 }
-
-const data_base_url = './data-source'
 
 async function fetchAndComputeSahm(seriesId) {
 	try {
@@ -61,7 +62,7 @@ async function fetchFromFRED(seriesId, observationStart) {
 }
 
 async function main() {
-	const counties = await readAndParseCsvFile(`${data_base_url}/counties.csv`)
+	const counties = await readAndParseCsvFile(`./counties.csv`)
 	const recessions = await fetchFromFRED('USREC', '1990-01-01')
 
 	console.log('Going to fetch data for', counties.length, 'counties')
@@ -97,7 +98,7 @@ async function main() {
 		await new Promise(resolve => setTimeout(resolve, 5000))
 	}
 
-	const fileName = `${data_base_url}/computed/map-data.json`
+	const fileName = `./computed/map-data.json`
 	await fs.promises.writeFile(fileName, JSON.stringify(dataToSave, null, 2))
 }
 

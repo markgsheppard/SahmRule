@@ -7,7 +7,7 @@ working_dir <- "./data-source"
 setwd(working_dir)
 
 # Set your FRED API key
-fredr_set_key("6352ad3b393d3ab83709630e61d2b14e")
+fredr_set_key(Sys.getenv("FRED_API_KEY"))
 
 # Read the CSV file
 data <- read.csv("./datasets.csv")
@@ -17,7 +17,7 @@ for (i in 1:nrow(data)) {
   tryCatch({
     # Extract relevant details
     series_id <- as.character(data$Code[i])  # Ensure it's treated as a character
-    start_date <- as.Date(data$Date[i], format = "%m/%d/%y")      # Convert to Date type
+    start_date <- as.Date(data$Date[i])      # Convert to Date type
     
     # Fetch data from FRED
     fred_data <- fredr(series_id = series_id, observation_start = start_date) %>% 
@@ -46,3 +46,42 @@ for (i in 1:nrow(data)) {
   })
 }
 
+
+# Fetch JHDUSRGDPBR (Quarterly Data) from FRED and process in one step
+fred_data <- fredr(
+  series_id = "JHDUSRGDPBR",
+  observation_start = as.Date("1967-10-01"),
+  frequency = "q"
+) %>%
+  mutate(
+    date = as.Date(date),
+    time_series = ts(value, frequency = 4),
+    deseasonalized_value = as.numeric(time_series - decompose(time_series)$seasonal)
+  ) %>%
+  slice(rep(1:n(), each = 3)) %>%  # Repeat each row 3 times for monthly data
+  group_by(date) %>%
+  mutate(
+    month = rep(1:3, times = n() / 3),
+    monthly_date = date + months(month - 1),
+    value = lag(value, default = first(value)),
+    deseasonalized_value = lag(deseasonalized_value, default = first(deseasonalized_value))
+  ) %>%
+  ungroup() %>%
+  bind_rows(
+    if (max(.$monthly_date) < floor_date(Sys.Date(), "month")) {
+      data.frame(
+        monthly_date = seq(max(.$monthly_date) + months(1), floor_date(Sys.Date(), "month"), by = "month"),
+        value = tail(.$value, 1),
+        deseasonalized_value = tail(.$deseasonalized_value, 1)
+      )
+    } else {
+      NULL
+    }
+  ) %>%
+  select(monthly_date, value, deseasonalized_value)
+
+# Save data to CSV
+write.csv(fred_data, "./data/JHDUSRGDPBR.csv", row.names = FALSE)
+
+
+cat("\014"); cat(sprintf("Successfully retrieved data for %s for Modified Sahm Rule", format(Sys.Date(), "%B %Y")))

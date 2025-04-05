@@ -20,20 +20,12 @@ jobs:
 
       - name: Run data update script
         run: node ./node-script/fetch-and-compute.js
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
-      - name: Check for changes
-        id: git-check
+      - name: Commit and push if changes exist
         run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
-
-      - name: Create Pull Request
-        if: steps.git-check.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update data files"
-          title: "Data Update"
-          body: "Automated data update from scheduled workflow"
-          branch: "data-update"
-          base: "main"
-          delete-branch: true 
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add computed/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update computed data files" && git push) 
