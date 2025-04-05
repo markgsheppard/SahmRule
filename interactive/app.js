@@ -1,10 +1,8 @@
 import {
-	calculateAccuracyPercent,
-	calculateDaysToNearestDateWithSummary,
 	compute_sahm_rule,
 	getRecessionPeriods,
-	getSahmStarts
-} from './sahm_rule.js'
+	computeStats
+} from '../sahm/sahm_rule.js'
 import vRecessionIndicatorChart from '../vis/v-recession-indicator-chart.js'
 
 const getRandomId = () => {
@@ -26,18 +24,6 @@ const defaultSettings = {
 }
 
 const data_base_url = '../data-source'
-
-// Statistics constants
-const accuracy_time_range = 200
-const committee_time_range = 250
-const committee_starts = [
-	new Date('2020-06-08'),
-	new Date('2008-12-01'),
-	new Date('2001-11-26'),
-	new Date('1991-04-25'),
-	new Date('1982-01-06'),
-	new Date('1980-06-03')
-]
 
 const getUrl = series_id => {
 	return `${data_base_url}/data/${series_id}.csv`
@@ -202,46 +188,10 @@ class SahmRuleDashboard {
 	}
 
 	computeStats(computed_data, config) {
-		const sahm_starts = getSahmStarts(computed_data, this.alpha_threshold)
-
-		const threeMonths = new Date(sahm_starts[0])
-		threeMonths.setMonth(threeMonths.getMonth() - 3)
-
-		const rec_data = []
-
-		for (const [date, value] of this.recessionData.entries()) {
-			if (date >= threeMonths) {
-				rec_data.push({
-					date,
-					value
-				})
-			}
-		}
-
-		const recession_starts = getRecessionPeriods(rec_data).map(d => d.start)
-
-		const accuracy = Math.round(
-			calculateAccuracyPercent(
-				sahm_starts,
-				recession_starts,
-				accuracy_time_range
-			)
-		)
-
-		const recession_lead_time = Math.round(
-			calculateDaysToNearestDateWithSummary(
-				sahm_starts,
-				recession_starts,
-				accuracy_time_range
-			).overall_average_days
-		)
-
-		const committee_lead_time = Math.round(
-			calculateDaysToNearestDateWithSummary(
-				sahm_starts,
-				committee_starts,
-				committee_time_range
-			).average_days_leading
+		const { accuracy, recession_lead_time, committee_lead_time } = computeStats(
+			computed_data,
+			this.recessionData,
+			this.alpha_threshold
 		)
 
 		config.accuracy = accuracy
@@ -492,14 +442,14 @@ class SahmRuleDashboard {
 			}
 		})
 	}
-	
+
 	downloadData() {
 		// Get current chart data
 		const { dates, series } = this.chart.getData()
 
 		// Create CSV header with date and series labels
 		const headers = ['Date', ...series.map(s => s.label)]
-		
+
 		// Convert data to CSV rows
 		const rows = dates.map((date, i) => {
 			const values = [date.toISOString().split('T')[0]]

@@ -1,3 +1,5 @@
+import { accuracy_time_range, committee_time_range, committee_starts } from './constants.js'
+
 // Base_data and relative_data should match each other by index
 export function compute_sahm_rule(
 	base_data,
@@ -13,8 +15,8 @@ export function compute_sahm_rule(
 	const field = seasonal ? 'deseasonalized_value' : 'value'
 
 	for (let i = 0; i < n; i++) {
-		base[i] = base_data[i][field]
-		relative[i] = relative_data[i][field]
+		base[i] = +base_data[i][field]
+		relative[i] = +relative_data[i][field]
 	}
 
 	const base_k_mo_avg = movingAverage(base, k)
@@ -193,4 +195,54 @@ function rollingMin(values, N) {
 	}
 
 	return mins
+}
+
+export function computeStats(computed_data, recession_data, alpha_threshold = 0.5) {
+	const sahm_starts = getSahmStarts(computed_data, alpha_threshold)
+
+	const threeMonths = new Date(sahm_starts[0])
+	threeMonths.setMonth(threeMonths.getMonth() - 3)
+
+	const rec_data = []
+
+	for (const [date, value] of recession_data.entries()) {
+		if (date >= threeMonths) {
+			rec_data.push({
+				date,
+				value
+			})
+		}
+	}
+
+	const recession_starts = getRecessionPeriods(rec_data).map(d => d.start)
+
+	const accuracy = Math.round(
+		calculateAccuracyPercent(
+			sahm_starts,
+			recession_starts,
+			accuracy_time_range
+		)
+	)
+
+	const recession_lead_time = Math.round(
+		calculateDaysToNearestDateWithSummary(
+			sahm_starts,
+			recession_starts,
+			accuracy_time_range
+		).overall_average_days
+	)
+
+	const committee_lead_time = Math.round(
+		calculateDaysToNearestDateWithSummary(
+			sahm_starts,
+			committee_starts,
+			committee_time_range
+		).average_days_leading
+	)
+
+	return {
+		accuracy,
+		recession_lead_time,
+		committee_lead_time
+	}
 }
