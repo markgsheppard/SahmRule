@@ -4,6 +4,15 @@
     "SeriesId": "ALAUTA1URN",
     "accuracy": 15,
     "recession_lead_time": -2,
-    "committee_lead_time": 90
+    "committee_lead_time": 90,
+    "last_sahm_value": 0.6999999999999997
+  },
+  {
+    "County": "Baldwin County",
+    "SeriesId": "ALBALD0URN",
+    "accuracy": 15,
+    "recession_lead_time": 0,
+    "committee_lead_time": 92,
+    "last_sahm_value": 0.7333333333333334
   }
 ]
