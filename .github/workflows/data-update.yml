@@ -22,6 +22,7 @@ jobs:
         run: node ./data-source/fetch-and-compute.js
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        environment: github-pages
 
       - name: Commit and push if changes exist
         run: |

@@ -11,6 +11,7 @@ jobs:
     
     env:
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+    environment: github-pages
 
     steps:
     - uses: actions/checkout@v3
