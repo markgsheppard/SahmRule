@@ -1,7 +1,9 @@
 # Load necessary libraries
 library(fredr)
+library(tidyverse)
+library(lubridate)
 
-working_dir <- "~/Documents/sahm_rule"
+working_dir <- "~/Documents/SahmRule/data-source"
 setwd(working_dir)
 
 # Set your FRED API key
@@ -15,7 +17,7 @@ for (i in 1:nrow(data)) {
   tryCatch({
     # Extract relevant details
     series_id <- as.character(data$Code[i])  # Ensure it's treated as a character
-    start_date <- as.Date(data$Date[i])      # Convert to Date type
+    start_date <- as.Date(data$Date[i], format = "%m/%d/%y")      # Convert to Date type
     
     # Fetch data from FRED
     fred_data <- fredr(series_id = series_id, observation_start = start_date) %>% 

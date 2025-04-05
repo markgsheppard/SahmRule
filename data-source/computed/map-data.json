@@ -1,0 +1,9 @@
+[
+  {
+    "County": "Autauga County",
+    "SeriesId": "ALAUTA1URN",
+    "accuracy": 15,
+    "recession_lead_time": -2,
+    "committee_lead_time": 90
+  }
+]
