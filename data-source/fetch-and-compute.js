@@ -62,7 +62,7 @@ async function fetchFromFRED(seriesId, observationStart) {
 }
 
 async function main() {
-	const counties = await readAndParseCsvFile(`./counties.csv`)
+	const counties = await readAndParseCsvFile(`./data-source/counties.csv`)
 	const recessions = await fetchFromFRED('USREC', '1990-01-01')
 
 	console.log('Going to fetch data for', counties.length, 'counties')
@@ -98,7 +98,7 @@ async function main() {
 		await new Promise(resolve => setTimeout(resolve, 1000))
 	}
 
-	const fileName = `./computed/map-data.json`
+	const fileName = `./data-source/computed/map-data.json`
 	await fs.promises.writeFile(fileName, JSON.stringify(dataToSave, null, 2))
 }
 
