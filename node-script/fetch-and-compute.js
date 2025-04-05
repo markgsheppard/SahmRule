@@ -70,7 +70,7 @@ async function main() {
 
 	const dataToSave = []
 
-	const filteredCounties = counties.filter(x => x.SeriesId).slice(0, 1)
+	const filteredCounties = counties.filter(x => x.SeriesId);
 
 	for (const county of filteredCounties) {
 		const result = await fetchAndComputeSahm(county.SeriesId)
