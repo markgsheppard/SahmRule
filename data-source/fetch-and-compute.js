@@ -73,7 +73,7 @@ async function main() {
 
 	const dataToSave = []
 
-	const filteredCounties = counties.filter(x => x.SeriesId)
+	const filteredCounties = counties.filter(x => x.SeriesId).slice(0, 1)
 
 	for (const county of filteredCounties) {
 		const result = await fetchAndComputeSahm(county.SeriesId)
@@ -98,8 +98,11 @@ async function main() {
 		await new Promise(resolve => setTimeout(resolve, 1000))
 	}
 
-	const fileName = `./data-source/computed/map-data.json`
-	await fs.promises.writeFile(fileName, JSON.stringify(dataToSave, null, 2))
+	const header = "county,series_id,accuracy,recession_lead_time,committee_lead_time,last_sahm_value"
+	const body = convertToSimpleCSV(dataToSave)
+
+	const fileName = `./data-source/computed/map-data.csv`
+	await fs.promises.writeFile(fileName, `${header}\n${body}`)
 }
 
 function parseSimpleCSV(csvString) {
@@ -113,6 +116,10 @@ function parseSimpleCSV(csvString) {
       return obj;
     }, {});
   });
+}
+
+function convertToSimpleCSV(data) {
+	return data.map(d => `${d.County},${d.SeriesId},${d.accuracy},${d.recession_lead_time},${d.committee_lead_time},${d.last_sahm_value}`).join('\n')
 }
 
 main()
