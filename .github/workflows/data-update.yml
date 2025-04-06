@@ -24,28 +24,9 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
-      - name: Create Pull Request if changes exist
+      - name: Commit and push if changes exist
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          
-          # Create a new branch with timestamp
-          BRANCH_NAME="data-update/$(date +%Y-%m-%d-%H-%M-%S)"
-          git checkout -b $BRANCH_NAME
-          
-          git add .
-          
-          # Only proceed if there are changes
-          if ! git diff --quiet HEAD; then
-            git commit -m "chore: update computed data files"
-            git push origin $BRANCH_NAME
-            
-            # Create Pull Request using GitHub CLI
-            gh pr create \
-              --title "Data Update $(date +%Y-%m-%d)" \
-              --body "Automated data update from GitHub Actions" \
-              --base main \
-              --head $BRANCH_NAME
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          git add .  # Stage all changes
+          git diff --cached --quiet || (git commit -m "chore: update computed data files" && git pull --rebase && git push)
