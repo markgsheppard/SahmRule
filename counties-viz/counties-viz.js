@@ -28,7 +28,7 @@ class CountiesViz {
 
 	async loadData() {
 		const [counties, usTopo] = await Promise.all([
-			d3.csv('../data-source/computed/map-data.csv', d3.autoType),
+			d3.csv('./data-source/computed/map-data.csv', d3.autoType),
 			d3.json('./counties-viz/counties-albers-10m.json')
 		])
 
@@ -58,16 +58,15 @@ class CountiesViz {
 	}
 
 	initControls() {
-		const radioButtons = document.querySelectorAll('input[name="metric"]');
+		const radioButtons = document.querySelectorAll('input[name="metric"]')
 		radioButtons.forEach(radio => {
 			radio.addEventListener('change', e => {
 				if (e.target.checked) {
-					this.metric = e.target.value;
-					this.drawMap();
+					this.metric = e.target.value
+					this.drawMap()
 				}
-			});
-		});
-
+			})
+		})
 	}
 
 	drawMap() {
