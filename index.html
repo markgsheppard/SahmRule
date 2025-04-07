@@ -339,6 +339,25 @@
 
   </div>
 
+  <div
+    style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
+    <main>
+      <div style="margin-bottom: 20px; font-family: Arial, sans-serif;">
+        <label style="margin-right: 15px;">
+          <input type="radio" name="metric" value="last_sahm_value" checked> Outlook
+        </label>
+        <label style="margin-right: 15px;">
+          <input type="radio" name="metric" value="accuracy"> Accuracy
+        </label>
+        <label>
+          <input type="radio" name="metric" value="committee_lead_time"> Advance
+        </label>
+      </div>
+      <div id="counties-viz"></div>
+    </main>
+  </div>
+
+
 
   <section class="df-wrapper" style="
     padding-bottom: 50px;
@@ -409,6 +428,7 @@
   <script type="text/javascript" src="js/custom.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
 
   <script type="module">
     import vRecessionIndicatorChart from "./vis/v-recession-indicator-chart.js";
@@ -436,6 +456,11 @@
         factor: "Education",
       });
     });
+  </script>
+
+  <script type="module">
+    import CountiesViz from "./counties-viz/counties-viz.js";
+    new CountiesViz();
   </script>
 
 
