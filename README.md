@@ -1,0 +1,3 @@
+The Inequality of Recession
+
+Modifying unemployment-based recession indicators using disaggregated metrics, such as for labor utilization measures, education, race, and gender, creates more responsive indicators that can also be used to reveal labor market disparities. Adjusting the Sahm Rule can also highlight how vulnerable groups experience downturns earlier and more intensely, providing equitable insights for recession detection and policy design.
