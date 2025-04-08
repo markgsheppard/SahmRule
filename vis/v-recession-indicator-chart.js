@@ -10,6 +10,7 @@ export default function vRecessionIndicatorChart({
 	hideFooter,
 	hideLegend,
 	onLegendClick,
+	chartTitle
 }) {
 	/**
 	 * Constants
@@ -42,18 +43,18 @@ export default function vRecessionIndicatorChart({
 
 	if (transformData) {
 		// Process raw array data into required format
-		const processedData = processData(data, factor);
-		dates = processedData.dates;
-		series = processedData.series;
-		periods = processedData.periods;
+		const processedData = processData(data, factor)
+		dates = processedData.dates
+		series = processedData.series
+		periods = processedData.periods
 	} else {
 		// Validate pre-processed data has required properties
 		if (!data.dates || !data.series || !data.periods) {
-			throw new Error('Pre-processed data missing required properties');
+			throw new Error('Pre-processed data missing required properties')
 		}
-		dates = data.dates;
-		series = data.series;
-		periods = data.periods;
+		dates = data.dates
+		series = data.series
+		periods = data.periods
 	}
 
 	// Scales
@@ -96,7 +97,7 @@ export default function vRecessionIndicatorChart({
 		.line()
 		.x((d, i) => xScale(dates[i]))
 		.y(d => yScale(d))
-		.defined(d => d !== null)
+		.defined(d => d !== null && d !== undefined && !isNaN(d))
 		.curve(d3.curveMonotoneX)
 
 	/**
@@ -155,14 +156,9 @@ export default function vRecessionIndicatorChart({
 	// observer.observe(svg.node());
 
 	function renderHeader() {
-		const titleByFactor = {
-			Race: 'Racial Recessions',
-			'U-Measures': 'The Sahm Rule by U-Measures',
-			Education: 'The Sahm Rule by Education'
-		}
 		header.html(/*html*/ `
-      <div class="title">${titleByFactor[factor]}</div>
-      <div class="subtitle">The Sahm Recession Indicator, Disaggregated by ${factor}</div>
+      <div class="title">${chartTitle}</div>
+      <div class="subtitle">The Sahm Recession Indicator</div>
       <div class="subtitle">Shown with Reference Lines and Recessions</div>
       <div class="subtitle">Data from ${dates[0].getUTCFullYear()} to Present.</div>
     `)
@@ -174,9 +170,9 @@ export default function vRecessionIndicatorChart({
 			scale: colorScale,
 			active: d => series.find(s => s.key === d).active,
 			label: d => {
-        const obj = series.find(s => s.key === d);
-        return obj?.label || obj?.key;
-      },
+				const obj = series.find(s => s.key === d)
+				return obj?.label || obj?.key
+			},
 			onClick: (e, d) => {
 				if (!onLegendClick) return
 				series = series.map(s => ({ ...s, active: s.key === d }))
@@ -407,7 +403,8 @@ export default function vRecessionIndicatorChart({
         <div>Source: Claudia Sahm, Bureau of Labor Statistics (BLS)</div>
         <div>Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.</div>
         <div>The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months' minimum average.</div>
-        <div>Author: Mark G. Sheppard</div>
+				<div>Author: Mark G. Shepard</div>
+        <div>Visualized by: <a href="https://ghviniashvili.com/" target="_blank">Giorgi Gviniashvili</a> and Mark G. Shepard.</div>
       `)
 	}
 

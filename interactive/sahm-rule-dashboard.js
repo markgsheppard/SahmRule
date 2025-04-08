@@ -30,11 +30,20 @@ const getUrl = series_id => {
 }
 
 class SahmRuleDashboard {
-	constructor() {
+	constructor(params) {
+		this.params = Object.assign(
+			{
+				lineConfigs: [], // Pre-configured lines
+				chartElementId: 'sahm_chart', // Chart element ID
+				components: new Set(['legend']) // Components to display
+			},
+			params || {}
+		)
+
 		// Track list of available datasets and their configurations
 		this.datasetsList = []
 		// Store configurations for each line series being displayed
-		this.lineConfigs = []
+		this.lineConfigs = this.params.lineConfigs
 		// Track which line series is currently selected
 		this.currentLineId = null
 		// Cache fetched data to improve performance
@@ -52,6 +61,20 @@ class SahmRuleDashboard {
 			...defaultSettings
 		}
 
+		// Fetch and compute new line
+		await this.fetchAndCompute(config)
+
+		// add computed line to list of lines
+		this.lineConfigs.push(config)
+
+		// draw chart
+		this.drawChart()
+
+		// Select newly added line
+		this.selectLine(config.id)
+	}
+
+	async fetchAndCompute(config) {
 		// Fetch all required data in parallel
 		const [base_data, relative_data] = await Promise.all([
 			this.fetchFile(config.base),
@@ -62,11 +85,25 @@ class SahmRuleDashboard {
 		config.base_data = base_data
 		config.relative_data = relative_data
 
-		this.lineConfigs.push(config)
-		this.selectLine(config.id)
+		this.computeSahmRule(config)
+	}
 
-		// Triggers initial render with base data
-		this.updateCurrentLine('base', config.base)
+	computeSahmRule(config) {
+		// Ensure base and relative data series align on same date range
+		this.alignData(config)
+
+		// Recompute Sahm rule with updated parameters
+		const computed_data = compute_sahm_rule(
+			config.base_data,
+			config.relative_data,
+			config.k,
+			config.m,
+			config.time_period,
+			config.seasonal
+		)
+
+		config.computed_data = computed_data
+		this.computeStats(config.computed_data, config)
 	}
 
 	selectLine(id) {
@@ -107,30 +144,23 @@ class SahmRuleDashboard {
 			this.alignData(config)
 		}
 
-		// Recompute Sahm rule with updated parameters
-		const computed_data = compute_sahm_rule(
-			config.base_data,
-			config.relative_data,
-			config.k,
-			config.m,
-			config.time_period,
-			config.seasonal
-		)
+		this.computeSahmRule(config)
 
-		config.computed_data = computed_data
-
-		// Update statistics and visualization
-		this.computeStats(computed_data, config)
 		this.updateStats(config)
 		this.drawChart()
 	}
 
 	alignData(config) {
 		// Ensure base and relative data series align on same date range
-		const { base_data, relative_data } = config
+		const { base_data, relative_data, start_date: config_start_date } = config
 
 		// Find overlapping date range
-		const start_date = Math.max(base_data[0].date, relative_data[0].date)
+		const start_date = Math.max(
+			base_data[0].date,
+			relative_data[0].date,
+			config_start_date ? new Date(config_start_date) : base_data[0].date
+		)
+
 		const end_date = Math.min(
 			base_data[base_data.length - 1].date,
 			relative_data[relative_data.length - 1].date
@@ -224,6 +254,18 @@ class SahmRuleDashboard {
 		// Load available datasets
 		this.datasetsList = await this.getDatasetsList()
 
+		// If no lines are passed in, create one
+		if (this.lineConfigs.length === 0) {
+			// Create initial line with default settings
+			this.addLine()
+		} else {
+			// Fetch and compute pre-configured lines
+			for (const config of this.lineConfigs) {
+				await this.fetchAndCompute(config)
+			}
+			this.drawChart()
+		}
+
 		// Separate recession indicators from other datasets
 		const nonRecessionList = this.datasetsList.filter(
 			d => d.Header !== 'Recessions'
@@ -275,9 +317,6 @@ class SahmRuleDashboard {
 		this.listenForChanges('#seasonal-checkbox', (value, e) => {
 			this.updateCurrentLine('seasonal', e.target.checked)
 		})
-
-		// Create initial line
-		this.addLine()
 
 		// Set up button handlers
 		d3.select('#remove-line-button').on('click', () => {
@@ -384,37 +423,37 @@ class SahmRuleDashboard {
 	}
 
 	async drawChart() {
-		const start_date = d3.max(this.lineConfigs, conf => {
-			return conf.computed_data.find(d => !isNaN(d.value))?.date
+		let maxDateRange = 0
+		let maxLengthLineIndex = -1
+
+		this.lineConfigs.forEach((conf, index) => {
+			if (conf.computed_data.length > maxDateRange) {
+				maxDateRange = conf.computed_data.length
+				maxLengthLineIndex = index
+			}
 		})
 
-		const end_date = d3.min(this.lineConfigs, conf => {
-			return conf.computed_data
-				.slice()
-				.reverse()
-				.find(d => !isNaN(d.value))?.date
-		})
-
-		let dates = []
+		const dates = this.lineConfigs[maxLengthLineIndex].computed_data.map(
+			d => d.date
+		)
 
 		const series_data = this.lineConfigs.map(s => {
-			const filtered_data = s.computed_data
-				.filter(d => d.date >= start_date && d.date <= end_date)
-				.sort((a, b) => d3.ascending(a.date, b.date))
-
-			if (dates.length === 0) {
-				dates = filtered_data.map(d => d.date)
-			}
+			const dataMap = new Map(
+				s.computed_data.map(d => [d.date.getTime(), d.value])
+			)
 
 			return {
 				key: s.id,
 				label: this.datasetsList.find(d => d.Code === s.base)?.Category,
 				active: s.id === this.currentLineId,
-				values: filtered_data.map(d => d.value)
+				values: dates.map(date => dataMap.get(date.getTime()) ?? null)
 			}
 		})
 
 		const rec_data = []
+
+		const start_date = dates[0]
+		const end_date = dates[dates.length - 1]
 
 		for (const [date, value] of this.recessionData.entries()) {
 			if (date >= start_date && date <= end_date) {
@@ -427,15 +466,16 @@ class SahmRuleDashboard {
 
 		const periods = getRecessionPeriods(rec_data).map(d => [d.start, d.end])
 
-		const chartElement = document.getElementById('sahm_chart')
+		const chartElement = document.getElementById(this.params.chartElementId)
 		chartElement.innerHTML = ''
 
 		this.chart = vRecessionIndicatorChart({
 			el: chartElement,
 			data: { dates, series: series_data, periods },
-			hideLegend: false,
-			hideFooter: true,
-			hideHeader: true,
+			hideLegend: !this.params.components.has('legend'),
+			hideFooter: !this.params.components.has('footer'),
+			hideHeader: !this.params.components.has('header'),
+			chartTitle: this.params.chartTitle,
 			threshold: this.alpha_threshold,
 			onLegendClick: key => {
 				this.selectLine(key)
@@ -473,4 +513,4 @@ class SahmRuleDashboard {
 	}
 }
 
-window.app = new SahmRuleDashboard()
+export default SahmRuleDashboard
