@@ -438,21 +438,24 @@
       lineConfigs: uMeasuresLineConfigs,
       chartElementId: 'sahmRecessionIndicatorByUMeasures',
       components: new Set(['header', 'legend', 'footer']),
-      chartTitle: 'The Sahm Rule by U-Measures'
+      chartTitle: 'The Sahm Rule by U-Measures',
+      dataBaseUrl: './data-source'
     });
 
     new SahmRuleDashboard({
       lineConfigs: racialRecessionLineConfigs,
       chartElementId: 'sahmRecessionIndicatorByRace',
       components: new Set(['header', 'legend', 'footer']),
-      chartTitle: 'Racial Recessions'
+      chartTitle: 'Racial Recessions',
+      dataBaseUrl: './data-source'
     });
 
     new SahmRuleDashboard({
       lineConfigs: educationRecessionLineConfigs,
       chartElementId: 'sahmRecessionIndicatorByEducation',
       components: new Set(['header', 'legend', 'footer']),
-      chartTitle: 'The Sahm Rule by Education'
+      chartTitle: 'The Sahm Rule by Education',
+      dataBaseUrl: './data-source'
     });
   </script>
 
