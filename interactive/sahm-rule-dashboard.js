@@ -23,19 +23,14 @@ const defaultSettings = {
 	alpha_threshold: 0.5 // Alpha threshold. Shared across all lines
 }
 
-const data_base_url = '../data-source'
-
-const getUrl = series_id => {
-	return `${data_base_url}/data/${series_id}.csv`
-}
-
 class SahmRuleDashboard {
 	constructor(params) {
 		this.params = Object.assign(
 			{
 				lineConfigs: [], // Pre-configured lines
 				chartElementId: 'sahm_chart', // Chart element ID
-				components: new Set(['legend']) // Components to display
+				components: new Set(['legend']), // Components to display
+				dataBaseUrl: '../data-source'
 			},
 			params || {}
 		)
@@ -52,6 +47,10 @@ class SahmRuleDashboard {
 		this.recessionData = new Map()
 
 		this.init()
+	}
+
+	getUrl(series_id) {
+		return `${this.params.dataBaseUrl}/data/${series_id}.csv`
 	}
 
 	async addLine() {
@@ -204,7 +203,7 @@ class SahmRuleDashboard {
 
 	async getDatasetsList() {
 		try {
-			const resp = await d3.csv(`${data_base_url}/datasets.csv`)
+			const resp = await d3.csv(`${this.params.dataBaseUrl}/datasets.csv`)
 			return resp
 		} catch (error) {
 			console.error(error)
@@ -241,7 +240,7 @@ class SahmRuleDashboard {
 		}
 
 		try {
-			const resp = await d3.csv(getUrl(fileId), d3.autoType)
+			const resp = await d3.csv(this.getUrl(fileId), d3.autoType)
 			this.dataCache.set(fileId, resp)
 			return resp
 		} catch (error) {
