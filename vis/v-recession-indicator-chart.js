@@ -214,7 +214,8 @@ export default function vRecessionIndicatorChart({
 		const brushResetButton = body
 			.append('button')
 			.attr('class', 'btn btn-sm btn-default brush-reset-button')
-			.text('Reset')
+			.html('<i class="fa fa-rotate-left"></i>')
+			.attr('title', 'Reset zoom')
 			.style('position', 'absolute')
 			.style('top', '0')
 			.style('right', '0')

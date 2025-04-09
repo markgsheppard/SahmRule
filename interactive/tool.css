@@ -21,8 +21,8 @@ body {
 }
 
 #sahm_chart {
-  --color-primary-300: #3b82f6;
-  --color-primary-900: #1e3a8a;
+  --color-primary-300: #6fc3f3;
+  --color-primary-900: #2b4fb1;
 }
 
 @media (min-width: 992px) {
