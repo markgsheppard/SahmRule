@@ -81,7 +81,7 @@ async function main() {
 
 	const dataToSave = []
 
-	const filteredCounties = counties.filter(x => x.SeriesId).slice(0, 2)
+	const filteredCounties = counties.filter(x => x.SeriesId)
 
 	for (const county of filteredCounties) {
 		const { computedData, currentUnemploymentRate } = await fetchAndComputeSahm(
