@@ -501,14 +501,21 @@ export default function vRecessionIndicatorChart({
 	// utcFormat converts date to UTC for
 	function tooltipContent() {
 		const format = d3.utcFormat('%b %-d, %Y')
+
+		let dateRangeText = format(dates[iFocus])
+
+		if (dateRange) {
+			if (dates[iFocus] > dateRange[0]) {
+				dateRangeText = format(dateRange[0]) + ' - ' + format(dates[iFocus])
+			} else {
+				dateRangeText = format(dates[iFocus]) + ' - ' + format(dateRange[1])
+			}
+		}
+
 		return /*html*/ `
     <div>
       <div class="tip__title">
-				${
-					dateRange
-						? format(dateRange[0]) + ' - ' + format(dates[iFocus])
-						: format(dates[iFocus])
-				}
+				${dateRangeText}
 			</div>
       <table class="tip__body">
         <tbody>
