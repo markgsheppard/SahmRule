@@ -12,6 +12,7 @@ export default function vRecessionIndicatorChart({
 	onLegendClick,
 	chartTitle
 }) {
+	const defined = d => d !== null && d !== undefined && !isNaN(d)
 	/**
 	 * Constants
 	 */
@@ -29,7 +30,9 @@ export default function vRecessionIndicatorChart({
 	 * Setup
 	 */
 	// Globals
-	let width, iFocus, animated, dates, series, periods
+	let width, iFocus, dates, series, periods
+
+	let dateRange = null
 
 	/**
 	 * @typedef {Object} ProcessedData
@@ -58,7 +61,8 @@ export default function vRecessionIndicatorChart({
 	}
 
 	// Scales
-	const xScale = d3.scaleUtc().domain(d3.extent(dates))
+	const xDomain = d3.extent(dates)
+	const xScale = d3.scaleUtc().domain(xDomain)
 
 	const minValue = d3.min(series, d => d3.min(d.values))
 	const maxValue = d3.max(series, d => d3.max(d.values))
@@ -97,7 +101,7 @@ export default function vRecessionIndicatorChart({
 		.line()
 		.x((d, i) => xScale(dates[i]))
 		.y(d => yScale(d))
-		.defined(d => d !== null && d !== undefined && !isNaN(d))
+		.defined(d => defined(d))
 		.curve(d3.curveMonotoneX)
 
 	/**
@@ -107,23 +111,36 @@ export default function vRecessionIndicatorChart({
 	const header = figure.append('div').attr('class', 'header')
 	const legend = figure.append('div').attr('class', 'legend')
 	const body = figure.append('div').attr('class', 'body')
+
 	const svg = body
 		.append('svg')
 		.attr('class', 'svg')
 		.on('pointerenter', entered)
 		.on('pointermove', moved)
 		.on('pointerleave', left)
-		.on('touchstart', event => event.preventDefault())
+	// .on('touchstart', event => event.preventDefault())
+
+	const clipId = 'series-clip-rect'
+
+	const defsRect = svg
+		.append('defs')
+		.append('clipPath')
+		.attr('id', clipId)
+		.append('rect')
+		.attr('x', marginLeft)
+		.attr('y', marginTop)
 
 	const periodsG = svg.append('g').attr('class', 'periods-g')
 	const xAxisG = svg.append('g').attr('class', 'axis-g')
 	const yAxisG = svg.append('g').attr('class', 'axis-g')
 	const seriesG = svg.append('g').attr('class', 'series-g')
+
 	const focusG = svg
 		.append('g')
 		.attr('class', 'focus-g')
 		.attr('display', 'none')
 
+	const brushG = svg.append('g').attr('class', 'brush-g')
 	const thresholdG = svg.append('g').attr('class', 'threshold-g')
 	const footer = figure.append('div').attr('class', 'footer')
 
@@ -140,20 +157,6 @@ export default function vRecessionIndicatorChart({
 	}
 
 	new ResizeObserver(resize).observe(body.node())
-	// const observer = new IntersectionObserver(
-	//   (entries) => {
-	//     entries.forEach((entry) => {
-	//       if (entry.isIntersecting) {
-	//         animate();
-	//         observer.disconnect();
-	//       }
-	//     });
-	//   },
-	//   {
-	//     threshold: 0.5,
-	//   }
-	// );
-	// observer.observe(svg.node());
 
 	function renderHeader() {
 		header.html(/*html*/ `
@@ -191,6 +194,10 @@ export default function vRecessionIndicatorChart({
 
 		svg.attr('width', width).attr('viewBox', [0, 0, width, height])
 
+		defsRect
+			.attr('width', width - marginLeft - marginRight)
+			.attr('height', height - marginTop - marginBottom)
+
 		renderChart()
 	}
 
@@ -200,11 +207,70 @@ export default function vRecessionIndicatorChart({
 		renderYAxis()
 		renderSeries()
 		renderThreshold()
-		if (animated) beforeAnimate()
+		renderBrush()
+	}
+
+	function renderBrush() {
+		const brushResetButton = body
+			.append('button')
+			.attr('class', 'btn btn-sm btn-default brush-reset-button')
+			.text('Reset')
+			.style('position', 'absolute')
+			.style('top', '0')
+			.style('right', '0')
+			.style('z-index', '1000')
+			.style('display', 'none')
+			.on('click', () => {
+				brushG.call(brush.clear)
+				brushResetButton.style('display', 'none')
+				xScale.domain(xDomain)
+				dateRange = null
+				renderPeriods()
+				rendXAxis()
+				renderSeries()
+			})
+
+		const interval = d3.timeMonth
+
+		const brush = d3
+			.brushX()
+			.extent([
+				[marginLeft, marginTop],
+				[width - marginRight, height - marginBottom]
+			])
+			.on('start', brushstart)
+			.on('end', brushended)
+
+		function brushended(event) {
+			const selection = event.selection
+			if (!event.sourceEvent || !selection) return
+			const [x0, x1] = selection.map(d => interval.round(xScale.invert(d)))
+			dateRange = null
+			xScale.domain([x0, x1])
+
+			renderPeriods()
+			rendXAxis()
+			renderSeries()
+
+			brushG.call(brush.clear)
+			brushResetButton.style('display', null)
+		}
+
+		function brushstart(event) {
+			const selection = event.selection
+			if (!event.sourceEvent || !selection) return
+			const [x0, x1] = event.selection.map(d =>
+				interval.round(xScale.invert(d))
+			)
+			dateRange = [x0, x1]
+		}
+
+		brushG.call(brush).call(brush.move, [dates[0], dates[dates.length - 1]])
 	}
 
 	function renderPeriods() {
 		periodsG
+			.attr('clip-path', `url(#${clipId})`)
 			.selectChildren('.period-rect')
 			.data(periods, d => d.join('|'))
 			.join(enter =>
@@ -270,6 +336,7 @@ export default function vRecessionIndicatorChart({
 
 	function renderSeries() {
 		seriesG
+			.attr('clip-path', `url(#${clipId})`)
 			.attr('fill', 'none')
 			.selectChildren('.series-path')
 			.classed('active', d => d.active)
@@ -337,9 +404,9 @@ export default function vRecessionIndicatorChart({
 					.attr('r', focusCircleRadius)
 					.attr('fill', d => colorScale(d.key))
 			)
-			.attr('display', d => (d.values[iFocus] === null ? 'none' : null))
+			.style('display', d => (defined(d.values[iFocus]) ? null : 'none'))
 			.attr('cy', d =>
-				d.values[iFocus] === null ? height : yScale(d.values[iFocus])
+				defined(d.values[iFocus]) ? yScale(d.values[iFocus]) : height
 			)
 	}
 
@@ -350,7 +417,7 @@ export default function vRecessionIndicatorChart({
 
 	function moved(event) {
 		const [mx, my] = d3.pointer(event)
-		const date = xScale.invert(mx)
+		const date = xScale.copy().clamp(true).invert(mx)
 		const i = d3.bisectCenter(dates, date)
 		if (iFocus !== i) {
 			iFocus = i
@@ -364,38 +431,6 @@ export default function vRecessionIndicatorChart({
 		iFocus = null
 		focusG.attr('display', 'none')
 		tooltip.hide()
-	}
-
-	function beforeAnimate() {
-		const clipId = el.id + 'Clip'
-
-		periodsG.attr('clip-path', `url(#${clipId})`)
-		seriesG.attr('clip-path', `url(#${clipId})`)
-		svg
-			.attr('pointer-events', 'none')
-			.append('defs')
-			.append('clipPath')
-			.attr('id', clipId)
-			.append('rect')
-			.attr('width', 0)
-			.attr('height', height)
-	}
-
-	function animate() {
-		const defs = svg.select('defs')
-		defs
-			.select('clipPath rect')
-			.transition()
-			.duration(0)
-			.delay(0)
-			.ease(d3.easeLinear)
-			.attr('width', width)
-			.on('end', () => {
-				defs.remove()
-				periodsG.attr('clip-path', null)
-				seriesG.attr('clip-path', null)
-				svg.attr('pointer-events', null)
-			})
 	}
 
 	function renderFooter() {
@@ -465,9 +500,16 @@ export default function vRecessionIndicatorChart({
 
 	// utcFormat converts date to UTC for
 	function tooltipContent() {
+		const format = d3.utcFormat('%b %-d, %Y')
 		return /*html*/ `
     <div>
-      <div class="tip__title">${d3.utcFormat('%b %-d, %Y')(dates[iFocus])}</div>
+      <div class="tip__title">
+				${
+					dateRange
+						? format(dateRange[0]) + ' - ' + format(dates[iFocus])
+						: format(dates[iFocus])
+				}
+			</div>
       <table class="tip__body">
         <tbody>
           ${series

@@ -1,4 +1,4 @@
-name: Fetch FRED Data
+name: Fetch FRED Data (R script)
 
 on:
   workflow_dispatch:
