@@ -6,6 +6,12 @@ class CountiesViz {
 		this.metric = 'last_sahm_value'
 
 		this.metricsConfig = {
+			current_unemployment_rate: {
+				domain: [2, 4, 6, 8, 10],
+				range: d3.schemeBlues[9].slice(3, 9),
+				tickFormat: d => d + '%',
+				label: 'Unemployment'
+			},
 			last_sahm_value: {
 				domain: [0.25, 0.5, 0.75, 1, 1.25, 1.5],
 				range: d3.schemeBlues[9].slice(2, 9),
