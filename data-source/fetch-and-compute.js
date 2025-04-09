@@ -26,6 +26,8 @@ async function fetchAndComputeSahm(seriesId) {
 			}
 		})
 
+		const currentUnemploymentRate = baseData[baseData.length - 1].value
+
 		// Compute Sahm rule using the same data for both base and relative
 		const computedData = compute_sahm_rule(
 			baseData,
@@ -36,12 +38,18 @@ async function fetchAndComputeSahm(seriesId) {
 			config.seasonal
 		)
 
-		return computedData
+		return {
+			computedData,
+			currentUnemploymentRate
+		}
 	} catch (error) {
 		console.error(`Error processing ${seriesId}:`, error)
 	}
 
-	return null
+	return {
+		computedData: null,
+		currentUnemploymentRate: null
+	}
 }
 
 async function readAndParseCsvFile(path) {
@@ -73,21 +81,24 @@ async function main() {
 
 	const dataToSave = []
 
-	const filteredCounties = counties.filter(x => x.SeriesId)
+	const filteredCounties = counties.filter(x => x.SeriesId).slice(0, 2)
 
 	for (const county of filteredCounties) {
-		const result = await fetchAndComputeSahm(county.SeriesId)
+		const { computedData, currentUnemploymentRate } = await fetchAndComputeSahm(
+			county.SeriesId
+		)
 
-		if (result) {
+		if (computedData) {
 			const status = await computeStats(
-				result,
+				computedData,
 				recessionData,
 				config.alpha_threshold
 			)
 			dataToSave.push({
 				...county,
 				...status,
-        last_sahm_value: result[result.length - 1].value
+				last_sahm_value: computedData[computedData.length - 1].value,
+				current_unemployment_rate: currentUnemploymentRate
 			})
 			console.log(`Succesfully computed ${county.SeriesId}`)
 		} else {
@@ -98,7 +109,8 @@ async function main() {
 		await new Promise(resolve => setTimeout(resolve, 1000))
 	}
 
-	const header = "county,series_id,accuracy,recession_lead_time,committee_lead_time,last_sahm_value"
+	const header =
+		'county,series_id,accuracy,recession_lead_time,committee_lead_time,last_sahm_value,current_unemployment_rate'
 	const body = convertToSimpleCSV(dataToSave)
 
 	const fileName = `./data-source/computed/map-data.csv`
@@ -106,20 +118,25 @@ async function main() {
 }
 
 function parseSimpleCSV(csvString) {
-  const rows = csvString.trim().split(/\r?\n/); // handles both \n and \r\n
-  const headers = rows[0].split(',').map(h => h.trim()); // trim headers
+	const rows = csvString.trim().split(/\r?\n/) // handles both \n and \r\n
+	const headers = rows[0].split(',').map(h => h.trim()) // trim headers
 
-  return rows.slice(1).map(row => {
-    const values = row.split(',').map(v => v.trim()); // trim values
-    return headers.reduce((obj, header, index) => {
-      obj[header] = values[index];
-      return obj;
-    }, {});
-  });
+	return rows.slice(1).map(row => {
+		const values = row.split(',').map(v => v.trim()) // trim values
+		return headers.reduce((obj, header, index) => {
+			obj[header] = values[index]
+			return obj
+		}, {})
+	})
 }
 
 function convertToSimpleCSV(data) {
-	return data.map(d => `${d.County},${d.SeriesId},${d.accuracy},${d.recession_lead_time},${d.committee_lead_time},${d.last_sahm_value}`).join('\n')
+	return data
+		.map(
+			d =>
+				`${d.County},${d.SeriesId},${d.accuracy},${d.recession_lead_time},${d.committee_lead_time},${d.last_sahm_value},${d.current_unemployment_rate}`
+		)
+		.join('\n')
 }
 
 main()
