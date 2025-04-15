@@ -1,0 +1,325 @@
+---
+title: "Modified Sahm Rule"
+author: "2Lt., Mark G. Sheppard, M.A., M.P.P., Ph.D. (2026)""
+---
+
+```{r, warning=FALSE, include=FALSE}
+
+# =============================================================================
+# REPLICATION CODE FOR MODIFIED SAHM RULE ANALYSIS
+# Author: Mark G. Sheppard, M.A., M.P.P., Ph.D. (2026)
+#
+# This R script replicates the core empirical framework used in a forthcoming 
+# working paper that generalizes the Sahm Rule as a *turning point function* 
+# for recession detection. It constructs a modified Sahm indicator using FRED 
+# unemployment data and rolling minimum thresholds, allowing for flexible 
+# smoothing, normalization, and customization.
+#
+# ⚠️ REQUIREMENT: You must provide your own API key from the Federal Reserve 
+# Economic Data (FRED) platform. Keys are free and available at:
+#   https://fred.stlouisfed.org/docs/api/api_key.html
+#
+# 📊 This work is supported by an interactive visualization tool available at:
+#   https://markgsheppard.github.io/SahmRule/interactive/index.html
+#
+# 📄 Use this code responsibly. Any errors, assumptions, or transformations 
+# should be carefully reviewed before citing or building on this work. 
+# Data is pulled dynamically from the FRED API and may change if FRED revises 
+# historical series or the API structure.
+#
+# This code is intended for research transparency, reproducibility, and 
+# further development. Feedback, collaboration, and questions are welcome.
+# =============================================================================
+
+# Clean environment
+rm(list = ls())
+
+# Load and install all necessary libraries with dependencies
+load_or_install <- function(packages) {
+  for (pkg in packages) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      install.packages(pkg, dependencies = TRUE)  # Installs the package and all its dependencies
+    }
+    library(pkg, character.only = TRUE)}}
+
+# List of required packages
+load_or_install(c(
+  "ggplot2",      # For plotting and customization
+  "cowplot",      # For combining ggplot with images
+  "magick",       # For handling images with cowplot
+  "dplyr",        # For data manipulation
+  "tidyr",        # For data reshaping
+  "zoo",          # For rolling averages
+  "fredr",        # For accessing FRED data
+  "purrr",        # Functional programming tools
+  "gtrendsR",     # Google Trends API access
+  "lubridate",    # Working with date-time data
+  "readr",        # Fast data reading
+  "colorspace",   # Advanced color palettes
+  "vctrs",        # Vector types used in tidyverse
+  "forecast"      # Time series forecasting
+))
+
+fredr_set_key("YOUR API KEY") # Set your FRED API key
+# Clear the environment and console
+rm(list = ls()); cat("\014")
+```
+
+```{r, echo=FALSE, message=TRUE, warning=FALSE, results='asis'}
+rm(list = ls()); cat("\014")
+
+# =============================================================================
+# CONFIGURATION: All tuning and customization should be done by modifying the 
+# parameters in the `params` list below. This includes which unemployment 
+# series to use, the rolling window size, smoothing, seasonal adjustment, 
+# natural rate floors, visual elements, and start date.
+#
+# Once defined, the rest of the code will automatically adjust to reflect 
+# the chosen configuration—no additional changes are required in the body 
+# of the function. This design ensures reproducibility and makes it easy 
+# to iterate different setups for analysis.
+# =============================================================================
+
+sahm <- (function() {
+  # PARAMETERS
+    params <- list(
+      k = 3,                            # Smoothing window (months) for the base unemployment series (e.g., U3)
+      m = 3,                            # Smoothing window (months) for the relative comparison series (e.g., U6)
+      base = "UNRATE",                 # Base series used for Sahm Rule signal (default: U3 unemployment rate)
+      relative = "UNRATE",            # Comparison series to compute relative increase (can be same as base or broader like U6)
+      alpha_threshold = 0.5,        # Threshold increase (in percentage points) that triggers a recession signal
+      time_amount = 12,                # Rolling minimum window size (months) for the relative comparison
+      seasonal = 0,                    # Toggle for seasonal adjustment (1 = adjust, 0 = leave raw)
+      accuracy_time_range = 7 * 30,    # Range (days) within which to count Sahm signal as accurate relative to recession start
+      committee_time_range = 8 * 30,   # Range (days) for comparison with NBER recession announcement dates
+      suppress_natural_rate = 0,       # Floor unemployment at the natural rate (1 = apply floor, 0 = use raw)
+      natural_rate = 3.9,              # Natural rate of unemployment to enforce as lower bound
+      preceding = 1,                   # Use lagged (preceding) window for rolling minimum calculation (1 = yes, 0 = no)
+      reduce_COVID = 0,                # Visually shrink COVID spike to avoid dominating graph (1 = enable, 0 = disable)
+      show_peaks = 0,                  # Show vertical lines at local peaks in the Sahm Rule curve (1 = yes, 0 = no)
+      show_sahm_starts = 0,            # Show vertical lines at first month of Sahm Rule trigger (1 = yes, 0 = no)
+      start_date = "1948-01-01"        # Starting date for all series pulls and calculations. Note: use YYYY-MM-DD format
+    )
+  params$title_output <- ifelse(params$base == params$relative, "Modified", "Relative")
+
+  # FETCH + BUILD DATAFRAME
+  df <- list(
+    fredr(series_id = params$base) %>%
+      filter(date >= as.Date(params$start_date)) %>%
+      select(date, base = value),
+    fredr(series_id = params$relative) %>%
+      filter(date >= as.Date(params$start_date)) %>%
+      select(date, relative = value),
+    fredr(series_id = "USREC") %>%
+      filter(date >= as.Date(params$start_date)) %>%
+      select(date, recession = value)
+  ) %>%
+    reduce(full_join, by = "date") %>%
+    mutate(
+      ts_base = ts(base, frequency = 12),
+      ts_relative = ts(relative, frequency = 12),
+      deseasonalized_base = if (params$seasonal == 1) {
+        as.numeric(ts_base - decompose(ts_base)$seasonal)
+      } else base,
+      deseasonalized_relative = if (params$seasonal == 1) {
+        as.numeric(ts_relative - decompose(ts_relative)$seasonal)
+      } else relative,
+      deseasonalized_base = if (params$suppress_natural_rate == 1) {
+        pmax(deseasonalized_base, params$natural_rate)
+      } else deseasonalized_base,
+      deseasonalized_relative = if (params$suppress_natural_rate == 1) {
+        pmax(deseasonalized_relative, params$natural_rate)
+      } else deseasonalized_relative,
+      base_k_mo_avg = rollmean(deseasonalized_base, k = params$k, fill = NA, align = "right"),
+      relative_m_mo_avg = rollmean(deseasonalized_relative, k = params$m, fill = NA, align = "right"),
+      relative_m_mo_min_12mo = if (params$preceding == 1) {
+        rollapply(lag(relative_m_mo_avg), width = params$time_amount, FUN = min, fill = NA, align = "right")
+      } else {
+        rollapply(relative_m_mo_avg, width = params$time_amount, FUN = min, fill = NA, align = "right")
+      },
+      modified_sahm = base_k_mo_avg - relative_m_mo_min_12mo,
+      sahm_binary = ifelse(modified_sahm >= params$alpha_threshold, 1, 0)
+    ) %>%
+    select(-ts_base, -ts_relative) %>%
+    mutate(modified_sahm_plot = if (params$reduce_COVID == 1) {
+      ifelse(modified_sahm > 6, modified_sahm / 2, modified_sahm)
+    } else modified_sahm)
+
+  # PEAK DETECTION
+  detect_all_sahm_peaks <- function(df, threshold = params$alpha_threshold) {
+    df <- df %>% arrange(date) %>% mutate(above_thresh = modified_sahm > threshold)
+    peaks <- list(); in_episode <- FALSE; peak_val <- -Inf; peak_date <- NA
+    for (i in 2:nrow(df)) {
+      current_val <- df$modified_sahm[i]
+      prev_val <- df$modified_sahm[i - 1]
+      current_date <- df$date[i]
+      if (is.na(current_val) || is.na(prev_val)) next
+      if (!in_episode && current_val > threshold) {
+        in_episode <- TRUE; peak_val <- current_val; peak_date <- current_date
+      } else if (in_episode) {
+        if (current_val > peak_val) { peak_val <- current_val; peak_date <- current_date }
+        if (current_val <= threshold) {
+          peaks[[length(peaks) + 1]] <- data.frame(date = peak_date, modified_sahm = peak_val)
+          in_episode <- FALSE; peak_val <- -Inf; peak_date <- NA
+        }
+      }
+    }
+    if (in_episode) {
+      peaks[[length(peaks) + 1]] <- data.frame(date = peak_date, modified_sahm = peak_val)
+    }
+    if (length(peaks) == 0) {
+      return(data.frame(date = as.Date(character()), modified_sahm = numeric()))
+    }
+    return(bind_rows(peaks))
+  }
+
+  # ANALYSIS OBJECTS
+  sahm_starts <- df %>%
+    arrange(date) %>%
+    mutate(trigger = sahm_binary == 1 & lag(sahm_binary, default = 0) == 0) %>%
+    filter(trigger) %>%
+    select(date)
+
+  first_trigger <- min(sahm_starts$date, na.rm = TRUE)
+
+  recession_starts <- df %>%
+    filter(date >= first_trigger - months(3)) %>%
+    mutate(start = recession == 1 & lag(recession, default = 0) == 0) %>%
+    filter(start) %>%
+    pull(date)
+
+  committee_starts <- as.Date(c("06/08/20", "12/01/08", "11/26/01", "04/25/91", "01/06/82", "06/03/80"), format = "%m/%d/%y")
+
+  accuracy <- mean(sapply(sahm_starts$date, function(d) {
+    any(abs(difftime(recession_starts, d, units = "days")) <= params$accuracy_time_range)
+  })) * 100
+
+  lead_lag <- sapply(sahm_starts$date, function(d) {
+    nearby <- recession_starts[abs(difftime(recession_starts, d, units = "days")) <= params$accuracy_time_range]
+    if (length(nearby) == 0) return(0)
+    min(as.numeric(difftime(nearby, d, units = "days")))
+  })
+
+  committee_diff <- sapply(sahm_starts$date, function(d) {
+    nearby <- committee_starts[abs(difftime(committee_starts, d, units = "days")) <= params$committee_time_range]
+    if (length(nearby) == 0) return(NA)
+    min(as.numeric(difftime(nearby, d, units = "days")))
+  })
+
+  recession_periods <- df %>%
+    filter(date >= as.Date(params$start_date)) %>%
+    mutate(
+      recession_start = (recession == 1 & lag(recession, default = 0) == 0),
+      recession_end = (recession == 0 & lag(recession, default = 1) == 1)
+    ) %>%
+    filter(recession_start | recession_end) %>%
+    mutate(period = cumsum(recession_start)) %>%
+    group_by(period) %>%
+    summarize(start = min(date), end = max(date)) %>%
+    ungroup()
+
+  sahm_peaks <- detect_all_sahm_peaks(df)
+
+  # CREATE GRAPH
+  graph <- ggplot(df, aes(x = date, y = modified_sahm_plot)) +
+    geom_rect(data = recession_periods,
+              aes(xmin = start, xmax = end, ymin = -Inf, ymax = Inf),
+              fill = "grey90", alpha = 0.3, inherit.aes = FALSE) +
+    geom_hline(yintercept = 0.5, linetype = "solid", color = "grey80", size = 0.3) +
+    geom_line(color = "#6baed6", size = 0.7) +
+    labs(
+      title = paste("The", params$title_output, "Sahm Rule"),
+      subtitle = paste(params$base, "Base and", params$relative, 
+                       "Relative Measures Compared Using the Sahm Rule\n",
+                       "Shown with Reference Lines and Recessions\n",
+                       "Data from", format(as.Date(params$start_date), "%Y"), "to Present."),
+      y = "Recession Indicator",
+      x = "Date",
+      caption = "\nSource: Claudia Sahm, BLS\nAuthor: Mark G. Sheppard"
+    ) +
+    theme_minimal(base_size = 16) +
+    theme(
+      plot.title = element_text(face = "bold", size = 13, hjust = 0),
+      plot.subtitle = element_text(size = 7, color = "darkgrey", hjust = 0),
+      plot.caption = element_text(size = 6.5, color = "darkgrey", hjust = 0),
+      axis.title.y = element_text(size = 8, color = "grey60"),
+      axis.title.x = element_blank(),
+      axis.text.x = element_text(size = 8, color = "grey40"),
+      axis.text.y = element_text(size = 8, color = "grey40"),
+      panel.grid.major.y = element_line(linetype = "dotted", color = "grey90", linewidth = params$alpha_threshold),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor = element_blank(),
+      legend.position = "none"
+    ) +
+    annotate("label", x = as.Date(params$start_date) %m+% months(6), y = params$alpha_threshold + 0.4, 
+             label = "↑ Recession     ", color = "grey20", size = 2.4, fill = "white", alpha = 0.5,
+             label.size = NA, face = "bold", hjust = 0) +
+    annotate("label", x = as.Date(params$start_date) %m+% months(6), y = params$alpha_threshold - 0.3, 
+             label = "↓ Non-Recession", color = "grey20", size = 2.4, fill = "white", alpha = 0.5,
+             label.size = NA, face = "bold", hjust = 0) +
+    scale_x_date(
+      limits = c(as.Date(params$start_date), lubridate::floor_date(Sys.Date(), "month")),
+      date_breaks = "5 years",
+      date_labels = "%Y"
+    ) +
+    scale_y_continuous(breaks = scales::pretty_breaks(n = 4))
+
+  if (params$show_peaks == 1) {
+    graph <- graph + geom_vline(data = sahm_peaks, aes(xintercept = date),
+                                color = "black", linetype = "solid", linewidth = 0.2, alpha = 0.3)
+  }
+
+  if (params$show_sahm_starts == 1) {
+    graph <- graph + geom_vline(data = sahm_starts, aes(xintercept = date),
+                                 color = "black", linetype = "solid", linewidth = 0.2, alpha = 0.3)
+  }
+
+  # RETURN OBJECT
+  list(
+    params = params,
+    df = df,
+    starts = sahm_starts,
+    peaks = sahm_peaks,
+    recession_periods = recession_periods,
+    graph = graph,
+    accuracy_percent = accuracy,
+    lead_lag_summary = list(
+      average_days_leading = mean(lead_lag[lead_lag > 0], na.rm = TRUE),
+      average_days_lagging = mean(lead_lag[lead_lag < 0], na.rm = TRUE),
+      overall_average_days = mean(lead_lag, na.rm = TRUE)
+    ),
+    committee_summary = list(
+      overall_average_days = mean(committee_diff, na.rm = TRUE)
+    )
+  )
+})()
+
+cat("\014")  # Clear console
+
+# Display the graph
+sahm$graph
+
+# Show summary message
+invisible({
+  message(
+    "\nThis specification of the ", sahm$params$title_output, " Sahm Rule uses:\n",
+    "- Base Dataset: ", sahm$params$base, "\n",
+    "- Relative Dataset: ", sahm$params$relative, "\n",
+    "- ", sahm$params$k, "-month smoothing for base\n",
+    "- ", sahm$params$m, "-month smoothing for relative\n",
+    "- Alpha threshold: ", sahm$params$alpha_threshold, "\n",
+    "- Time window (min rolling): ", sahm$params$time_amount, " months\n",
+    "- Seasonal adjustment: ", ifelse(sahm$params$seasonal == 1, "ON", "OFF"), "\n",
+    "- Natural rate floor: ", ifelse(sahm$params$suppress_natural_rate == 1, 
+                                      paste0("ENABLED at ", sahm$params$natural_rate, "%"), "OFF"), "\n",
+    "- COVID spike reduction (Strictly Visual): ", ifelse(sahm$params$reduce_COVID == 1, "APPLIED", "NOT applied"), "\n",
+    "- Preceding window for Minimum: ", ifelse(sahm$params$preceding == 1, "YES (uses lagged window)", "NO (uses full window, with current period)"), "\n",
+    "- Shown with Start of Recession: ", ifelse(sahm$params$show_sahm_starts == 1, "True", "False"), "\n",
+    "- Shown with End of Recession: ", ifelse(sahm$params$show_peaks == 1, "True", "False"), "\n",
+    "- Data starting from: ", format(as.Date(sahm$params$start_date), "%Y"), " to present", "\n",
+    "\nResults:\n",
+    " Recession Lead Time: ", round(sahm$lead_lag_summary$overall_average_days), " Days\n",
+    " Committee Lead Time: ", round(sahm$committee_summary$overall_average_days), " Days\n",
+    " Accuracy: ", round(sahm$accuracy_percent, 1), " %")})
+```
+
