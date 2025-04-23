@@ -15,9 +15,14 @@ body {
   outline: none !important;
 }
 
-.row.slim > div {
-  padding-left: 7.5px;
-  padding-right: 7.5px;
+.row.gap-1 {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.row.gap-1 > div {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 #sahm_chart {
@@ -34,7 +39,13 @@ body {
 .title {
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0rem 0rem 2rem 0rem;
+  padding: 0rem 0rem 1rem 0rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #888888;
+  font-weight: 500;
 }
 
 @media (max-width: 992px) {
@@ -86,12 +97,12 @@ body {
 
 .stat-box {
   display: grid;
-  grid-template-rows: 24px auto auto;
+  grid-template-rows: 45px auto auto;
   gap: 5px;
 }
 
 .stat-box.rows-2 {
-  grid-template-rows: 24px auto;
+  grid-template-rows: 45px auto;
 }
 
 input.form-control,

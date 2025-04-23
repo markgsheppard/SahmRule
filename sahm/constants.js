@@ -1,6 +1,6 @@
 // Statistics constants
-export const accuracy_time_range = 200
-export const committee_time_range = 250
+export const accuracy_time_range = 7 * 30
+export const committee_time_range = 8 * 30
 export const committee_starts = [
 	new Date('2020-06-08'),
 	new Date('2008-12-01'),
