@@ -13,14 +13,16 @@ const getRandomId = () => {
 }
 
 const defaultSettings = {
-	base: 'UNRATE', // Base dataset
-	relative: 'UNRATE', // Relative dataset
-	recession: 'USREC', // Recession dataset. Shared across all lines
-	k: 3, // Base (Minued)
-	m: 3, // Relative (Subtrahend)
-	time_period: 13, // Time period
-	seasonal: false, // Seasonal adjustment
-	alpha_threshold: 0.5 // Alpha threshold. Shared across all lines
+	base: 'UNRATE', 			// Base series used for Sahm Rule signal (default: U3 unemployment rate)
+	relative: 'UNRATE', 	// Comparison series to compute relative increase (can be same as base or broader like U6)
+	recession: 'USREC', 	// Recession dataset. !!! Shared across all lines !!!
+	k: 3, 								// Smoothing window (months) for the base unemployment series (e.g., U3)
+	m: 3, 								// Smoothing window (months) for the relative comparison series (e.g., U6)
+	time_period: 12, 			// Rolling minimum window size (months) for the relative comparison
+	seasonal: false, 			// Toggle for seasonal adjustment (1 = adjust, 0 = leave raw)
+	alpha_threshold: 0.5, // Threshold increase (in percentage points) that triggers a recession signal. !!! Shared across all lines !!!
+	natural_rate: 0, 			// Natural rate of unemployment to enforce as lower bound
+	preceding: false 			// Use lagged (preceding) window for rolling minimum calculation (1 = yes, 0 = no)
 }
 
 class SahmRuleDashboard {
@@ -98,7 +100,9 @@ class SahmRuleDashboard {
 			config.k,
 			config.m,
 			config.time_period,
-			config.seasonal
+			config.seasonal,
+			config.natural_rate,
+			config.preceding
 		)
 
 		config.computed_data = computed_data
@@ -187,15 +191,18 @@ class SahmRuleDashboard {
 		this.updateSliderLabel('#m-slider', config.m)
 		this.updateSliderLabel('#time-period-slider', config.time_period)
 		this.updateSliderLabel('#alpha-slider', config.alpha_threshold)
+		this.updateSliderLabel('#natural-rate-slider', config.natural_rate)
 
 		// Update slider values
 		this.updateElementValue('#k-slider', config.k)
 		this.updateElementValue('#m-slider', config.m)
 		this.updateElementValue('#time-period-slider', config.time_period)
 		this.updateElementValue('#alpha-slider', config.alpha_threshold)
+		this.updateElementValue('#natural-rate-slider', config.natural_rate)
 
 		// Update other form controls
 		this.updateCheckbox('#seasonal-checkbox', config.seasonal)
+		this.updateCheckbox('#preceding-checkbox', config.preceding)
 		this.updateElementValue('#base-select', config.base)
 		this.updateElementValue('#relative-select', config.relative)
 		this.updateElementValue('#recession-select', config.recession)
@@ -300,7 +307,7 @@ class SahmRuleDashboard {
 		})
 
 		this.listenForChanges('#alpha-slider', value => {
-			this.alpha_threshold = value
+			this.alpha_threshold = parseFloat(value)
 
 			const config = this.lineConfigs.find(l => l.id === this.currentLineId)
 
@@ -313,8 +320,16 @@ class SahmRuleDashboard {
 			this.chart.updateThreshold(value)
 		})
 
+		this.listenForChanges('#natural-rate-slider', value => {
+			this.updateCurrentLine('natural_rate', parseFloat(value))
+		})
+
 		this.listenForChanges('#seasonal-checkbox', (value, e) => {
 			this.updateCurrentLine('seasonal', e.target.checked)
+		})
+
+		this.listenForChanges('#preceding-checkbox', (value, e) => {
+			this.updateCurrentLine('preceding', e.target.checked)
 		})
 
 		// Set up button handlers
@@ -345,6 +360,10 @@ class SahmRuleDashboard {
 
 		this.listenForLiveChanges('#alpha-slider', value => {
 			this.updateSliderLabel('#alpha-slider', value)
+		})
+
+		this.listenForLiveChanges('#natural-rate-slider', value => {
+			this.updateSliderLabel('#natural-rate-slider', value)
 		})
 	}
 

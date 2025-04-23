@@ -7,22 +7,29 @@ export function compute_sahm_rule(
 	k = 3,
 	m = 3,
 	time_period = 13,
-	seasonal = false
+	seasonal = false,
+	natural_rate = 0,
+	preceding = false,
 ) {
 	const n = base_data.length
 	const base = new Float64Array(n).fill(0)
 	const relative = new Float64Array(n).fill(0)
 	const field = seasonal ? 'deseasonalized_value' : 'value'
+	const suppress_natural_rate = natural_rate > 0
 
 	for (let i = 0; i < n; i++) {
-		base[i] = +base_data[i][field]
-		relative[i] = +relative_data[i][field]
+		base[i] = suppress_natural_rate ? Math.max(natural_rate, +base_data[i][field]) : +base_data[i][field]
+		relative[i] = suppress_natural_rate ? Math.max(natural_rate, +relative_data[i][field]) : +relative_data[i][field]
 	}
 
 	const base_k_mo_avg = movingAverage(base, k)
 	const relative_m_mo_avg = movingAverage(relative, m)
+	
+	// Apply lag if preceding is true
+	const data_for_min = preceding ? lag(relative_m_mo_avg) : relative_m_mo_avg
+	
 	const relative_m_mo_min_time_period = rollingMin(
-		relative_m_mo_avg,
+		data_for_min,
 		time_period
 	)
 
@@ -195,6 +202,15 @@ function rollingMin(values, N) {
 	}
 
 	return mins
+}
+
+// Function to lag a series by one period (similar to R's lag function)
+function lag(values) {
+	const lagged = new Float64Array(values.length).fill(NaN)
+	for (let i = 1; i < values.length; i++) {
+		lagged[i] = values[i - 1]
+	}
+	return lagged
 }
 
 export function computeStats(computed_data, recession_data, alpha_threshold = 0.5) {

@@ -53,12 +53,18 @@
   <main class="container">
     <div>
       <h2>Modified Sahm Rule</h2>
+      <div class="subtitle">
+        Interactive Tool Version 2.2 Beta | Last updated: 14 April 2025
+      </div>
+      <div class="subtitle">
+        Show with Recessions, Data from 1948 to Present
+      </div>
     </div>
     <hr />
     <div class="row">
       <div class="col-md-3 col-sm-12 lg:border-right">
         <div class="title">Results</div>
-        <div class="row slim">
+        <div class="row gap-1">
           <div class="col-sm-4">
             <div class="stat-box">
               <div class="stat-label">Advance of Committee</div>
@@ -86,9 +92,9 @@
         </div>
       </div>
 
-      <div class="col-md-3 col-sm-12">
+      <div class="col-md-3 col-sm-12 lg:border-right">
         <div class="title">Modifications</div>
-        <div class="row">
+        <div class="row gap-1">
           <div class="col-sm-4">
             <div class="stat-box rows-2">
               <div class="stat-label">Base <br /> <span class="text-muted text-small">(Minuend)</span></div>
@@ -111,89 +117,91 @@
         </div>
       </div>
 
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md-3 col-sm-12 lg:border-right">
         <div class="title">Smoothing Level</div>
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="stat-box rows-2">
-                  <div class="stat-label">
-                    Base <br />
-                    <span class="text-muted text-small">(Minuend)</span>
-                  </div>
-                  <div class="slider-container">
-                    <span class="slider-value"></span>
-                    <input type="range" min="1" max="24" step="1" value="3" class="form-control" id="k-slider">
-                  </div>
-                </div>
+        <div class="row gap-1">
+          <div class="col-sm-4">
+            <div class="stat-box rows-2">
+              <div class="stat-label">
+                Base <br />
+                <span class="text-muted text-small">(Minuend)</span>
               </div>
-              <div class="col-sm-4">
-                <div class="stat-box rows-2">
-                  <div class="stat-label">Relative <br />
-                    <span class="text-muted text-small">(Subtrahend)</span>
-                  </div>
-                  <div class="slider-container">
-                    <span class="slider-value"></span>
-                    <input type="range" min="1" max="24" step="1" value="12" class="form-control" id="m-slider">
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="stat-box rows-2">
-                  <div class="stat-label">Time Period <br /> <span class="text-muted text-small">(Minimum)</span></div>
-                  <div class="slider-container">
-                    <span class="slider-value"></span>
-                    <input type="range" min="3" max="60" step="1" value="13" class="form-control"
-                      id="time-period-slider">
-                  </div>
-                </div>
+              <div class="slider-container">
+                <span class="slider-value"></span>
+                <input type="range" min="1" max="24" step="1" value="3" class="form-control" id="k-slider">
               </div>
             </div>
           </div>
           <div class="col-sm-4">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="stat-box rows-2">
-                  <div class="stat-label">Seasonal <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
-                  </div>
-                  <div class="checkbox-container">
-                    <input type="checkbox" id="seasonal-checkbox">
-                  </div>
-                </div>
+            <div class="stat-box rows-2">
+              <div class="stat-label">Relative <br />
+                <span class="text-muted text-small">(Subtrahend)</span>
               </div>
-              <div class="col-sm-6">
-                <div class="stat-box rows-2">
-                  <div class="stat-label">Threshold <br /> <span class="text-muted text-small">(Alpha)</span></div>
-                  <div class="slider-container">
-                    <span class="slider-value"></span>
-                    <input type="range" min="0" max="3" step="0.1" value="0.5" class="form-control" id="alpha-slider">
-                  </div>
-                </div>
+              <div class="slider-container">
+                <span class="slider-value"></span>
+                <input type="range" min="1" max="24" step="1" value="12" class="form-control" id="m-slider">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Time Period <br /> <span class="text-muted text-small">(Minimum)</span></div>
+              <div class="slider-container">
+                <span class="slider-value"></span>
+                <input type="range" min="3" max="60" step="1" value="12" class="form-control" id="time-period-slider">
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="col-md-3 col-sm-12">
+        <div class="title">Adjustments</div>
+        <div class="row gap-1">
+          <div class="col-sm-3">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Seasonal <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" id="seasonal-checkbox">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Threshold <br /> <span class="text-muted text-small">(Alpha)</span></div>
+              <div class="slider-container">
+                <span class="slider-value"></span>
+                <input type="range" min="0" max="3" step="0.1" value="0.5" class="form-control" id="alpha-slider">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="stat-box rows-2">
+              <div class="stat-label">Natural Rate</div>
+              <div class="slider-container">
+                <span class="slider-value"></span>
+                <input type="range" min="0" max="7" step="0.1" value="0" class="form-control" id="natural-rate-slider">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="stat-box rows-2">
+              <div class="stat-label">
+                preceding <br /> <span class="text-muted text-small"> &ZeroWidthSpace; </span>
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" id="preceding-checkbox">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <hr />
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <div class="v">
-          <div class="title" style="padding-bottom: 10px;">The modified Sahm Recession Indicator.</div>
-          <div class="subtitle">
-            Show with Reference Lines and Recessions.
-          </div>
-          <div class="subtitle">
-            Data from 1965 to Present.
-          </div>
-          <div class="subtitle">
-            Interactive Tool Version 1.1 Beta.
-          </div>
-          <div class="subtitle">
-            Last updated: 13 February 2025.
-          </div>
-        </div>
       </div>
       <div class="col-sm-12 col-md-6">
         <div class="control-buttons">
