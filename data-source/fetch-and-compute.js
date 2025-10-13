@@ -17,9 +17,11 @@ const config = {
 	},
 	data: {
 		startDate: '1990-01-01',
-		maxCounties: 10 // Set to number to limit processing, null for all
+		chunkRowSize: 100000,
+		maxCounties: null // Set to number to limit processing, null for all
 	}
 }
+
 
 // Validate configuration
 if (!config.fred.apiKey) {
@@ -160,7 +162,11 @@ async function main() {
 				.map(d => [new Date(d.date), parseInt(d.value)])
 		)
 
+
 		const aggregatedData = []
+
+		let chunkCounter = 0;
+		let timeSeriesData = []
 
 		// Filter counties with valid SeriesId and apply limit if configured
 		const validCounties = counties.filter(county => county.SeriesId && county.SeriesId.trim())
@@ -180,8 +186,6 @@ async function main() {
 			if (result.computedData && result.baseData) {
 				// 1. Store county,date,unemployment_rate,sahm_value into a separate file with [county.SeriesId].csv file name
 
-				const timeSeriesData = []
-
 				// Process time series data
 				for (let j = 0; j < result.computedData.length; j++) {
 					const sahmValue = result.computedData[j].value
@@ -196,7 +200,12 @@ async function main() {
 					})
 				}
 
-				await writeTimeSeriesFile(timeSeriesData, county.SeriesId);
+				if (timeSeriesData.length >= config.data.chunkRowSize) {
+					chunkCounter++;
+					await writeTimeSeriesFile(timeSeriesData, chunkCounter);
+					timeSeriesData = [];
+				}
+
 
 				// Compute statistics
 				const stats = computeStats(
@@ -223,6 +232,14 @@ async function main() {
 
 		// Write output files
 		await writeAggregatedDataFile(aggregatedData)
+
+		if (timeSeriesData.length) {
+			chunkCounter++;
+			await writeTimeSeriesFile(timeSeriesData, chunkCounter);
+			timeSeriesData = [];
+		}
+
+		await writeTotalChunksFile(chunkCounter);
 		
 		console.log('\n✓ Sahm Rule computation completed successfully!')
 		// console.log(`- Processed ${timeSeriesData.length} time series records`)
@@ -234,17 +251,26 @@ async function main() {
 	}
 }
 
-async function writeTimeSeriesFile(timeSeriesData, seriesId) {
-	// Ensure output directory exists
-	const outputDir = path.resolve('./data-source/computed')
-	await fs.promises.mkdir(outputDir, { recursive: true })
+async function writeTimeSeriesFile(timeSeriesData, chunkCounter) {
+	// // Ensure output directory exists
+	// const outputDir = path.resolve('./data-source/computed')
+	// await fs.promises.mkdir(outputDir, { recursive: true })
 
 	// Write time series data
 	const timeSeriesHeader = 'county,date,unemployment_rate,sahm_value'
 	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
-	const timeSeriesFile = path.join(outputDir, `${seriesId}.csv`)
+	const timeSeriesFile = path.join(outputDir, `chunk-${chunkCounter}.csv`)
 	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
 	console.log(`✓ Written time series data to ${timeSeriesFile}`)
+}
+
+async function writeTotalChunksFile(totalChunks) {
+	// // Ensure output directory exists
+	// const outputDir = path.resolve('./data-source/computed')
+	// await fs.promises.mkdir(outputDir, { recursive: true })
+
+	const totalChunksFile = path.join(outputDir, `total-chunks.csv`)
+	await fs.promises.writeFile(totalChunksFile, `total_chunks\n${totalChunks}`)
 }
 
 /**
@@ -254,18 +280,9 @@ async function writeTimeSeriesFile(timeSeriesData, seriesId) {
  */
 async function writeAggregatedDataFile(aggregatedData) {
 	try {
-		// Ensure output directory exists
-		const outputDir = path.resolve('./data-source/computed')
-		await fs.promises.mkdir(outputDir, { recursive: true })
-
-		// if (timeSeriesData) {
-		// 	// Write time series data
-		// 	const timeSeriesHeader = 'county,date,unemployment_rate,sahm_value'
-		// 	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
-		// 	const timeSeriesFile = path.join(outputDir, 'map-data-time-series.csv')
-		// 	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
-		// 	console.log(`✓ Written time series data to ${timeSeriesFile}`)
-		// }
+		// // Ensure output directory exists
+		// const outputDir = path.resolve('./data-source/computed')
+		// await fs.promises.mkdir(outputDir, { recursive: true })
 
 		// Write aggregated data
 		const aggregatedHeader = 'county,series_id,accuracy,recession_lead_time,committee_lead_time'

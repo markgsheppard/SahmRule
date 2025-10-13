@@ -3,13 +3,27 @@ import renderScrubber from './render-scrubber.js'
 
 const timeFormat = d3.timeFormat("%b %Y")
 
+async function loadFilesInBatches(totalChunks, batchSize = 10) {
+  const results = [];
+
+	const chunks = Array.from({ length: totalChunks }).map((_, i) => i + 1);
+	
+  for (let i = 0; i < chunks.length; i += batchSize) {
+    const batch = chunks.slice(i, i + batchSize);
+    const batchResults = await Promise.all(batch.map(d => 
+      d3.csv(`./data-source/computed/chunk-${d}.csv`, d3.autoType).catch(() => [])
+    ));
+    results.push(...batchResults);
+  }
+  return results;
+}
+
 class CountiesViz {
 	constructor() {
 		this.map = null
 		this.metric = 'sahm_value'
 		this.currentDate = null
 		this.slider = null
-		// this.timeSeriesData = null
 		this.aggregatedData = null
 		this.groupedData = null
 		this.dates = null
@@ -48,23 +62,18 @@ class CountiesViz {
 
 	async loadData() {
 		try {
-			const [counties, aggregatedData, usTopo] = await Promise.all([
-				d3.csv('./data-source/counties.csv', d3.autoType),
+			const [totalChunks, aggregatedData, usTopo] = await Promise.all([
+				d3.csv('./data-source/computed/total-chunks.csv',  d3.autoType),
 				d3.csv('./data-source/computed/map-data-aggregated.csv', d3.autoType),
 				d3.json('./counties-viz/counties-albers-10m.json')
 			]);
 
-			const allCounties = await Promise.all(counties.map(d => {
-				return d3.csv(`./data-source/computed/${d.SeriesId}.csv`, d3.autoType).catch(() => [])
-			}))
-
-			const timeSeriesData = allCounties.flat();
-
-			// this.timeSeriesData = timeSeriesData
 			this.aggregatedData = aggregatedData
 
+			const timeSeriesData = await loadFilesInBatches(+totalChunks[0].total_chunks)
+
 			// Group time series data by date
-			this.groupedData = d3.rollup(timeSeriesData, counties => new Map(
+			this.groupedData = d3.rollup(timeSeriesData.flat(), counties => new Map(
 				counties.map(d => {
 					return [this.normalizeCountyName(d.county), d]
 				})
@@ -72,9 +81,6 @@ class CountiesViz {
 			
 			// Create dates array for slider
 			this.dates = [...this.groupedData.keys()].sort();
-
-			// Set initial date to first available date
-			this.currentDate = this.dates[0];
 
 			// Process geographic data
 			this.processGeographicData(usTopo)
@@ -130,6 +136,8 @@ class CountiesViz {
 	initializeSlider() {
 		const sliderContainer = document.querySelector('#countries-viz-slider')
 		sliderContainer.innerHTML = ''
+
+		this.currentDate = this.dates[0];
 
 		renderScrubber({
 			el: sliderContainer,
@@ -195,6 +203,7 @@ class CountiesViz {
 					this.countiesFeatures,
 					Plot.centroid({
 						fill: d => {
+							// TODO: we need to lookup by series id because county names are not unique in the USA 
 							const county = countiesData.get(d.properties.name)
 							if (!county) {
 								console.log('missing', d.properties.name)
