@@ -48,11 +48,17 @@ class CountiesViz {
 
 	async loadData() {
 		try {
-			const [timeSeriesData, aggregatedData, usTopo] = await Promise.all([
-				d3.csv('./data-source/computed/map-data-time-series.csv', d3.autoType),
+			const [counties, aggregatedData, usTopo] = await Promise.all([
+				d3.csv('./data-source/counties.csv', d3.autoType),
 				d3.csv('./data-source/computed/map-data-aggregated.csv', d3.autoType),
 				d3.json('./counties-viz/counties-albers-10m.json')
 			]);
+
+			const allCounties = await Promise.all(counties.map(d => {
+				return d3.csv(`./data-source/computed/${d.SeriesId}.csv`, d3.autoType).catch(() => [])
+			}))
+
+			const timeSeriesData = allCounties.flat();
 
 			// this.timeSeriesData = timeSeriesData
 			this.aggregatedData = aggregatedData
@@ -63,7 +69,7 @@ class CountiesViz {
 					return [this.normalizeCountyName(d.county), d]
 				})
 			), d => d.date);
-
+			
 			// Create dates array for slider
 			this.dates = [...this.groupedData.keys()].sort();
 

@@ -17,7 +17,7 @@ const config = {
 	},
 	data: {
 		startDate: '1990-01-01',
-		maxCounties: null // Set to number to limit processing, null for all
+		maxCounties: 10 // Set to number to limit processing, null for all
 	}
 }
 
@@ -160,7 +160,6 @@ async function main() {
 				.map(d => [new Date(d.date), parseInt(d.value)])
 		)
 
-		const timeSeriesData = []
 		const aggregatedData = []
 
 		// Filter counties with valid SeriesId and apply limit if configured
@@ -179,6 +178,10 @@ async function main() {
 			const result = await fetchAndComputeSahm(county.SeriesId)
 
 			if (result.computedData && result.baseData) {
+				// 1. Store county,date,unemployment_rate,sahm_value into a separate file with [county.SeriesId].csv file name
+
+				const timeSeriesData = []
+
 				// Process time series data
 				for (let j = 0; j < result.computedData.length; j++) {
 					const sahmValue = result.computedData[j].value
@@ -186,12 +189,14 @@ async function main() {
 					const date = result.computedData[j].date.toISOString()
 
 					timeSeriesData.push({
-						...county,
+						county: county.County,
 						date,
 						unemployment_rate: unemploymentRate,
 						sahm_value: sahmValue,
 					})
 				}
+
+				await writeTimeSeriesFile(timeSeriesData, county.SeriesId);
 
 				// Compute statistics
 				const stats = computeStats(
@@ -217,11 +222,11 @@ async function main() {
 		}
 
 		// Write output files
-		await writeOutputFiles(timeSeriesData, aggregatedData)
+		await writeAggregatedDataFile(aggregatedData)
 		
 		console.log('\n✓ Sahm Rule computation completed successfully!')
-		console.log(`- Processed ${timeSeriesData.length} time series records`)
-		console.log(`- Generated statistics for ${aggregatedData.length} counties`)
+		// console.log(`- Processed ${timeSeriesData.length} time series records`)
+		// console.log(`- Generated statistics for ${aggregatedData.length} counties`)
 		
 	} catch (error) {
 		console.error('Fatal error in main function:', error.message)
@@ -229,23 +234,38 @@ async function main() {
 	}
 }
 
+async function writeTimeSeriesFile(timeSeriesData, seriesId) {
+	// Ensure output directory exists
+	const outputDir = path.resolve('./data-source/computed')
+	await fs.promises.mkdir(outputDir, { recursive: true })
+
+	// Write time series data
+	const timeSeriesHeader = 'county,date,unemployment_rate,sahm_value'
+	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
+	const timeSeriesFile = path.join(outputDir, `${seriesId}.csv`)
+	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
+	console.log(`✓ Written time series data to ${timeSeriesFile}`)
+}
+
 /**
  * Writes the computed data to CSV files
  * @param {Array} timeSeriesData - Time series data array
  * @param {Array} aggregatedData - Aggregated statistics data array
  */
-async function writeOutputFiles(timeSeriesData, aggregatedData) {
+async function writeAggregatedDataFile(aggregatedData) {
 	try {
 		// Ensure output directory exists
 		const outputDir = path.resolve('./data-source/computed')
 		await fs.promises.mkdir(outputDir, { recursive: true })
 
-		// Write time series data
-		const timeSeriesHeader = 'county,date,series_id,unemployment_rate,sahm_value'
-		const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
-		const timeSeriesFile = path.join(outputDir, 'map-data-time-series.csv')
-		await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
-		console.log(`✓ Written time series data to ${timeSeriesFile}`)
+		// if (timeSeriesData) {
+		// 	// Write time series data
+		// 	const timeSeriesHeader = 'county,date,unemployment_rate,sahm_value'
+		// 	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
+		// 	const timeSeriesFile = path.join(outputDir, 'map-data-time-series.csv')
+		// 	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
+		// 	console.log(`✓ Written time series data to ${timeSeriesFile}`)
+		// }
 
 		// Write aggregated data
 		const aggregatedHeader = 'county,series_id,accuracy,recession_lead_time,committee_lead_time'
@@ -253,6 +273,7 @@ async function writeOutputFiles(timeSeriesData, aggregatedData) {
 		const aggregatedFile = path.join(outputDir, 'map-data-aggregated.csv')
 		await fs.promises.writeFile(aggregatedFile, `${aggregatedHeader}\n${aggregatedBody}`)
 		console.log(`✓ Written aggregated data to ${aggregatedFile}`)
+
 		
 	} catch (error) {
 		console.error('Error writing output files:', error.message)
@@ -325,7 +346,7 @@ function arrayToCSV(data, fields) {
  * @returns {string} CSV formatted string
  */
 function getTimeSeriesCSV(data) {
-	const fields = ['County', 'date', 'SeriesId', 'unemployment_rate', 'sahm_value']
+	const fields = ['county', 'date', 'unemployment_rate', 'sahm_value']
 	return arrayToCSV(data, fields)
 }
 
