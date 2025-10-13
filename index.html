@@ -64,6 +64,7 @@
     }
   </style>
 
+  <link rel="stylesheet" href="counties-viz/counties-viz.css" />
   <script src="https://kit.fontawesome.com/73a8f57229.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -341,13 +342,13 @@ However, this early indication comes with a cost. The same volatility that makes
 
   <div
     style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
-    <main>
+    <main class="counties-viz-main">
       <div style="margin-bottom: 20px; font-family: Arial, sans-serif;">
         <label style="margin-right: 15px; font-weight: normal;">
-          <input type="radio" name="metric" value="current_unemployment_rate"> Unemployment
+          <input type="radio" name="metric" value="unemployment_rate"> Unemployment
         </label>
         <label style="margin-right: 15px; font-weight: normal;">
-          <input type="radio" name="metric" value="last_sahm_value" checked> Outlook
+          <input type="radio" name="metric" value="sahm_value" checked> Outlook
         </label>
         <label style="margin-right: 15px; font-weight: normal;">
           <input type="radio" name="metric" value="accuracy"> Accuracy
@@ -356,6 +357,7 @@ However, this early indication comes with a cost. The same volatility that makes
           <input type="radio" name="metric" value="committee_lead_time"> Advance
         </label>
       </div>
+      <div id="countries-viz-slider" style="display: none;"></div>
       <div id="counties-viz"></div>
     </main>
   </div>
@@ -427,6 +429,8 @@ However, this early indication comes with a cost. The same volatility that makes
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/scrub-slider@1.0.0/dist/scrub-slider.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scrub-slider@1.0.0/dist/scrub-slider.min.css">
 
   <script type="module">
     // Initialize the CountiesViz

@@ -1,22 +1,33 @@
 import * as Plot from 'https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm'
+import renderScrubber from './render-scrubber.js'
+
+const timeFormat = d3.timeFormat("%b %Y")
 
 class CountiesViz {
 	constructor() {
 		this.map = null
-		this.metric = 'last_sahm_value'
+		this.metric = 'sahm_value'
+		this.currentDate = null
+		this.slider = null
+		// this.timeSeriesData = null
+		this.aggregatedData = null
+		this.groupedData = null
+		this.dates = null
 
 		this.metricsConfig = {
-			current_unemployment_rate: {
+			unemployment_rate: {
 				domain: [2, 4, 6, 8, 10],
 				range: d3.schemeBlues[9].slice(3, 9),
 				tickFormat: d => d + '%',
-				label: 'Unemployment'
+				label: 'Unemployment',
+				timeSeries: true
 			},
-			last_sahm_value: {
+			sahm_value: {
 				domain: [0.25, 0.5, 0.75, 1, 1.25, 1.5],
 				range: d3.schemeBlues[9].slice(2, 9),
 				tickFormat: d => d,
-				label: 'Outlook'
+				label: 'Outlook',
+				timeSeries: true
 			},
 			accuracy: {
 				domain: [0, 5, 10, 15, 20],
@@ -36,40 +47,43 @@ class CountiesViz {
 	}
 
 	async loadData() {
-		const [counties, usTopo] = await Promise.all([
-			d3.csv('./data-source/computed/map-data.csv', d3.autoType),
-			d3.json('./counties-viz/counties-albers-10m.json')
-		])
+		try {
+			const [timeSeriesData, aggregatedData, usTopo] = await Promise.all([
+				d3.csv('./data-source/computed/map-data-time-series.csv', d3.autoType),
+				d3.csv('./data-source/computed/map-data-aggregated.csv', d3.autoType),
+				d3.json('./counties-viz/counties-albers-10m.json')
+			]);
 
-		const countiesFeatures = topojson.feature(usTopo, usTopo.objects.counties)
-		const statesFeatures = topojson.feature(usTopo, usTopo.objects.states)
-		const statemap = new Map(statesFeatures.features.map(d => [d.id, d]))
-		const countiesData = new Map(
-			counties.map(d => {
-				return [this.normalizeCountyName(d.county), d]
-			})
-		)
-		const accuracyExtent = d3.extent(counties, d => d.accuracy)
-		const last_sahm_value_extent = d3.extent(counties, d => d.last_sahm_value)
-		const committee_lead_time_extent = d3.extent(
-			counties,
-			d => d.committee_lead_time
-		)
+			// this.timeSeriesData = timeSeriesData
+			this.aggregatedData = aggregatedData
 
-		this.dataset = {
-			countiesFeatures,
-			statesFeatures,
-			countiesData,
-			statemap,
-			metricDomains: {
-				accuracy: accuracyExtent,
-				last_sahm_value: [0, last_sahm_value_extent[1]],
-				committee_lead_time: committee_lead_time_extent
-			}
+			// Group time series data by date
+			this.groupedData = d3.rollup(timeSeriesData, counties => new Map(
+				counties.map(d => {
+					return [this.normalizeCountyName(d.county), d]
+				})
+			), d => d.date);
+
+			// Create dates array for slider
+			this.dates = [...this.groupedData.keys()].sort();
+
+			// Set initial date to first available date
+			this.currentDate = this.dates[0];
+
+			// Process geographic data
+			this.processGeographicData(usTopo)
+
+			this.initControls()
+			this.handleMetricChange()
+		} catch (error) {
+			console.error('Error loading data:', error)
 		}
+	}
 
-		this.initControls()
-		this.drawMap()
+	processGeographicData(usTopo) {
+		this.countiesFeatures = topojson.feature(usTopo, usTopo.objects.counties)
+		this.statesFeatures = topojson.feature(usTopo, usTopo.objects.states)
+		this.statemap = new Map(this.statesFeatures.features.map(d => [d.id, d]))
 	}
 
 	initControls() {
@@ -78,13 +92,86 @@ class CountiesViz {
 			radio.addEventListener('change', e => {
 				if (e.target.checked) {
 					this.metric = e.target.value
-					this.drawMap()
+					this.handleMetricChange()
 				}
 			})
 		})
 	}
 
-	drawMap() {
+	handleMetricChange() {
+		const isTimeSeries = this.metricsConfig[this.metric]?.timeSeries
+		
+		if (isTimeSeries) {
+			this.showSlider()
+			this.initializeSlider()
+		} else {
+			this.hideSlider()
+		}
+		
+		this.updateVisualization()
+	}
+
+	showSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.style.display = 'block'
+	}
+
+	hideSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.style.display = 'none'
+	}
+
+	initializeSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.innerHTML = ''
+
+		renderScrubber({
+			el: sliderContainer,
+			values: this.dates,
+			format: timeFormat,
+			initial: 0,
+			delay: 1000,
+			autoplay: false,
+			onChange: (index) => {
+				const date = this.dates[index];
+				this.currentDate = date;
+				this.updateVisualization();
+			}
+		});
+	}
+
+	getCurrentData() {
+		const isTimeSeries = this.metricsConfig[this.metric]?.timeSeries
+		
+		if (isTimeSeries) {
+			// Get data for current date from time series
+			const dateData = this.groupedData.get(this.currentDate) || new Map()
+			return Array.from(dateData.values())
+		} else {
+			// Use aggregated data for non-time series metrics
+			return this.aggregatedData
+		}
+	}
+
+	updateVisualization() {
+		const currentData = this.getCurrentData()
+		
+		if (!currentData || currentData.length === 0) {
+			console.warn('No data available for current selection')
+			return
+		}
+
+		// Create counties data map
+		const countiesData = new Map(
+			currentData.map(d => {
+				return [this.normalizeCountyName(d.county), d]
+			})
+		)
+
+		this.drawMap(countiesData)
+	}
+
+	drawMap(countiesData) {
 		const map = Plot.plot({
 			width: 975,
 			height: 610,
@@ -99,10 +186,10 @@ class CountiesViz {
 			},
 			marks: [
 				Plot.geo(
-					this.dataset.countiesFeatures,
+					this.countiesFeatures,
 					Plot.centroid({
 						fill: d => {
-							const county = this.dataset.countiesData.get(d.properties.name)
+							const county = countiesData.get(d.properties.name)
 							if (!county) {
 								console.log('missing', d.properties.name)
 							}
@@ -112,13 +199,14 @@ class CountiesViz {
 						channels: {
 							County: d => d.properties.name,
 							State: d =>
-								this.dataset.statemap.get(d.id.slice(0, 2)).properties.name
+								this.statemap.get(d.id.slice(0, 2)).properties.name
 						}
 					})
 				),
-				Plot.geo(this.dataset.statesFeatures, { stroke: 'white' })
+				Plot.geo(this.statesFeatures, { stroke: 'white' })
 			]
 		})
+		
 		const div = document.querySelector('#counties-viz')
 		div.innerHTML = ''
 		div.append(map)

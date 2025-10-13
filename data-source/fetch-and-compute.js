@@ -17,7 +17,7 @@ const config = {
 	},
 	data: {
 		startDate: '1990-01-01',
-		maxCounties: 1 // Set to number to limit processing, null for all
+		maxCounties: null // Set to number to limit processing, null for all
 	}
 }
 
