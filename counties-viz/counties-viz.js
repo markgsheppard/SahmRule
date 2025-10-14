@@ -1,22 +1,58 @@
 import * as Plot from 'https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm'
+import renderScrubber from './render-scrubber.js'
+
+const timeFormat = d3.timeFormat("%b %Y")
+
+const customAutoType = (d) => {
+	const county_id = d.county_id;
+	const autoTyped = d3.autoType(d)
+	return {
+		...autoTyped,
+		county_id
+	}
+}
+
+async function loadFilesInBatches(totalChunks, batchSize = 10) {
+  const results = [];
+
+	const chunks = Array.from({ length: totalChunks }).map((_, i) => i + 1);
+	
+  for (let i = 0; i < chunks.length; i += batchSize) {
+    const batch = chunks.slice(i, i + batchSize);
+    const batchResults = await Promise.all(batch.map(d => 
+      d3.csv(`./data-source/computed/chunk-${d}.csv`, customAutoType).catch(() => [])
+    ));
+    results.push(...batchResults);
+  }
+  return results;
+}
 
 class CountiesViz {
 	constructor() {
 		this.map = null
-		this.metric = 'last_sahm_value'
+		this.metric = 'sahm_value'
+		this.currentDate = null
+		this.slider = null
+		this.aggregatedData = null
+		this.groupedData = null
+		this.dates = null
 
 		this.metricsConfig = {
-			current_unemployment_rate: {
+			unemployment_rate: {
 				domain: [2, 4, 6, 8, 10],
 				range: d3.schemeBlues[9].slice(3, 9),
 				tickFormat: d => d + '%',
-				label: 'Unemployment'
+				label: 'Unemployment',
+				timeSeries: true,
+				startDateIndex: 0
 			},
-			last_sahm_value: {
+			sahm_value: {
 				domain: [0.25, 0.5, 0.75, 1, 1.25, 1.5],
 				range: d3.schemeBlues[9].slice(2, 9),
 				tickFormat: d => d,
-				label: 'Outlook'
+				label: 'Outlook',
+				timeSeries: true,
+				startDateIndex: 13
 			},
 			accuracy: {
 				domain: [0, 5, 10, 15, 20],
@@ -36,40 +72,38 @@ class CountiesViz {
 	}
 
 	async loadData() {
-		const [counties, usTopo] = await Promise.all([
-			d3.csv('./data-source/computed/map-data.csv', d3.autoType),
-			d3.json('./counties-viz/counties-albers-10m.json')
-		])
+		try {
 
-		const countiesFeatures = topojson.feature(usTopo, usTopo.objects.counties)
-		const statesFeatures = topojson.feature(usTopo, usTopo.objects.states)
-		const statemap = new Map(statesFeatures.features.map(d => [d.id, d]))
-		const countiesData = new Map(
-			counties.map(d => {
-				return [this.normalizeCountyName(d.county), d]
-			})
-		)
-		const accuracyExtent = d3.extent(counties, d => d.accuracy)
-		const last_sahm_value_extent = d3.extent(counties, d => d.last_sahm_value)
-		const committee_lead_time_extent = d3.extent(
-			counties,
-			d => d.committee_lead_time
-		)
+			const [totalChunks, aggregatedData, usTopo] = await Promise.all([
+				d3.csv('./data-source/computed/total-chunks.csv',  d3.autoType),
+				d3.csv('./data-source/computed/map-data-aggregated.csv', customAutoType),
+				d3.json('./counties-viz/counties-albers-10m.json')
+			]);
 
-		this.dataset = {
-			countiesFeatures,
-			statesFeatures,
-			countiesData,
-			statemap,
-			metricDomains: {
-				accuracy: accuracyExtent,
-				last_sahm_value: [0, last_sahm_value_extent[1]],
-				committee_lead_time: committee_lead_time_extent
-			}
+			this.aggregatedData = aggregatedData
+			
+			const timeSeriesData = await loadFilesInBatches(+totalChunks[0].total_chunks)
+
+			// Group time series data by date
+			this.groupedData = d3.group(timeSeriesData.flat(), d => d.date);
+
+			// Create dates array for slider
+			this.dates = [...this.groupedData.keys()].sort((a, b) => a - b).slice(1)
+			
+			// Process geographic data
+			this.processGeographicData(usTopo)
+
+			this.initControls()
+			this.handleMetricChange()
+		} catch (error) {
+			console.error('Error loading data:', error)
 		}
+	}
 
-		this.initControls()
-		this.drawMap()
+	processGeographicData(usTopo) {
+		this.countiesFeatures = topojson.feature(usTopo, usTopo.objects.counties)
+		this.statesFeatures = topojson.feature(usTopo, usTopo.objects.states)
+		this.statemap = new Map(this.statesFeatures.features.map(d => [d.id, d]))
 	}
 
 	initControls() {
@@ -78,13 +112,91 @@ class CountiesViz {
 			radio.addEventListener('change', e => {
 				if (e.target.checked) {
 					this.metric = e.target.value
-					this.drawMap()
+					this.handleMetricChange()
 				}
 			})
 		})
 	}
 
-	drawMap() {
+	handleMetricChange() {
+		const isTimeSeries = this.metricsConfig[this.metric]?.timeSeries
+		
+		if (isTimeSeries) {
+			this.showSlider()
+			this.initializeSlider()
+		} else {
+			this.hideSlider()
+		}
+		
+		this.updateVisualization()
+	}
+
+	showSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.style.display = 'block'
+	}
+
+	hideSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.style.display = 'none'
+	}
+
+	initializeSlider() {
+		const sliderContainer = document.querySelector('#countries-viz-slider')
+		sliderContainer.innerHTML = ''
+
+		const config = this.metricsConfig[this.metric]
+		const adjustedDates = this.dates.slice(config.startDateIndex ?? 0);
+
+		this.currentDate = adjustedDates[0];
+
+		renderScrubber({
+			el: sliderContainer,
+			values: adjustedDates,
+			format: timeFormat,
+			initial: 0,
+			delay: 1000,
+			autoplay: false,
+			onChange: (index) => {
+				const date = adjustedDates[index];
+				this.currentDate = date;
+				this.updateVisualization();
+			}
+		});
+	}
+
+	getCurrentData() {
+		const isTimeSeries = this.metricsConfig[this.metric]?.timeSeries
+		
+		if (isTimeSeries) {
+			// Get data for current date from time series
+			const dateData = this.groupedData.get(this.currentDate);
+			return dateData
+		} else {
+			// Use aggregated data for non-time series metrics
+			return this.aggregatedData
+		}
+	}
+
+	updateVisualization() {
+		const currentData = this.getCurrentData()
+		
+		if (!currentData || currentData.length === 0) {
+			console.warn('No data available for current selection')
+			return
+		}
+
+		// Create counties data map
+		const countiesData = new Map(
+			currentData.map(d => {
+				return [d.county_id, d]
+			})
+		)
+
+		this.drawMap(countiesData)
+	}
+
+	drawMap(countiesData) {
 		const map = Plot.plot({
 			width: 975,
 			height: 610,
@@ -99,12 +211,12 @@ class CountiesViz {
 			},
 			marks: [
 				Plot.geo(
-					this.dataset.countiesFeatures,
+					this.countiesFeatures,
 					Plot.centroid({
 						fill: d => {
-							const county = this.dataset.countiesData.get(d.properties.name)
+							const county = countiesData.get(d.id)
 							if (!county) {
-								console.log('missing', d.properties.name)
+								console.log('missing', d.properties.name, "Id", d.id);
 							}
 							return county ? county[this.metric] : null
 						},
@@ -112,13 +224,14 @@ class CountiesViz {
 						channels: {
 							County: d => d.properties.name,
 							State: d =>
-								this.dataset.statemap.get(d.id.slice(0, 2)).properties.name
+								this.statemap.get(d.id.slice(0, 2)).properties.name
 						}
 					})
 				),
-				Plot.geo(this.dataset.statesFeatures, { stroke: 'white' })
+				Plot.geo(this.statesFeatures, { stroke: 'white' })
 			]
 		})
+		
 		const div = document.querySelector('#counties-viz')
 		div.innerHTML = ''
 		div.append(map)

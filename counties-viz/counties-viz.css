@@ -1,0 +1,199 @@
+/* Custom Properties */
+.counties-viz-main {
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #404040;
+  --color-gray-800: #262626;
+  --color-gray-900: #171717;
+  --color-gray-950: #0a0a0a;
+
+  --color-background: var(--color-white);
+  --color-text: var(--color-gray-800);
+  --color-scrubber: var(--color-gray-600);
+  --color-scrubber-hover: var(--color-gray-700);
+  --color-text-muted: var(--color-gray-600);
+  --color-text-hover: var(--color-gray-950);
+  --color-border: var(--color-gray-400);
+
+  /* Typography */
+  --font-family: Arial, sans-serif;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Sizes */
+  --size-00: 1px;
+  --size-0: 2px;
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-7: 28px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-10: 40px;
+  --size-11: 44px;
+  --size-12: 48px;
+
+  /* Others */
+  --map-width: 975px;
+  --max-container-width: 1000px;
+}
+
+
+/* Scrubber */
+.counties-viz-main .scrubber {
+  --scrubber-width: 480px;
+  --color-base: var(--color-scrubber);
+  --color-highlight: var(--color-scrubber-hover);
+  --slider-track-size: var(--size-0);
+  --slider-thumb-size: var(--size-4);
+  --slider-thumb-active-size: var(--size-4);
+
+  width: var(--scrubber-width);
+  display: flex;
+  gap: var(--size-2);
+  align-items: center;
+  color: var(--color-scrubber);
+  margin-block-start: var(--size-4);
+  padding: 15px 0px;
+}
+
+.counties-viz-main .scrubber__button {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  text-transform: uppercase;
+  white-space: nowrap;
+  background-color: transparent;
+  color: var(--color-scrubber);
+  border: none;
+  cursor: pointer;
+  padding: var(--size-1) 0;
+  width: 5em;
+  transition: color 0.1s;
+  display: flex;
+  align-items: center;
+}
+
+.counties-viz-main .scrubber__button:hover,
+.counties-viz-main .scrubber__button:active {
+  color: var(--color-highlight);
+}
+
+.counties-viz-main .scrubber__button__icon {
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+  transition: transform 0.1s;
+}
+
+.counties-viz-main .scrubber__button:hover .scrubber__button__icon,
+.counties-viz-main .scrubber__button:active .scrubber__button__icon {
+  transform: scale(1.05);
+}
+
+.counties-viz-main .scrubber__slider {
+  flex: 1;
+  display: flex;
+  align-content: center;
+  gap: var(--size-2);
+  position: relative;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-base);
+}
+
+.counties-viz-main .scrubber__slider__container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.counties-viz-main .scrubber__slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+.counties-viz-main .scrubber__slider__input::-webkit-slider-runnable-track {
+  background-color: var(--color-base);
+  border-radius: 999px;
+  height: var(--slider-track-size);
+}
+
+.counties-viz-main .scrubber__slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-base);
+  border-radius: 999px;
+  height: var(--slider-thumb-size);
+  width: var(--slider-thumb-size);
+  transform: translateY(calc(-50% + var(--slider-track-size) / 2));
+  transition: background-color 0.1s, transform 0.1s;
+}
+
+.counties-viz-main .scrubber__slider__input::-webkit-slider-thumb:hover,
+.counties-viz-main .scrubber__slider__input::-webkit-slider-thumb:active {
+  background-color: var(--color-highlight);
+  transform: translateY(calc(-50% + var(--slider-track-size) / 2)) scale(1.05);
+}
+
+.counties-viz-main .scrubber__slider__input::-moz-range-track {
+  background-color: var(--color-base);
+  border-radius: 999px;
+  height: var(--slider-track-size);
+}
+
+.counties-viz-main .scrubber__slider__input::-moz-range-thumb {
+  border: 0;
+  background-color: var(--color-base);
+  border-radius: 999px;
+  height: var(--slider-thumb-size);
+  width: var(--slider-thumb-size);
+  transition: background-color 0.1s, transform 0.1s;
+}
+
+.counties-viz-main .scrubber__slider__input::-moz-range-thumb:hover,
+.counties-viz-main .scrubber__slider__input::-moz-range-thumb:active {
+  background-color: var(--color-highlight);
+  transform: scale(1.05);
+}
+
+.counties-viz-main .scrubber__slider__output {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - var(--size-1)));
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  white-space: nowrap;
+  background-color: var(--color-scrubber);
+  color: var(--color-white);
+  border-radius: 4px;
+  padding: 4px;
+}
