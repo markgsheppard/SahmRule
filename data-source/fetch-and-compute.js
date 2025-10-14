@@ -1,6 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const { compute_sahm_rule, computeStats } = require('../sahm/sahm_rule')
+const {
+  readAndParseCsvFile,
+  arrayToCSV
+} = require('./utils');
 
 // Configuration management
 const config = {
@@ -17,11 +21,12 @@ const config = {
 	},
 	data: {
 		startDate: '1990-01-01',
-		chunkRowSize: 100000,
-		maxCounties: null // Set to number to limit processing, null for all
+		chunkRowSize: 150000,
+		maxCounties: 10 // Set to number to limit processing, null for all
 	}
 }
 
+const outputDir = path.resolve('./data-source/computed')
 
 // Validate configuration
 if (!config.fred.apiKey) {
@@ -89,22 +94,6 @@ async function fetchAndComputeSahm(seriesId) {
 }
 
 /**
- * Reads and parses a CSV file
- * @param {string} filePath - Path to the CSV file
- * @returns {Promise<Array>} Array of parsed CSV objects
- */
-async function readAndParseCsvFile(filePath) {
-	try {
-		const fullPath = path.resolve(filePath)
-		const text = await fs.promises.readFile(fullPath, 'utf8')
-		return parseSimpleCSV(text)
-	} catch (error) {
-		console.error(`Error reading CSV file ${filePath}:`, error.message)
-		throw error
-	}
-}
-
-/**
  * Fetches data from FRED API
  * @param {string} seriesId - The FRED series ID
  * @param {string} observationStart - Start date for observations
@@ -116,6 +105,7 @@ async function fetchFromFRED(seriesId, observationStart) {
 		url.searchParams.set('series_id', seriesId)
 		url.searchParams.set('api_key', config.fred.apiKey)
 		url.searchParams.set('file_type', 'json')
+		url.searchParams.set('frequency', 'm') // Monthly frequency
 		
 		if (observationStart) {
 			url.searchParams.set('observation_start', observationStart)
@@ -149,7 +139,7 @@ async function main() {
 		
 		// Read county data and fetch recession data
 		const [counties, recessions] = await Promise.all([
-			readAndParseCsvFile('./data-source/counties.csv'),
+			readAndParseCsvFile('./data-source/counties-full.csv'),
 			fetchFromFRED('USREC', config.data.startDate)
 		])
 
@@ -184,19 +174,18 @@ async function main() {
 			const result = await fetchAndComputeSahm(county.SeriesId)
 
 			if (result.computedData && result.baseData) {
-				// 1. Store county,date,unemployment_rate,sahm_value into a separate file with [county.SeriesId].csv file name
-
 				// Process time series data
 				for (let j = 0; j < result.computedData.length; j++) {
 					const sahmValue = result.computedData[j].value
 					const unemploymentRate = result.baseData[j].value
-					const date = result.computedData[j].date.toISOString()
+					const date = result.computedData[j].date.toISOString().split("T")[0];
 
 					timeSeriesData.push({
-						county: county.County,
+						// county: county.County,
+						county_id: county.Fips_ID,
 						date,
 						unemployment_rate: unemploymentRate,
-						sahm_value: sahmValue,
+						sahm_value: isNaN(sahmValue) ? NaN : sahmValue.toFixed(2),
 					})
 				}
 
@@ -215,7 +204,7 @@ async function main() {
 				)
 
 				aggregatedData.push({
-					...county,
+					county_id: county.Fips_ID,
 					...stats,
 				})
 				
@@ -252,12 +241,8 @@ async function main() {
 }
 
 async function writeTimeSeriesFile(timeSeriesData, chunkCounter) {
-	// // Ensure output directory exists
-	// const outputDir = path.resolve('./data-source/computed')
-	// await fs.promises.mkdir(outputDir, { recursive: true })
-
 	// Write time series data
-	const timeSeriesHeader = 'county,date,unemployment_rate,sahm_value'
+	const timeSeriesHeader = 'county_id,date,unemployment_rate,sahm_value'
 	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
 	const timeSeriesFile = path.join(outputDir, `chunk-${chunkCounter}.csv`)
 	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
@@ -265,10 +250,6 @@ async function writeTimeSeriesFile(timeSeriesData, chunkCounter) {
 }
 
 async function writeTotalChunksFile(totalChunks) {
-	// // Ensure output directory exists
-	// const outputDir = path.resolve('./data-source/computed')
-	// await fs.promises.mkdir(outputDir, { recursive: true })
-
 	const totalChunksFile = path.join(outputDir, `total-chunks.csv`)
 	await fs.promises.writeFile(totalChunksFile, `total_chunks\n${totalChunks}`)
 }
@@ -280,12 +261,8 @@ async function writeTotalChunksFile(totalChunks) {
  */
 async function writeAggregatedDataFile(aggregatedData) {
 	try {
-		// // Ensure output directory exists
-		// const outputDir = path.resolve('./data-source/computed')
-		// await fs.promises.mkdir(outputDir, { recursive: true })
-
 		// Write aggregated data
-		const aggregatedHeader = 'county,series_id,accuracy,recession_lead_time,committee_lead_time'
+		const aggregatedHeader = 'county_id,accuracy,recession_lead_time,committee_lead_time'
 		const aggregatedBody = getAggregatedCSV(aggregatedData)
 		const aggregatedFile = path.join(outputDir, 'map-data-aggregated.csv')
 		await fs.promises.writeFile(aggregatedFile, `${aggregatedHeader}\n${aggregatedBody}`)
@@ -299,71 +276,12 @@ async function writeAggregatedDataFile(aggregatedData) {
 }
 
 /**
- * Parses a simple CSV string into an array of objects
- * @param {string} csvString - The CSV string to parse
- * @returns {Array} Array of objects with CSV data
- */
-function parseSimpleCSV(csvString) {
-	if (!csvString || typeof csvString !== 'string') {
-		throw new Error('Invalid CSV string provided')
-	}
-	
-	const rows = csvString.trim().split(/\r?\n/)
-	
-	if (rows.length < 2) {
-		throw new Error('CSV must have at least a header row and one data row')
-	}
-	
-	const headers = rows[0].split(',').map(h => h.trim())
-	
-	return rows.slice(1)
-		.filter(row => row.trim()) // Remove empty rows
-		.map((row, index) => {
-			const values = row.split(',').map(v => v.trim())
-			
-			if (values.length !== headers.length) {
-				console.warn(`Row ${index + 2} has ${values.length} columns, expected ${headers.length}`)
-			}
-			
-			return headers.reduce((obj, header, colIndex) => {
-				obj[header] = values[colIndex] || ''
-				return obj
-			}, {})
-		})
-}
-
-/**
- * Converts an array of objects to CSV format
- * @param {Array} data - Array of data objects
- * @param {Array} fields - Array of field names to include in CSV (in order)
- * @returns {string} CSV formatted string
- */
-function arrayToCSV(data, fields) {
-	if (!Array.isArray(data) || data.length === 0) {
-		return ''
-	}
-	
-	// Escape commas and quotes in CSV values
-	const escapeCSV = (value) => {
-		if (value === null || value === undefined) return ''
-		const str = String(value)
-		return str.includes(',') || str.includes('"') || str.includes('\n') 
-			? `"${str.replace(/"/g, '""')}"` 
-			: str
-	}
-	
-	return data
-		.map(d => fields.map(field => escapeCSV(d[field])).join(','))
-		.join('\n')
-}
-
-/**
  * Converts time series data array to CSV format
  * @param {Array} data - Array of time series data objects
  * @returns {string} CSV formatted string
  */
 function getTimeSeriesCSV(data) {
-	const fields = ['county', 'date', 'unemployment_rate', 'sahm_value']
+	const fields = ['county_id', 'date', 'unemployment_rate', 'sahm_value']
 	return arrayToCSV(data, fields)
 }
 
@@ -373,7 +291,7 @@ function getTimeSeriesCSV(data) {
  * @returns {string} CSV formatted string
  */
 function getAggregatedCSV(data) {
-	const fields = ['County', 'SeriesId', 'accuracy', 'recession_lead_time', 'committee_lead_time']
+	const fields = ['county_id', 'accuracy', 'recession_lead_time', 'committee_lead_time']
 	return arrayToCSV(data, fields)
 }
 // Handle unhandled promise rejections

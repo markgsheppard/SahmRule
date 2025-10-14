@@ -3,6 +3,15 @@ import renderScrubber from './render-scrubber.js'
 
 const timeFormat = d3.timeFormat("%b %Y")
 
+const customAutoType = (d) => {
+	const county_id = d.county_id;
+	const autoTyped = d3.autoType(d)
+	return {
+		...autoTyped,
+		county_id
+	}
+}
+
 async function loadFilesInBatches(totalChunks, batchSize = 10) {
   const results = [];
 
@@ -11,7 +20,7 @@ async function loadFilesInBatches(totalChunks, batchSize = 10) {
   for (let i = 0; i < chunks.length; i += batchSize) {
     const batch = chunks.slice(i, i + batchSize);
     const batchResults = await Promise.all(batch.map(d => 
-      d3.csv(`./data-source/computed/chunk-${d}.csv`, d3.autoType).catch(() => [])
+      d3.csv(`./data-source/computed/chunk-${d}.csv`, customAutoType).catch(() => [])
     ));
     results.push(...batchResults);
   }
@@ -34,14 +43,16 @@ class CountiesViz {
 				range: d3.schemeBlues[9].slice(3, 9),
 				tickFormat: d => d + '%',
 				label: 'Unemployment',
-				timeSeries: true
+				timeSeries: true,
+				startDateIndex: 0
 			},
 			sahm_value: {
 				domain: [0.25, 0.5, 0.75, 1, 1.25, 1.5],
 				range: d3.schemeBlues[9].slice(2, 9),
 				tickFormat: d => d,
 				label: 'Outlook',
-				timeSeries: true
+				timeSeries: true,
+				startDateIndex: 13
 			},
 			accuracy: {
 				domain: [0, 5, 10, 15, 20],
@@ -62,26 +73,23 @@ class CountiesViz {
 
 	async loadData() {
 		try {
+
 			const [totalChunks, aggregatedData, usTopo] = await Promise.all([
 				d3.csv('./data-source/computed/total-chunks.csv',  d3.autoType),
-				d3.csv('./data-source/computed/map-data-aggregated.csv', d3.autoType),
+				d3.csv('./data-source/computed/map-data-aggregated.csv', customAutoType),
 				d3.json('./counties-viz/counties-albers-10m.json')
 			]);
 
 			this.aggregatedData = aggregatedData
-
+			
 			const timeSeriesData = await loadFilesInBatches(+totalChunks[0].total_chunks)
 
 			// Group time series data by date
-			this.groupedData = d3.rollup(timeSeriesData.flat(), counties => new Map(
-				counties.map(d => {
-					return [this.normalizeCountyName(d.county), d]
-				})
-			), d => d.date);
-			
-			// Create dates array for slider
-			this.dates = [...this.groupedData.keys()].sort();
+			this.groupedData = d3.group(timeSeriesData.flat(), d => d.date);
 
+			// Create dates array for slider
+			this.dates = [...this.groupedData.keys()].sort((a, b) => a - b).slice(1)
+			
 			// Process geographic data
 			this.processGeographicData(usTopo)
 
@@ -137,17 +145,20 @@ class CountiesViz {
 		const sliderContainer = document.querySelector('#countries-viz-slider')
 		sliderContainer.innerHTML = ''
 
-		this.currentDate = this.dates[0];
+		const config = this.metricsConfig[this.metric]
+		const adjustedDates = this.dates.slice(config.startDateIndex ?? 0);
+
+		this.currentDate = adjustedDates[0];
 
 		renderScrubber({
 			el: sliderContainer,
-			values: this.dates,
+			values: adjustedDates,
 			format: timeFormat,
 			initial: 0,
 			delay: 1000,
 			autoplay: false,
 			onChange: (index) => {
-				const date = this.dates[index];
+				const date = adjustedDates[index];
 				this.currentDate = date;
 				this.updateVisualization();
 			}
@@ -159,8 +170,8 @@ class CountiesViz {
 		
 		if (isTimeSeries) {
 			// Get data for current date from time series
-			const dateData = this.groupedData.get(this.currentDate) || new Map()
-			return Array.from(dateData.values())
+			const dateData = this.groupedData.get(this.currentDate);
+			return dateData
 		} else {
 			// Use aggregated data for non-time series metrics
 			return this.aggregatedData
@@ -178,7 +189,7 @@ class CountiesViz {
 		// Create counties data map
 		const countiesData = new Map(
 			currentData.map(d => {
-				return [this.normalizeCountyName(d.county), d]
+				return [d.county_id, d]
 			})
 		)
 
@@ -203,10 +214,9 @@ class CountiesViz {
 					this.countiesFeatures,
 					Plot.centroid({
 						fill: d => {
-							// TODO: we need to lookup by series id because county names are not unique in the USA 
-							const county = countiesData.get(d.properties.name)
+							const county = countiesData.get(d.id)
 							if (!county) {
-								console.log('missing', d.properties.name)
+								console.log('missing', d.properties.name, "Id", d.id);
 							}
 							return county ? county[this.metric] : null
 						},
