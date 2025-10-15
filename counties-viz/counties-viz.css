@@ -76,11 +76,19 @@
 .counties-viz-main label {
   margin-right: 15px; 
   font-weight: normal;
+  font-size: 12px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.counties-viz-main label input {
+  margin-top: 0px;
 }
 
 /* Scrubber */
 .counties-viz-main .scrubber {
-  --scrubber-width: 480px;
+  --scrubber-width: 380px;
   --color-base: var(--color-scrubber);
   --color-highlight: var(--color-scrubber-hover);
   --slider-track-size: var(--size-0);
@@ -94,7 +102,7 @@
   color: var(--color-scrubber);
   margin-block-start: var(--size-7);
   padding-top: 15px;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
 }
 
 .counties-viz-main .scrubber__button {
@@ -147,6 +155,10 @@
   position: relative;
   display: flex;
   align-items: center;
+  height: 8px;
+  border-left-width: var(--size-0);
+  border-left-color: var(--color-scrubber);
+  border-left-style: solid;
 }
 
 .counties-viz-main .scrubber__slider__input {
@@ -214,14 +226,30 @@
 
 .counties-viz-radios {
   flex-grow: 1;
+  flex-wrap: nowrap;
 }
 
 .counties-viz-controls {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   margin-bottom: 10px;
 }
 
+.countries-viz-slider {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  max-width: 50%;
+  flex: 1 1 50%;
+}
+
+.countries-viz-slider label {
+  font-size: 11px;
+  font-weight: 500;
+}
 
 @media (max-width: 776px)  {
   .counties-viz-controls {

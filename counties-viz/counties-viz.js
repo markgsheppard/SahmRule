@@ -47,8 +47,8 @@ class CountiesViz {
 				startDateIndex: 0
 			},
 			sahm_value: {
-				domain: [0.5, 1, 2, 4, 6, 8, 10],
-				range: d3.schemeBlues[9].slice(1, 9),
+				domain: [0.25, 0.5, 1, 2, 4, 5],
+				range: d3.schemeBlues[9].slice(2, 9),
 				tickFormat: d => d,
 				label: 'Outlook',
 				timeSeries: true,
@@ -133,7 +133,7 @@ class CountiesViz {
 
 	showSlider() {
 		const sliderContainer = document.querySelector('#countries-viz-slider')
-		sliderContainer.style.display = 'block'
+		sliderContainer.style.display = 'flex'
 	}
 
 	hideSlider() {
@@ -142,19 +142,19 @@ class CountiesViz {
 	}
 
 	initializeSlider() {
-		const sliderContainer = document.querySelector('#countries-viz-slider')
+		const sliderContainer = document.querySelector('#countries-viz-slider .slider-content')
 		sliderContainer.innerHTML = ''
 
 		const config = this.metricsConfig[this.metric]
 		const adjustedDates = this.dates.slice(config.startDateIndex ?? 0);
 
-		this.currentDate = adjustedDates[0];
+		this.currentDate = adjustedDates[adjustedDates.length - 1];
 
 		renderScrubber({
 			el: sliderContainer,
 			values: adjustedDates,
 			format: d => timeFormat(d).split(" ").join("<br/>"),
-			initial: 0,
+			initial: adjustedDates.length - 1,
 			delay: 1000,
 			autoplay: false,
 			onChange: (index) => {
@@ -235,26 +235,6 @@ class CountiesViz {
 		const div = document.querySelector('#counties-viz')
 		div.innerHTML = ''
 		div.append(map)
-	}
-
-	normalizeCountyName(countyName) {
-		const suffixes = [
-			' County',
-			' city',
-			' Borough',
-			' Parish',
-			' Municipality',
-			' Town',
-			' Village',
-			' Census Area',
-			' City and Borough'
-		]
-
-		let normalized = countyName
-		for (const suffix of suffixes) {
-			normalized = normalized.replace(new RegExp(`${suffix}$`), '')
-		}
-		return normalized.trim()
 	}
 }
 
