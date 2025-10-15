@@ -47,18 +47,18 @@ class CountiesViz {
 				startDateIndex: 0
 			},
 			sahm_value: {
-				domain: [0.25, 0.5, 0.75, 1, 1.25, 1.5],
-				range: d3.schemeBlues[9].slice(2, 9),
+				domain: [0.5, 1, 2, 4, 6, 8, 10],
+				range: d3.schemeBlues[9].slice(1, 9),
 				tickFormat: d => d,
 				label: 'Outlook',
 				timeSeries: true,
 				startDateIndex: 13
 			},
 			accuracy: {
-				domain: [0, 5, 10, 15, 20],
+				domain: [1, 5, 10, 15, 20],
 				range: d3.schemeBlues[6],
 				label: 'Accuracy',
-				tickFormat: d => Math.round(d)
+				tickFormat: d => Math.round(d) + '%'
 			},
 			committee_lead_time: {
 				domain: [50, 75, 100, 125],
@@ -153,7 +153,7 @@ class CountiesViz {
 		renderScrubber({
 			el: sliderContainer,
 			values: adjustedDates,
-			format: timeFormat,
+			format: d => timeFormat(d).split(" ").join("<br/>"),
 			initial: 0,
 			delay: 1000,
 			autoplay: false,
@@ -218,7 +218,7 @@ class CountiesViz {
 							if (!county) {
 								console.log('missing', d.properties.name, "Id", d.id);
 							}
-							return county ? county[this.metric] : null
+							return county ? county[this.metric] : 0 // Lower value
 						},
 						tip: true,
 						channels: {

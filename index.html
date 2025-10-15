@@ -340,29 +340,26 @@ However, this early indication comes with a cost. The same volatility that makes
 
   </div>
 
-  <div
-    style="font-family: Arial, sans-serif;margin-top:50px;line-height: 1.6;text-align: left;margin-left: auto;margin-right: auto;max-width: 900px;font-size:15px;">
-    <main class="counties-viz-main">
-      <div style="margin-bottom: 20px; font-family: Arial, sans-serif;">
-        <label style="margin-right: 15px; font-weight: normal;">
+  <main class="counties-viz-main">
+    <div class="counties-viz-controls">
+      <div class="counties-viz-radios">
+        <label >
           <input type="radio" name="metric" value="unemployment_rate"> Unemployment
         </label>
-        <label style="margin-right: 15px; font-weight: normal;">
+        <label >
           <input type="radio" name="metric" value="sahm_value" checked> Outlook
         </label>
-        <label style="margin-right: 15px; font-weight: normal;">
+        <label >
           <input type="radio" name="metric" value="accuracy"> Accuracy
         </label>
-        <label style="margin-right: 15px; font-weight: normal;">
+        <label >
           <input type="radio" name="metric" value="committee_lead_time"> Advance
         </label>
       </div>
       <div id="countries-viz-slider" style="display: none;"></div>
-      <div id="counties-viz"></div>
-    </main>
-  </div>
-
-
+    </div>
+    <div id="counties-viz"></div>
+  </main>
 
   <section class="df-wrapper" style="
     padding-bottom: 50px;

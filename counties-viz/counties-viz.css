@@ -17,9 +17,9 @@
 
   --color-background: var(--color-white);
   --color-text: var(--color-gray-800);
-  --color-scrubber: var(--color-gray-600);
+  --color-scrubber: #888888;
   --color-scrubber-hover: var(--color-gray-700);
-  --color-text-muted: var(--color-gray-600);
+  --color-text-muted: #888888;
   --color-text-hover: var(--color-gray-950);
   --color-border: var(--color-gray-400);
 
@@ -62,6 +62,21 @@
   --max-container-width: 1000px;
 }
 
+.counties-viz-main {
+  font-family: Arial, sans-serif;
+  margin-top: 50px;
+  line-height: 1.6;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  font-size: 15px;
+}
+
+.counties-viz-main label {
+  margin-right: 15px; 
+  font-weight: normal;
+}
 
 /* Scrubber */
 .counties-viz-main .scrubber {
@@ -69,7 +84,7 @@
   --color-base: var(--color-scrubber);
   --color-highlight: var(--color-scrubber-hover);
   --slider-track-size: var(--size-0);
-  --slider-thumb-size: var(--size-4);
+  --slider-thumb-size: var(--size-3);
   --slider-thumb-active-size: var(--size-4);
 
   width: var(--scrubber-width);
@@ -77,8 +92,9 @@
   gap: var(--size-2);
   align-items: center;
   color: var(--color-scrubber);
-  margin-block-start: var(--size-4);
-  padding: 15px 0px;
+  margin-block-start: var(--size-2);
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .counties-viz-main .scrubber__button {
@@ -188,12 +204,27 @@
 .counties-viz-main .scrubber__slider__output {
   position: absolute;
   pointer-events: none;
-  transform: translate(-50%, calc(-100% - var(--size-1)));
-  font-size: var(--font-size-sm);
-  line-height: 1;
+  transform: translate(-50%, calc(-100%));
+  font-size: var(--font-size-xs);
+  line-height: 1.2;
   white-space: nowrap;
-  background-color: var(--color-scrubber);
-  color: var(--color-white);
-  border-radius: 4px;
-  padding: 4px;
+  color: var(--color-scrubber);
+  text-align: center;
+}
+
+.counties-viz-radios {
+  flex-grow: 1;
+}
+
+.counties-viz-controls {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+@media (max-width: 776px)  {
+  .counties-viz-controls {
+    flex-direction: column;
+    align-items: center;
+  } 
 }

@@ -24,10 +24,10 @@ export default function renderScrubber({
 
   const slider = form.append("div").attr("class", "scrubber__slider");
 
-  slider
-    .append("span")
-    .attr("class", "scrubber__slider__label")
-    .text(format(values[0]));
+  // slider
+  //   .append("span")
+  //   .attr("class", "scrubber__slider__label")
+  //   .text(format(values[0]));
 
   const container = slider
     .append("div")
@@ -52,10 +52,10 @@ export default function renderScrubber({
     .attr("class", "scrubber__slider__output");
   updateOutput(initial);
 
-  slider
-    .append("span")
-    .attr("class", "scrubber__slider__label")
-    .text(format(values[values.length - 1]));
+  // slider
+  //   .append("span")
+  //   .attr("class", "scrubber__slider__label")
+  //   .text(format(values[values.length - 1]));
 
   function running() {
     return frame !== null || timer !== null || interval !== null;
@@ -65,7 +65,7 @@ export default function renderScrubber({
   function updateOutput() {
     const percentage = input.node().valueAsNumber / (values.length - 1);
     const adjustment = (0.5 - percentage) * thumbSize;
-    output.node().value = format(values[input.node().valueAsNumber]);
+    output.html(format(values[input.node().valueAsNumber]));
     output.style("left", `calc(${percentage * 100}% + ${adjustment}px)`);
   }
 }
