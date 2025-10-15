@@ -22,7 +22,7 @@ const defaultSettings = {
 	seasonal: false, 			// Toggle for seasonal adjustment (1 = adjust, 0 = leave raw)
 	alpha_threshold: 0.5, // Threshold increase (in percentage points) that triggers a recession signal. !!! Shared across all lines !!!
 	natural_rate: 0, 			// Natural rate of unemployment to enforce as lower bound
-	preceding: false 			// Use lagged (preceding) window for rolling minimum calculation (1 = yes, 0 = no)
+	preceding: true 			// Use lagged (preceding) window for rolling minimum calculation (1 = yes, 0 = no)
 }
 
 class SahmRuleDashboard {
