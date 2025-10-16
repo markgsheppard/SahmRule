@@ -220,6 +220,10 @@ class CountiesViz {
 							}
 							return county ? county[this.metric] : 0 // Lower value
 						},
+						stroke: d => {
+							return '#fff'
+						},
+						strokeWidth: 0.35,
 						tip: true,
 						channels: {
 							County: d => d.properties.name,
