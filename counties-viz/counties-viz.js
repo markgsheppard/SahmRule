@@ -47,8 +47,8 @@ class CountiesViz {
 				startDateIndex: 0
 			},
 			sahm_value: {
-				domain: [0.25, 0.5, 1, 2, 4, 5],
-				range: d3.schemeBlues[9].slice(2, 9),
+				domain: [0.25, 0.5, 1, 2, 4],
+				range: d3.schemeBlues[9].slice(3, 9),
 				tickFormat: d => d,
 				label: 'Outlook',
 				timeSeries: true,
