@@ -74,15 +74,18 @@ class CountiesViz {
 	async loadData() {
 		try {
 
-			const [totalChunks, aggregatedData, usTopo] = await Promise.all([
-				d3.csv('./data-source/computed/total-chunks.csv',  d3.autoType),
+			const [info, aggregatedData, usTopo] = await Promise.all([
+				d3.csv('./data-source/computed/info.csv',  d3.autoType),
 				d3.csv('./data-source/computed/map-data-aggregated.csv', customAutoType),
 				d3.json('./counties-viz/counties-albers-10m.json')
 			]);
 
 			this.aggregatedData = aggregatedData
+			this.info = info[0];
 			
-			const timeSeriesData = await loadFilesInBatches(+totalChunks[0].total_chunks)
+			d3.select("#last_updated_viz_data").html(timeFormat(this.info.last_updated))
+
+			const timeSeriesData = await loadFilesInBatches(this.info.total_chunks)
 
 			// Group time series data by date
 			this.groupedData = d3.group(timeSeriesData.flat(), d => d.date);

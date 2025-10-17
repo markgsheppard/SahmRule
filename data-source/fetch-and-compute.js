@@ -228,7 +228,7 @@ async function main() {
 			timeSeriesData = [];
 		}
 
-		await writeTotalChunksFile(chunkCounter);
+		await writeInfoFile(chunkCounter);
 		
 		console.log('\n✓ Sahm Rule computation completed successfully!')
 		// console.log(`- Processed ${timeSeriesData.length} time series records`)
@@ -249,9 +249,11 @@ async function writeTimeSeriesFile(timeSeriesData, chunkCounter) {
 	console.log(`✓ Written time series data to ${timeSeriesFile}`)
 }
 
-async function writeTotalChunksFile(totalChunks) {
-	const totalChunksFile = path.join(outputDir, `total-chunks.csv`)
-	await fs.promises.writeFile(totalChunksFile, `total_chunks\n${totalChunks}`)
+async function writeInfoFile(totalChunks) {
+	const totalChunksFile = path.join(outputDir, `info.csv`)
+	const header = `total_chunks,last_updated`
+	const dataRow = `${totalChunks},${new Date().toISOString()}`;
+	await fs.promises.writeFile(totalChunksFile, `${header}\n${dataRow}`)
 }
 
 /**
