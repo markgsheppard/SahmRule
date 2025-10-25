@@ -6,17 +6,11 @@ on:
   workflow_dispatch:       # Allows manual trigger
 
 jobs:
-  fetch-data:
+  fetch-tool-data:
     runs-on: ubuntu-latest
     container:
       image: rocker/tidyverse:latest  # Use the official tidyverse image
       options: --user root  # Optional: ensure the user has root access for installing packages
-
-    env:
-      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-      TZ: UTC
-      _R_CHECK_SYSTEM_CLOCK_: FALSE
-      NOT_CRAN: true
 
     steps:
     - uses: actions/checkout@v3
@@ -32,7 +26,7 @@ jobs:
       env:
         FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
-  update-data:
+  fetch-counties-data:
     runs-on: ubuntu-latest
     environment: github-pages
 
