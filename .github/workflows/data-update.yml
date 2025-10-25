@@ -14,18 +14,19 @@ jobs:
       options: --user root  # Optional: ensure the user has root access for installing packages
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install additional R packages
-      run: |
-        R -e "install.packages(c('fredr', 'lubridate'))"
-      env:
-        R_LIBS_USER: ${{ runner.temp }}/Library
+      - name: Install additional R packages
+        run: |
+          R -e "install.packages(c('fredr', 'lubridate'))"
+        env:
+          R_LIBS_USER: ${{ runner.temp }}/Library
 
-    - name: Run FRED data fetch script
-      run: Rscript data-source/fetch_files.R
-      env:
-        FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      - name: Run FRED data fetch script
+        run: Rscript data-source/fetch_files.R
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
   fetch-counties-data:
     runs-on: ubuntu-latest
