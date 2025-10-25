@@ -8,6 +8,7 @@ on:
 jobs:
   fetch-tool-data:
     runs-on: ubuntu-latest
+    environment: github-pages
     container:
       image: rocker/tidyverse:latest  # Use the official tidyverse image
       options: --user root  # Optional: ensure the user has root access for installing packages
