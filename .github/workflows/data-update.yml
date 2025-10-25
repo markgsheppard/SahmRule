@@ -86,7 +86,7 @@ jobs:
           git add .  # Stage all changes
 
           # Check if there are any changes to commit
-          git diff --cached || (
+          git diff --cached --quiet || (
             git commit -m "chore: update computed data files from map and tool data" && 
             git pull --rebase && 
             git push
