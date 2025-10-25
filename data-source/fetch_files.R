@@ -6,8 +6,6 @@ library(lubridate)
 working_dir <- "./data-source"
 setwd(working_dir)
 
-cat("FRED API Key: ", Sys.getenv("FRED_API_KEY"), "\n")
-
 # Set your FRED API key
 fredr_set_key(Sys.getenv("FRED_API_KEY"))
 

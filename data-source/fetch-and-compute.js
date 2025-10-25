@@ -22,7 +22,7 @@ const config = {
 	data: {
 		startDate: '1990-01-01',
 		chunkRowSize: 150000,
-		maxCounties: null // Set to number to limit processing, null for all
+		maxCounties: 10 // Set to number to limit processing, null for all
 	}
 }
 

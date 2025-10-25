@@ -2,34 +2,16 @@ name: Fetch all data
 
 on:
   schedule:
-    - cron: '0 0 1-7 * 5'  # Runs at midnight UTC on the first Friday of every month
-  workflow_dispatch:       # Allows manual trigger
+    - cron: "0 0 1-7 * 5" # Runs at midnight UTC on the first Friday of every month
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
-  # fetch-map-data:
-  #   runs-on: ubuntu-latest
-  #   environment: github-pages
-
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: '20'
-
-  #     - name: Run data update script
-  #       run: node ./data-source/fetch-and-compute.js
-  #       env:
-  #         FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-
   fetch-tool-data:
     runs-on: ubuntu-latest
     environment: github-pages
     container:
-      image: rocker/tidyverse:latest  # Use the official tidyverse image
-      options: --user root  # Optional: ensure the user has root access for installing packages
+      image: rocker/tidyverse:latest # Use the official tidyverse image
+      options: --user root # Optional: ensure the user has root access for installing packages
 
     steps:
       - name: Checkout repository
@@ -46,10 +28,28 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
+  fetch-map-data:
+    runs-on: ubuntu-latest
+    environment: github-pages
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run data update script
+        run: node ./data-source/fetch-and-compute.js
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
   commit:
     runs-on: ubuntu-latest
     environment: github-pages
-    needs: [fetch-tool-data]  # Ensure this job waits for both previous jobs
+    needs: [fetch-tool-data, fetch-map-data]
 
     steps:
       - name: Checkout repository
@@ -61,7 +61,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git add .  # Stage all changes
           git diff --cached --quiet || (git commit -m "chore: update computed data files" && git pull --rebase && git push)
-      
+
       - name: Trigger Webpage Deployment Workflow
         uses: benc-uk/workflow-dispatch@v1
         with:
