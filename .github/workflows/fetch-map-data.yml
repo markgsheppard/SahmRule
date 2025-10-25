@@ -21,16 +21,3 @@ jobs:
         run: node ./data-source/fetch-and-compute.js
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-
-      - name: Commit and push if changes exist
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-          git add .  # Stage all changes
-          git diff --cached --quiet || (git commit -m "chore: update computed data files" && git pull --rebase && git push)
-
-      - name: Trigger Webpage Deployment Workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: webpage-deployment.yaml
-          ref: ${{ github.ref }}

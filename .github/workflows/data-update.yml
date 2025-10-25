@@ -14,16 +14,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Trigger fetch-tool-data.yaml
+      - name: Trigger fetch-tool-data.yml
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: fetch-tool-data.yaml
+          workflow: fetch-tool-data.yml
           ref: ${{ github.ref }}
       
-      # - name: Trigger fetch-map-data.yaml
+      # - name: Trigger fetch-map-data.yml
       #   uses: benc-uk/workflow-dispatch@v1
       #   with:
-      #     workflow: fetch-map-data.yaml
+      #     workflow: fetch-map-data.yml
       #     ref: ${{ github.ref }}
 
   commit-and-deploy:
