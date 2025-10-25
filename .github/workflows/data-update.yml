@@ -1,4 +1,4 @@
-name: Fetch all data
+name: Fetch all data and compute sahm rule
 
 on:
   schedule:
@@ -6,6 +6,30 @@ on:
   workflow_dispatch: # Allows manual trigger
 
 jobs:
+  fetch-map-data:
+    runs-on: ubuntu-latest
+    environment: github-pages
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run data update script
+        run: node ./data-source/fetch-and-compute.js
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
+      - name: Upload modified files (fetch-map-data)
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetch-map-data-files
+          path: . # You can specify more specific paths if needed
+
   fetch-tool-data:
     runs-on: ubuntu-latest
     environment: github-pages
@@ -28,42 +52,42 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
-  fetch-map-data:
-    runs-on: ubuntu-latest
-    environment: github-pages
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Upload modified files (fetch-tool-data)
+        uses: actions/upload-artifact@v4
         with:
-          node-version: "20"
-
-      - name: Run data update script
-        run: node ./data-source/fetch-and-compute.js
-        env:
-          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          name: fetch-tool-data-files
+          path: . # You can specify more specific paths if needed
 
   commit:
     runs-on: ubuntu-latest
     environment: github-pages
-    needs: [fetch-tool-data, fetch-map-data]
+    needs: [fetch-map-data, fetch-tool-data] # Ensure this job waits for both previous jobs
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Commit and push if changes exist
+      - name: Download files from fetch-map-data
+        uses: actions/download-artifact@v4
+        with:
+          name: fetch-map-data-files
+
+      - name: Download files from fetch-tool-data
+        uses: actions/download-artifact@v4
+        with:
+          name: fetch-tool-data-files
+
+      - name: Commit and push all changes
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          git add .  # Stage all changes
-          git diff --cached --quiet || (git commit -m "chore: update computed data files" && git pull --rebase && git push)
 
-      - name: Trigger Webpage Deployment Workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: webpage-deployment.yaml
-          ref: ${{ github.ref }}
+          # Stage all changes from both fetch-map-data and fetch-tool-data jobs
+          git add .  # Stage all changes
+
+          # Check if there are any changes to commit
+          git diff --cached || (
+            git commit -m "chore: update computed data files from map and tool data" && 
+            git pull --rebase && 
+            git push
+          )
