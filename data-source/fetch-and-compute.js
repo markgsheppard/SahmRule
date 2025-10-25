@@ -241,24 +241,33 @@ async function main() {
 }
 
 async function writeTimeSeriesFile(timeSeriesData, chunkCounter) {
-	// Write time series data
-	const timeSeriesHeader = 'county_id,date,unemployment_rate,sahm_value'
-	const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
-	const timeSeriesFile = path.join(outputDir, `chunk-${chunkCounter}.csv`)
-	await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
-	console.log(`✓ Written time series data to ${timeSeriesFile}`)
+	try {
+		const timeSeriesHeader = 'county_id,date,unemployment_rate,sahm_value'
+		const timeSeriesBody = getTimeSeriesCSV(timeSeriesData)
+		const timeSeriesFile = path.join(outputDir, `chunk-${chunkCounter}.csv`)
+		await fs.promises.writeFile(timeSeriesFile, `${timeSeriesHeader}\n${timeSeriesBody}`)
+		console.log(`[writeTimeSeriesFile] ✓ Written time series data to ${timeSeriesFile}`)
+	} catch (error) {
+		console.error('[writeTimeSeriesFile] Error writing output files:', error.message)
+		throw error
+	}
 }
 
 async function writeInfoFile(totalChunks) {
-	const totalChunksFile = path.join(outputDir, `info.csv`)
-	const header = `total_chunks,last_updated`
-	const dataRow = `${totalChunks},${new Date().toISOString()}`;
-	await fs.promises.writeFile(totalChunksFile, `${header}\n${dataRow}`)
+	try {
+		const infoFile = path.join(outputDir, `info.csv`)
+		const header = `total_chunks,last_updated`
+		const dataRow = `${totalChunks},${new Date().toISOString()}`;
+		await fs.promises.writeFile(infoFile, `${header}\n${dataRow}`)
+		console.log(`[writeInfoFile] ✓ Written info to ${infoFile}`)
+	} catch (error) {
+		console.error('[writeInfoFile] Error writing output files:', error.message)
+		throw error
+	}
 }
 
 /**
  * Writes the computed data to CSV files
- * @param {Array} timeSeriesData - Time series data array
  * @param {Array} aggregatedData - Aggregated statistics data array
  */
 async function writeAggregatedDataFile(aggregatedData) {
@@ -268,11 +277,9 @@ async function writeAggregatedDataFile(aggregatedData) {
 		const aggregatedBody = getAggregatedCSV(aggregatedData)
 		const aggregatedFile = path.join(outputDir, 'map-data-aggregated.csv')
 		await fs.promises.writeFile(aggregatedFile, `${aggregatedHeader}\n${aggregatedBody}`)
-		console.log(`✓ Written aggregated data to ${aggregatedFile}`)
-
-		
+		console.log(`[writeAggregatedDataFile] ✓ Written aggregated data to ${aggregatedFile}`)
 	} catch (error) {
-		console.error('Error writing output files:', error.message)
+		console.error('[writeAggregatedDataFile] Error writing output files:', error.message)
 		throw error
 	}
 }
