@@ -1,4 +1,4 @@
-name: Fetch FRED Data (R script)
+name: Fetch data fro FRED api for interactive tool
 
 on:
   workflow_dispatch:

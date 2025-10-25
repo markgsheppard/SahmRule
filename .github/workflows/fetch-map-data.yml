@@ -1,12 +1,10 @@
-name: Fetch all data and compute sahm rule
+name: Fetch counties data from FRED api
 
 on:
-  schedule:
-    - cron: '0 0 1-7 * 5'  # Runs at midnight UTC on the first Friday of every month
   workflow_dispatch:       # Allows manual trigger
 
 jobs:
-  update-all-data:
+  fetch-counties-data:
     runs-on: ubuntu-latest
     environment: github-pages
 
@@ -14,25 +12,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Trigger fetch-tool-data.yaml
-        uses: benc-uk/workflow-dispatch@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          workflow: fetch-tool-data.yaml
-          ref: ${{ github.ref }}
-      
-      # - name: Trigger fetch-map-data.yaml
-      #   uses: benc-uk/workflow-dispatch@v1
-      #   with:
-      #     workflow: fetch-map-data.yaml
-      #     ref: ${{ github.ref }}
+          node-version: '20'
 
-  commit-and-deploy:
-    runs-on: ubuntu-latest
-    environment: github-pages
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Run data update script
+        run: node ./data-source/fetch-and-compute.js
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
       - name: Commit and push if changes exist
         run: |
