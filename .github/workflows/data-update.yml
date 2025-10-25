@@ -49,7 +49,7 @@ jobs:
   commit:
     runs-on: ubuntu-latest
     environment: github-pages
-    needs: [fetch-map-data, fetch-tool-data]  # Ensure this job waits for both previous jobs
+    needs: [fetch-tool-data]  # Ensure this job waits for both previous jobs
 
     steps:
       - name: Checkout repository
