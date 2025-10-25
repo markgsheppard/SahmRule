@@ -1,4 +1,4 @@
-name: Fetch Counties data and compute sahm rule
+name: Fetch all data and compute sahm rule
 
 on:
   schedule:
@@ -6,6 +6,32 @@ on:
   workflow_dispatch:       # Allows manual trigger
 
 jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/tidyverse:latest  # Use the official tidyverse image
+      options: --user root  # Optional: ensure the user has root access for installing packages
+
+    env:
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      TZ: UTC
+      _R_CHECK_SYSTEM_CLOCK_: FALSE
+      NOT_CRAN: true
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install additional R packages
+      run: |
+        R -e "install.packages(c('fredr', 'lubridate'))"
+      env:
+        R_LIBS_USER: ${{ runner.temp }}/Library
+
+    - name: Run FRED data fetch script
+      run: Rscript data-source/fetch_files.R
+      env:
+        FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
   update-data:
     runs-on: ubuntu-latest
     environment: github-pages
