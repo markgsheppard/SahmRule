@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fetch-map-data-files
-          path: . # You can specify more specific paths if needed
+          path: ./data-source/computed # You can specify more specific paths if needed
 
   fetch-tool-data:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fetch-tool-data-files
-          path: . # You can specify more specific paths if needed
+          path: ./data-source/data # You can specify more specific paths if needed
 
   commit:
     runs-on: ubuntu-latest
@@ -77,11 +77,13 @@ jobs:
         with:
           name: fetch-tool-data-files
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit and push all changes
         run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-
           # Stage all changes from both fetch-map-data and fetch-tool-data jobs
           git add .  # Stage all changes
 
@@ -91,3 +93,9 @@ jobs:
             git pull --rebase && 
             git push
           )
+
+      - name: Trigger Webpage Deployment Workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: webpage-deployment.yaml
+          ref: ${{ github.ref }}
