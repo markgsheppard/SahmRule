@@ -160,9 +160,8 @@ export default function vRecessionIndicatorChart({
 
 	function renderHeader() {
 		header.html(/*html*/ `
-      <div class="title">${chartTitle}</div>
-      <div class="subtitle">The Sahm Recession Indicator</div>
-      <div class="subtitle">Shown with Reference Lines and Recessions</div>
+      <h3 class="title">${chartTitle}</h3>
+      <div class="subtitle">The Sahm Recession Indicator — Shown with Reference Lines and Recessions.</div>
       <div class="subtitle">Data from ${dates[0].getUTCFullYear()} to Present.</div>
     `)
 	}
