@@ -218,6 +218,16 @@ class SahmRuleDashboard {
 		}
 	}
 
+	async getLastUpdatedAt() {
+		try {
+			const resp = await d3.csv(`${this.params.dataBaseUrl}/tool-data/info.csv`, d3.autoType)
+			return resp[0]?.last_updated;
+		} catch (error) {
+			console.error(error)
+			return null
+		}
+	}
+
 	async loadRecessionData(recessionCode) {
 		const resp = await this.fetchFile(recessionCode)
 		this.recessionData = new Map(resp.map(d => [d.date, d.value]))
@@ -257,6 +267,12 @@ class SahmRuleDashboard {
 	}
 
 	async init() {
+		this.lastUpdated = await this.getLastUpdatedAt()
+
+		if (this.lastUpdated) {
+			d3.select("#last_updated").html(d3.timeFormat("%b %Y")(this.lastUpdated))
+		}
+
 		// Load available datasets
 		this.datasetsList = await this.getDatasetsList()
 
@@ -489,7 +505,7 @@ class SahmRuleDashboard {
 
 		this.chart = vRecessionIndicatorChart({
 			el: chartElement,
-			data: { dates, series: series_data, periods },
+			data: { dates, series: series_data, periods, lastUpdated: this.lastUpdated },
 			hideLegend: !this.params.components.has('legend'),
 			hideFooter: !this.params.components.has('footer'),
 			hideHeader: !this.params.components.has('header'),

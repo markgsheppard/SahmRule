@@ -54,7 +54,7 @@
     <div>
       <h2>Modified Sahm Rule</h2>
       <div class="subtitle">
-        Interactive Tool Version 2.2 Beta | Last updated: May 3, 2025
+        Interactive Tool Version 2.2 Beta | Last updated: <span id="last_updated"></span>
       </div>
       <div class="subtitle">
         Show with Recessions, Data from 1948 to Present
@@ -227,25 +227,7 @@
       </div>
     </div>
     <br />
-    <div class="row">
-      <div class="col-sm-8">
-        <p class="text-muted text-small">
-          Source: Claudia Sahm, Bureau of Labor Statistics (BLS). <br />
-          Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.
-          The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average
-          rises by 0.50 percentage points or more relative to previous month's minimum average.
-          <br />
-          <br />
-          Visualized by: <a href="https://ghviniashvili.com/" target="_blank">Giorgi Gviniashvili</a> and Mark G.
-          Shepard.
-          <br />
-          Author: Mark G. Shepard.
-        </p>
-      </div>
-    </div>
   </main>
-
-
 
 
   <!--Footer-->
@@ -300,7 +282,8 @@
     import SahmRuleDashboard from "./sahm-rule-dashboard.js";
     window.app = new SahmRuleDashboard({
       lineConfigs: [],
-      chartElementId: 'sahm_chart'
+      chartElementId: 'sahm_chart',
+      components: new Set(['legend', 'footer']),
     })
   </script>
 </body>

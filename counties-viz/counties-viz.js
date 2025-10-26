@@ -1,5 +1,6 @@
 import * as Plot from 'https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm'
 import renderScrubber from './render-scrubber.js'
+import { getFooterHtml } from '../vis/v-recession-indicator-chart.js';
 
 const timeFormat = d3.timeFormat("%b %Y")
 
@@ -83,7 +84,7 @@ class CountiesViz {
 			this.aggregatedData = aggregatedData
 			this.info = info[0];
 			
-			d3.select("#last_updated_viz_data").html(timeFormat(this.info.last_updated))
+			d3.select("#counties-viz-footer").html(getFooterHtml(this.info.last_updated))
 
 			const timeSeriesData = await loadFilesInBatches(this.info.total_chunks)
 

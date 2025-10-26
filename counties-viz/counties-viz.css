@@ -251,13 +251,10 @@
   font-weight: 500;
 }
 
-.counties-viz-main .footer {
-  font-size: 1rem;
-}
-
-.counties-viz-main .footer p {
+.counties-viz-main .footer-text {
   line-height: 1.4;
-  color: var(--color-gray-400);
+  font-size: 1rem;
+  max-width: 52em;
 }
 
 @media (max-width: 776px) {

@@ -435,13 +435,7 @@ export default function vRecessionIndicatorChart({
 	}
 
 	function renderFooter() {
-		footer.html(/*html*/ `
-        <div>Source: Claudia Sahm, Bureau of Labor Statistics (BLS)</div>
-        <div>Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.</div>
-        <div>The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months' minimum average.</div>
-				<div>Author: Mark G. Shepard</div>
-        <div>Visualized by: <a href="https://ghviniashvili.com/" target="_blank">Giorgi Gviniashvili</a> and Mark G. Shepard.</div>
-      `)
+		footer.html(getFooterHtml(data.lastUpdated));
 	}
 
 	function processData(data, factor) {
@@ -574,4 +568,33 @@ export default function vRecessionIndicatorChart({
 			}
 		}
 	}
+}
+
+export function getFooterHtml(lastUpdated) {
+  const timeFormat = d3.timeFormat("%b %Y");
+
+  return `
+    <footer class="footer-container text-muted">
+      <div class="footer-text">
+        <div class="footer-item footer-source">
+          <strong>Source:</strong> Claudia Sahm, Bureau of Labor Statistics (BLS).
+        </div>
+        <div class="footer-item footer-note">
+          <strong>Note:</strong> Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors.
+        </div>
+				<br />
+        <div class="footer-item footer-description">
+          The Sahm Recession Indicator signals a recession when the unemployment rate's three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months' minimum average.
+        </div>
+        <br />
+        <div class="footer-item footer-author">
+          <strong>Author:</strong> Mark G. Sheppard
+        </div>
+        <div class="footer-item footer-visualizer">
+          <strong>Visualized by:</strong> <a href="https://ghviniashvili.com/" target="_blank" class="footer-link">Giorgi Gviniashvili</a> and Mark G. Sheppard.
+        </div>
+        ${lastUpdated ? `<div class="footer-item footer-updated"><strong>Last updated:</strong> ${timeFormat(lastUpdated)}</div>` : ''}
+      </div>
+    </footer>
+  `;
 }
