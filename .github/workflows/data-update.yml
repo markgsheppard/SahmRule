@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 0 1-7 * 5" # Runs at midnight UTC on the first Friday of every month
   workflow_dispatch: # Allows manual trigger
+    inputs:
+      MAX_COUNTIES_TO_FETCH:
+        type: string
+        description: Set to number to limit processing, leave empty for all
+        required: false
+        default: ''
 
 jobs:
   fetch-map-data:
@@ -22,6 +28,7 @@ jobs:
       - name: Run data update script
         run: node ./data-source/fetch-and-compute.js
         env:
+          MAX_COUNTIES_TO_FETCH: ${{ github.event.inputs.MAX_COUNTIES_TO_FETCH }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
       - name: Upload modified files (fetch-map-data)
