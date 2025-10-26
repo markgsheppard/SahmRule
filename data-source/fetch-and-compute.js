@@ -26,7 +26,7 @@ const config = {
 	}
 }
 
-const outputDir = path.resolve('./data-source/computed')
+const outputDir = path.resolve('./data-source/map-data')
 
 // Validate configuration
 if (!config.fred.apiKey) {

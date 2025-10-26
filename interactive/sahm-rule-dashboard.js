@@ -52,7 +52,7 @@ class SahmRuleDashboard {
 	}
 
 	getUrl(series_id) {
-		return `${this.params.dataBaseUrl}/data/${series_id}.csv`
+		return `${this.params.dataBaseUrl}/tool-data/${series_id}.csv`
 	}
 
 	async addLine() {

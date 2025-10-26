@@ -28,7 +28,7 @@ for (i in 1:nrow(data)) {
       select(date, value, deseasonalized_value)
     
     # Generate a descriptive file name
-    file_name <- paste0("./data/", series_id, ".csv")
+    file_name <- paste0("./tool-data/", series_id, ".csv")
     
     # Save to CSV
     write.csv(fred_data, file_name, row.names = FALSE)
@@ -83,7 +83,7 @@ fred_data <- fredr(
   mutate(deseasonalized_value = as.numeric(deseasonalized_value))
 
 # Save data to CSV
-write.csv(fred_data, "./data/JHDUSRGDPBR.csv", row.names = FALSE)
+write.csv(fred_data, "./tool-data/JHDUSRGDPBR.csv", row.names = FALSE)
 
 # Fetch USARECDM data from FRED and process in one step
 fred_data <- fredr(
@@ -98,7 +98,7 @@ fred_data <- fredr(
   select(date, value, deseasonalized_value)
 
 # Save data to CSV
-write.csv(fred_data, "./data/USARECDM.csv", row.names = FALSE)
+write.csv(fred_data, "./tool-data/USARECDM.csv", row.names = FALSE)
 
 # Fetch, scale, deseasonalize, and save T10Y2Y data
 fred_data <- fredr(
@@ -117,7 +117,7 @@ fred_data <- fredr(
   select(date, value, deseasonalized_value)
 
 # Save to CSV
-write.csv(fred_data, "./data/T10Y2Y.csv", row.names = FALSE)
+write.csv(fred_data, "./tool-data/T10Y2Y.csv", row.names = FALSE)
 
 # Fetch, scale, deseasonalize, divide by 100, and save USEPUINDXD data
 fred_data <- fredr(
@@ -138,7 +138,7 @@ fred_data <- fredr(
   select(date, value, deseasonalized_value)
 
 # Save to CSV
-write.csv(fred_data, "./data/USEPUINDXD.csv", row.names = FALSE)
+write.csv(fred_data, "./tool-data/USEPUINDXD.csv", row.names = FALSE)
 
 # Fetch, scale, deseasonalize, and save UMCSENT data
 fred_data <- fredr(
@@ -157,7 +157,7 @@ fred_data <- fredr(
   select(date, value, deseasonalized_value)
 
 # Save to CSV
-write.csv(fred_data, "./data/UMCSENT.csv", row.names = FALSE)
+write.csv(fred_data, "./tool-data/UMCSENT.csv", row.names = FALSE)
 
 # Retrieve data for CLI (USALOLITONOSTSAM)
 cli_data <- fredr(series_id = "USALOLITONOSTSAM") %>%
@@ -220,7 +220,7 @@ new_data <- full_data %>%
 new_data$deseasonalized_value <- new_data$value
 
 # Save data to CSV
-write.csv(new_data, "./data/USARECDM.csv", row.names = FALSE)
+write.csv(new_data, "./tool-data/USARECDM.csv", row.names = FALSE)
 
 
 cat("\014"); cat(sprintf("Successfully retrieved data for %s for Modified Sahm Rule", format(Sys.Date(), "%B %Y")))
