@@ -224,3 +224,12 @@ write.csv(new_data, "./tool-data/USARECDM.csv", row.names = FALSE)
 
 
 cat("\014"); cat(sprintf("Successfully retrieved data for %s for Modified Sahm Rule", format(Sys.Date(), "%B %Y")))
+
+# Store info.csv
+last_updated <- format(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z")
+
+# Create a data frame with the last_updated column
+df <- data.frame(last_updated = last_updated)
+
+# Write to CSV
+write.csv(info_df, "./tool-data/info.csv", row.names = FALSE)
