@@ -71,11 +71,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: fetch-map-data-files
+          path: ./data-source/map-data
 
       - name: Download files from fetch-tool-data
         uses: actions/download-artifact@v4
         with:
           name: fetch-tool-data-files
+          path: ./data-source/tool-data
 
       - name: Configure Git
         run: |
