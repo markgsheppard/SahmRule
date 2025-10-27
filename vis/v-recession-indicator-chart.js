@@ -1,6 +1,6 @@
 import vSwatches from './v-swatches.js'
 import vTooltip from './v-tooltip.js'
-import { dateFormat } from '../js/utils.js'
+import { dateFormat, findDateRangeIndices } from '../js/utils.js'
 
 export default function vRecessionIndicatorChart({
 	el,
@@ -251,18 +251,8 @@ export default function vRecessionIndicatorChart({
 			if (!event.sourceEvent || !selection) return
 			const [x0, x1] = selection.map(d => interval.round(xScale.invert(d)))
 
-			// Find start and end indexes for the selected date range
-			const [ind1, ind2] = dates.reduce((acc, curr, index) => {
-				if (curr >= x0 && acc[0] === -1) {
-					acc[0] = index
-					return acc
-				}
-				if (curr <= x1) {
-					acc[1] = index
-					return acc
-				}
-				return acc;
-			}, [-1, -1]);
+			// Binary search for start and end indices
+			const [ind1, ind2] = findDateRangeIndices(dates, x0, x1)
 
 			// Find minimum y value
 			const y0 = d3.min(
