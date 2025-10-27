@@ -153,6 +153,13 @@ p {
 /* Top_content
 ---------------------------------*/
 
+.last-updated-date {
+    margin-top: 8px;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgb(136, 136, 136);
+}
+
 .top_cont_outer {
     background: #545454;
     position: relative;

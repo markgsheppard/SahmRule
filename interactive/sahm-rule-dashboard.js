@@ -1,3 +1,4 @@
+import { dateFormat } from '../js/utils.js'
 import {
 	compute_sahm_rule,
 	getRecessionPeriods,
@@ -270,7 +271,7 @@ class SahmRuleDashboard {
 		this.lastUpdated = await this.getLastUpdatedAt()
 
 		if (this.lastUpdated) {
-			d3.select("#last_updated").html(d3.timeFormat("%b %Y")(this.lastUpdated))
+			d3.select("#last_updated").html(dateFormat(this.lastUpdated))
 		}
 
 		// Load available datasets

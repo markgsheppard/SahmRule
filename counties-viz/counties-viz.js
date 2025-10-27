@@ -1,8 +1,7 @@
 import * as Plot from 'https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm'
 import renderScrubber from './render-scrubber.js'
 import { getFooterHtml } from '../vis/v-recession-indicator-chart.js';
-
-const timeFormat = d3.timeFormat("%b %Y")
+import { fullTimeFormat, monthFormat } from '../js/utils.js';
 
 const customAutoType = (d) => {
 	const county_id = d.county_id;
@@ -85,6 +84,7 @@ class CountiesViz {
 			this.info = info[0];
 			
 			d3.select("#counties-viz-footer").html(getFooterHtml(this.info.last_updated))
+			d3.select("#data_last_fetched_header").html(fullTimeFormat(this.info.last_updated))
 
 			const timeSeriesData = await loadFilesInBatches(this.info.total_chunks)
 
@@ -157,7 +157,7 @@ class CountiesViz {
 		renderScrubber({
 			el: sliderContainer,
 			values: adjustedDates,
-			format: d => timeFormat(d).split(" ").join("<br/>"),
+			format: d => monthFormat(d).split(" ").join("<br/>"),
 			initial: adjustedDates.length - 1,
 			delay: 1000,
 			autoplay: false,

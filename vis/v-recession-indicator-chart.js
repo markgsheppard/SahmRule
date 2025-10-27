@@ -1,5 +1,6 @@
 import vSwatches from './v-swatches.js'
 import vTooltip from './v-tooltip.js'
+import { dateFormat } from '../js/utils.js'
 
 export default function vRecessionIndicatorChart({
 	el,
@@ -570,8 +571,6 @@ export default function vRecessionIndicatorChart({
 }
 
 export function getFooterHtml(lastUpdated) {
-  const timeFormat = d3.timeFormat("%b %Y");
-
   return `
     <footer class="footer-container text-muted">
       <div class="footer-text">
@@ -592,7 +591,7 @@ export function getFooterHtml(lastUpdated) {
         <div class="footer-item footer-visualizer">
           <strong>Visualized by:</strong> <a href="https://ghviniashvili.com/" target="_blank" class="footer-link">Giorgi Gviniashvili</a> and Mark G. Sheppard.
         </div>
-        ${lastUpdated ? `<div class="footer-item footer-updated"><strong>Last updated:</strong> ${timeFormat(lastUpdated)}</div>` : ''}
+        ${lastUpdated ? `<div class="footer-item footer-updated"><strong>Last updated:</strong> ${dateFormat(lastUpdated)}</div>` : ''}
       </div>
     </footer>
   `;
