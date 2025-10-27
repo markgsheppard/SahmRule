@@ -1,6 +1,6 @@
 import vSwatches from './v-swatches.js'
 import vTooltip from './v-tooltip.js'
-import { dateFormat } from '../js/utils.js'
+import { dateFormat, findDateRangeIndices } from '../js/utils.js'
 
 export default function vRecessionIndicatorChart({
 	el,
@@ -67,12 +67,13 @@ export default function vRecessionIndicatorChart({
 
 	const minValue = d3.min(series, d => d3.min(d.values))
 	const maxValue = d3.max(series, d => d3.max(d.values))
+	const yDomain = [
+		Math.floor(minValue),
+		Math.ceil(maxValue),
+	]
 	const yScale = d3
 		.scaleLinear()
-		.domain([
-			minValue - (maxValue - minValue) * 0.05,
-			maxValue + (maxValue - minValue) * 0.05
-		])
+		.domain(yDomain)
 		.range([height - marginBottom, marginTop])
 		.nice()
 
@@ -225,9 +226,11 @@ export default function vRecessionIndicatorChart({
 				brushG.call(brush.clear)
 				brushResetButton.style('display', 'none')
 				xScale.domain(xDomain)
+				yScale.domain(yDomain)
 				dateRange = null
 				renderPeriods()
 				rendXAxis()
+				renderYAxis()
 				renderSeries()
 			})
 
@@ -244,13 +247,35 @@ export default function vRecessionIndicatorChart({
 
 		function brushended(event) {
 			const selection = event.selection
+
 			if (!event.sourceEvent || !selection) return
 			const [x0, x1] = selection.map(d => interval.round(xScale.invert(d)))
+
+			// Binary search for start and end indices
+			const [ind1, ind2] = findDateRangeIndices(dates, x0, x1)
+
+			// Find minimum y value
+			const y0 = d3.min(
+				series, d => d3.min(d.values.slice(ind1, ind2 + 1))
+			)
+
+			// Find maximum y value
+			const y1 = d3.max(
+				series, d => d3.max(d.values.slice(ind1, ind2 + 1))
+			)
+
+			// Update y Scale domain
+			yScale.domain([
+				Math.floor(y0),
+				Math.ceil(y1),
+			])
+			
 			dateRange = null
 			xScale.domain([x0, x1])
 
 			renderPeriods()
 			rendXAxis()
+			renderYAxis()
 			renderSeries()
 
 			brushG.call(brush.clear)
