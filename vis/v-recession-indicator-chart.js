@@ -231,6 +231,7 @@ export default function vRecessionIndicatorChart({
 				renderPeriods()
 				rendXAxis()
 				renderYAxis()
+				renderThreshold()
 				renderSeries()
 			})
 
@@ -277,6 +278,7 @@ export default function vRecessionIndicatorChart({
 			rendXAxis()
 			renderYAxis()
 			renderSeries()
+			renderThreshold()
 
 			brushG.call(brush.clear)
 			brushResetButton.style('display', null)
