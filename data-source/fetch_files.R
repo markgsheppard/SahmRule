@@ -229,7 +229,7 @@ cat("\014"); cat(sprintf("Successfully retrieved data for %s for Modified Sahm R
 last_updated <- format(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z")
 
 # Create a data frame with the last_updated column
-df <- data.frame(last_updated = last_updated)
+info_df <- data.frame(last_updated = last_updated)
 
 # Write to CSV
 write.csv(info_df, "./tool-data/info.csv", row.names = FALSE)
