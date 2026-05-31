@@ -69,11 +69,11 @@ class SahmRuleDashboard {
 		// add computed line to list of lines
 		this.lineConfigs.push(config)
 
-		// draw chart
-		this.drawChart()
-
 		// Select newly added line
 		this.selectLine(config.id)
+
+		// draw chart
+		this.drawChart()
 	}
 
 	async fetchAndCompute(config) {
