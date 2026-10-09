@@ -20,7 +20,12 @@ for (i in 1:nrow(data)) {
     start_date <- as.Date(data$Date[i])      # Convert to Date type
     
     # Fetch data from FRED
-    fred_data <- fredr(series_id = series_id, observation_start = start_date) %>% 
+    fred_data <- fredr(series_id = series_id, observation_start = start_date) %>%
+      # Drop trailing missing months, then linearly interpolate interior gaps
+      # (e.g., Oct 2025 CPS data never collected during the shutdown).
+      # decompose() errors on internal NAs, which silently kept old files.
+      filter(date <= max(date[!is.na(value)])) %>%
+      mutate(value = approx(seq_along(value), value, xout = seq_along(value))$y) %>%
       mutate(
         time_series = ts(value, frequency = 12),
         deseasonalized_value = as.numeric(time_series - decompose(time_series)$seasonal)
