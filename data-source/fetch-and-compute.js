@@ -50,18 +50,15 @@ async function fetchAndComputeSahm(seriesId) {
 		}
 
 		// Parse and validate the data
-		const baseData = response.observations
-			.filter(d => d.value !== '.' && d.value !== null) // Filter out missing values
-			.map(d => {
-				const value = parseFloat(d.value)
-				if (isNaN(value)) {
-					throw new Error(`Invalid value for date ${d.date}: ${d.value}`)
-				}
-				return {
-					date: new Date(d.date),
-					value: value
-				}
-			})
+		// Missing months ('.') are kept as gaps and linearly interpolated below,
+		// so every month (e.g., Oct 2025, never collected during the shutdown)
+		// stays in the series and the Sahm rolling windows remain aligned.
+		const baseData = interpolateMissing(
+			response.observations.map(d => ({
+				date: new Date(d.date),
+				value: d.value === '.' || d.value === null ? NaN : parseFloat(d.value)
+			}))
+		)
 
 		if (baseData.length === 0) {
 			throw new Error(`No valid observations found for series ${seriesId}`)
@@ -91,6 +88,32 @@ async function fetchAndComputeSahm(seriesId) {
 			error: error.message
 		}
 	}
+}
+
+/**
+ * Linearly interpolates interior missing values and drops leading/trailing
+ * missing months (e.g., the current month before it is released).
+ * @param {Array<{date: Date, value: number}>} rows - Monthly rows, NaN = missing
+ * @returns {Array<{date: Date, value: number}>}
+ */
+function interpolateMissing(rows) {
+	const known = rows.map((d, i) => (isNaN(d.value) ? -1 : i)).filter(i => i >= 0)
+	if (known.length === 0) return []
+	const first = known[0]
+	const last = known[known.length - 1]
+	const out = rows.slice(first, last + 1).map(d => ({ ...d }))
+	let prev = 0
+	for (let i = 1; i < out.length; i++) {
+		if (isNaN(out[i].value)) continue
+		const gap = i - prev
+		for (let j = prev + 1; j < i; j++) {
+			const t = (j - prev) / gap
+			out[j].value = +(out[prev].value + t * (out[i].value - out[prev].value)).toFixed(4)
+			console.log(`  Interpolated ${out[j].date.toISOString().slice(0, 7)}: ${out[j].value}`)
+		}
+		prev = i
+	}
+	return out
 }
 
 /**
