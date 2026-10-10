@@ -52,6 +52,19 @@ for (i in 1:nrow(data)) {
 }
 
 
+# Levels for the Michez rule (Michaillat and Saez, "Has the Recession Started?"):
+# job openings, unemployment and the labor force, kept unadjusted so the
+# vacancy and unemployment rates can be computed exactly as in the paper.
+for (sid in c("JTSJOL", "UNEMPLOY", "CLF16OV")) {
+  tryCatch({
+    lev <- fredr(series_id = sid, observation_start = as.Date("1948-01-01")) %>%
+      filter(!is.na(value)) %>%
+      select(date, value)
+    write.csv(lev, paste0("./tool-data/", sid, ".csv"), row.names = FALSE)
+    cat("Successfully processed:", sid, "\n")
+  }, error = function(e) cat("Error processing series_id:", sid, "-", e$message, "\n"))
+}
+
 # Fetch JHDUSRGDPBR (Quarterly Data) from FRED and process in one step
 fred_data <- fredr(
   series_id = "JHDUSRGDPBR",
