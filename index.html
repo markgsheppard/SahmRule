@@ -637,6 +637,107 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 
 .df-button, .df-button.ghost { background: var(--hero); color: #3a3a3a; border: 1px solid #e3e3e3; }
 .df-button:hover, .df-button.ghost:hover { background: #efefef; color: #111; border-color: #d4d4d4; }
+
+/* Read more beside Open the full chart */
+.card-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: auto; }
+.card-more { font-family: var(--f-nav); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; transition: color .15s; }
+.card-more:hover, .card-more:focus-visible { color: #111; font-weight: 800; }
+.vcard:focus-visible { outline: 2px solid #999; outline-offset: 4px; }
+/* Series cards: elements line up across each row */
+.cards:not(.views) .card { grid-template-rows: auto auto auto auto auto auto auto; align-content: start; }
+.cards:not(.views) .card-t { min-height: 2.4em; }
+.cards:not(.views) .card-d { min-height: calc(3 * 1.6em); }
+.card-num { align-items: center; flex-wrap: nowrap; gap: 14px; min-height: 3.2em; }
+.card-num b { font-size: 40px; font-weight: 600; color: #1f1f1f; line-height: 1; }
+.card-num span { font-size: 13px; line-height: 1.5; max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-num b { min-width: 3.1ch; }
+.cards:not(.views) .card-status { min-height: calc(2 * 1.5em); line-height: 1.5; }
+/* Modified Sahm Rule mentions in soft gray */
+.ov .kw, .kw, .kw-soft { color: #4f4f4f; }
+.ov .kw:hover { color: #222; }
+/* Show full analysis in the light button style */
+.full-toggle { background: var(--hero); color: #3a3a3a; border: 1px solid #e3e3e3; border-radius: 3px; font-family: var(--f-nav); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 11px 18px; }
+.full-toggle:hover { background: #efefef; color: #111; border-color: #d4d4d4; }
+/* Series figures: legend and recessions on one row */
+.vfig .fig-ctl .swatches { margin: 0; }
+.vfig .fig-note { margin-top: 10px; }
+/* Decomposition bars */
+.sb-note { font-size: 11.5px; color: #a3a3a3; margin: 4px 0 0; }
+.chart .tip .sb-help { max-width: 280px; white-space: normal; color: #6b6b6b; font-size: 12px; line-height: 1.45; margin-top: 4px; }
+.chart rect.sb { cursor: help; }
+/* Methodology intro */
+.method-intro { display: grid; gap: 12px; margin: 6px 0 22px; }
+.method-intro p { font-size: 16px; line-height: 1.7; color: var(--prose); margin: 0; }
+.method-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px 28px; margin-top: 4px; }
+.method-map p { font-size: 14.5px; }
+.method-hint { font-size: 12.5px !important; color: #a3a3a3 !important; }
+.fn-accordion-top { border-bottom: 0; margin-bottom: 0; }
+.fn-acc .msr-sec { padding: 4px 0 18px !important; }
+
+/* Series headline numbers: serif like the titles, softer ink */
+.card-num b { font-family: var(--f-display); font-style: italic; font-weight: 400; font-size: 44px; color: #4a4a4a; letter-spacing: -.01em; }
+.card-num span { font-family: var(--f-body); color: #6b6b6b; }
+
+/* Indicator comparisons */
+:root { --c-sahm: #4f8ad7; --c-u6: #9cc3ef; --c-michez: #17397c; }
+.cmp-timeline { display: grid; gap: 22px; margin-top: 6px; }
+.cmp-step { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: start; }
+.cmp-yr { font-family: var(--f-display); font-style: italic; font-size: 22px; color: #8a8a8a; line-height: 1.2; }
+.cmp-step p { font-size: 15.5px; line-height: 1.7; color: var(--prose); margin: 4px 0 0; }
+.cmp-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 0; border-top: 1px solid var(--rule); }
+.cmp-link { display: grid; gap: 4px; align-content: start; padding: 16px 18px 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; }
+.cmp-links .cmp-link:nth-child(odd) { border-right: 1px solid var(--rule); }
+.cmp-links .cmp-link:nth-child(even) { padding-left: 18px; }
+@media (max-width: 700px) { .cmp-links .cmp-link:nth-child(odd) { border-right: 0; } .cmp-links .cmp-link:nth-child(even) { padding-left: 0; } }
+.cmp-src { font-family: var(--f-nav); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #a3a3a3; }
+.cmp-t { font-family: var(--f-display); font-style: italic; font-size: 18px; color: #2a2a2a; line-height: 1.3; }
+.cmp-link:hover .cmp-t { color: #000; }
+.cmp-d { font-size: 13.5px; color: #8a8a8a; line-height: 1.5; }
+.cmp-d a { color: #6b6b6b; }
+.cmp-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 18px; }
+.cmp-tbl th, .cmp-tbl td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: right; font-variant-numeric: tabular-nums; }
+.cmp-tbl th { font-family: var(--f-nav); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #8a8a8a; font-weight: 700; }
+.cmp-tbl td:first-child, .cmp-tbl th:first-child { text-align: left; }
+.cmp-tbl td { color: #4a4a4a; }
+.cmp-tbl .na { color: #b5b5b5; }
+.cmp-cap { font-size: 12px; color: #a3a3a3; margin: 6px 0 0; }
+.thr2 { font-size: 11.5px; color: #8a8a8a; display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.thr2 i { display: inline-block; width: 18px; border-top: 1px dashed; margin-right: 6px; vertical-align: middle; }
+
+.ov-block, .ov > section, #cmp-fig, #cmp-table { min-width: 0; }
+.fig-ctl .radios { flex-wrap: wrap; min-width: 0; }
+#cmp-table { overflow-x: auto; }
+
+/* Replications and validations */
+.rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 18px 28px; }
+.rep-grid p { font-size: 15px; line-height: 1.65; color: var(--prose); margin: 6px 0 0; }
+.ov code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .9em; color: #4a4a4a; background: #f4f4f4; padding: 1px 4px; border-radius: 3px; }
+.rep-code { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px; margin: 6px 0 0; }
+.rep-code figure { margin: 0; border: 1px solid #ececec; border-radius: 4px; background: #fafafa; min-width: 0; }
+.rep-code figcaption { font-family: var(--f-nav); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #8a8a8a; padding: 10px 14px 0; }
+.rep-code pre { margin: 0; padding: 8px 14px 14px; overflow-x: auto; }
+.rep-code pre code { background: none; padding: 0; font-size: 12.5px; line-height: 1.6; color: #3a3a3a; }
+.rep-img { margin: 8px 0 0; }
+.rep-img img { width: 100%; height: auto; display: block; }
+.rep-links { margin-top: 10px; }
+.val-ctl { display: grid; gap: 12px; margin: 6px 0 4px; padding: 14px 16px; border: 1px solid #ececec; border-radius: 4px; background: #fafafa; }
+.val-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 13px; color: #6b6b6b; }
+.val-row > b { font-family: var(--f-nav); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #8a8a8a; min-width: 120px; }
+.val-row label { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap; }
+.val-row select { font: inherit; font-size: 13px; padding: 3px 6px; border: 1px solid #d4d4d4; border-radius: 3px; background: #fff; color: #333; }
+.val-run { justify-self: start; }
+.val-stat { font-size: 12.5px; color: #8a8a8a; }
+.val-canvas { position: relative; margin-top: 10px; }
+.val-canvas canvas { width: 100%; display: block; }
+.val-canvas .tip { position: absolute; pointer-events: none; }
+.val-key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12.5px; color: #6b6b6b; margin-top: 8px; }
+.val-key i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+
+.val-ctl, .val-row, #val-fig, #val-table, #rep-fig, #rep-table, .rep-grid > div { min-width: 0; }
+.val-row select { max-width: 100%; }
+@media (max-width: 600px) { .val-row > b { min-width: 100%; } }
+.rep-grid code, .ov-lead code { white-space: normal; overflow-wrap: anywhere; }
+#rep-fig svg { width: 100%; height: auto; display: block; }
 </style>
 
 <header class="site-head"><div class="in">
@@ -657,6 +758,9 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
       <div class="sub sub-sm" role="menu">
         <a href="#map" data-v="map" role="menuitem"><span class="sub-t">Interactive <i>Map</i></span><span class="sub-d">Turning points for 3,134 counties, 1990 to present</span></a>
         <a href="#tool" data-v="tool" role="menuitem"><span class="sub-t">Turning Point <i>Tool</i></span><span class="sub-d">Build and compare Modified Sahm Rule indicators</span></a>
+        <a href="#compare" data-v="compare" role="menuitem"><span class="sub-t">Indicator <i>Comparisons</i></span><span class="sub-d">The Sahm Rule, the Michez Rule and underemployment, side by side</span></a>
+        <a href="#validate" data-v="validate" role="menuitem"><span class="sub-t">Indicator <i>Validations</i></span><span class="sub-d">Thousands of rules on the anticipation-precision frontier</span></a>
+        <a href="#replicate" data-v="replicate" role="menuitem"><span class="sub-t">Replications</span><span class="sub-d">Re-examining published tests of the Sahm Rule</span></a>
       </div>
     </div>
     <a href="#method" data-v="method">Methodology</a>
@@ -692,6 +796,7 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
     <div class="ov-buttons">
       <a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
       <a class="df-button ghost" href="https://www.markgsheppard.com/curriculum-vitae" target="_blank" rel="noopener">View CV <span aria-hidden="true">↗</span></a>
+      <a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the Code <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 
@@ -700,10 +805,10 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
     <h2 class="ov-h">The same framework across measures, groups, places and more</h2>
     <p class="ov-lead">Each card applies the indicator to a different cut of the labor market. Open any one for the full interactive chart.</p>
     <div class="cards views" id="ov-views">
-      <button class="card vcard" data-panel="u" type="button"><span class="card-k">Underemployment</span><span class="card-t">Turning Point by<br>Underemployment Data</span><span class="card-d">Run on U-1 through U-6, the broader the measure of labor utilization, the earlier and larger the signal. U-6 is the most responsive indicator.</span><span class="mini" id="vmini-u"></span><span class="card-go">Open the full chart</span></button>
-      <button class="card vcard" data-panel="race" type="button"><span class="card-k">Racial</span><span class="card-t">Turning Point by<br>Racial Data</span><span class="card-d">Compared on the same rule, Black and Hispanic unemployment turn earlier and rise further than White unemployment in most recessions since 1975.</span><span class="mini" id="vmini-race"></span><span class="card-go">Open the full chart</span></button>
-      <button class="card vcard" data-panel="edu" type="button"><span class="card-k">Education</span><span class="card-t">Turning Point by<br>Education Data</span><span class="card-d">Workers without a high school diploma give the earliest and strongest signal; advanced degrees the weakest. Credentials buy time in a downturn.</span><span class="mini" id="vmini-edu"></span><span class="card-go">Open the full chart</span></button>
-      <button class="card vcard" data-panel="county" type="button"><span class="card-k">County</span><span class="card-t">Turning Point by<br>County Data</span><span class="card-d">Recessions arrive unevenly across places. Each hexagon is a state, shaded by the share of its counties whose own indicator is above the threshold in the latest month.</span><span class="mini" id="vmini-county"></span><span class="card-go">Open the full map</span></button>
+      <div class="card vcard" data-panel="u" role="button" tabindex="0"><span class="card-k">Underemployment</span><span class="card-t">Turning Point by<br>Underemployment Data</span><span class="card-d">Run on U-1 through U-6, the broader the measure of labor utilization, the earlier and larger the signal. U-6 is the most responsive indicator.</span><span class="mini" id="vmini-u"></span><span class="card-row"><span class="card-go">Open the full chart</span><a class="card-more" href="#series">Read more →</a></span></div>
+      <div class="card vcard" data-panel="race" role="button" tabindex="0"><span class="card-k">Racial</span><span class="card-t">Turning Point by<br>Racial Data</span><span class="card-d">Compared on the same rule, Black and Hispanic unemployment turn earlier and rise further than White unemployment in most recessions since 1975.</span><span class="mini" id="vmini-race"></span><span class="card-row"><span class="card-go">Open the full chart</span><a class="card-more" href="#race">Read more →</a></span></div>
+      <div class="card vcard" data-panel="edu" role="button" tabindex="0"><span class="card-k">Education</span><span class="card-t">Turning Point by<br>Education Data</span><span class="card-d">Workers without a high school diploma give the earliest and strongest signal; advanced degrees the weakest. Credentials buy time in a downturn.</span><span class="mini" id="vmini-edu"></span><span class="card-row"><span class="card-go">Open the full chart</span><a class="card-more" href="#education">Read more →</a></span></div>
+      <div class="card vcard" data-panel="county" role="button" tabindex="0"><span class="card-k">County</span><span class="card-t">Turning Point by<br>County Data</span><span class="card-d">Recessions arrive unevenly across places. Each hexagon is a state, shaded by the share of its counties whose own indicator is above the threshold in the latest month.</span><span class="mini" id="vmini-county"></span><span class="card-row"><span class="card-go">Open the full map</span><a class="card-more" href="#spatial">Read more →</a></span></div>
     </div>
     <dialog class="view-dialog" id="view-dialog" aria-label="Full chart">
       <button type="button" class="vd-close" id="vd-close" aria-label="Close">Close <span aria-hidden="true">×</span></button>
@@ -752,7 +857,7 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
   <div class="byline"><div>Working paper series <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
 </div></section>
 <div class="article">
-  <p>The <strong>Modified Sahm Rule</strong> treats the Sahm Rule’s conventions as free parameters and applies one turning-point function to any disaggregated labor-market series. Each paper below asks the same question of a different dimension of inequality: by the standards of real-time recession detection, does the recession begin, peak and end at the same time for everyone?</p>
+  <p>The <strong class="kw-soft">Modified Sahm Rule</strong> treats the Sahm Rule’s conventions as free parameters and applies one turning-point function to any disaggregated labor-market series. Each paper below asks the same question of a different dimension of inequality: by the standards of real-time recession detection, does the recession begin, peak and end at the same time for everyone?</p>
   <div class="cards" id="cards"></div>
   <p class="card-status">Headline numbers compare the first group named with the last, averaged over the recessions selected in the tool (by default 1980 through 2007–09; 2020 excluded). Each chapter shows every figure; “Show full analysis” in any chapter opens all tables, robustness checks and decompositions.</p>
 </div>
@@ -896,6 +1001,150 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 </main>
 </div>
 
+<!-- ===== Indicator comparisons ===== -->
+<div class="view" id="v-compare" hidden>
+<section class="hero"><div class="in">
+  <h1>Indicator Comparisons</h1>
+  <p class="lede">Three real-time recession rules built from the labor market: the Sahm Rule, the Michez Rule, and the same Sahm construction applied to underemployment. How they differ, when each one fired, and how the field got here.</p>
+  <div class="byline"><div>Interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div></div>
+</div></section>
+<div class="article ov">
+  <section class="ov-block ov-first">
+    <span class="ov-kicker">Three rules, one chart</span>
+    <h2 class="ov-h">From one unemployment rule to a family of labor-market indicators</h2>
+    <p class="ov-lead">Each line measures how far the labor market has moved from its recent best. The Sahm Rule tracks the headline unemployment rate. Underemployment applies the same rule to U-6, which also counts people working part time because they cannot find full-time work and people who have stopped looking. The Michez Rule requires unemployment to rise and job openings to fall together, and signals at a lower threshold.</p>
+    <div id="cmp-fig"><p class="loading">Loading indicators…</p></div>
+    <div id="cmp-table"></div>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">How the field has evolved</span>
+    <h2 class="ov-h">A rule for stimulus became a research program</h2>
+    <div class="cmp-timeline">
+      <div class="cmp-step"><span class="cmp-yr">2019</span><div><span class="c-k">The Sahm Rule</span><p>Claudia Sahm, then an economist at the Federal Reserve Board, proposed the rule in “Direct Stimulus Payments to Individuals,” a chapter of <i>Recession Ready</i>, published by the Hamilton Project and the Washington Center for Equitable Growth. It was designed as a trigger for automatic stimulus payments: a recession signal when the three-month average unemployment rate rises half a percentage point above its low over the previous twelve months. The Federal Reserve Bank of St. Louis now publishes it in real time on FRED, and Sahm writes about the economy at <a class="plain-link" href="https://stayathomemacro.substack.com" target="_blank" rel="noopener">Stay-At-Home Macro</a>.</p></div></div>
+      <div class="cmp-step"><span class="cmp-yr">2024</span><div><span class="c-k">The Michez Rule</span><p>Pascal Michaillat and Emmanuel Saez added the other side of the labor market. Their rule, in “Has the Recession Started?”, takes the smaller of two indicators: the Sahm-style rise in unemployment and the fall in job openings from their recent peak. A recession is signaled when that minimum reaches 0.29 percentage points. Requiring both signals at once guards against a rise in unemployment that comes from more people entering the labor force while employers are still hiring. The paper was published in the <i>Oxford Bulletin of Economics and Statistics</i> in 2025.</p></div></div>
+      <div class="cmp-step"><span class="cmp-yr">2025</span><div><span class="c-k">Validation and classifiers</span><p>Michaillat has since built a broader framework for testing these indicators. “Early and Accurate Recession Detection Using Classifiers on the Anticipation-Precision Frontier” searches across many rules built from unemployment and vacancy data, keeps those that detect recessions earliest without false alarms, and turns them into a recession probability. Related work with Saez on the full-employment rate of unemployment, u* = √uv, grounds the same labor-market data in theory.</p></div></div>
+      <div class="cmp-step"><span class="cmp-yr">Now</span><div><span class="c-k">Underemployment and disaggregation</span><p>The <a class="plain-link" href="#method">Modified Sahm Rule</a> treats every convention of the Sahm Rule as a parameter and applies it to any labor-market series. Run on U-6, it tends to move before the headline rate, consistent with hours being cut before workers are laid off. Run on groups of workers, it shows that <a class="plain-link" href="#series">recessions arrive at different times for different people</a>.</p></div></div>
+    </div>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">Sources and further reading</span>
+    <h2 class="ov-h">Papers and live indicators</h2>
+    <div class="cmp-links">
+      <a class="cmp-link" href="https://equitablegrowth.org/wp-content/uploads/2019/06/Direct-Stimulus-Payments-to-Individuals-%E2%80%93-Sahm.pdf" target="_blank" rel="noopener"><span class="cmp-src">Washington Center for Equitable Growth · 2019</span><span class="cmp-t">Direct Stimulus Payments to Individuals</span><span class="cmp-d">Claudia Sahm’s original paper introducing the rule, from <i>Recession Ready</i>.</span></a>
+      <a class="cmp-link" href="https://www.hamiltonproject.org/papers/direct-stimulus-payments-to-individuals" target="_blank" rel="noopener"><span class="cmp-src">The Hamilton Project · 2019</span><span class="cmp-t">The same chapter at the Hamilton Project</span><span class="cmp-d">Co-publisher of <i>Recession Ready</i>.</span></a>
+      <a class="cmp-link" href="https://fred.stlouisfed.org/series/SAHMREALTIME" target="_blank" rel="noopener"><span class="cmp-src">FRED · Federal Reserve Bank of St. Louis</span><span class="cmp-t">Real-time Sahm Rule Recession Indicator</span><span class="cmp-d">The official real-time series, updated with each jobs report.</span></a>
+      <a class="cmp-link" href="https://stayathomemacro.substack.com" target="_blank" rel="noopener"><span class="cmp-src">Substack</span><span class="cmp-t">Stay-At-Home Macro</span><span class="cmp-d">Claudia Sahm’s writing on the economy and the rule.</span></a>
+      <a class="cmp-link" href="https://doi.org/10.1111/obes.12685" target="_blank" rel="noopener"><span class="cmp-src">Oxford Bulletin of Economics and Statistics · 2025</span><span class="cmp-t">Has the Recession Started?</span><span class="cmp-d">Michaillat and Saez introduce the Michez Rule in the published version of the paper.</span></a>
+      <a class="cmp-link" href="https://github.com/pmichaillat/michez-rule" target="_blank" rel="noopener"><span class="cmp-src">GitHub</span><span class="cmp-t">Michez Rule code and data</span><span class="cmp-d">Replication files for “Has the Recession Started?”.</span></a>
+      <a class="cmp-link" href="https://www.nber.org/papers/w34015" target="_blank" rel="noopener"><span class="cmp-src">NBER Working Paper 34015 · 2025</span><span class="cmp-t">Early and Accurate Recession Detection Using Classifiers on the Anticipation-Precision Frontier</span><span class="cmp-d">Michaillat’s framework for validating recession indicators, also a CEPR discussion paper.</span></a>
+      <a class="cmp-link" href="https://pascalmichaillat.org" target="_blank" rel="noopener"><span class="cmp-src">pascalmichaillat.org</span><span class="cmp-t">Pascal Michaillat’s research</span><span class="cmp-d">Working papers on recession detection and dating, unemployment and full employment.</span></a>
+      <a class="cmp-link" href="https://arxiv.org/abs/2408.05856" target="_blank" rel="noopener"><span class="cmp-src">arXiv · 2024</span><span class="cmp-t">Has the Recession Started? (working paper)</span><span class="cmp-d">The working-paper version, with the two-threshold rule of 0.3 and 0.8 points cited in the Modified Sahm Rule notes.</span></a>
+      <a class="cmp-link" href="https://arxiv.org/abs/2506.09664" target="_blank" rel="noopener"><span class="cmp-src">arXiv · 2025</span><span class="cmp-t">Recession Detection Using Classifiers on the Anticipation-Precision Frontier</span><span class="cmp-d">The latest revision of Michaillat’s classifier paper.</span></a>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ===== Replications ===== -->
+<div class="view" id="v-replicate" hidden>
+<section class="hero"><div class="in">
+  <h1>Replications</h1>
+  <p class="lede">Published evaluations of the Sahm Rule, re-run with the rule as it is defined. The first is “Works Like a Sahm,” a 2024 article in <i>Economics Letters</i>.</p>
+  <div class="byline"><div>Replication note <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div></div>
+</div></section>
+<div class="article ov">
+  <section class="ov-block ov-first">
+    <span class="ov-kicker">The paper</span>
+    <h2 class="ov-h">Works Like a Sahm: Recession Indicators and the Sahm Rule</h2>
+    <p class="ov-lead">Thomas Ash and Jerry Nickelsburg ask whether the Sahm Rule works as a recession predictor. They take two approaches: a look back at historical recessions, and stochastic simulations from a small vector autoregression (VAR) in real GDP, prices and unemployment, in which each simulated path is checked against the rule. They conclude that the rule is a poor predictor of future recessions because it focuses on unemployment and so misses shocks that start outside the labor market, and that it should be kept to the purpose its creator intended. The paper is a useful contribution: the VAR framework is a clean way to ask how a labor-market indicator responds to different kinds of shocks.</p>
+    <p class="ov-lead">Re-running that framework, though, the headline result turns out to rest on how the rule was coded rather than on the rule itself. Implemented as Sahm defines it, the rule picks up a substantially larger share of the simulated recessions, including those that begin outside the labor market.</p>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">The specification</span>
+    <h2 class="ov-h">Three differences from the rule as defined</h2>
+    <div class="rep-grid">
+      <div><span class="c-k">Four months, not three</span><p>The average is taken over observations <code>k = i − 3</code> through <code>i</code>, which is four months. The Sahm Rule uses a three-month average.</p></div>
+      <div><span class="c-k">Changes, not levels</span><p>The VAR is estimated with unemployment in first differences, and the rule is applied to that differenced response. The Sahm Rule is defined on the unemployment rate itself.</p></div>
+      <div><span class="c-k">Zero, not the year’s low</span><p>The average is compared with zero rather than with its lowest value over the previous twelve months, and 0.5 is subtracted, so any positive value counts as a signal.</p></div>
+    </div>
+    <p class="ov-lead">Put together, the test that was run asks whether unemployment rose by more than half a point <i>every month</i>, on average, for four consecutive months: a cumulative rise of about two points. The Sahm Rule asks whether the three-month average rose half a point above its recent low. The first is a much higher bar, and it is the reason the rule appears to miss so many recessions. This is an easy step to take when a model is estimated in differences, and it is the kind of detail a replication exists to catch.</p>
+    <div class="rep-code">
+      <figure><figcaption>As implemented</figcaption><pre><code>for (i in 3:nrow(irf_data)) {
+  k = i - 3
+  ma_3 &lt;- mean(irf_data$unrate[k:i])   # four months, in changes
+  irf_data$sahm_check[i] &lt;- ma_3 - 0 - 0.5
+}
+# signal if any sahm_check &gt; 0</code></pre></figure>
+      <figure><figcaption>The Sahm Rule</figcaption><pre><code>u    &lt;- unemployment_rate                # levels
+ma3  &lt;- rollmean(u, 3, align = "right")
+low  &lt;- dplyr::lag(rollapply(ma3, 12, min,
+          align = "right", fill = NA))    # previous 12 months
+gap  &lt;- ma3 - low
+signal &lt;- gap &gt;= 0.5</code></pre></figure>
+    </div>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">On the historical record</span>
+    <h2 class="ov-h">The same three rules, run on actual unemployment</h2>
+    <p class="ov-lead">The difference is easy to see on real data. Below, the specification as implemented in the paper, the Sahm Rule, and the same rule on U-6 are run on the published unemployment series since 1976.</p>
+    <div id="rep-fig"><p class="loading">Loading…</p></div>
+    <div id="rep-table"></div>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">Re-running the simulations</span>
+    <h2 class="ov-h">One-third of non-labor recessions, not under nine percent</h2>
+    <p class="ov-lead">Re-estimating the same mixed-frequency VAR and drawing 1,000 simulated paths, then applying the rule as defined, the Sahm Rule identifies roughly one-third of the simulated recessions that begin outside the labor market, compared with under nine percent reported in the paper. Applied to U-6, the same construction detects about ninety percent of simulated recessions, at the cost of more false positives than the original rule.</p>
+    <figure class="rep-img"><img src="wlas-sim.jpg" alt="Three scatter plots of 1,000 simulated shocks, real GDP shock on the horizontal axis and unemployment shock on the vertical. Left, original misspecification: few points flagged. Middle, corrected Sahm Rule: many more flagged, mostly negative GDP shocks. Right, U-6 Modified Sahm Rule: most points flagged." loading="lazy">
+      <details class="fig-note"><summary>Notes and source</summary><p>Each point is one simulated path among those classified as a recession by the paper’s GDP-based criterion (real GDP growth negative in the current month and five months earlier), plotted by its real GDP shock (horizontal) and unemployment shock (vertical); point size shows the absolute price shock. Blue points triggered the rule within twelve months. Monthly GDP is estimated with a mixed-frequency Bayesian additive regression tree VAR (MF-BAVART), and the VAR has five lags, as in the original. Replication by Mark G. Sheppard.</p></details>
+    </figure>
+  </section>
+
+  <section class="ov-block">
+    <span class="ov-kicker">What holds up</span>
+    <h2 class="ov-h">An indicator, not a forecast</h2>
+    <p class="ov-lead">The paper’s broader point stands, and it is consistent with Sahm’s own description of the rule: a turning-point indicator keyed to realized labor-market slack is not a one-month-ahead forecaster, and it tends to become informative a few months into a downturn, later when the shock starts outside the labor market. That is a statement about propagation. Shocks show up first where they start and later in hours, hiring and unemployment. It applies to the Modified Sahm Rule as well, which is why the series on this site uses it to date and describe downturns rather than to predict them.</p>
+    <div class="cmp-links rep-links">
+      <a class="cmp-link" href="https://doi.org/10.1016/j.econlet.2024.111878" target="_blank" rel="noopener"><span class="cmp-src">Economics Letters 242 · 2024</span><span class="cmp-t">Works Like a Sahm: Recession Indicators and the Sahm Rule</span><span class="cmp-d">Thomas Ash and Jerry Nickelsburg, article 111878.</span></a>
+      <a class="cmp-link" href="https://equitablegrowth.org/wp-content/uploads/2019/06/Direct-Stimulus-Payments-to-Individuals-%E2%80%93-Sahm.pdf" target="_blank" rel="noopener"><span class="cmp-src">Washington Center for Equitable Growth · 2019</span><span class="cmp-t">Direct Stimulus Payments to Individuals</span><span class="cmp-d">Claudia Sahm’s original definition of the rule.</span></a>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ===== Validations ===== -->
+<div class="view" id="v-validate" hidden>
+<section class="hero"><div class="in">
+  <h1>Indicator Validations</h1>
+  <p class="lede">Every rule on this site is one choice among thousands. Following Pascal Michaillat’s anticipation-precision frontier, this page builds those thousands, keeps the ones that detect every recession in a training period with no false alarms, and shows where the Sahm Rule and its variants sit among them.</p>
+  <div class="byline"><div>Interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div></div>
+</div></section>
+<div class="article ov">
+  <section class="ov-block ov-first">
+    <span class="ov-kicker">The frontier</span>
+    <h2 class="ov-h">Early or precise: every perfect classifier, one dot each</h2>
+    <p class="ov-lead">Each dot is a rule built from one labor-market series with its own smoothing window, comparison window and threshold, that flags exactly the recessions in the training period and nothing else. Moving left means more precise timing (a smaller spread of errors); moving down means earlier detection (a more negative average error, in months relative to the start of the recession). The line traces the frontier: rules for which no other is both earlier and more precise. Hover any dot for its parameters, change the settings and run it again.</p>
+    <div class="val-ctl" id="val-ctl"></div>
+    <div id="val-fig"><p class="loading">Building classifiers…</p></div>
+    <div id="val-table"></div>
+  </section>
+  <section class="ov-block">
+    <span class="ov-kicker">How it works</span>
+    <h2 class="ov-h">From a single rule to a search over rules</h2>
+    <p class="ov-lead">Michaillat (2025) constructs 95,832 indicators from unemployment and vacancy data, varying smoothing, curvature, turning-point windows and how the two series are mixed, then keeps only “perfect classifiers”: indicator-threshold pairs that detect exactly the right number of recessions in a training period. Among those, the anticipation-precision frontier collects the rules that cannot be made earlier without being made less precise. This page applies the same logic to the Modified Sahm Rule family: for each series, smoothing window <i>k</i>, comparison window <i>m</i> and threshold <i>α</i>, it records when the rule first crosses its threshold in each episode and compares those dates with NBER recession starts.</p>
+    <details class="fig-note"><summary>Method notes</summary>
+      <p>Indicator: the <i>k</i>-month average of the series minus its minimum over the comparison window (the current month and the previous <i>m</i> months, or the previous <i>m</i> months only). A recession signal is an upward crossing of <i>α</i> while no signal is active; a signal ends when the indicator falls back below <i>α</i>. (Michaillat ends a signal when his indicators return to zero; for Sahm-type indicators, which rarely reach zero between closely spaced recessions such as 1980 and 1981–82, falling below the threshold is the standard reading.) A series is included when it starts at least three years before the first recession in the training period. A classifier is perfect when the number of signals in the training period equals the number of NBER recessions and each signal falls within 24 months of the recession it is paired with, in order. Recession start is the month after the NBER peak, as in Michaillat. Error = signal month minus recession start; the horizontal axis is its standard deviation across recessions and the vertical axis its mean. Thresholds are searched on the grid shown; neighboring thresholds that give identical dates are shown once.</p>
+      <p>Highlighted rules: the Sahm Rule (U-3, <i>k</i> = 3, previous 12 months, <i>α</i> = 0.5); the U-6 Modified Sahm Rule (same, on U-6); the Sahm Rule on Black unemployment; and the specification implemented in “Works Like a Sahm” (four-month average of monthly changes compared with zero, <i>α</i> = 0.5). A highlighted rule that detects every recession but also raises false alarms is drawn hollow; one that misses recessions is listed in the table only. Over 1994–2021 the Sahm Rule’s one false alarm is July 2003, during the jobless recovery; over the longer periods it also signals in late 1959.</p>
+      <p>Sources: BLS via FRED (UNRATE, U6RATE, U4RATE, U5RATE and the race, ethnicity and education series in the Turning Point Tool); NBER business-cycle dates. Michaillat, P. (2025), “Early and Accurate Recession Detection Using Classifiers on the Anticipation-Precision Frontier,” NBER Working Paper 34015.</p>
+    </details>
+  </section>
+</div>
+</div>
+
 <!-- ===== Methodology ===== -->
 <div class="view" id="v-method" hidden>
 <section class="hero"><div class="in">
@@ -904,8 +1153,19 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
   <p class="lede">How the Modified Sahm Rule is applied across the series, how timing is measured, and how the decompositions separate a group’s characteristics from the group itself.</p>
 </div></section>
 <div class="article">
-  <section class="ov msr-sec">
-    <h2 class="sec" id="msr"><span class="kicker">The indicator</span>Modified Sahm Rule</h2>
+  <section class="method-intro">
+    <span class="ov-kicker">About this page</span>
+    <h2 class="ov-h">How the indicators are built, and where every number comes from</h2>
+    <p>Every chart on this site applies one rule, the Modified Sahm Rule, to a different slice of the labor market: measures of underemployment, racial and ethnic groups, income deciles, levels of education and individual counties. This page gathers what sits behind those charts so that any figure can be traced back to its definition and its data.</p>
+    <div class="method-map">
+      <div><span class="c-k">The indicator</span><p>The formulas that define the Modified Sahm Rule, its smoothing window and its threshold.</p></div>
+      <div><span class="c-k">Footnotes</span><p>The notes and sources for every chart, grouped by the page where the chart appears.</p></div>
+      <div><span class="c-k">Technical notes</span><p>Data sources, how recession timing is measured, and how the decompositions separate a group’s characteristics from the group itself.</p></div>
+    </div>
+    <p class="method-hint">Each section below opens on click.</p>
+  </section>
+  <div class="fn-accordion fn-accordion-top">
+  <details class="fn-collapse fn-acc" id="msr"><summary>The indicator: Modified Sahm Rule formulas</summary><div class="ov msr-sec">
   <p>The Modified Sahm Rule consists of two components: the minuend, \( \lambda_{i,t} \), and the subtrahend, \( \gamma_{j,t} \). The Modified Sahm Rule is defined as:</p>
   <div class="math">\[ \text{Sahm}(\lambda_{i,t}, \gamma_{j,t}) = \lambda_{i,t} - \gamma_{j,t}, \]</div>
   <p>where:</p>
@@ -918,7 +1178,8 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
     <li>\( \alpha \) is generally set to 0.5, but this parameter can be adjusted to establish upper and lower bounds, such as 0.3 and 0.8, as discussed in <a href="https://arxiv.org/pdf/2408.05856" target="_blank" rel="noopener" class="plain-link">Michaillat and Saez (2024)</a>.</li>
     <li>Indices \( i \) and \( j \) allow for comparing different unemployment measures (e.g., \( i \neq j \), such as comparing Hispanic women unemployment or the unemployment rate in Cocke County, Tennessee against the baseline \( U_3 \) as the subtrahend, creating a Relative Sahm Rule). This formulation can also be extended to include job vacancy or any labor utilization measure.</li>
   </ul>
-  </section>
+  </div></details>
+  </div>
 <h2 class="sec" id="footnotes"><span class="kicker">Notes</span>Footnotes from across the site</h2>
 <div class="fn-accordion">
 <details class="fn-collapse fn-acc"><summary>Overview <span class="fn-n">3</span></summary><ol class="fn-list"><li><span class="fnl-t">Turning Point by Income Data (Overview)</span><span class="fnl-s">Turning Point Indicator, Modified Sahm Rule, Family-Income Decile Data (CPS), Shown with Reference Lines and Recessions, Data from 1982 to Present (k = 6, m = 12, α = 0.5)</span><span class="fnl-f">Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted. Each line is a decile of the family-income distribution run through its own indicator. Shaded: NBER recession. Dots mark when each decile crossed the threshold.</span></li><li><span class="fnl-t">Turning Point by Underemployment Data · Turning Point by Racial Data · Turning Point by Education Data</span><span class="fnl-s">Turning Point Indicator, Modified Sahm Rule, Labor Underutilization Data (U-1 to U-6), Shown with Reference Lines and Recessions, Data from 1965 to Present</span><span class="fnl-f">Source: Claudia Sahm, Bureau of Labor Statistics (BLS). Note: Indicator based on real-time unemployment rate data, adjusted annually for seasonal factors. The Sahm Recession Indicator signals a recession when the unemployment rate&#x27;s three-month moving average rises by 0.50 percentage points or more relative to the previous 12 months&#x27; minimum average. Author: Mark G. Sheppard Visualized by: Giorgi Gviniashvili and Mark G. Sheppard. Last updated: October 9, 2026</span></li><li><span class="fnl-t">Turning Point by County Data</span><span class="fnl-s">Turning Point Indicator, Modified Sahm Rule, County Level Data, Shown with Color Variation, Data from 1991 to Present Aug 2026</span><span class="fnl-f">Source: BLS Local Area Unemployment Statistics, county unemployment rates, 1990 to present. Outlook is the county’s Sahm Rule value; Accuracy and Advance summarize how well each county’s signal matched national recessions and how many days it led the NBER committee. Author: Mark G. Sheppard. Visualized by: Giorgi Gviniashvili and Mark G. Sheppard.</span></li></ol><p class="fn-go"><a class="plain-link" href="#overview">Go to Overview →</a></p></details>
@@ -2841,14 +3102,19 @@ function matchAll(s) { const a = pAt(s); return Object.fromEntries(NBER.map(r =>
 function lead(m) { return m && m.status === "ok" ? m.lead : NaN; }
 function metricOf(m, k) { return m && m.status === "ok" ? METRICS[k].get(m) : NaN; }
 
-const REC_NAMES = { "1990–91": "Gulf War", "2001": "Dot-Com Bust", "2007–09": "Financial Collapse", "2020": "COVID-19" };
+const REC_NAMES = { "1973–75": "Oil Embargo", "1980": "Volcker I", "1981–82": "Volcker II", "1990–91": "Gulf War", "2001": "Dot-Com Bust", "2007–09": "Financial Collapse", "2020": "COVID-19" };
 function recRadios(name, cur, recs, named) {
   return `<div class="radios" role="radiogroup" aria-label="Recession">${recs.map(r => `<label${named ? ` title="${r.name}"` : ""}><input type="radio" name="${name}" value="${r.id}" ${r.id === cur ? "checked" : ""}> ${named ? (REC_NAMES[r.name] || r.name) : r.name}</label>`).join("")}</div>`;
 }
 function wireRadios(root, name, onPick) { root.querySelectorAll(`input[name="${name}"]`).forEach(i => i.onchange = () => onPick(i.value)); }
 function swatches(items) { return `<div class="swatches">${items.map(it => `<span class="swatch"><span class="swatch__swatch ${it.dash ? "dash" : ""}" style="${it.dash ? "border-color" : "background"}:var(${it.color})"></span>${esc(it.label)}</span>`).join("")}</div>`; }
 function TP(data, shown, from) { return `Turning Point Indicator, Modified Sahm Rule, ${data}, Shown with ${shown}, Data from ${from} to Present <span class="vparams">(k = ${ST.p.k}, m = ${ST.p.m}, α = ${ST.p.alpha})</span>`; }
-function figure(title, sub, body, foot) { return `<figure class="vfig"><div class="vhead"><div class="vtitle">${title}</div><div class="vsub">${sub}</div></div>${body}<div class="vfoot">${foot}</div></figure>`; }
+function figure(title, sub, body, foot) { return `<figure class="vfig"><div class="vhead"><div class="vtitle">${title}</div></div>${body}${(sub || foot) ? `<details class="fig-note"><summary>Notes and source</summary>${sub ? `<p>${sub}</p>` : ""}${foot ? `<p>${foot}</p>` : ""}</details>` : ""}</figure>`; }
+const SERIES_LINE = { years: true, noTicks: true };
+const UPDOWN = () => [{ y: ST.p.alpha, updown: true }];
+function softBody(el) { el.classList.add("soft"); return el; }
+// A headline difference whose wording follows its sign: "6.0 months shorter", never "−6.0 months longer"
+function dres(label, v, pos, neg, note, digits) { const d = digits == null ? 1 : digits; if (!isFinite(v)) return result(label, "–", pos, note); const z = Math.abs(v) < Math.pow(10, -d) / 2; return result(label, f1(Math.abs(v), d), z ? "no difference" : v < 0 ? neg : pos, note); }
 function result(label, val, unit, note) { return `<div class="res"><div class="res-l">${label}</div><div class="res-v">${val}</div><div class="res-u">${unit}</div>${note ? `<div class="res-n">${note}</div>` : ""}</div>`; }
 function paramLine() { return `k = ${ST.p.k}-month average · ${ST.p.m}-month rolling minimum · α = ${ST.p.alpha} pp${ST.p.scale !== "fixed" ? " (scaled by group " + (ST.p.scale === "level" ? "level" : "volatility") + ")" : ""}`; }
 const CUR_START = "2021-05";
@@ -2880,6 +3146,9 @@ function renderSite() {
   if (v === "spatial") { renderSpatialFigs(); if (window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("county-map")); }
   if (v === "map" && window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("map-page"));
   if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); }
+  if (v === "compare") renderCompare();
+  if (v === "replicate") renderReplicate();
+  if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
   if (!ok) return;
   if (v === "income") renderIncomeFigs();
@@ -2889,7 +3158,7 @@ function renderSite() {
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "map", "tool", "method"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "map", "tool", "compare", "validate", "replicate", "method"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -2939,15 +3208,15 @@ function renderCards(target) {
     { v: "race", k: "Race", t: "The Racial<br>Inequality <span class=of>of</span> Recession", d: "Do Black workers’ recessions start earlier and last longer, and how much survives once income, education, age, sex and region are held fixed?",
       f: ok ? CPS.series.R_Black : BLS.Black, r: ok ? CPS.series.R_White : BLS.White, fl: "Black", rl: "White", cf: "--s-black", cr: "--s-white", status: ok ? "CPS microdata · composition and Oaxaca decompositions ready · subgroup re-knit pending" : "BLS series · CPS loading" },
     { v: "income", k: "Income", t: "The Income<br>Inequality <span class=of>of</span> Recession", d: "Unemployment by family-income decile: the bottom of the distribution enters the recession first and leaves it last.",
-      f: ok && CPS.series.D1, r: ok && CPS.series.D10, fl: "Poorest decile", rl: "richest decile", cf: "--d1", cr: "--d10", status: "CPS microdata, 1982–present · decompositions ready" },
+      f: ok && CPS.series.D1, r: ok && CPS.series.D10, fl: "poorest decile", rl: "richest decile", cf: "--d1", cr: "--d10", status: "CPS microdata, 1982–present · decompositions ready" },
     { v: "education", k: "Education", t: "The Educational<br>Inequality <span class=of>of</span> Recession", d: "How much time does a credential buy? Less-than-high-school through bachelor’s degree, on the same rule.",
       f: eduCat.get(eduCat.groups[0].id), r: eduCat.get(eduCat.groups.find(g => /BAplus|Bachelor/.test(g.id)).id), fl: eduCat.label(eduCat.groups[0].id), rl: "bachelor’s+", cf: "--s-lths", cr: "--s-ba", status: ok ? "CPS demographic cells + BLS · first look" : "BLS series, 1992– · first look" },
     { v: "spatial", k: "Place", t: "The Spatial<br>Inequality <span class=of>of</span> Recession", d: "Recessions arrive on different dates in different places. Rural and urban counties, run through the same rule.",
-      f: BLS["Rural counties (avg of 10)"], r: BLS["Urban counties (avg of 8)"], fl: "Rural counties", rl: "urban counties", cf: "--s-rur", cr: "--s-urb", status: "18 BLS LAUS counties · illustration" }
+      f: BLS["Rural counties (avg of 10)"], r: BLS["Urban counties (avg of 8)"], fl: "rural counties", rl: "urban counties", cf: "--s-rur", cr: "--s-urb", status: "18 BLS LAUS counties · illustration" }
   ];
   el.innerHTML = P.map((c, i) => { const s = pairStat(c.f, c.r, "lead"), d = pairStat(c.f, c.r, "dur");
     return `<a class="card" href="#${c.v}"><span class="card-k">${c.k}</span><span class="card-t">${c.t}</span><span class="card-d">${c.d}</span>
-    <span class="card-num"><b>${c.f ? sg(s.mean) : "…"}</b><span>months earlier onset, ${esc(c.fl)} vs ${esc(c.rl)}${isFinite(d.mean) ? ` · ${sg(d.mean)} months longer` : ""} · ${s.n} recessions</span></span>
+    <span class="card-num"><b>${c.f && isFinite(s.mean) ? f1(Math.abs(s.mean)) : "…"}</b><span>months ${isFinite(s.mean) && s.mean < 0 ? "later" : "earlier"} onset<br>${esc(c.fl.charAt(0).toUpperCase() + c.fl.slice(1))} vs ${esc(c.rl)}</span></span>
     <span class="mini" id="${pre}${i}"></span><span class="card-status">${esc(c.status)}</span><span class="card-go">Read the working paper →</span></a>`; }).join("");
   P.forEach((c, i) => { if (!c.f || !c.r) return; const w = win("2007"); lineChart(el.querySelector("#" + pre + i), { x: [w[0] + 12, w[1] - 12], series: [indLine(c.f, c.fl, c.cf, "", 2), indLine(c.r, c.rl, c.cr, "", 2)], shade: SHADE(), hlines: [{ y: ST.p.alpha }], markers: onsetMarkers([[c.f, c.cf], [c.r, c.cr]], "2007"), height: 150 }); });
 }
@@ -2957,13 +3226,13 @@ function availRecs(series) { return NBER.filter(r => series.some(s => s && match
 function groupFigure(el, key, title, sub, groups, foot, height) {
   const recs = availRecs(groups.map(g => g.s));
   if (!recs.find(r => r.id === SITE[key])) SITE[key] = (recs.find(r => r.id === "2007") || recs[recs.length - 1] || NBER[5]).id;
-  el.innerHTML = figure(title, sub, `${recRadios(key, SITE[key], recs)}${swatches(groups.filter(g => !g.noLegend).map(g => ({ label: g.label, color: g.color, dash: !!g.dash })))}<div class="vbody"></div>`, foot);
+  el.innerHTML = figure(title, sub, `<div class="fig-ctl">${recRadios(key, SITE[key], recs, true)}${swatches(groups.filter(g => !g.noLegend).map(g => ({ label: g.label, color: g.color, dash: !!g.dash })))}</div><div class="vbody"></div>`, foot);
   wireRadios(el, key, v => { SITE[key] = v; groupFigure(el, key, title, sub, groups, foot, height); });
-  lineChart(el.querySelector(".vbody"), { x: win(SITE[key]), series: groups.map(g => indLine(g.s, g.label, g.color, g.dash || "", g.width || 1.75)), shade: SHADE(), hlines: [{ y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(groups.filter(g => !g.dash).map(g => [g.s, g.color]), SITE[key]), height: height || 400 });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: win(SITE[key]), series: groups.map(g => indLine(g.s, g.label, g.color, g.dash || "", g.width || 1.75)), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers(groups.filter(g => !g.dash).map(g => [g.s, g.color]), SITE[key]), height: height || 400 });
 }
 function pairResults(el, fs, rs, fl, rl) {
   const sl = pairStat(fs, rs, "lead"), sd = pairStat(fs, rs, "dur"), st = pairStat(fs, rs, "afterT"), sp = pairStat(fs, rs, "peak");
-  el.innerHTML = result("Advance of recession", sg(sl.mean), "months earlier", `${esc(fl)} vs ${esc(rl)} · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n}`) + result("Recession length", sg(sd.mean), "months longer", `signal duration · SD ${f1(sd.sd)}`) + result("Lingers after trough", sg(st.mean), "months longer", `past the NBER trough · SD ${f1(st.sd)}`) + result("Deeper peak", sg(sp.mean, 2), "percentage points", `peak of the indicator · SD ${f1(sp.sd, 2)}`);
+  el.innerHTML = dres("Advance of recession", sl.mean, "months earlier", "months later", `${esc(fl)} vs ${esc(rl)} · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n}`) + dres("Recession length", sd.mean, "months longer", "months shorter", `signal duration · SD ${f1(sd.sd)}`) + dres("Lingers after trough", st.mean, "months longer", "months shorter", `past the NBER trough · SD ${f1(st.sd)}`) + dres("Peak of the indicator", sp.mean, "percentage points higher", "percentage points lower", `SD ${f1(sp.sd, 2)}`, 2);
 }
 SITE.eduRec = "2007"; SITE.spRec = "2007";
 function renderEduFigs() {
@@ -3009,10 +3278,10 @@ function incomeFigure(el, name, rerun, opt) {
     el.innerHTML = `<figure class="vfig compact">${opt.title ? `<div class="vhead"><div class="vtitle display">${opt.title}</div></div>` : ""}<div class="fig-ctl">${recRadios(name, rec, [...CPS_RECS(), { id: "cur", name: "Current" }], true)}<div class="ramp-key"><span>Poorest</span>${ids.map(id => `<i style="background:var(--${id.toLowerCase()})"></i>`).join("")}<span>Richest</span></div></div><div class="vbody"></div><details class="fig-note"><summary>Notes and source</summary><p>${sub}</p><p>${foot}</p></details></figure>`;
   } else
   el.innerHTML = figure(opt.title || "Turning Point by Income Data", sub,
-    `${recRadios(name, SITE.incRec, CPS_RECS())}${swatches(ids.filter((_, i) => [0, 2, 4, 7, 9].includes(i)).map(id => ({ label: CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: "--" + id.toLowerCase() })))}<div class="vbody"></div>`, foot);
+    `<div class="fig-ctl">${recRadios(name, SITE.incRec, CPS_RECS(), true)}<div class="ramp-key"><span>Poorest</span>${ids.map(id => `<i style="background:var(--${id.toLowerCase()})"></i>`).join("")}<span>Richest</span></div></div><div class="vbody"></div>`, foot);
   wireRadios(el, name, v => { if (opt.compact) SITE.ovRec = v; else SITE.incRec = v; rerun(); });
-  const body = el.querySelector(".vbody"); if (opt.compact) body.classList.add("soft");
-  lineChart(body, { x: win(rec), series: lines, shade: SHADE(), hlines: [opt.compact ? { y: ST.p.alpha, updown: true } : { y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), rec), height: opt.height || 400, years: !!opt.compact, noTicks: !!opt.compact });
+  const body = softBody(el.querySelector(".vbody"));
+  lineChart(body, { x: win(rec), series: lines, shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), rec), height: opt.height || 400, ...SERIES_LINE });
 }
 
 function renderIncomeFigs() {
@@ -3024,9 +3293,9 @@ function renderIncomeFigs() {
   const rows = splitRows(S.D1, S.D10, S.D1_cf, S.D10_cf, "lead", statRecs), rowsD = splitRows(S.D1, S.D10, null, null, "dur", statRecs), rowsT = splitRows(S.D1, S.D10, null, null, "afterT", statRecs);
   const sl = stats(rows.map(d => d.tot)), sr = stats(rows.map(d => d.res)), sd = stats(rowsD.map(d => d.tot)), st = stats(rowsT.map(d => d.tot));
   document.getElementById("res-income").innerHTML =
-    result("Advance of recession", sg(sl.mean), "months earlier", `poorest vs richest decile · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n} recessions`) +
-    result("Recession length", sg(sd.mean), "months longer", `signal duration · SD ${f1(sd.sd)}`) +
-    result("Lingers after trough", sg(st.mean), "months longer", `past the NBER trough · SD ${f1(st.sd)}`) +
+    dres("Advance of recession", sl.mean, "months earlier", "months later", `poorest vs richest decile · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n} recessions`) +
+    dres("Recession length", sd.mean, "months longer", "months shorter", `signal duration · SD ${f1(sd.sd)}`) +
+    dres("Lingers after trough", st.mean, "months longer", "months shorter", `past the NBER trough · SD ${f1(st.sd)}`) +
     result("Due to income itself", isFinite(sr.mean) && sl.mean ? f1(100 * sr.mean / sl.mean, 0) + "%" : "–", "of the earlier onset", "residual after pricing the poorest decile’s demographic mix at economy-wide rates");
 
   // onset timeline
@@ -3042,7 +3311,7 @@ function renderIncomeFigs() {
   const dc = document.getElementById("fig-income-dc");
   dc.innerHTML = figure("How Much of the Head Start Is Income Itself?", TP("Family-Income Decile Data", "a Composition and Residual Split", "1982"),
     `${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Income (residual)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="incdc"></div>`, "Gap in onset, poorest minus richest decile, in months, split into the part explained by each decile’s mix of race, education, sex, age and region (composition) and the remainder (income). Composition-predicted series price each decile’s demographic mix at economy-wide within-cell unemployment rates.");
-  splitBars(dc.querySelector("#incdc"), rows, "mo");
+  splitBars(dc.querySelector("#incdc"), rows, "mo", { comp: "Composition", res: "Income (residual)", compTip: "The part of the gap explained by each decile’s mix of race, education, sex, age and region, priced at economy-wide unemployment rates within each cell.", resTip: "The part of the gap those characteristics do not explain: the head start attributable to income itself.", totTip: "The total difference in onset, poorest minus richest decile, in months. Composition and residual add up to this." });
 }
 
 /* ---------- Race ---------- */
@@ -3052,22 +3321,22 @@ function renderRaceFigs() {
   const grp = [["R_Black", "--s-black", "Black"], ["R_Hispanic", "--s-hisp", "Hispanic"], ["R_Asian", "--s-asian", "Asian"], ["R_White", "--s-white", "White"]].filter(g => S[g[0]]);
   el.innerHTML = figure("Turning Point by Racial Data",
     TP("Racial and Ethnic Data (CPS)", "Reference Lines and Recessions", "1982"),
-    `${recRadios("racerec", SITE.raceRec, CPS_RECS())}${swatches(grp.map(g => ({ label: g[2], color: g[1] })))}<div class="vbody" id="racechart"></div>`,
+    `<div class="fig-ctl">${recRadios("racerec", SITE.raceRec, CPS_RECS(), true)}${swatches(grp.map(g => ({ label: g[2], color: g[1] })))}</div><div class="vbody" id="racechart"></div>`,
     "Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted. Non-Hispanic White, Black and Asian workers; Hispanic workers of any race. Shaded: NBER recession.");
   wireRadios(el, "racerec", v => { SITE.raceRec = v; renderRaceFigs(); });
-  lineChart(el.querySelector("#racechart"), { x: win(SITE.raceRec), series: grp.map(g => indLine(S[g[0]], g[2], g[1], "", g[0] === "R_White" ? 2.25 : 1.75)), shade: SHADE(), hlines: [{ y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(grp.map(g => [S[g[0]], g[1]]), SITE.raceRec), height: 400 });
+  lineChart(softBody(el.querySelector("#racechart")), { ...SERIES_LINE, x: win(SITE.raceRec), series: grp.map(g => indLine(S[g[0]], g[2], g[1], "", g[0] === "R_White" ? 2.25 : 1.75)), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers(grp.map(g => [S[g[0]], g[1]]), SITE.raceRec), height: 400 });
   const statRecs = CPS_RECS().filter(r => ST.recs.has(r.id));
   const rows = splitRows(S.R_Black, S.R_White, S.R_Black_cf, S.R_White, "lead", statRecs), rowsD = splitRows(S.R_Black, S.R_White, null, null, "dur", statRecs);
   const sl = stats(rows.map(d => d.tot)), sr = stats(rows.map(d => d.res)), sd = stats(rowsD.map(d => d.tot)), sc = stats(rows.map(d => d.comp));
   document.getElementById("res-race").innerHTML =
-    result("Advance of recession", sg(sl.mean), "months earlier", `Black vs White workers · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n}`) +
-    result("Recession length", sg(sd.mean), "months longer", `signal duration · SD ${f1(sd.sd)}`) +
+    dres("Advance of recession", sl.mean, "months earlier", "months later", `Black vs White workers · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n}`) +
+    dres("Recession length", sd.mean, "months longer", "months shorter", `signal duration · SD ${f1(sd.sd)}`) +
     result("Explained by composition", sg(sc.mean), "months", "income, education, sex, age, region priced at White rates") +
     result("Residual: race", sg(sr.mean), "months", isFinite(sr.mean) && sl.mean ? `${f1(100 * sr.mean / sl.mean, 0)}% of the gap` : "share undefined");
   const dc = document.getElementById("fig-race-dc");
   dc.innerHTML = figure("Is It Race, or What Race Is Correlated With?", TP("Racial and Ethnic Data", "a Composition and Residual Split", "1982"),
     `${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Race (residual)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="racedc"></div>`, "Gap in onset, Black minus White workers, in months, split into composition (Black workers’ own mix of income, education, sex, age and region, priced at White workers’ within-cell rates) and the residual. A positive residual means Black workers’ recession starts earlier than their characteristics predict.");
-  splitBars(dc.querySelector("#racedc"), rows, "mo");
+  splitBars(dc.querySelector("#racedc"), rows, "mo", { comp: "Composition", res: "Race (residual)", compTip: "The part of the gap explained by Black workers’ mix of income, education, sex, age and region. It is the gap that would remain if Black workers faced White workers’ unemployment rates within each of those cells.", resTip: "The part of the gap those characteristics do not explain: how much earlier the recession starts for Black workers than their characteristics predict.", totTip: "The total difference in onset, Black minus White workers, in months. Composition and residual add up to this." });
 }
 
 /* ---------- Subgroups ---------- */
@@ -3098,7 +3367,7 @@ function ageCf(ga, gb) {
 }
 function selHtml(side, g) {
   const opt = (k, map, cur) => Object.entries(map).map(([v, l]) => `<option value="${v}" ${v === cur ? "selected" : ""}>${esc(l || "any sex")}</option>`).join("");
-  return `<div class="subsel"><div class="subsel-h">${side === "a" ? "Group A" : "Group B (reference)"}</div>
+  return `<div class="subsel"><div class="subsel-h">${side === "a" ? "Focal group" : "Benchmark group"}</div>
     <label>Race<select data-side="${side}" data-k="race">${opt("race", { any: "any race", White: "White", Black: "Black", Hispanic: "Hispanic", Asian: "Asian" }, g.race)}</select></label>
     <label>Sex<select data-side="${side}" data-k="sex">${opt("sex", { any: "any sex", F: "women", M: "men" }, g.sex)}</select></label>
     <label>Education<select data-side="${side}" data-k="educ">${opt("educ", ED_LAB, g.educ)}</select></label></div>`;
@@ -3112,7 +3381,7 @@ function renderSubgroups() {
   const exactBoth = A.exact && B.exact;
   let cf = null, cfKind = "";
   if (A.exact && CPS.series[A.id + "_cf"] && SITE.sub.b.race === "White" && SITE.sub.a.sex === SITE.sub.b.sex && SITE.sub.a.educ === SITE.sub.b.educ) { cf = CPS.series[A.id + "_cf"]; cfKind = "full"; }
-  else if (A.s && B.s) { cf = ageCf(SITE.sub.a, SITE.sub.b); cfKind = "age"; }
+  // (age-only adjustment from demographic cells is no longer drawn)
   const recs = CPS_RECS().filter(r => ST.recs.has(r.id));
   const M = SITE.subMetric;
   const rows = A.s && B.s ? splitRows(A.s, B.s, cf, B.s, M, recs) : [];
@@ -3120,15 +3389,15 @@ function renderSubgroups() {
   const unit = METRICS[M].unit;
   el.innerHTML = `<div class="subpick">${selHtml("a", SITE.sub.a)}<div class="vs">vs</div>${selHtml("b", SITE.sub.b)}</div>
   ${!A.s || !B.s ? `<p class="note warn">No data for ${esc(!A.s ? la : lb)} in the current export.</p>` : `
-  <div class="results">${result(METRICS[M].lab, sg(st.mean, unit === "pp" ? 2 : 1), unit, `${esc(la)} minus ${esc(lb)} · SD ${f1(st.sd, unit === "pp" ? 2 : 1)} · n ${st.n}`)}${result("Composition", sg(sc.mean, unit === "pp" ? 2 : 1), unit, cfKind === "full" ? "income, age, region, sector, occupation at White rates" : "age mix only (from cells)")}${result("Residual", sg(sr.mean, unit === "pp" ? 2 : 1), unit, isFinite(sr.mean) && st.mean ? `${f1(100 * sr.mean / st.mean, 0)}% of the gap` : "")}</div>
+  <div class="results">${result(METRICS[M].lab, sg(st.mean, unit === "pp" ? 2 : 1), unit, `${esc(la)} minus ${esc(lb)} · SD ${f1(st.sd, unit === "pp" ? 2 : 1)} · n ${st.n}`)}${result("Composition", sg(sc.mean, unit === "pp" ? 2 : 1), unit, cfKind === "full" ? "income, age, region, sector, occupation at White rates" : "needs the exact series from the new CPS extract")}${result("Residual", sg(sr.mean, unit === "pp" ? 2 : 1), unit, isFinite(sr.mean) && st.mean ? `${f1(100 * sr.mean / st.mean, 0)}% of the gap` : "")}</div>
   <div class="segs" id="submet">${["lead", "dur", "afterT", "peak"].map(k => `<button data-v="${k}" aria-pressed="${M === k}">${METRICS[k].lab}</button>`).join("")}</div>
-  ${figure(`${esc(la)} vs ${esc(lb)}`, TP("Race, Sex and Education Data", "Reference Lines and Recessions", "1982"), `${recRadios("subrec", SITE.subRec, CPS_RECS())}${swatches([{ label: la, color: ca }, { label: lb, color: cb }].concat(cf ? [{ label: cfKind === "full" ? la + " · composition-predicted" : la + " · age-adjusted", color: ca, dash: true }] : []))}<div class="vbody" id="subchart"></div>`,
+  ${figure(`${esc(la)} vs ${esc(lb)}`, TP("Race, Sex and Education Data", "Reference Lines and Recessions", "1982"), `<div class="fig-ctl">${recRadios("subrec", SITE.subRec, CPS_RECS(), true)}${swatches([{ label: la, color: ca }, { label: lb, color: cb }].concat(cf ? [{ label: cfKind === "full" ? la + " · composition-predicted" : la + " · age-adjusted", color: ca, dash: true }] : []))}</div><div class="vbody" id="subchart"></div>`,
     `${exactBoth ? "Series computed directly from the microdata." : "Built from demographic cells (race × education × sex × age) weighted by average labor-force share, so the mix within the group is held fixed over time. Re-knit the updated export for exact race × sex × education series with a full composition counterfactual."}`)}
-  <div class="tablewrap"><table><thead><tr><th class="l">Recession</th><th>${esc(la)}</th><th>${esc(lb)}</th><th>Gap</th><th>Composition</th><th>Residual</th></tr></thead><tbody>${recs.map((r, i) => { const ma = matchRec(A.s, r, ST.p, pAt(A.s)), mb = matchRec(B.s, r, ST.p, pAt(B.s)); const f = m => m.status === "ok" ? (M === "lead" ? sg(m.lead, 0) + " mo" : f1(METRICS[M].get(m), M === "peak" ? 2 : 0)) : `<span class="tag">${m.status}</span>`; const d = rows[i]; return `<tr><td class="l">${r.name}</td><td class="num">${f(ma)}</td><td class="num">${f(mb)}</td><td class="num">${sg(d.tot)}</td><td class="num">${sg(d.comp)}</td><td class="num">${sg(d.res)}</td></tr>`; }).join("")}</tbody></table></div>`}`;
+  <div class="tablewrap"><table><thead><tr><th class="l">Recession</th><th>${esc(la)}</th><th>${esc(lb)}</th><th>Gap</th><th>Composition</th><th>Residual</th></tr></thead><tbody>${recs.map((r, i) => { const ma = matchRec(A.s, r, ST.p, pAt(A.s)), mb = matchRec(B.s, r, ST.p, pAt(B.s)); const f = m => m.status === "ok" ? (M === "lead" ? sg(m.lead, 0) + " mo" : f1(METRICS[M].get(m), M === "peak" ? 2 : 0)) : `<span class="tag">${m.status}</span>`; const d = rows[i]; return `<tr><td class="l">${REC_NAMES_ALL(r.name)}</td><td class="num">${f(ma)}</td><td class="num">${f(mb)}</td><td class="num">${sg(d.tot)}</td><td class="num">${sg(d.comp)}</td><td class="num">${sg(d.res)}</td></tr>`; }).join("")}</tbody></table></div>`}`;
   el.querySelectorAll("select").forEach(s => s.onchange = () => { SITE.sub[s.dataset.side][s.dataset.k] = s.value; renderSubgroups(); });
   el.querySelectorAll("#submet button").forEach(b => b.onclick = () => { SITE.subMetric = b.dataset.v; renderSubgroups(); });
   wireRadios(el, "subrec", v => { SITE.subRec = v; renderSubgroups(); });
-  if (A.s && B.s) lineChart(el.querySelector("#subchart"), { x: win(SITE.subRec), series: [indLine(A.s, la, ca, "", 2), indLine(B.s, lb, cb, "", 2)].concat(cf ? [indLine(cf, cfKind === "full" ? "composition-predicted" : "age-adjusted", ca, "5 4", 1.5)] : []), shade: SHADE(), hlines: [{ y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers([[A.s, ca], [B.s, cb]], SITE.subRec), height: 360 });
+  if (A.s && B.s) lineChart(softBody(el.querySelector("#subchart")), { ...SERIES_LINE, x: win(SITE.subRec), series: [indLine(A.s, la, ca, "", 2), indLine(B.s, lb, cb, "", 2)].concat(cf ? [indLine(cf, cfKind === "full" ? "composition-predicted" : "age-adjusted", ca, "5 4", 1.5)] : []), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers([[A.s, ca], [B.s, cb]], SITE.subRec), height: 360 });
 }
 
 /* ---------- Overview: preset charts exactly as on the SahmRule homepage ---------- */
@@ -3164,7 +3433,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool"].includes(v);
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare", "validate", "replicate"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
@@ -3190,7 +3459,7 @@ function toMonthSeries(id, computed) {
 let _viewsBuilt = false;
 async function renderViews() {
   const root = document.getElementById("ov-views"); if (!root) return;
-  if (!root.dataset.wired) { root.dataset.wired = "1"; root.querySelectorAll(".vcard").forEach(b => b.onclick = () => showPanel(b.dataset.panel, true));
+  if (!root.dataset.wired) { root.dataset.wired = "1"; root.querySelectorAll(".vcard").forEach(b => { b.onclick = e => { if (e.target.closest("a")) return; showPanel(b.dataset.panel, true); }; b.onkeydown = e => { if (e.target !== b) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showPanel(b.dataset.panel, true); } }; });
     const dlg = document.getElementById("view-dialog");
     if (dlg) { document.getElementById("vd-close").onclick = closePanel; dlg.addEventListener("click", e => { if (e.target === dlg) closePanel(); }); }
   }
@@ -3246,6 +3515,262 @@ function hexMap(el, data) {
     tip.hidden = false; const left = best.cx / W * rc.width; tip.style.left = Math.min(rc.width - tip.offsetWidth, Math.max(0, left + 12)) + "px"; tip.style.top = (best.cy / H * rc.height + 14) + "px";
   });
   svg.addEventListener("pointerleave", () => tip.hidden = true);
+}
+
+
+/* ---------- Indicator comparisons: Sahm Rule, Michez Rule, Underemployment (U-6) ---------- */
+SITE.cmpRec = "all";
+let _cmp = null;
+async function loadCompare() {
+  if (_cmp) return _cmp;
+  const ym = d => mIdx(d instanceof Date ? d.toISOString().slice(0, 7) : String(d).slice(0, 7));
+  const series = rows => { const m = new Map(); for (const r of rows) { const v = +r.value; if (isFinite(v)) m.set(ym(r.date), v); } return m; };
+  const [UN, U6, JO, UL, LF, HV] = await Promise.all([
+    toolCsv("UNRATE"), toolCsv("U6RATE"), toolCsv("JTSJOL").catch(() => []), toolCsv("UNEMPLOY").catch(() => []), toolCsv("CLF16OV").catch(() => []),
+    d3.csv("data-source/michez-vacancy-1951-2000.csv", d => ({ date: d.date, value: +d.vacancy_rate })).catch(() => [])
+  ]);
+  const un = series(UN), u6 = series(U6), jo = series(JO), ul = series(UL), lf = series(LF), hv = series(HV);
+  const t0 = mIdx("1948-01"), t1 = Math.max(...un.keys());
+  // classic Sahm construction: 3-month average minus its minimum over the previous 12 months
+  const sahmOf = m => { const avg = t => { const a = [m.get(t), m.get(t - 1), m.get(t - 2)]; return a.every(isFinite) ? (a[0] + a[1] + a[2]) / 3 : NaN; };
+    const out = new Map(); for (let t = t0; t <= t1; t++) { const a = avg(t); if (!isFinite(a)) continue; let mn = Infinity; for (let s = 1; s <= 12; s++) { const b = avg(t - s); if (isFinite(b)) mn = Math.min(mn, b); else { mn = NaN; break; } } if (isFinite(mn)) out.set(t, a - mn); } return out; };
+  // Michez rule (Michaillat and Saez): rates from levels; vacancies = Barnichon to 2000, then JOLTS shifted forward one month
+  const u = new Map(), v = new Map();
+  for (let t = t0; t <= t1; t++) { if (isFinite(ul.get(t)) && isFinite(lf.get(t))) u.set(t, 100 * ul.get(t) / lf.get(t));
+    if (t < mIdx("2001-01")) { if (isFinite(hv.get(t))) v.set(t, hv.get(t)); } else if (isFinite(jo.get(t - 1)) && isFinite(lf.get(t))) v.set(t, 100 * jo.get(t - 1) / lf.get(t)); }
+  const bar = m => { const o = new Map(); for (const t of m.keys()) { const a = [m.get(t), m.get(t - 1), m.get(t - 2)]; if (a.every(isFinite)) o.set(t, (a[0] + a[1] + a[2]) / 3); } return o; };
+  const ub = bar(u), vb = bar(v), mich = new Map();
+  for (const t of ub.keys()) { if (!vb.has(t)) continue; let mn = Infinity, mx = -Infinity, ok = true;
+    for (let s = 0; s <= 12; s++) { const a = ub.get(t - s), b = vb.get(t - s); if (!isFinite(a) || !isFinite(b)) { ok = false; break; } mn = Math.min(mn, a); mx = Math.max(mx, b); }
+    if (!ok) continue; const uh = Math.round((ub.get(t) - mn) * 100) / 100, vh = Math.round((mx - vb.get(t)) * 100) / 100; mich.set(t, Math.min(uh, vh)); }
+  _cmp = { sahm: sahmOf(un), u6: sahmOf(u6), mich, last: Math.max(...un.keys()), lastMich: mich.size ? Math.max(...mich.keys()) : NaN };
+  return _cmp;
+}
+const CMP_RULES = [
+  { k: "sahm", label: "Sahm Rule", color: "--c-sahm", thr: 0.5, width: 2 },
+  { k: "u6", label: "Underemployment", color: "--c-u6", thr: 0.5, width: 2 },
+  { k: "mich", label: "Michez Rule", color: "--c-michez", thr: 0.29, width: 2 }
+];
+async function renderCompare() {
+  const el = document.getElementById("cmp-fig"); if (!el || !window.d3) return;
+  let C; try { C = await loadCompare(); } catch (e) { console.error(e); el.innerHTML = '<p class="note warn">The comparison data could not load.</p>'; return; }
+  const recs = [...CPS_RECS(), { id: "cur", name: "Current" }];
+  const opts = [{ id: "all", name: "All years" }, ...recs];
+  const sel = SITE.cmpRec;
+  const x = sel === "all" ? [mIdx("1960-01"), C.last] : sel === "cur" ? [mIdx(CUR_START), C.last] : win(sel);
+  const lastLab = isFinite(C.lastMich) ? mLab(C.lastMich) : "not yet available (the job-openings data is still being collected)";
+  el.innerHTML = `<figure class="vfig"><div class="fig-ctl"><div class="radios" role="radiogroup" aria-label="Period">${opts.map(r => `<label${r.id !== "all" && r.id !== "cur" ? ` title="${r.name}"` : ""}><input type="radio" name="cmprec" value="${r.id}" ${r.id === sel ? "checked" : ""}> ${REC_NAMES[r.name] || r.name}</label>`).join("")}</div>${swatches(CMP_RULES.map(r => ({ label: r.label, color: r.color })))}</div>
+    <div class="vbody"></div>
+    <div class="thr2"><span><i style="border-color:#8a8a8a"></i>Sahm Rule and Underemployment signal at 0.50</span><span><i style="border-color:var(--c-michez)"></i>Michez Rule signals at 0.29</span></div>
+    <details class="fig-note"><summary>Notes and source</summary>
+      <p>Indicator values in percentage points. Sahm Rule: three-month average of the unemployment rate (U-3) minus its lowest three-month average over the previous twelve months. Underemployment: the same construction on U-6, which adds people working part time for economic reasons and marginally attached workers; available from 1994. Michez Rule: the smaller of the unemployment indicator (three-month average minus its minimum over the current and previous twelve months) and the vacancy indicator (the maximum of the three-month average vacancy rate over the same window minus its current value), rounded to the basis point as in Michaillat and Saez (2025). Shaded: NBER recessions.</p>
+      <p>Sources: BLS via FRED (UNRATE, U6RATE, UNEMPLOY, CLF16OV, JTSJOL); Barnichon (2010) composite help-wanted vacancy rate for 1951–2000. Vacancy rate is job openings divided by the labor force, with JOLTS shifted forward one month. These are computed on current data; FRED’s real-time Sahm Rule uses the unemployment rate as first published, so its values can differ slightly. Latest month with all three: ${lastLab}.</p>
+    </details></figure>`;
+  el.querySelectorAll('input[name="cmprec"]').forEach(i => i.onchange = () => { SITE.cmpRec = i.value; renderCompare(); });
+  const body = softBody(el.querySelector(".vbody"));
+  lineChart(body, { ...SERIES_LINE, x, series: CMP_RULES.map(r => ({ label: r.label, color: r.color, width: r.width, at: t => C[r.k].has(t) ? C[r.k].get(t) : NaN })), shade: SHADE(),
+    hlines: [{ y: 0.5, updown: true }, { y: 0.29, color: "var(--c-michez)" }], height: 420, yMax: sel === "all" ? 3 : undefined });
+  if (sel === "all") body.insertAdjacentHTML("beforeend", `<p class="cmp-cap">Axis capped at 3 points so the thresholds stay readable; the 2009 and 2020 peaks run higher. Pick a recession to see them in full.</p>`);
+  // when each rule first signaled, relative to the NBER peak
+  const firstSignal = (m, thr, r) => { const p = mIdx(r.peak), tr = mIdx(r.trough); for (let t = p - 12; t <= tr + 12; t++) { const v = m.get(t), pv = m.get(t - 1); if (isFinite(v) && v >= thr && !(isFinite(pv) && pv >= thr)) return t - p; } const v0 = m.get(p - 12); return isFinite(v0) && v0 >= thr ? "on" : null; };
+  const rows = NBER.filter(r => mIdx(r.peak) >= mIdx("1973-01"));
+  const cell = (k, thr, r) => { const m = C[k]; if (![...Array(25).keys()].some(i => m.has(mIdx(r.peak) - 12 + i))) return `<td class="na">no data</td>`; const d = firstSignal(m, thr, r); return d === "on" ? `<td class="na">still on from prior</td>` : d === null ? `<td class="na">no signal</td>` : `<td>${d === 0 ? "at peak" : d < 0 ? `${-d} mo before` : `${d} mo after`}</td>`; };
+  document.getElementById("cmp-table").innerHTML = `<table class="cmp-tbl"><thead><tr><th>Recession</th>${CMP_RULES.map(r => `<th>${r.label}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr><td>${REC_NAMES[r.name] || r.name} <span class="na">${r.name}</span></td>${CMP_RULES.map(c => cell(c.k, c.thr, r)).join("")}</tr>`).join("")}</tbody></table><p class="cmp-cap">First month each rule reached its threshold, relative to the NBER business-cycle peak, searching from 12 months before the peak to 12 months after the trough. A rule counts only when it crosses the threshold from below.</p>`;
+}
+
+
+/* ---------- Shared: monthly series as plain arrays ---------- */
+const VAL_NBER = [
+  ["1948-11", "1949-10"], ["1953-07", "1954-05"], ["1957-08", "1958-04"], ["1960-04", "1961-02"], ["1969-12", "1970-11"],
+  ["1973-11", "1975-03"], ["1980-01", "1980-07"], ["1981-07", "1982-11"], ["1990-07", "1991-03"], ["2001-03", "2001-11"],
+  ["2007-12", "2009-06"], ["2020-02", "2020-04"]
+].map(([p, t]) => ({ peak: mIdx(p), trough: mIdx(t), start: mIdx(p) + 1, name: (NBER.find(r => r.peak === p) || {}).name || p.slice(0, 4) }));
+const _arr = new Map();
+async function monthlyArray(code) {
+  if (_arr.has(code)) return _arr.get(code);
+  const rows = await toolCsv(code);
+  const sa = /^LNU|URN$/.test(code);
+  const m = new Map();
+  for (const r of rows) { const d = r.date instanceof Date ? r.date.toISOString().slice(0, 7) : String(r.date).slice(0, 7); const v = +(sa ? r.deseasonalized_value : r.value); if (isFinite(v)) m.set(mIdx(d), v); }
+  const t0 = Math.min(...m.keys()), t1 = Math.max(...m.keys());
+  const v = Array.from({ length: t1 - t0 + 1 }, (_, i) => m.has(t0 + i) ? m.get(t0 + i) : NaN);
+  const out = { t0, t1, v }; _arr.set(code, out); return out;
+}
+// Modified Sahm indicator on an array: k-month mean minus min over window (prev: t-m..t-1, else t-m..t)
+function msrArray(S, k, m, prev) {
+  const n = S.v.length, ma = new Float64Array(n).fill(NaN), out = new Float64Array(n).fill(NaN);
+  for (let i = k - 1; i < n; i++) { let a = 0, ok = true; for (let j = 0; j < k; j++) { const x = S.v[i - j]; if (!isFinite(x)) { ok = false; break; } a += x; } if (ok) ma[i] = a / k; }
+  for (let i = 0; i < n; i++) { if (!isFinite(ma[i])) continue; let mn = Infinity, ok = true; const lo = i - m, hi = prev ? i - 1 : i; if (lo < 0) continue; for (let j = lo; j <= hi; j++) { if (!isFinite(ma[j])) { ok = false; break; } if (ma[j] < mn) mn = ma[j]; } if (ok) out[i] = ma[i] - mn; }
+  return { t0: S.t0, v: out };
+}
+// The specification implemented in "Works Like a Sahm": mean of the last four monthly changes, compared with zero
+function wlasArray(S) {
+  const n = S.v.length, out = new Float64Array(n).fill(NaN);
+  for (let i = 4; i < n; i++) { let a = 0, ok = true; for (let j = 0; j < 4; j++) { const d = S.v[i - j] - S.v[i - j - 1]; if (!isFinite(d)) { ok = false; break; } a += d; } if (ok) out[i] = a / 4; }
+  return { t0: S.t0, v: out };
+}
+// Signals: upward crossings of alpha while inactive; a signal ends when the indicator falls back below alpha
+function signalsOf(I, alpha, a, b) {
+  const sig = []; let active = false;
+  for (let t = Math.max(a, I.t0 + 1); t <= b; t++) {
+    const x = I.v[t - I.t0], px = I.v[t - 1 - I.t0];
+    if (!isFinite(x)) { active = false; continue; }
+    if (!active && x >= alpha && isFinite(px) && px < alpha) { sig.push(t); active = true; }
+    else if (active && x < alpha) active = false;
+  }
+  return sig;
+}
+function scoreSignals(sig, recs) {
+  // pair each recession with the first signal within 24 months of its start, in order
+  const used = new Set(), err = [];
+  for (const r of recs) { const s = sig.find(t => !used.has(t) && Math.abs(t - r.start) <= 24); if (s === undefined) { err.push(null); continue; } used.add(s); err.push(s - r.start); }
+  const hit = err.filter(e => e !== null), fa = sig.length - used.size;
+  const mean = hit.length ? hit.reduce((x, y) => x + y, 0) / hit.length : NaN;
+  const sd = hit.length ? Math.sqrt(hit.reduce((x, y) => x + (y - mean) * (y - mean), 0) / hit.length) : NaN;
+  return { err, hit: hit.length, fa, mean, sd, perfect: hit.length === recs.length && fa === 0 };
+}
+
+/* ---------- Replications ---------- */
+async function renderReplicate() {
+  const el = document.getElementById("rep-fig"); if (!el || !window.d3 || el.dataset.built) return;
+  let U3, U6;
+  try { [U3, U6] = await Promise.all([monthlyArray("UNRATE"), monthlyArray("U6RATE")]); } catch (e) { console.error(e); el.innerHTML = '<p class="note warn">The unemployment data could not load.</p>'; return; }
+  el.dataset.built = "1";
+  const t0 = mIdx("1976-01"), t1 = U3.t1;
+  const rules = [
+    { label: "As implemented in the paper", note: "four-month average of monthly changes, compared with zero", I: wlasArray(U3), thr: 0.5, color: "#a3a3a3" },
+    { label: "Sahm Rule", note: "three-month average of the rate, compared with the previous year’s low", I: msrArray(U3, 3, 12, true), thr: 0.5, color: "var(--c-sahm)" },
+    { label: "Underemployment (U-6)", note: "the same rule on U-6, from 1994", I: msrArray(U6, 3, 12, true), thr: 0.5, color: "var(--c-michez)" }
+  ];
+  const W = Math.max(320, el.clientWidth || 860), rowH = 34, L = Math.min(210, W * 0.32), top = 6, H = top + rowH * rules.length + 26;
+  const X = t => L + (t - t0) / (t1 - t0) * (W - L - 8);
+  let s = "";
+  for (const r of VAL_NBER) if (r.trough >= t0) s += `<rect x="${X(Math.max(t0, r.peak))}" y="${top}" width="${Math.max(2, X(r.trough) - X(Math.max(t0, r.peak)))}" height="${rowH * rules.length}" fill="var(--shade)"></rect>`;
+  rules.forEach((ru, i) => {
+    const y = top + i * rowH;
+    s += `<line x1="${L}" x2="${W - 8}" y1="${y + rowH - 0.5}" y2="${y + rowH - 0.5}" stroke="#eee"></line><text x="0" y="${y + rowH / 2 + 4}" style="font-size:12px;fill:#4a4a4a">${ru.label}</text>`;
+    let on = null;
+    for (let t = t0; t <= t1 + 1; t++) { const x = t <= t1 ? ru.I.v[t - ru.I.t0] : NaN; const act = isFinite(x) && x >= ru.thr;
+      if (act && on === null) on = t; if (!act && on !== null) { s += `<rect x="${X(on)}" y="${y + 9}" width="${Math.max(2, X(t) - X(on))}" height="${rowH - 18}" rx="2" fill="${ru.color}"></rect>`; on = null; } }
+  });
+  for (let yr = 1980; yr <= 2025; yr += 5) s += `<text x="${X(mIdx(yr + "-01"))}" y="${H - 6}" text-anchor="middle" style="font-size:11px;fill:#a3a3a3">${yr}</text>`;
+  el.innerHTML = `<figure class="vfig"><div class="chart soft"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="When each rule signals a recession, 1976 to present">${s}</svg></div>
+    <details class="fig-note"><summary>Notes and source</summary><p>Bars mark the months each rule is at or above its threshold; gray bands are NBER recessions. “As implemented in the paper” takes the mean of the last four monthly changes in the unemployment rate and signals when it exceeds 0.5, the test applied to the simulated paths in Ash and Nickelsburg (2024). The Sahm Rule and the U-6 rule use the three-month average minus its lowest value over the previous twelve months, with a 0.5 threshold. Source: BLS via FRED (UNRATE, U6RATE), current vintage.</p></details></figure>`;
+  const recs = VAL_NBER.filter(r => r.start >= t0 && r.start <= t1);
+  const fmt = (e) => e === null ? '<span class="na">missed</span>' : e === 0 ? "in the first month" : e < 0 ? `${-e} mo before` : `${e} mo after`;
+  const sc = rules.map(ru => { const sig = signalsOf(ru.I, ru.thr, t0, t1); return { ru, sig, s: scoreSignals(sig, recs) }; });
+  document.getElementById("rep-table").innerHTML = `<div style="overflow-x:auto"><table class="cmp-tbl"><thead><tr><th>Recession</th>${sc.map(x => `<th>${x.ru.label}</th>`).join("")}</tr></thead><tbody>${recs.map((r, i) => `<tr><td>${REC_NAMES[r.name] || r.name} <span class="na">${r.name}</span></td>${sc.map(x => { const avail = isFinite(x.ru.I.v[r.start - x.ru.I.t0]); return avail ? `<td>${fmt(x.s.err[i])}</td>` : '<td class="na">no data</td>'; }).join("")}</tr>`).join("")}
+    <tr><td><b>Signals outside a recession</b></td>${sc.map(x => `<td>${x.s.fa}</td>`).join("")}</tr></tbody></table></div><p class="cmp-cap">First signal relative to the month after the NBER peak, within 24 months. The specification as implemented flags only the COVID-19 recession and the 1980s Volcker recessions at most; the Sahm Rule flags every recession since 1976.</p>`;
+  // keep the caption honest to the data actually computed
+  const caught = sc[0].s.err.filter(e => e !== null).length;
+  document.querySelector("#rep-table .cmp-cap").textContent = `First signal relative to the month after the NBER peak, within 24 months. On the historical record the specification as implemented flags ${caught} of ${recs.length} recessions since 1976; the Sahm Rule flags ${sc[1].s.hit} of ${recs.length}.`;
+}
+
+/* ---------- Validations: anticipation-precision frontier ---------- */
+const VAL_SERIES = [
+  ["UNRATE", "U-3 (headline)"], ["U6RATE", "U-6"], ["U4RATE", "U-4"], ["U5RATE", "U-5"],
+  ["LNS14000006", "Black"], ["LNS14000009", "Hispanic"], ["LNS14000003", "White"],
+  ["LNS14000001", "Men"], ["LNS14000002", "Women"], ["LNS14027659", "Less than high school"], ["LNS14027662", "Bachelor’s or more"],
+  ["LNS14000012", "Ages 16–19"], ["LNS14000036", "Ages 20–24"]
+];
+const VAL_WINDOWS = { "1994": ["1994-01", "2021-12", "1994–2021 · 3 recessions · every series"], "1976": ["1976-01", "2021-12", "1976–2021 · 6 recessions · no U-4 to U-6 or education"], "1950": ["1950-01", "2021-12", "1950–2021 · 10 recessions · headline, sex and age only"] };
+SITE.val = SITE.val || { win: "1994", series: ["UNRATE", "U6RATE", "U4RATE", "U5RATE", "LNS14000006", "LNS14000009", "LNS14000003", "LNS14000001", "LNS14000002", "LNS14027659", "LNS14027662"], step: 0.05, prev: "both" };
+function valControls() {
+  const V = SITE.val, el = document.getElementById("val-ctl");
+  el.innerHTML = `<div class="val-row"><b>Training period</b><select id="val-win">${Object.entries(VAL_WINDOWS).map(([k, w]) => `<option value="${k}" ${k === V.win ? "selected" : ""}>${w[2]}</option>`).join("")}</select></div>
+    <div class="val-row"><b>Series</b>${VAL_SERIES.map(([c, l]) => `<label><input type="checkbox" value="${c}" ${V.series.includes(c) ? "checked" : ""}> ${l}</label>`).join("")}</div>
+    <div class="val-row"><b>Comparison window</b><select id="val-prev"><option value="both" ${V.prev === "both" ? "selected" : ""}>Previous months and including the current month</option><option value="prev" ${V.prev === "prev" ? "selected" : ""}>Previous months only (as in the Sahm Rule)</option><option value="incl" ${V.prev === "incl" ? "selected" : ""}>Including the current month</option></select>
+      <b style="min-width:auto;margin-left:8px">Threshold step</b><select id="val-step">${[0.1, 0.05, 0.02].map(x => `<option value="${x}" ${x === V.step ? "selected" : ""}>${x}</option>`).join("")}</select></div>
+    <div class="val-row"><button type="button" class="full-toggle val-run" id="val-run">Run the search</button><span class="val-stat" id="val-stat"></span></div>`;
+  el.querySelector("#val-run").onclick = () => {
+    V.win = el.querySelector("#val-win").value; V.prev = el.querySelector("#val-prev").value; V.step = +el.querySelector("#val-step").value;
+    V.series = [...el.querySelectorAll('input[type=checkbox]:checked')].map(i => i.value);
+    runValidate();
+  };
+}
+async function renderValidate() {
+  const el = document.getElementById("val-fig"); if (!el || !window.d3) return;
+  if (!document.getElementById("val-run")) valControls();
+  if (!el.dataset.built) { el.dataset.built = "1"; runValidate(); }
+}
+async function runValidate() {
+  const V = SITE.val, el = document.getElementById("val-fig"), stat = document.getElementById("val-stat");
+  stat.textContent = "Searching…"; await new Promise(r => setTimeout(r, 20));
+  const [a, b] = VAL_WINDOWS[V.win].slice(0, 2).map(mIdx);
+  const recs = VAL_NBER.filter(r => r.start >= a && r.start <= b);
+  const ks = [1, 2, 3, 4, 6, 9, 12], ms = [6, 9, 12, 18, 24], prevs = V.prev === "both" ? [true, false] : [V.prev === "prev"];
+  const alphas = []; for (let x = V.step; x <= 2.0001; x += V.step) alphas.push(Math.round(x * 100) / 100);
+  const pts = []; let tried = 0, usable = [];
+  const data = await Promise.all(V.series.map(c => monthlyArray(c).catch(() => null)));
+  V.series.forEach((code, si) => {
+    const S = data[si]; if (!S) return;
+    if (!recs.length || S.t0 > recs[0].start - 36) return;   // series must cover the first recession plus a warm-up
+    usable.push(code);
+    const label = (VAL_SERIES.find(x => x[0] === code) || [code, code])[1];
+    for (const k of ks) for (const m of ms) for (const prev of prevs) {
+      const I = msrArray(S, k, m, prev); let run = null;
+      const flush = () => { if (run) { const am = run.al[Math.floor(run.al.length / 2)]; pts.push({ code, label, k, m, prev, alpha: am, lo: run.al[0], hi: run.al[run.al.length - 1], ...run.sc }); run = null; } };
+      for (const al of alphas) { tried++; const sig = signalsOf(I, al, a, b); const sc = scoreSignals(sig, recs);
+        if (!sc.perfect) { flush(); continue; }
+        const key = sig.join(",");
+        if (run && run.key === key) run.al.push(al); else { flush(); run = { key, al: [al], sc }; } }
+      flush();
+    }
+  });
+  // frontier: sort by SD, keep strictly lower mean error
+  const sorted = pts.slice().sort((p, q) => p.sd - q.sd || p.mean - q.mean); const front = [];
+  for (const p of sorted) if (!front.length || p.mean < front[front.length - 1].mean) front.push(p);
+  front.forEach(p => p.front = true);
+  // highlighted rules
+  const U3 = await monthlyArray("UNRATE"), U6 = await monthlyArray("U6RATE"), BL = await monthlyArray("LNS14000006");
+  const HL = [
+    { name: "Sahm Rule", color: "#4f8ad7", S: U3, I: msrArray(U3, 3, 12, true), alpha: 0.5, spec: "U-3, k = 3, previous 12 months, α = 0.5" },
+    { name: "U-6 Modified Sahm Rule", color: "#9cc3ef", S: U6, I: msrArray(U6, 3, 12, true), alpha: 0.5, spec: "U-6, k = 3, previous 12 months, α = 0.5" },
+    { name: "Black Sahm Rule", color: "#17397c", S: BL, I: msrArray(BL, 3, 12, true), alpha: 0.5, spec: "Black unemployment, k = 3, previous 12 months, α = 0.5" },
+    { name: "“Works Like a Sahm” specification", color: "#8a8a8a", S: U3, I: wlasArray(U3), alpha: 0.5, spec: "U-3, mean of four monthly changes vs zero, α = 0.5" }
+  ].map(h => { const avail = recs.length && h.S.t0 <= recs[0].start - 36; const sc = avail ? scoreSignals(signalsOf(h.I, h.alpha, a, b), recs) : null; return { ...h, avail, sc }; });
+  stat.textContent = `${tried.toLocaleString()} rules tested on ${usable.length} series · ${pts.length.toLocaleString()} perfect classifiers · ${front.length} on the frontier`;
+  drawFrontier(el, pts, front, HL, recs);
+  const f1x = v => isFinite(v) ? (v > 0 ? "+" : "") + v.toFixed(1) : "–";
+  document.getElementById("val-table").innerHTML = `<div style="overflow-x:auto"><table class="cmp-tbl"><thead><tr><th>Rule</th><th>Recessions detected</th><th>False alarms</th><th>Mean error</th><th>SD of error</th><th>Perfect classifier?</th></tr></thead><tbody>${HL.map(h => `<tr><td><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${h.color};margin-right:7px"></i>${h.name}<br><span class="na">${h.spec}</span></td>${h.avail ? `<td>${h.sc.hit} of ${recs.length}</td><td>${h.sc.fa}</td><td>${f1x(h.sc.mean)} mo</td><td>${isFinite(h.sc.sd) ? h.sc.sd.toFixed(1) : "–"} mo</td><td>${h.sc.perfect ? "Yes" : "No"}</td>` : `<td class="na" colspan="5">Series not available for this training period</td>`}</tr>`).join("")}</tbody></table></div><p class="cmp-cap">Error is the month of the first signal minus the month after the NBER peak; negative means the rule fired before the recession began. Training period ${VAL_WINDOWS[V.win][0].slice(0, 4)}–2021, ${recs.length} recessions.</p>`;
+}
+function drawFrontier(el, pts, front, HL, recs) {
+  el.innerHTML = `<div class="val-canvas"><canvas></canvas><div class="tip" hidden></div></div><div class="val-key"><span><i style="background:#cddcf0"></i>Perfect classifier</span><span><i style="background:#2a2a2a;border-radius:0;height:2px;width:16px;vertical-align:3px"></i>Frontier</span>${HL.map(h => `<span><i style="background:${h.color};outline:1.5px solid #fff;box-shadow:0 0 0 1px ${h.color}"></i>${h.name}${!h.avail ? " (no data for this period)" : h.sc.hit < recs.length ? " (misses recessions; see table)" : h.sc.fa ? " (false alarms; hollow)" : ""}</span>`).join("")}</div>`;
+  const wrap = el.querySelector(".val-canvas"), cv = el.querySelector("canvas"), tip = el.querySelector(".tip");
+  const W = Math.max(320, wrap.clientWidth || 860), H = Math.round(Math.min(520, Math.max(320, W * 0.55))), dpr = window.devicePixelRatio || 1;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const M = { l: 48, r: 14, t: 12, b: 40 };
+  const hlPts = HL.filter(h => h.avail && h.sc.hit === recs.length).map(h => ({ ...h.sc, hl: h }));
+  const all = pts.concat(hlPts);
+  const xs = all.map(p => p.sd).filter(isFinite), ys = all.map(p => p.mean).filter(isFinite);
+  const x0 = 0, x1 = Math.max(2, Math.ceil(Math.max(...xs, 1) + 0.5)), y0 = Math.floor(Math.min(...ys, -1) - 1), y1 = Math.ceil(Math.max(...ys, 1) + 1);
+  const X = v => M.l + (v - x0) / (x1 - x0) * (W - M.l - M.r), Y = v => M.t + (y1 - v) / (y1 - y0) * (H - M.t - M.b);
+  g.font = "11px " + getComputedStyle(document.body).fontFamily; g.fillStyle = "#a3a3a3"; g.strokeStyle = "#eee"; g.lineWidth = 1;
+  const ystep = (y1 - y0) > 24 ? 6 : (y1 - y0) > 12 ? 3 : 1;
+  for (let v = Math.ceil(y0 / ystep) * ystep; v <= y1; v += ystep) { g.beginPath(); g.setLineDash(v === 0 ? [] : [2, 3]); g.strokeStyle = v === 0 ? "#cfcfcf" : "#eee"; g.moveTo(M.l, Y(v)); g.lineTo(W - M.r, Y(v)); g.stroke(); g.textAlign = "right"; g.fillText(v > 0 ? "+" + v : v, M.l - 6, Y(v) + 3.5); }
+  g.setLineDash([]); g.textAlign = "center";
+  const xstep = x1 > 12 ? 2 : 1;
+  for (let v = 0; v <= x1; v += xstep) g.fillText(v, X(v), H - M.b + 16);
+  g.fillText("Standard deviation of error (months) · more precise ←", (M.l + W - M.r) / 2, H - 6);
+  g.save(); g.translate(12, (M.t + H - M.b) / 2); g.rotate(-Math.PI / 2); g.fillText("Mean error (months) · earlier ↓", 0, 0); g.restore();
+  g.fillStyle = "rgba(160,190,228,.32)";
+  for (const p of pts) { g.beginPath(); g.arc(X(p.sd), Y(p.mean), 3, 0, 7); g.fill(); }
+  g.strokeStyle = "#2a2a2a"; g.lineWidth = 1.6; g.beginPath(); front.forEach((p, i) => i ? g.lineTo(X(p.sd), Y(p.mean)) : g.moveTo(X(p.sd), Y(p.mean))); g.stroke();
+  g.fillStyle = "#2a2a2a"; for (const p of front) { g.beginPath(); g.arc(X(p.sd), Y(p.mean), 2.6, 0, 7); g.fill(); }
+  for (const p of hlPts) { g.beginPath(); g.arc(X(p.sd), Y(p.mean), 7, 0, 7); g.lineWidth = 2.5; g.strokeStyle = "#fff"; g.stroke(); g.lineWidth = 2; g.strokeStyle = p.hl.color; if (p.perfect) { g.fillStyle = p.hl.color; g.fill(); } g.stroke(); }
+  const fmtE = e => e === null ? "missed" : (e > 0 ? "+" : "") + e;
+  wrap.onpointermove = ev => {
+    const rc = cv.getBoundingClientRect(), px = (ev.clientX - rc.left), py = (ev.clientY - rc.top);
+    let best = null, bd = 12;
+    for (const p of hlPts.concat(pts)) { const d = Math.hypot(X(p.sd) - px, Y(p.mean) - py); if (d < bd) { bd = d; best = p; } }
+    if (!best) { tip.hidden = true; return; }
+    const errs = recs.map((r, i) => `${REC_NAMES[r.name] || r.name}: ${fmtE(best.err[i])}`).join("<br>");
+    tip.innerHTML = best.hl ? `<div class="h">${best.hl.name}</div><div class="r"><span>Rule</span><span>${best.hl.spec}</span></div><div class="r"><span>Mean / SD of error</span><span class="num">${best.mean.toFixed(1)} / ${best.sd.toFixed(1)} mo</span></div><div class="r"><span>False alarms</span><span class="num">${best.fa}</span></div><div class="sb-help">${errs}</div>`
+      : `<div class="h">${best.label}${best.front ? " · on the frontier" : ""}</div><div class="r"><span>Smoothing k</span><span class="num">${best.k} mo</span></div><div class="r"><span>Comparison window</span><span>${best.prev ? "previous" : "current and previous"} ${best.m} mo</span></div><div class="r"><span>Threshold α</span><span class="num">${best.lo === best.hi ? best.alpha.toFixed(2) : best.lo.toFixed(2) + "–" + best.hi.toFixed(2)}</span></div><div class="r"><span>Mean / SD of error</span><span class="num">${best.mean.toFixed(1)} / ${best.sd.toFixed(1)} mo</span></div><div class="sb-help">${errs}</div>`;
+    tip.hidden = false; let left = px + 14; if (left + tip.offsetWidth > rc.width) left = px - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.min(py + 10, H - tip.offsetHeight) + "px";
+  };
+  wrap.onpointerleave = () => tip.hidden = true;
 }
 </script>
 <script>/* ===== Data ===== */
@@ -3369,10 +3894,12 @@ function lineChart(el, cfg) {
   for (const y of (cfg.hlines || [])) { lo = Math.min(lo, y.y); hi = Math.max(hi, y.y); }
   if (!isFinite(lo)) { lo = 0; hi = 1; }
   if (cfg.zero) lo = Math.min(lo, 0);
+  if (isFinite(cfg.yMax)) hi = Math.min(hi, cfg.yMax);
   const pad = (hi - lo) * 0.06 || 0.5; lo -= pad; hi += pad;
   const X = t => M.l + (t - x0) / (x1 - x0 || 1) * (W - M.l - M.r), Y = v => M.t + (hi - v) / (hi - lo) * (H - M.t - M.b);
   const svg = document.createElementNS(SVGNS, "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", cfg.aria || "line chart");
-  let s = "";
+  const clipId = "lc" + Math.random().toString(36).slice(2, 9);
+  let s = `<defs><clipPath id="${clipId}"><rect x="${M.l}" y="${M.t}" width="${W - M.l - M.r}" height="${H - M.t - M.b}"></rect></clipPath></defs>`;
   for (const sh of (cfg.shade || [])) { const a = Math.max(x0, sh.from), b = Math.min(x1, sh.to); if (b >= a) s += `<rect x="${X(a)}" y="${M.t}" width="${Math.max(1, X(b) - X(a))}" height="${H - M.t - M.b}" fill="var(--shade)"></rect>`; }
   for (const v of niceTicks(lo, hi, 5)) s += `<line class="gl" x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)" stroke-width="1"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}${cfg.yUnit || ""}</text>`;
   const span = x1 - x0, maxT = Math.max(2, Math.floor((W - M.l - M.r) / 64)), stepM = (cfg.years ? [12, 24, 60, 120] : [6, 12, 24, 60, 120]).find(st => span / st <= maxT) || 120;
@@ -3382,7 +3909,7 @@ function lineChart(el, cfg) {
   for (const se of cfg.series) {
     let d = "", pen = false;
     for (let t = x0; t <= x1; t++) { const v = se.at(t); if (isFinite(v)) { d += (pen ? "L" : "M") + X(t).toFixed(1) + "," + Y(v).toFixed(1); pen = true; } else pen = false; }
-    s += `<path d="${d}" fill="none" stroke="var(${se.color})" stroke-width="${se.width || 2}" stroke-linejoin="round" stroke-linecap="round" ${se.dash ? `stroke-dasharray="${se.dash}"` : ""} opacity="${se.opacity || 1}"></path>`;
+    s += `<path d="${d}" fill="none" stroke="var(${se.color})" stroke-width="${se.width || 2}" stroke-linejoin="round" stroke-linecap="round" ${se.dash ? `stroke-dasharray="${se.dash}"` : ""} opacity="${se.opacity || 1}" clip-path="url(#${clipId})"></path>`;
   }
   for (const mk of (cfg.markers || [])) if (mk.t >= x0 && mk.t <= x1 && isFinite(mk.v)) s += `<circle cx="${X(mk.t)}" cy="${Y(mk.v)}" r="4.5" fill="var(${mk.color})" stroke="var(--surface)" stroke-width="2"></circle>`;
   s += `<line class="xh" x1="0" x2="0" y1="${M.t}" y2="${H - M.b}" stroke="var(--ink-3)" stroke-width="1" visibility="hidden"></line>`;
@@ -3446,8 +3973,9 @@ function dotPlot(el, A, cat, ids, recs) {
 function divColor(v, max) {
   if (!isFinite(v)) return "var(--rule-2)";
   const t = Math.max(-1, Math.min(1, v / (max || 1)));
-  const pct = Math.round(Math.abs(t) * 85);
-  return `color-mix(in oklab, var(${t >= 0 ? "--pos" : "--neg"}) ${pct}%, var(--mid))`;
+  // soft diverging scale: site blue for positive, warm gray for negative, never darker than a mid tint
+  const pct = Math.round(Math.sqrt(Math.abs(t)) * 52);
+  return `color-mix(in oklab, ${t >= 0 ? "#6f9fdc" : "#bfb3a3"} ${pct}%, #ffffff)`;
 }
 
 /* ===== Rendering ===== */
@@ -3625,9 +4153,9 @@ function heatmapBlock(cat, prim, ref, recs) {
   const grid = ks.map(k => alphas.map(a => { const p = { ...ST.p, k, alpha: a }; const A = analyze(cat, [prim, ref], p); return stats(diffs(A, prim, ref, M, recs)); }));
   const maxAbs = Math.max(1, ...grid.flat().map(s => Math.abs(s.mean)).filter(isFinite));
   sec.innerHTML = `<div class="block-head"><h2>Does it survive other parameter choices?</h2><div class="segs" id="hmseg">${["lead", "dur", "afterT"].map(k => `<button data-v="${k}" aria-pressed="${M === k}">${METRICS[k].lab}</button>`).join("")}</div></div>
-  <p class="sub" style="font-size:13px">Mean paired difference, ${esc(cat.label(prim))} minus ${esc(cat.label(ref))}, in months, over the selected recessions. Rows vary smoothing k, columns vary α; m, scaling and match window stay as set above. Blue = ${esc(cat.label(prim))} earlier/longer; orange = the reverse. Outlined cell = current settings.</p>`;
+  <p class="sub" style="font-size:13px">Mean paired difference, ${esc(cat.label(prim))} minus ${esc(cat.label(ref))}, in months, over the selected recessions. Rows vary smoothing k, columns vary α; m, scaling and match window stay as set above. Blue = ${esc(cat.label(prim))} earlier or longer; warm gray = the reverse; deeper tint = larger gap. Outlined cell = current settings.</p>`;
   const tw = h("div", { class: "tablewrap" });
-  tw.innerHTML = `<table style="table-layout:fixed;min-width:520px"><thead><tr><th class="l">k \\ α</th>${alphas.map(a => `<th>${a.toFixed(1)}</th>`).join("")}</tr></thead><tbody>${ks.map((k, i) => `<tr><td class="l"><b>k = ${k}</b></td>${alphas.map((a, j) => { const s = grid[i][j]; const cur = k === ST.p.k && Math.abs(a - ST.p.alpha) < 1e-9; const strong = Math.abs(s.mean) / maxAbs > 0.55; return `<td class="num" title="n = ${s.n}, SD ${f1(s.sd)}" style="background:${divColor(s.mean, maxAbs)};${strong ? "color:var(--surface);" : ""}${cur ? "outline:2px solid var(--ink);outline-offset:-2px;" : ""}">${sg(s.mean)}<span style="opacity:.7;font-size:10.5px"> n${s.n}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+  tw.innerHTML = `<table style="table-layout:fixed;min-width:520px"><thead><tr><th class="l">k \\ α</th>${alphas.map(a => `<th>${a.toFixed(1)}</th>`).join("")}</tr></thead><tbody>${ks.map((k, i) => `<tr><td class="l"><b>k = ${k}</b></td>${alphas.map((a, j) => { const s = grid[i][j]; const cur = k === ST.p.k && Math.abs(a - ST.p.alpha) < 1e-9; const strong = false; return `<td class="num" title="n = ${s.n}, SD ${f1(s.sd)}" style="background:${divColor(s.mean, maxAbs)};${strong ? "color:var(--surface);" : ""}${cur ? "outline:1.5px solid #6b6b6b;outline-offset:-2px;" : ""}">${sg(s.mean)}<span style="opacity:.7;font-size:10.5px"> n${s.n}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
   sec.appendChild(tw);
   sec.querySelectorAll("#hmseg button").forEach(b => b.onclick = () => { ST.heatMetric = b.dataset.v; rerender(); });
   return sec;
@@ -3725,26 +4253,39 @@ function decompB(body, recs) {
   lineChart(lc, { x: ST.zoom === "all" ? [S[focal].start + 20, S[focal].start + S[focal].v.length - 1] : [mIdx(zr.peak) - 30, mIdx(zr.trough) + 30], series: lines, shade: NBER.map(r => ({ from: mIdx(r.peak), to: mIdx(r.trough) })), hlines: [{ y: ST.p.alpha }], height: 260 });
 }
 
-function splitBars(el, rows, unit) {
-  el.classList.add("chart");
-  const W = Math.max(300, el.clientWidth || 500), rowH = 30, M = { l: 70, r: 16, t: 8, b: 26 }, H = M.t + M.b + rowH * rows.length;
-  const vals = rows.flatMap(d => [d.tot, d.comp, d.comp + d.res, 0]).filter(isFinite);
+function splitBars(el, rows, unit, o) {
+  o = Object.assign({ comp: "Composition", res: "Residual", compTip: "The part of the gap explained by differences in characteristics.", resTip: "The part of the gap those characteristics do not explain.", totTip: "The total gap. Composition and residual add up to it." }, o || {});
+  el.classList.add("chart"); el.style.position = "relative";
+  const W = Math.max(300, el.clientWidth || 500), rowH = 30, M = { l: 128, r: 16, t: 8, b: 26 }, H = M.t + M.b + rowH * rows.length;
+  // stack positive parts to the right of zero and negative parts to the left
+  const seg = d => { const parts = [["comp", d.comp], ["res", d.res]]; let pos = 0, neg = 0; return parts.map(([k, v]) => { if (v >= 0) { const r = [k, pos, pos + v, v]; pos += v; return r; } const r = [k, neg + v, neg, v]; neg += v; return r; }); };
+  const vals = rows.flatMap(d => isFinite(d.tot) && isFinite(d.comp) ? [d.tot, ...seg(d).flatMap(s => [s[1], s[2]])] : []).concat([0]);
   let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals); if (hi - lo < 1) { hi += 0.5; lo -= 0.5; }
   const X = v => M.l + (v - lo) / (hi - lo) * (W - M.l - M.r);
   let s = "";
   for (const v of niceTicks(lo, hi, 5)) s += `<line x1="${X(v)}" x2="${X(v)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--rule)"></line><text x="${X(v)}" y="${H - 8}" text-anchor="middle">${v}</text>`;
   s += `<line x1="${X(0)}" x2="${X(0)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--ink-3)"></line>`;
   rows.forEach((d, i) => {
-    const y = M.t + i * rowH + 7, bh = rowH - 14;
-    s += `<text x="${M.l - 8}" y="${y + bh / 2 + 4}" text-anchor="end" style="fill:var(--ink-2)">${d.r.name}</text>`;
+    const y = M.t + i * rowH + 6, bh = rowH - 12;
+    s += `<text x="${M.l - 8}" y="${y + bh / 2 + 4}" text-anchor="end" style="fill:var(--ink-2)">${REC_NAMES_ALL(d.r.name)}</text>`;
     if (!isFinite(d.tot) || !isFinite(d.comp)) { s += `<text x="${M.l + 6}" y="${y + bh / 2 + 4}">not matched</text>`; return; }
-    const a = Math.min(0, d.comp), b = Math.max(0, d.comp); s += `<rect x="${X(a)}" y="${y}" width="${Math.max(1, X(b) - X(a))}" height="${bh / 2 - 1}" rx="2" fill="var(--s-comp)"></rect>`;
-    const c = Math.min(d.comp, d.comp + d.res), e = Math.max(d.comp, d.comp + d.res); s += `<rect x="${X(c)}" y="${y + bh / 2 + 1}" width="${Math.max(1, X(e) - X(c))}" height="${bh / 2 - 1}" rx="2" fill="var(--s-resid)"></rect>`;
-    s += `<line x1="${X(d.tot)}" x2="${X(d.tot)}" y1="${y - 3}" y2="${y + bh + 3}" stroke="var(--ink)" stroke-width="2"></line>`;
+    for (const [k, a, b, v] of seg(d)) s += `<rect class="sb" data-k="${k}" data-i="${i}" x="${X(a)}" y="${y}" width="${Math.max(1, X(b) - X(a))}" height="${bh}" fill="var(${k === "comp" ? "--s-comp" : "--s-resid"})" stroke="var(--surface)" stroke-width="1"></rect>`;
+    s += `<rect class="sb" data-k="tot" data-i="${i}" x="${X(d.tot) - 4}" y="${y - 4}" width="8" height="${bh + 8}" fill="transparent"></rect><line x1="${X(d.tot)}" x2="${X(d.tot)}" y1="${y - 4}" y2="${y + bh + 4}" stroke="var(--ink)" stroke-width="2" pointer-events="none"></line>`;
   });
-  s += `<text x="${(M.l + W - M.r) / 2}" y="${H + 6}" text-anchor="middle">${unit === "pp" ? "pp" : "months"}; composition from 0, residual stacked from the composition end</text>`;
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H + 10}">${s}</svg>`;
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${s}</svg><div class="tip" hidden></div><p class="sb-note">${unit === "pp" ? "Percentage points" : "Months"}. Segments stack to the total (black tick). Hover a segment for what it measures.</p>`;
+  const tip = el.querySelector(".tip"), svg = el.querySelector("svg"), u = unit === "pp" ? " pp" : " months";
+  const name = { comp: o.comp, res: o.res, tot: "Total gap" }, help = { comp: o.compTip, res: o.resTip, tot: o.totTip };
+  svg.addEventListener("pointermove", ev => {
+    const r = ev.target.closest && ev.target.closest(".sb"); if (!r) { tip.hidden = true; return; }
+    const d = rows[+r.dataset.i], k = r.dataset.k, v = k === "comp" ? d.comp : k === "res" ? d.res : d.tot;
+    tip.innerHTML = `<div class="h">${REC_NAMES_ALL(d.r.name)} · ${esc(name[k])}</div><div class="r"><span>Value</span><span class="num">${sg(v)}${u}</span></div><div class="sb-help">${esc(help[k])}</div>`;
+    tip.hidden = false;
+    const rc = el.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14;
+    tip.style.left = Math.max(0, left) + "px"; tip.style.top = (ev.clientY - rc.top + 12) + "px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
 }
+function REC_NAMES_ALL(n) { return (typeof REC_NAMES !== "undefined" && REC_NAMES[n]) || n; }
 
 /* C: monthly Oaxaca */
 function decompC(body, recs) {
