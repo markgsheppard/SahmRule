@@ -6,6 +6,19 @@
 <title>The Inequality of Recession</title>
 <meta name="description" content="Modified Sahm Rule turning-point indicators by income, race, education and place. Working paper series by Mark G. Sheppard.">
 <link rel="icon" href="favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mark G. Sheppard">
+<meta property="og:title" content="The Inequality of Recession">
+<meta property="og:description" content="Recession indicators by income, race, education and place: the downturn reaches the poorest workers first.">
+<meta property="og:url" content="https://markgsheppard.github.io/SahmRule/">
+<meta property="og:image" content="https://markgsheppard.github.io/SahmRule/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Modified Sahm Rule recession indicators by family-income decile during the 2007 to 2009 recession; the poorest decile rises first and highest.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Inequality of Recession">
+<meta name="twitter:description" content="Recession indicators by income, race, education and place: the downturn reaches the poorest workers first.">
+<meta name="twitter:image" content="https://markgsheppard.github.io/SahmRule/og-image.png">
 <style>[hidden]{display:none!important}</style>
 </head>
 <body style="margin:0">
@@ -2996,7 +3009,7 @@ function incomeFigure(el, name, rerun, opt) {
     `${recRadios(name, SITE.incRec, CPS_RECS())}${swatches(ids.filter((_, i) => [0, 2, 4, 7, 9].includes(i)).map(id => ({ label: CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: "--" + id.toLowerCase() })))}<div class="vbody"></div>`, foot);
   wireRadios(el, name, v => { SITE.incRec = v; rerun(); });
   const body = el.querySelector(".vbody"); if (opt.compact) body.classList.add("soft");
-  lineChart(body, { x: win(SITE.incRec), series: lines, shade: SHADE(), hlines: [opt.compact ? { y: ST.p.alpha, updown: true } : { y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), SITE.incRec), height: 400, years: !!opt.compact, noTicks: !!opt.compact });
+  lineChart(body, { x: win(SITE.incRec), series: lines, shade: SHADE(), hlines: [opt.compact ? { y: ST.p.alpha, updown: true } : { y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), SITE.incRec), height: opt.height || 400, years: !!opt.compact, noTicks: !!opt.compact });
 }
 
 function renderIncomeFigs() {
