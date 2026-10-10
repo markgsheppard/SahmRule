@@ -2841,7 +2841,7 @@ function matchAll(s) { const a = pAt(s); return Object.fromEntries(NBER.map(r =>
 function lead(m) { return m && m.status === "ok" ? m.lead : NaN; }
 function metricOf(m, k) { return m && m.status === "ok" ? METRICS[k].get(m) : NaN; }
 
-const REC_NAMES = { "1990–91": "Gulf War Recession", "2001": "Dot-Com Bust", "2007–09": "Financial Collapse", "2020": "COVID-19" };
+const REC_NAMES = { "1990–91": "Gulf War", "2001": "Dot-Com Bust", "2007–09": "Financial Collapse", "2020": "COVID-19" };
 function recRadios(name, cur, recs, named) {
   return `<div class="radios" role="radiogroup" aria-label="Recession">${recs.map(r => `<label${named ? ` title="${r.name}"` : ""}><input type="radio" name="${name}" value="${r.id}" ${r.id === cur ? "checked" : ""}> ${named ? (REC_NAMES[r.name] || r.name) : r.name}</label>`).join("")}</div>`;
 }
@@ -2851,9 +2851,11 @@ function TP(data, shown, from) { return `Turning Point Indicator, Modified Sahm 
 function figure(title, sub, body, foot) { return `<figure class="vfig"><div class="vhead"><div class="vtitle">${title}</div><div class="vsub">${sub}</div></div>${body}<div class="vfoot">${foot}</div></figure>`; }
 function result(label, val, unit, note) { return `<div class="res"><div class="res-l">${label}</div><div class="res-v">${val}</div><div class="res-u">${unit}</div>${note ? `<div class="res-n">${note}</div>` : ""}</div>`; }
 function paramLine() { return `k = ${ST.p.k}-month average · ${ST.p.m}-month rolling minimum · α = ${ST.p.alpha} pp${ST.p.scale !== "fixed" ? " (scaled by group " + (ST.p.scale === "level" ? "level" : "volatility") + ")" : ""}`; }
-function win(rec) { const r = NBER.find(x => x.id === rec); return [mIdx(r.peak) - 30, mIdx(r.trough) + 30]; }
+const CUR_START = "2021-05";
+function lastCpsMonth() { const s = CPS && CPS.series && CPS.series.D1; return s ? s.start + s.v.length - 1 : mIdx("2026-09"); }
+function win(rec) { if (rec === "cur") return [mIdx(CUR_START), lastCpsMonth()]; const r = NBER.find(x => x.id === rec); return [mIdx(r.peak) - 30, mIdx(r.trough) + 30]; }
 function indLine(s, label, color, dash, width) { const S = sahm(s, ST.p.k, ST.p.m, ST.p.pre); return { label, color, dash, width, at: t => { const i = t - s.start; return i >= 0 && i < S.ind.length ? S.ind[i] : NaN; } }; }
-function onsetMarkers(list, rec) { return list.map(([s, color]) => { const m = matchRec(s, NBER.find(r => r.id === rec), ST.p, pAt(s)); if (m.status !== "ok") return null; const S = sahm(s, ST.p.k, ST.p.m, ST.p.pre); return { t: m.on, v: S.ind[m.on - s.start], color }; }).filter(Boolean); }
+function onsetMarkers(list, rec) { if (rec === "cur") return []; return list.map(([s, color]) => { const m = matchRec(s, NBER.find(r => r.id === rec), ST.p, pAt(s)); if (m.status !== "ok") return null; const S = sahm(s, ST.p.k, ST.p.m, ST.p.pre); return { t: m.on, v: S.ind[m.on - s.start], color }; }).filter(Boolean); }
 const SHADE = () => NBER.map(r => ({ from: mIdx(r.peak), to: mIdx(r.trough) }));
 
 /* Composition split for a focal/ref pair across recessions */
@@ -2997,19 +2999,20 @@ function renderSpatialFigs() {
 function incomeFigure(el, name, rerun, opt) {
   if (!el) return;
   opt = opt || {};
+  const rec = opt.compact ? (SITE.ovRec || "2007") : SITE.incRec;
   const S = CPS.series;
   const ids = Array.from({ length: 10 }, (_, i) => "D" + (i + 1));
   const lines = ids.map(id => indLine(S[id], CPS.meta[id].label.replace(/ \(D\d+\)/, ""), "--" + id.toLowerCase(), "", id === "D1" || id === "D10" ? 2.25 : 1.5));
   const sub = TP("Family-Income Decile Data (CPS)", "Reference Lines and Recessions", "1982");
   const foot = "Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted. Each line is a decile of the family-income distribution run through its own indicator. Shaded: NBER recession. Dots mark when each decile crossed the threshold.";
   if (opt.compact) {
-    el.innerHTML = `<figure class="vfig compact">${opt.title ? `<div class="vhead"><div class="vtitle display">${opt.title}</div></div>` : ""}<div class="fig-ctl">${recRadios(name, SITE.incRec, CPS_RECS(), true)}<div class="ramp-key"><span>Poorest</span>${ids.map(id => `<i style="background:var(--${id.toLowerCase()})"></i>`).join("")}<span>Richest</span></div></div><div class="vbody"></div><details class="fig-note"><summary>Notes and source</summary><p>${sub}</p><p>${foot}</p></details></figure>`;
+    el.innerHTML = `<figure class="vfig compact">${opt.title ? `<div class="vhead"><div class="vtitle display">${opt.title}</div></div>` : ""}<div class="fig-ctl">${recRadios(name, rec, [...CPS_RECS(), { id: "cur", name: "Current" }], true)}<div class="ramp-key"><span>Poorest</span>${ids.map(id => `<i style="background:var(--${id.toLowerCase()})"></i>`).join("")}<span>Richest</span></div></div><div class="vbody"></div><details class="fig-note"><summary>Notes and source</summary><p>${sub}</p><p>${foot}</p></details></figure>`;
   } else
   el.innerHTML = figure(opt.title || "Turning Point by Income Data", sub,
     `${recRadios(name, SITE.incRec, CPS_RECS())}${swatches(ids.filter((_, i) => [0, 2, 4, 7, 9].includes(i)).map(id => ({ label: CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: "--" + id.toLowerCase() })))}<div class="vbody"></div>`, foot);
-  wireRadios(el, name, v => { SITE.incRec = v; rerun(); });
+  wireRadios(el, name, v => { if (opt.compact) SITE.ovRec = v; else SITE.incRec = v; rerun(); });
   const body = el.querySelector(".vbody"); if (opt.compact) body.classList.add("soft");
-  lineChart(body, { x: win(SITE.incRec), series: lines, shade: SHADE(), hlines: [opt.compact ? { y: ST.p.alpha, updown: true } : { y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), SITE.incRec), height: opt.height || 400, years: !!opt.compact, noTicks: !!opt.compact });
+  lineChart(body, { x: win(rec), series: lines, shade: SHADE(), hlines: [opt.compact ? { y: ST.p.alpha, updown: true } : { y: ST.p.alpha, label: "Above: recession signal" }], markers: onsetMarkers(ids.map(id => [S[id], "--" + id.toLowerCase()]), rec), height: opt.height || 400, years: !!opt.compact, noTicks: !!opt.compact });
 }
 
 function renderIncomeFigs() {
