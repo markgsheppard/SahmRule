@@ -704,6 +704,12 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 .cmp-cap { font-size: 12px; color: #a3a3a3; margin: 6px 0 0; }
 .thr2 { font-size: 11.5px; color: #8a8a8a; display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
 .thr2 i { display: inline-block; width: 18px; border-top: 1px dashed; margin-right: 6px; vertical-align: middle; }
+.thr2 i.band { border: 0; height: 9px; background: rgba(156, 195, 239, .45); border-radius: 1px; }
+#cmp-fig .fig-ctl { flex-direction: column; align-items: flex-start; gap: 8px; }
+#cmp-fig .fig-ctl .radios { flex-wrap: nowrap; white-space: nowrap; gap: 0 clamp(6px, 1.1vw, 13px); font-size: clamp(9.5px, 1.25vw, 12.5px); max-width: 100%; }
+#cmp-fig .fig-ctl .radios label { gap: 4px; }
+#cmp-fig .fig-ctl .radios input { width: 11px; height: 11px; }
+@media (max-width: 640px) { #cmp-fig .fig-ctl .radios { flex-wrap: wrap; white-space: normal; gap: 4px 12px; font-size: 12.5px; } }
 
 .ov-block, .ov > section, #cmp-fig, #cmp-table { min-width: 0; }
 .fig-ctl .radios { flex-wrap: wrap; min-width: 0; }
@@ -1037,7 +1043,7 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
     <h2 class="ov-h">A rule for stimulus became a research program</h2>
     <div class="cmp-timeline">
       <div class="cmp-step"><span class="cmp-yr">2019</span><div><span class="c-k">The Sahm Rule</span><p>Claudia Sahm, then an economist at the Federal Reserve Board, proposed the rule in “Direct Stimulus Payments to Individuals,” a chapter of <i>Recession Ready</i>, published by the Hamilton Project and the Washington Center for Equitable Growth. It was designed as a trigger for automatic stimulus payments: a recession signal when the three-month average unemployment rate rises half a percentage point above its low over the previous twelve months. The Federal Reserve Bank of St. Louis now publishes it in real time on FRED, and Sahm writes about the economy at <a class="plain-link" href="https://stayathomemacro.substack.com" target="_blank" rel="noopener">Stay-At-Home Macro</a>.</p></div></div>
-      <div class="cmp-step"><span class="cmp-yr">2024</span><div><span class="c-k">The Michez Rule</span><p>Pascal Michaillat and Emmanuel Saez added the other side of the labor market. Their rule, in “Has the Recession Started?”, takes the smaller of two indicators: the Sahm-style rise in unemployment and the fall in job openings from their recent peak. A recession is signaled when that minimum reaches 0.29 percentage points. Requiring both signals at once guards against a rise in unemployment that comes from more people entering the labor force while employers are still hiring. The paper was published in the <i>Oxford Bulletin of Economics and Statistics</i> in 2025.</p></div></div>
+      <div class="cmp-step"><span class="cmp-yr">2024</span><div><span class="c-k">The Michez Rule</span><p>Pascal Michaillat and Emmanuel Saez added the other side of the labor market. Their rule, in “Has the Recession Started?”, takes the smaller of two indicators: the Sahm-style rise in unemployment and the fall in job openings from their recent peak. A recession is signaled when that minimum enters a band from 0.30 to 0.80 percentage points: at the bottom of the band a recession has probably begun, and at the top it is near certain. Requiring both signals at once guards against a rise in unemployment that comes from more people entering the labor force while employers are still hiring. The paper was published in the <i>Oxford Bulletin of Economics and Statistics</i> in 2025.</p></div></div>
       <div class="cmp-step"><span class="cmp-yr">2025</span><div><span class="c-k">Validation and classifiers</span><p>Michaillat has since built a broader framework for testing these indicators. “Early and Accurate Recession Detection Using Classifiers on the Anticipation-Precision Frontier” searches across many rules built from unemployment and vacancy data, keeps those that detect recessions earliest without false alarms, and turns them into a recession probability. Related work with Saez on the full-employment rate of unemployment, u* = √uv, grounds the same labor-market data in theory.</p></div></div>
       <div class="cmp-step"><span class="cmp-yr">Now</span><div><span class="c-k">Underemployment and disaggregation</span><p>The <a class="plain-link" href="#method">Modified Sahm Rule</a> treats every convention of the Sahm Rule as a parameter and applies it to any labor-market series. Run on U-6, it tends to move before the headline rate, consistent with hours being cut before workers are laid off. Run on groups of workers, it shows that <a class="plain-link" href="#series">recessions arrive at different times for different people</a>.</p></div></div>
     </div>
@@ -3346,11 +3352,12 @@ function renderRaceFigs() {
   wireRadios(el, "racerec", v => { SITE.raceRec = v; renderRaceFigs(); });
   lineChart(softBody(el.querySelector("#racechart")), { ...SERIES_LINE, x: win(SITE.raceRec), series: grp.map(g => indLine(S[g[0]], g[2], g[1], "", g[0] === "R_White" ? 2.25 : 1.75)), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers(grp.map(g => [S[g[0]], g[1]]), SITE.raceRec), height: 400 });
   const statRecs = CPS_RECS().filter(r => ST.recs.has(r.id));
-  const rows = splitRows(S.R_Black, S.R_White, S.R_Black_cf, S.R_White, "lead", statRecs), rowsD = splitRows(S.R_Black, S.R_White, null, null, "dur", statRecs);
-  const sl = stats(rows.map(d => d.tot)), sr = stats(rows.map(d => d.res)), sd = stats(rowsD.map(d => d.tot)), sc = stats(rows.map(d => d.comp));
+  const rows = splitRows(S.R_Black, S.R_White, S.R_Black_cf, S.R_White, "lead", statRecs), rowsD = splitRows(S.R_Black, S.R_White, null, null, "dur", statRecs), rowsT = splitRows(S.R_Black, S.R_White, null, null, "afterT", statRecs);
+  const sl = stats(rows.map(d => d.tot)), sr = stats(rows.map(d => d.res)), sd = stats(rowsD.map(d => d.tot)), sc = stats(rows.map(d => d.comp)), st = stats(rowsT.map(d => d.tot));
   document.getElementById("res-race").innerHTML =
     dres("Advance of recession", sl.mean, "months earlier", "months later", `Black vs White workers · SD ${f1(sl.sd)} · ${sl.pos} of ${sl.n}`) +
     dres("Recession length", sd.mean, "months longer", "months shorter", `signal duration · SD ${f1(sd.sd)}`) +
+    dres("Lingers after trough", st.mean, "months longer", "months shorter", `past the NBER trough · SD ${f1(st.sd)}`) +
     result("Explained by composition", sg(sc.mean), "months", "income, education, sex, age, region priced at White rates") +
     result("Residual: race", sg(sr.mean), "months", isFinite(sr.mean) && sl.mean ? `${f1(100 * sr.mean / sl.mean, 0)}% of the gap` : "share undefined");
   const dc = document.getElementById("fig-race-dc");
@@ -3544,16 +3551,19 @@ let _cmp = null;
 async function loadCompare() {
   if (_cmp) return _cmp;
   const ym = d => mIdx(d instanceof Date ? d.toISOString().slice(0, 7) : String(d).slice(0, 7));
-  const series = rows => { const m = new Map(); for (const r of rows) { const v = +r.value; if (isFinite(v)) m.set(ym(r.date), v); } return m; };
+  // monthly map; short internal gaps (such as October 2025, when the shutdown cancelled the household survey) filled by linear interpolation
+  const series = rows => { const m = new Map(); for (const r of rows) { const v = +r.value; if (isFinite(v)) m.set(ym(r.date), v); }
+    const ks = [...m.keys()].sort((a, b) => a - b); for (let i = 1; i < ks.length; i++) { const a = ks[i - 1], b = ks[i]; if (b - a > 1 && b - a <= 3) for (let t = a + 1; t < b; t++) m.set(t, m.get(a) + (m.get(b) - m.get(a)) * (t - a) / (b - a)); } return m; };
   const [UN, U6, JO, UL, LF, HV] = await Promise.all([
     toolCsv("UNRATE"), toolCsv("U6RATE"), toolCsv("JTSJOL").catch(() => []), toolCsv("UNEMPLOY").catch(() => []), toolCsv("CLF16OV").catch(() => []),
     d3.csv("data-source/michez-vacancy-1951-2000.csv", d => ({ date: d.date, value: +d.vacancy_rate })).catch(() => [])
   ]);
   const un = series(UN), u6 = series(U6), jo = series(JO), ul = series(UL), lf = series(LF), hv = series(HV);
   const t0 = mIdx("1948-01"), t1 = Math.max(...un.keys());
-  // classic Sahm construction: 3-month average minus its minimum over the previous 12 months
-  const sahmOf = m => { const avg = t => { const a = [m.get(t), m.get(t - 1), m.get(t - 2)]; return a.every(isFinite) ? (a[0] + a[1] + a[2]) / 3 : NaN; };
-    const out = new Map(); for (let t = t0; t <= t1; t++) { const a = avg(t); if (!isFinite(a)) continue; let mn = Infinity; for (let s = 1; s <= 12; s++) { const b = avg(t - s); if (isFinite(b)) mn = Math.min(mn, b); else { mn = NaN; break; } } if (isFinite(mn)) out.set(t, a - mn); } return out; };
+  // Sahm construction: 3-month average minus the lowest 3-month average over a comparison window.
+  // Sahm Rule: the previous 12 months (s = 1..12). U-6 Modified Sahm Rule: 18 months including the current one (s = 0..17).
+  const sahmOf = (m, s0 = 1, s1 = 12) => { const avg = t => { const a = [m.get(t), m.get(t - 1), m.get(t - 2)]; return a.every(isFinite) ? (a[0] + a[1] + a[2]) / 3 : NaN; };
+    const out = new Map(); for (let t = t0; t <= t1; t++) { const a = avg(t); if (!isFinite(a)) continue; let mn = Infinity; for (let s = s0; s <= s1; s++) { const b = avg(t - s); if (isFinite(b)) mn = Math.min(mn, b); else { mn = NaN; break; } } if (isFinite(mn)) out.set(t, a - mn); } return out; };
   // Michez rule (Michaillat and Saez): rates from levels; vacancies = Barnichon to 2000, then JOLTS shifted forward one month
   const u = new Map(), v = new Map();
   for (let t = t0; t <= t1; t++) { if (isFinite(ul.get(t)) && isFinite(lf.get(t))) u.set(t, 100 * ul.get(t) / lf.get(t));
@@ -3563,13 +3573,13 @@ async function loadCompare() {
   for (const t of ub.keys()) { if (!vb.has(t)) continue; let mn = Infinity, mx = -Infinity, ok = true;
     for (let s = 0; s <= 12; s++) { const a = ub.get(t - s), b = vb.get(t - s); if (!isFinite(a) || !isFinite(b)) { ok = false; break; } mn = Math.min(mn, a); mx = Math.max(mx, b); }
     if (!ok) continue; const uh = Math.round((ub.get(t) - mn) * 100) / 100, vh = Math.round((mx - vb.get(t)) * 100) / 100; mich.set(t, Math.min(uh, vh)); }
-  _cmp = { sahm: sahmOf(un), u6: sahmOf(u6), mich, last: Math.max(...un.keys()), lastMich: mich.size ? Math.max(...mich.keys()) : NaN };
+  _cmp = { sahm: sahmOf(un), u6: sahmOf(u6, 0, 17), mich, last: Math.max(...un.keys()), lastMich: mich.size ? Math.max(...mich.keys()) : NaN };
   return _cmp;
 }
 const CMP_RULES = [
   { k: "sahm", label: "Sahm Rule", color: "--c-sahm", thr: 0.5, width: 2 },
-  { k: "u6", label: "Underemployment", color: "--c-u6", thr: 0.5, width: 2 },
-  { k: "mich", label: "Michez Rule", color: "--c-michez", thr: 0.29, width: 2 }
+  { k: "u6", label: "Underemployment", color: "--c-u6", thr: 0.5, width: 2, soft: true },
+  { k: "mich", label: "Michez Rule", color: "--c-michez", thr: 0.3, width: 2 }
 ];
 async function renderCompare() {
   const el = document.getElementById("cmp-fig"); if (!el || !window.d3) return;
@@ -3581,15 +3591,20 @@ async function renderCompare() {
   const lastLab = isFinite(C.lastMich) ? mLab(C.lastMich) : "not yet available (the job-openings data is still being collected)";
   el.innerHTML = `<figure class="vfig"><div class="fig-ctl"><div class="radios" role="radiogroup" aria-label="Period">${opts.map(r => `<label${r.id !== "all" && r.id !== "cur" ? ` title="${r.name}"` : ""}><input type="radio" name="cmprec" value="${r.id}" ${r.id === sel ? "checked" : ""}> ${REC_NAMES[r.name] || r.name}</label>`).join("")}</div>${swatches(CMP_RULES.map(r => ({ label: r.label, color: r.color })))}</div>
     <div class="vbody"></div>
-    <div class="thr2"><span><i style="border-color:#8a8a8a"></i>Sahm Rule and Underemployment signal at 0.50</span><span><i style="border-color:var(--c-michez)"></i>Michez Rule signals at 0.29</span></div>
+    <div class="thr2"><span><i style="border-color:#8a8a8a"></i>Sahm Rule and Underemployment signal at 0.50</span><span><i class="band"></i>Michez Rule band, 0.30 to 0.80</span></div>
     <details class="fig-note"><summary>Notes and source</summary>
-      <p>Indicator values in percentage points. Sahm Rule: three-month average of the unemployment rate (U-3) minus its lowest three-month average over the previous twelve months. Underemployment: the same construction on U-6, which adds people working part time for economic reasons and marginally attached workers; available from 1994. Michez Rule: the smaller of the unemployment indicator (three-month average minus its minimum over the current and previous twelve months) and the vacancy indicator (the maximum of the three-month average vacancy rate over the same window minus its current value), rounded to the basis point as in Michaillat and Saez (2025). Shaded: NBER recessions.</p>
-      <p>Sources: BLS via FRED (UNRATE, U6RATE, UNEMPLOY, CLF16OV, JTSJOL); Barnichon (2010) composite help-wanted vacancy rate for 1951–2000. Vacancy rate is job openings divided by the labor force, with JOLTS shifted forward one month. These are computed on current data; FRED’s real-time Sahm Rule uses the unemployment rate as first published, so its values can differ slightly. Latest month with all three: ${lastLab}.</p>
+      <p>Indicator values in percentage points. Sahm Rule: three-month average of the unemployment rate (U-3) minus its lowest three-month average over the previous twelve months. Underemployment (the U-6 Modified Sahm Rule): the three-month average of U-6, which adds people working part time for economic reasons and marginally attached workers, minus its lowest three-month average over an eighteen-month window that includes the current month; available from 1994. Michez Rule: the smaller of the unemployment indicator (three-month average minus its minimum over the current and previous twelve months) and the vacancy indicator (the maximum of the three-month average vacancy rate over the same window minus its current value), rounded to the basis point as in Michaillat and Saez (2025). Shaded: NBER recessions.</p>
+      <p>Sources: BLS via FRED (UNRATE, U6RATE, UNEMPLOY, CLF16OV, JTSJOL); Barnichon (2010) composite help-wanted vacancy rate for 1951–2000. Vacancy rate is job openings divided by the labor force, with JOLTS shifted forward one month. These are computed on current data; FRED’s real-time Sahm Rule uses the unemployment rate as first published, so its values can differ slightly. Latest month with all three: ${lastLab}. October 2025, when the federal shutdown cancelled the household survey, is filled by linear interpolation between September and November, as in the Michez Rule replication code.</p>
+      <p>Michez Rule band: the rule signals a recession when its indicator reaches the bottom of the band (0.30 in Michaillat and Saez’s working paper; 0.29 in the published version) and treats a recession as near certain at the top (0.80; 0.81 published). The table uses 0.30.</p>
+      <p>Display only: the Underemployment line is drawn with a smooth curve and eased so that it levels off just below 3 points, rather than being cut flat at the edge of the chart. Values up to 2 points are drawn as they are; above 2, the line is compressed on a logarithmic scale so its highest value ever sits just below 3 and each peak keeps its shape. Hovering shows the actual value. The table and signal dates use the actual values.</p>
     </details></figure>`;
   el.querySelectorAll('input[name="cmprec"]').forEach(i => i.onchange = () => { SITE.cmpRec = i.value; renderCompare(); });
   const body = softBody(el.querySelector(".vbody"));
-  lineChart(body, { ...SERIES_LINE, x, series: CMP_RULES.map(r => ({ label: r.label, color: r.color, width: r.width, at: t => C[r.k].has(t) ? C[r.k].get(t) : NaN })), shade: SHADE(),
-    hlines: [{ y: 0.5, updown: true }, { y: 0.29, color: "var(--c-michez)" }], height: 420, yMax: sel === "all" ? 3 : undefined });
+  // display-only easing for Underemployment: unchanged up to 2, then a smooth logarithmic compression (slope 1 at 2) that puts its all-time peak at 2.95
+  const capA = 2, vMax = Math.max(...C.u6.values()); let capB = 1; { let lo = 0.01, hi = 20; for (let i = 0; i < 60; i++) { const b = (lo + hi) / 2; if (b * Math.log(1 + (vMax - capA) / b) > 2.95 - capA) hi = b; else lo = b; } capB = lo; }
+  const softCap = v => !isFinite(v) || v <= capA ? v : capA + capB * Math.log(1 + (v - capA) / capB);
+  lineChart(body, { ...SERIES_LINE, x, series: CMP_RULES.map(r => ({ label: r.label, color: r.color, width: r.width, at: t => C[r.k].has(t) ? C[r.k].get(t) : NaN, plot: r.soft ? softCap : undefined, smooth: !!r.soft })), shade: SHADE(),
+    bands: [{ y0: 0.3, y1: 0.8, fill: "rgba(156, 195, 239, .28)" }], hlines: [{ y: 0.5, updown: true }], height: 420, yMax: sel === "all" ? 3 : undefined });
   if (sel === "all") body.insertAdjacentHTML("beforeend", `<p class="cmp-cap">Axis capped at 3 points so the thresholds stay readable; the 2009 and 2020 peaks run higher. Pick a recession to see them in full.</p>`);
   // when each rule first signaled, relative to the NBER peak
   const firstSignal = (m, thr, r) => { const p = mIdx(r.peak), tr = mIdx(r.trough); for (let t = p - 12; t <= tr + 12; t++) { const v = m.get(t), pv = m.get(t - 1); if (isFinite(v) && v >= thr && !(isFinite(pv) && pv >= thr)) return t - p; } const v0 = m.get(p - 12); return isFinite(v0) && v0 >= thr ? "on" : null; };
@@ -3968,7 +3983,7 @@ function lineChart(el, cfg) {
   const M = { l: 44, r: 14, t: 10, b: 28 };
   const [x0, x1] = cfg.x;
   let lo = Infinity, hi = -Infinity;
-  for (const s of cfg.series) for (let t = x0; t <= x1; t++) { const v = s.at(t); if (isFinite(v)) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }
+  for (const s of cfg.series) for (let t = x0; t <= x1; t++) { const v = s.plot ? s.plot(s.at(t)) : s.at(t); if (isFinite(v)) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }
   for (const y of (cfg.hlines || [])) { lo = Math.min(lo, y.y); hi = Math.max(hi, y.y); }
   if (!isFinite(lo)) { lo = 0; hi = 1; }
   if (cfg.zero) lo = Math.min(lo, 0);
@@ -3979,6 +3994,7 @@ function lineChart(el, cfg) {
   const clipId = "lc" + Math.random().toString(36).slice(2, 9);
   let s = `<defs><clipPath id="${clipId}"><rect x="${M.l}" y="${M.t}" width="${W - M.l - M.r}" height="${H - M.t - M.b}"></rect></clipPath></defs>`;
   for (const sh of (cfg.shade || [])) { const a = Math.max(x0, sh.from), b = Math.min(x1, sh.to); if (b >= a) s += `<rect x="${X(a)}" y="${M.t}" width="${Math.max(1, X(b) - X(a))}" height="${H - M.t - M.b}" fill="var(--shade)"></rect>`; }
+  for (const bd of (cfg.bands || [])) { const ya = Math.max(lo, Math.min(hi, bd.y1)), yb = Math.max(lo, Math.min(hi, bd.y0)); s += `<rect x="${M.l}" y="${Y(ya)}" width="${W - M.l - M.r}" height="${Math.max(0, Y(yb) - Y(ya))}" fill="${bd.fill}"></rect>` + (bd.label ? `<text class="band-t" x="${W - M.r - 6}" y="${Y(ya) + 13}" text-anchor="end">${esc(bd.label)}</text>` : ""); }
   for (const v of niceTicks(lo, hi, 5)) s += `<line class="gl" x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)" stroke-width="1"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}${cfg.yUnit || ""}</text>`;
   const span = x1 - x0, maxT = Math.max(2, Math.floor((W - M.l - M.r) / 64)), stepM = (cfg.years ? [12, 24, 60, 120] : [6, 12, 24, 60, 120]).find(st => span / st <= maxT) || 120;
   for (let t = Math.ceil(x0 / stepM) * stepM; t <= x1; t += stepM) s += `<text x="${X(t)}" y="${H - 8}" text-anchor="middle">${stepM >= 12 && t % 12 === 0 ? Math.floor(t / 12) : mShort(t)}</text>` + (cfg.noTicks ? "" : `<line x1="${X(t)}" x2="${X(t)}" y1="${H - M.b}" y2="${H - M.b + 4}" stroke="var(--rule)"></line>`);
@@ -3986,7 +4002,8 @@ function lineChart(el, cfg) {
   for (const vl of (cfg.vlines || [])) if (vl.t >= x0 && vl.t <= x1) s += `<line x1="${X(vl.t)}" x2="${X(vl.t)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3"></line><text x="${X(vl.t) + 4}" y="${M.t + 11}">${esc(vl.label || "")}</text>`;
   for (const se of cfg.series) {
     let d = "", pen = false;
-    for (let t = x0; t <= x1; t++) { const v = se.at(t); if (isFinite(v)) { d += (pen ? "L" : "M") + X(t).toFixed(1) + "," + Y(v).toFixed(1); pen = true; } else pen = false; }
+    if (se.smooth && window.d3) { const pts = []; for (let t = x0; t <= x1; t++) { const raw = se.at(t), v = se.plot ? se.plot(raw) : raw; pts.push([X(t), isFinite(v) ? Y(v) : NaN]); } d = d3.line().defined(q => isFinite(q[1])).curve(d3.curveMonotoneX)(pts) || ""; }
+    else for (let t = x0; t <= x1; t++) { const raw = se.at(t), v = se.plot ? se.plot(raw) : raw; if (isFinite(v)) { d += (pen ? "L" : "M") + X(t).toFixed(1) + "," + Y(v).toFixed(1); pen = true; } else pen = false; }
     s += `<path d="${d}" fill="none" stroke="var(${se.color})" stroke-width="${se.width || 2}" stroke-linejoin="round" stroke-linecap="round" ${se.dash ? `stroke-dasharray="${se.dash}"` : ""} opacity="${se.opacity || 1}" clip-path="url(#${clipId})"></path>`;
   }
   for (const mk of (cfg.markers || [])) if (mk.t >= x0 && mk.t <= x1 && isFinite(mk.v)) s += `<circle cx="${X(mk.t)}" cy="${Y(mk.v)}" r="4.5" fill="var(${mk.color})" stroke="var(--surface)" stroke-width="2"></circle>`;
