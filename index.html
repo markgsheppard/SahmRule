@@ -676,6 +676,8 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 /* Series headline numbers: serif like the titles, softer ink */
 .card-num b { font-family: var(--f-display); font-style: italic; font-weight: 400; font-size: 44px; color: #4a4a4a; letter-spacing: -.01em; }
 .card-num span { font-family: var(--f-body); color: #6b6b6b; }
+.card-num b { font-size: 38px; color: #8a8a8a; }
+.card-num b .sgn { font-family: var(--f-body); font-style: normal; font-weight: 300; font-size: .62em; color: #a8a8a8; margin-right: 2px; vertical-align: .18em; white-space: normal; overflow: visible; }
 
 /* Indicator comparisons */
 :root { --c-sahm: #4f8ad7; --c-u6: #9cc3ef; --c-michez: #17397c; }
@@ -3234,7 +3236,7 @@ function renderCards(target) {
   ];
   el.innerHTML = P.map((c, i) => { const s = pairStat(c.f, c.r, "lead"), d = pairStat(c.f, c.r, "dur");
     return `<a class="card" href="#${c.v}"><span class="card-k">${c.k}</span><span class="card-t">${c.t}</span><span class="card-d">${c.d}</span>
-    <span class="card-num"><b>${c.f && isFinite(s.mean) ? f1(Math.abs(s.mean)) : "…"}</b><span>months ${isFinite(s.mean) && s.mean < 0 ? "later" : "earlier"} onset<br>${esc(c.fl.charAt(0).toUpperCase() + c.fl.slice(1))} vs ${esc(c.rl)}</span></span>
+    <span class="card-num"><b>${c.f && isFinite(s.mean) ? `<span class="sgn">+</span>${f1(Math.abs(s.mean))}` : "…"}</b><span>months ${isFinite(s.mean) && s.mean < 0 ? "later" : "earlier"} onset<br>${esc(c.fl.charAt(0).toUpperCase() + c.fl.slice(1))} vs ${esc(c.rl)}</span></span>
     <span class="mini" id="${pre}${i}"></span><span class="card-status">${esc(c.status)}</span><span class="card-go">Read the working paper →</span></a>`; }).join("");
   P.forEach((c, i) => { if (!c.f || !c.r) return; const w = win("2007"); lineChart(el.querySelector("#" + pre + i), { x: [w[0] + 12, w[1] - 12], series: [indLine(c.f, c.fl, c.cf, "", 2), indLine(c.r, c.rl, c.cr, "", 2)], shade: SHADE(), hlines: [{ y: ST.p.alpha }], markers: onsetMarkers([[c.f, c.cf], [c.r, c.cr]], "2007"), height: 150 }); });
 }
