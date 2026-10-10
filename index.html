@@ -3029,7 +3029,7 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     const [info, agg, topo] = await Promise.all([
       d3.csv("data-source/map-data/info.csv", d3.autoType),
       d3.csv("data-source/map-data/map-data-aggregated.csv", d => { const id = String(d.county_id).padStart(5, "0"); return { ...d3.autoType({ ...d }), county_id: id }; }),
-      d3.json("data-source/map-data/counties-albers-10m.json")
+      d3.json("counties-viz/counties-albers-10m.json")
     ]);
     S.info = info[0]; S.agg = new Map(agg.map(d => [d.county_id, d]));
     S.counties = topojson.feature(topo, topo.objects.counties);
