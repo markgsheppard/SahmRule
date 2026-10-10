@@ -20,7 +20,7 @@ async function loadFilesInBatches(totalChunks, batchSize = 10) {
   for (let i = 0; i < chunks.length; i += batchSize) {
     const batch = chunks.slice(i, i + batchSize);
     const batchResults = await Promise.all(batch.map(d => 
-      d3.csv(`./data-source/map-data/chunk-${d}.csv`, customAutoType).catch(() => [])
+      d3.csv(new URL(`../data-source/map-data/chunk-${d}.csv`, import.meta.url).href, customAutoType).catch(() => [])
     ));
     results.push(...batchResults);
   }
@@ -75,9 +75,9 @@ class CountiesViz {
 		try {
 
 			const [info, aggregatedData, usTopo] = await Promise.all([
-				d3.csv('./data-source/map-data/info.csv',  d3.autoType),
-				d3.csv('./data-source/map-data/map-data-aggregated.csv', customAutoType),
-				d3.json('./counties-viz/counties-albers-10m.json')
+				d3.csv(new URL('../data-source/map-data/info.csv', import.meta.url).href,  d3.autoType),
+				d3.csv(new URL('../data-source/map-data/map-data-aggregated.csv', import.meta.url).href, customAutoType),
+				d3.json(new URL('./counties-albers-10m.json', import.meta.url).href)
 			]);
 
 			this.aggregatedData = aggregatedData

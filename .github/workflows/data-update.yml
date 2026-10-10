@@ -39,6 +39,9 @@ jobs:
           MAX_COUNTIES_TO_FETCH: ${{ github.event.inputs.MAX_COUNTIES_TO_FETCH }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
+      - name: Build compact map files for the site
+        run: node ./data-source/build-compact-map.js
+
       - name: Upload modified files (fetch-map-data)
         uses: actions/upload-artifact@v4
         with:
