@@ -783,7 +783,6 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
         <a href="#income" data-v="income" role="menuitem"><span class="sub-t">The Income <i>Inequality of Recession</i></span><span class="sub-d">Family-income deciles, poorest to richest</span></a>
         <a href="#education" data-v="education" role="menuitem"><span class="sub-t">The Educational <i>Inequality of Recession</i></span><span class="sub-d">Less than high school to bachelor’s+</span></a>
         <a href="#spatial" data-v="spatial" role="menuitem"><span class="sub-t">The Spatial <i>Inequality of Recession</i></span><span class="sub-d">Counties, rural and urban</span></a>
-        <a href="#vibe" data-v="vibe" role="menuitem"><span class="sub-t">The <i>Vibecession</i></span><span class="sub-d">A downturn for some, never called for all</span></a>
       </div>
     </div>
     <div class="has-sub">
@@ -792,8 +791,14 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
         <a href="#map" data-v="map" role="menuitem"><span class="sub-t">Interactive <i>Map</i></span><span class="sub-d">Turning points for 3,134 counties, 1990 to present</span></a>
         <a href="#tool" data-v="tool" role="menuitem"><span class="sub-t">Turning Point <i>Tool</i></span><span class="sub-d">Build and compare Modified Sahm Rule indicators</span></a>
         <a href="#compare" data-v="compare" role="menuitem"><span class="sub-t">Indicator <i>Comparisons</i></span><span class="sub-d">The Sahm Rule, the Michez Rule and underemployment, side by side</span></a>
+      </div>
+    </div>
+    <div class="has-sub">
+      <a href="#validate" data-v="resources" class="sub-trigger" aria-haspopup="true">Resources <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="sub sub-sm" role="menu">
         <a href="#validate" data-v="validate" role="menuitem"><span class="sub-t">Indicator <i>Validations</i></span><span class="sub-d">Thousands of rules on the anticipation-precision frontier</span></a>
         <a href="#replicate" data-v="replicate" role="menuitem"><span class="sub-t">Replications</span><span class="sub-d">Re-examining published tests of the Sahm Rule</span></a>
+        <a href="#vibe" data-v="vibe" role="menuitem"><span class="sub-t">Comments on the <i>Vibecession</i></span><span class="sub-d">A downturn for some, never called for all</span></a>
       </div>
     </div>
     <a href="#method" data-v="method">Methodology</a>
@@ -989,8 +994,8 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
 <!-- ===== The Vibecession ===== -->
 <div class="view" id="v-vibe" hidden>
 <section class="hero"><div class="in">
-  <a class="chap-back" href="#series">← The Inequality of Recession</a>
-  <h1>The<br>Vibecession</h1>
+  <a class="chap-back" href="#validate">← Resources</a>
+  <h1>Comments on the<br>Vibecession</h1>
   <p class="lede">From 2022 on, the economy never met the official definition of a recession, yet many people said it felt like one, and several indicators said it might be one. This page reads that period the way the series argues every downturn should be read: not as a binary event, but as something compositional, distributional and continuous.</p>
   <div class="byline"><div>Essay and interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
 </div></section>
@@ -3672,8 +3677,8 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial", "vibe"].includes(v), inter = ["map", "tool", "compare", "validate", "replicate"].includes(v);
-  document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe"].includes(v);
+  document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest(".sub a"); if (a) a.blur(); });
