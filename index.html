@@ -801,7 +801,13 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
         <a href="#vibe" data-v="vibe" role="menuitem"><span class="sub-t">Comments on the <i>Vibecession</i></span><span class="sub-d">A downturn for some, never called for all</span></a>
       </div>
     </div>
-    <a href="#method" data-v="method">Methodology</a>
+    <div class="has-sub">
+      <a href="#method" data-v="methodgrp" class="sub-trigger" aria-haspopup="true">Methodology <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="sub sub-sm" role="menu">
+        <a href="#method" data-v="method" role="menuitem"><span class="sub-t">Methodology <i>and Data</i></span><span class="sub-d">Formulas, footnotes and technical notes</span></a>
+        <a href="#thanks" data-v="thanks" role="menuitem"><span class="sub-t">Acknowledgements</span><span class="sub-d">The people who made this research possible</span></a>
+      </div>
+    </div>
     <a href="#contact" class="nav-contact">Contact</a>
   </nav>
 </div></header>
@@ -1222,6 +1228,31 @@ irf(A_mats, impact_mat, gamma, h)</code></pre></figure>
       <p>Sources: BLS via FRED (UNRATE, U6RATE, U4RATE, U5RATE and the race, ethnicity and education series in the Turning Point Tool); NBER business-cycle dates. Michaillat, P. (2025), “Early and Accurate Recession Detection Using Classifiers on the Anticipation-Precision Frontier,” NBER Working Paper 34015.</p>
     </details>
   </section>
+</div>
+</div>
+
+<!-- ===== Acknowledgements ===== -->
+<div class="view" id="v-thanks" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#method">← Methodology</a>
+  <h1>Acknowledgements</h1>
+  <p class="lede">No research is done alone. This project owes its existence to the generosity of mentors, colleagues and friends who gave their time, their candor and their encouragement.</p>
+</div></section>
+<div class="article">
+  <section class="pbreak"><span class="ov-kicker">Trevon Logan</span><h2 class="ov-h">A mentor beyond measure</h2><p>I owe my deepest thanks to Trevon Logan, who has been a fantastic mentor in every sense of the word. His generosity with his time, his sharp and honest reading of every draft, and his steady belief in this project have shaped it from its earliest form to the papers it has become. It was his encouragement to decompose the gaps, to ask how much of each group’s recession is composition and how much is something more, that gave this work its center. Any scholar would be fortunate to have a mentor like him; I am grateful beyond words that I do.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Claudia Sahm</span><h2 class="ov-h">The rule, and the guidance behind it</h2><p>To Claudia Sahm, whose rule is the foundation of everything on this site: thank you for providing so much guidance to a young scholar venturing into a subfield that has been written about far less than it deserves. Your patience, your openness and your willingness to engage with a newcomer’s questions made it possible for me to build on your work with confidence. This project stands, quite literally, on what you created.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Pascal Michaillat</span><h2 class="ov-h">Thoughtful, forthcoming and transparent</h2><p>Thanks to Pascal Michaillat for being an incredible mentor. He has been unfailingly thoughtful, forthcoming and transparent, and remarkably generous in meeting with me and answering so many of my questions as this research developed. His own work on recession detection set the standard I have tried to meet, and his candor and care have made me a better economist.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Steven N. Durlauf</span><p>Thanks to Steven N. Durlauf of the University of Chicago for some of my earliest and most thoughtful feedback on this topic. He encouraged me to think deeper, broader and more ambitiously, and he would not let me settle for a simple statistical question when the work called for deeper theory.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Emmanuel Saez</span><p>Thanks to Emmanuel Saez for seeing the value in this research, for encouraging me to pursue further papers in this field, and for recognizing the promise of the spatial research. I am grateful for his lectures and for the guidance he gave in office hours during the Stone Center Summer Fellowship at the University of California, Berkeley.</p></section>
+  <section class="pbreak"><span class="ov-kicker">William A. Darity Jr.</span><p>Thank you to William A. Darity Jr. for being so incredibly helpful and so incredibly giving, for seeing the value in this research, and for inviting me to speak on it at the Journal of Stratification Economics Conference. Above all, thank you for creating space for me in the study of inequality. I will always be thankful.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Miles Corak</span><p>Thank you to Miles Corak for coming to my early brown-bag seminars, when this research was in its infancy, and for pointing out that, whether or not I knew it yet, what I was really trying to do was characterize the economy. That advice, like so much of his advice, was sage.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Matthew J. Baker</span><p>Thank you to Matthew J. Baker for letting me pick his brain about the microeconomic theory behind this work.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Justin Wolfers</span><p>Thanks to Justin Wolfers for helping me think clearly about the international panel, about how to index workers and the quality of the labor market across countries, and about how to respond to journal feedback.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Wim P. M. Vijverberg</span><p>To Wim P. M. Vijverberg, thank you for teaching me the econometrics I know, and for allowing me to bring this project into the classes you teach so well.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Janet Gornick</span><p>Thank you to Janet Gornick for always pointing me in the right direction, even when a research question sat outside her own area of expertise.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Aaron Sojourner</span><p>Thank you to Aaron Sojourner for his feedback on the general topic and for his early interest in what this work could mean.</p></section>
+  <section class="pbreak"><span class="ov-kicker">The CUNY Graduate Center</span><p>Thanks to my professors at the CUNY Graduate Center. To Guillaume Haeringer: although you are a microeconomic theorist, you have been one of the most encouraging voices for this project, always supportive of the story I was telling with these macroeconomic statistics. To Thomas Herndon: thank you for our long conversations about the paper and for your counsel on how to navigate economics and academia. To Lilia Maliar: thank you for suggesting the machine-learning techniques in which you are an expert, to find which indicator among trillions was the right one, and for so generously offering your expertise. To Sebastiano Manzan: thank you for your insights into forecasting and how this work relates to it.</p></section>
+  <section class="pbreak"><span class="ov-kicker">With gratitude</span><p>I also thank Matthew J. Baker, Miles Corak, William A. Darity Jr., Steven N. Durlauf, Janet Gornick, Guillaume Haeringer, Thomas Herndon, Lilia Maliar, Sebastiano Manzan, Aaron Sojourner, Wim P. M. Vijverberg, Bryan Weber and Justin Wolfers for their comments, insight and advice. Thank you to Marcus Cundiff of the City University of New York Graduate Center, and to Ricardo Martin, Angel Martinez, Joshua Velez and Ryan Lamidi of the City College of New York, for valuable research assistance. Thanks to the National Bureau of Economic Research Conference on the Economics of Race and Stratification, the Journal of Stratification Economics Conference and the American Economic Association Mentoring Program. Lastly, special thanks to Giorgi Ghviniashvili for his help building the interactive Modified Sahm Rule tool.</p><p>This work received no financial support from any outside agency or organization. The views expressed here, and any mistakes, are my own.</p></section>
 </div>
 </div>
 
@@ -3331,7 +3362,7 @@ function renderVibe() {
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "method"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -3677,8 +3708,8 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe"].includes(v);
-  document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe"].includes(v); const meth = ["method", "thanks"].includes(v);
+  document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources") || (meth && a.dataset.v === "methodgrp")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest(".sub a"); if (a) a.blur(); });
