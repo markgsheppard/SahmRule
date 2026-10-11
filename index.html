@@ -783,6 +783,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
         <a href="#income" data-v="income" role="menuitem"><span class="sub-t">The Income <i>Inequality of Recession</i></span><span class="sub-d">Family-income deciles, poorest to richest</span></a>
         <a href="#education" data-v="education" role="menuitem"><span class="sub-t">The Educational <i>Inequality of Recession</i></span><span class="sub-d">Less than high school to bachelor’s+</span></a>
         <a href="#spatial" data-v="spatial" role="menuitem"><span class="sub-t">The Spatial <i>Inequality of Recession</i></span><span class="sub-d">Counties, rural and urban</span></a>
+        <a href="#vibe" data-v="vibe" role="menuitem"><span class="sub-t">The <i>Vibecession</i></span><span class="sub-d">A downturn for some, never called for all</span></a>
       </div>
     </div>
     <div class="has-sub">
@@ -933,7 +934,6 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="results" id="res-income"></div>
   <section class="pbreak"><span class="ov-kicker">Who sees it first</span><h2 class="ov-h">The bottom of the distribution is the leading edge</h2><p>Lower-income workers are concentrated in cyclically sensitive jobs and absorb hours cuts and early separations first, so their unemployment departs from its trough before the aggregate does.</p><p>Read from the bottom up, the income distribution is an early-warning system. By the time the headline rate has moved enough to trigger a conventional indicator, the poorest tenth of families has often been in a recession for months.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="income">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-income-tl"></div>
-  <div id="fig-income-end"></div>
   <section class="pbreak"><span class="ov-kicker">Income or what income is correlated with?</span><h2 class="ov-h">Separating the paycheck from the person</h2><p>Low-income workers are also younger, less likely to hold a degree and more likely to work in industries that shed jobs early. The split below prices each decile’s demographic mix at economy-wide rates, so the composition piece is what that mix alone would predict and the residual is the head start that remains.</p></section>
   <div id="fig-income-dc"></div>
   <h2 class="sec" id="like-income-sec"><span class="kicker">Comparing like with like</span>Same income, different recession?</h2>
@@ -957,7 +957,6 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="results" id="res-edu"></div>
   <section class="pbreak"><span class="ov-kicker">What a credential buys</span><h2 class="ov-h">Time, not only safety</h2><p>A degree lowers the chance of losing a job in a downturn. It also changes when the downturn arrives. Workers without a high school diploma tend to see their indicator turn first, while those with a bachelor’s degree are often the last to register a recession and the first to leave it.</p><p>That ordering matters for policy timing: support keyed to the headline rate reaches the least-educated workers after their recession is already under way.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="education">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-edu-tl"></div>
-  <div id="fig-edu-end"></div>
   <p class="card-status" id="edu-note"></p>
   <h2 class="sec" id="like-edu-sec"><span class="kicker">Comparing like with like</span>Same credential, different recession?</h2>
   <p>Pick any two groups by education, race, sex and income. The default compares workers with <strong>less than a high school diploma</strong> with <strong>all workers</strong>, the headline rate. Composition prices the focal group’s mix at the benchmark’s rates within each cell.</p>
@@ -983,6 +982,28 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div id="fig-sp-end"></div>
   <p class="note">Eighteen counties chosen to illustrate (eight large urban, ten rural), from BLS Local Area Unemployment Statistics. The paper needs all ~3,100 counties, ideally population-weighted, plus CPS metro/non-metro series for decomposition.</p>
   <div class="full" data-chap="spatial"></div>
+</div>
+</div>
+
+
+<!-- ===== The Vibecession ===== -->
+<div class="view" id="v-vibe" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#series">← The Inequality of Recession</a>
+  <h1>The<br>Vibecession</h1>
+  <p class="lede">From 2022 on, the economy never met the official definition of a recession, yet many people said it felt like one, and several indicators said it might be one. This page reads that period the way the series argues every downturn should be read: not as a binary event, but as something compositional, distributional and continuous.</p>
+  <div class="byline"><div>Essay and interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <section class="pbreak"><span class="ov-kicker">Not binary</span><h2 class="ov-h">A recession is not a switch</h2><p>The NBER’s Business Cycle Dating Committee decides, after the fact, whether the economy as a whole was in a recession and when it began and ended. That is a judgment about the aggregate, and it is binary: a month is either in a recession or it is not.</p><p>Workers do not experience the aggregate. A downturn reaches some industries, places and groups of workers months before it reaches others, deepens unevenly and lingers for some long after the official trough. The same indicator, run on different groups, shows that a recession has a composition (who is in it), a distribution (how deep it is for each) and a continuous shape (how much of the labor force is in it at any moment).</p></section>
+  <div id="vb-agg"></div>
+  <section class="pbreak"><span class="ov-kicker">What the aggregates said</span><h2 class="ov-h">Never called, but not ruled out</h2><p>The Dating Committee never declared a recession in this period. But the indicators built to detect recessions in real time were not unanimous. In July 2024 the Sahm Rule reached its 0.5-point threshold. The Michez Rule of Pascal Michaillat and Emmanuel Saez, which requires unemployment to rise and job openings to fall together, entered its recession band in early 2024; in the working-paper version of <a class='plain-link' href='https://onlinelibrary.wiley.com/doi/10.1111/obes.12685' target='_blank' rel='noopener'>“Has the Recession Started?”</a>, they put the probability that the US was already in recession at about one in two with August 2024 data, and dated a possible start to March 2024.</p><p>Read as a yes-or-no question, the answer was no. Read as a distribution, the more useful question is: for whom was it a downturn, and how much of the labor force was in one?</p></section>
+  <div id="vb-share"></div>
+  <section class="pbreak"><span class="ov-kicker">Who was in a downturn</span><h2 class="ov-h">The aggregate held; parts of the labor market did not</h2><p>Run separately by race, income and education, the same turning-point rule shows which groups crossed into a downturn during these years even though the headline rate never did so convincingly. Pick a dimension below; the table counts the months each group spent above its threshold since January 2022.</p></section>
+  <div id="vb-groups"></div>
+  <section class="pbreak"><span class="ov-kicker">Composition or residual</span><h2 class="ov-h">Was it who these workers are, or something else?</h2><p>A group can show a deeper downturn because of its mix: younger, lower-income or less-educated workers are more cyclical wherever they appear. The split below asks how much of each group’s gap over the period is predicted by that mix, priced at the reference group’s rates within each cell, and how much remains. The measure is continuous: the average level of the indicator over the period, or the number of months spent above the threshold.</p></section>
+  <div id="vb-decomp"></div>
+  <section class="pbreak"><span class="ov-kicker">What this means</span><h2 class="ov-h">Recessions are compositional, distributional and continuous</h2><p>The vibecession is a useful test case because the aggregate answer and the lived answer diverged. A binary dating rule has to wait until a downturn is broad enough to move the whole economy. A distributional reading can say, month by month, how much of the labor force is in a downturn and who they are, which is closer to what people mean when they say the economy feels like a recession.</p><p>None of this says the NBER was wrong. It says that the aggregate is one summary of a distribution, and that indicators built on marginal workers carry information the aggregate averages away.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="vibecession">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
 </div>
 </div>
 
@@ -3212,6 +3233,7 @@ function renderSite() {
   if (v === "map" && window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("map-page"));
   if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); }
   if (v === "compare") renderCompare();
+  if (v === "vibe") renderVibeAgg();
   if (v === "replicate") renderReplicate();
   if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
@@ -3219,14 +3241,92 @@ function renderSite() {
   if (v === "income") renderIncomeFigs();
   if (v === "overview") { const ovInc = () => incomeFigure(document.getElementById("ov-income"), "ovincrec", ovInc, { compact: true }); ovInc(); }
   if (v === "race") { renderRaceFigs(); renderSubgroups(); }
+  if (v === "vibe") renderVibe();
   if (v === "income") renderLike("income", "like-income");
   if (v === "education" && CPS && CPS.cells && CPS.cells.length) renderLike("education", "like-edu");
 }
 
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[data-soon]"); if (a) e.preventDefault(); });
+
+/* ---------- The Vibecession ---------- */
+const VIBE_START = "2022-01";
+SITE.vibeDim = "race"; SITE.vibeMet = "mean";
+function lastCps() { return CPS.series.all.start + CPS.series.all.v.length - 1; }
+function indOf(s) { const S = sahm(s, ST.p.k, ST.p.m, ST.p.pre); return t => { const i = t - s.start; return i >= 0 && i < S.ind.length ? S.ind[i] : NaN; }; }
+function vibeStats(s, a, b) {
+  const f = indOf(s), al = ST.p.alpha; let on = 0, n = 0, sum = 0, first = null, pk = -Infinity, pkT = null;
+  for (let t = a; t <= b; t++) { const x = f(t); if (!isFinite(x)) continue; n++; sum += x; if (x >= al) { on++; if (first === null) first = t; } if (x > pk) { pk = x; pkT = t; } }
+  return { on, n, mean: n ? sum / n : NaN, first, pk, pkT, last: f(b) };
+}
+async function renderVibeAgg() {
+  const el = document.getElementById("vb-agg"); if (!el || !window.d3 || el.dataset.built) return;
+  let C; try { C = await loadCompare(); } catch (e) { return; }
+  el.dataset.built = "1";
+  const x = [mIdx("2022-01"), C.last];
+  el.innerHTML = figure("Three Recession Indicators Through the Vibecession", "Sahm Rule (U-3, previous twelve months), Underemployment (U-6, eighteen months including the current one) and the Michez Rule (Michaillat and Saez), monthly, January 2022 to present.",
+    `<div class="fig-ctl">${swatches(CMP_RULES.map(r => ({ label: r.label, color: r.color })))}</div><div class="vbody"></div><div class="thr2"><span><i style="border-color:#8a8a8a"></i>Sahm Rule and Underemployment signal at 0.50</span><span><i class="band"></i>Michez Rule band, 0.30 to 0.80</span></div>`,
+    "Same construction as the Indicator Comparisons page. Sources: BLS via FRED (UNRATE, U6RATE, UNEMPLOY, CLF16OV, JTSJOL). No NBER recession is shaded because none was declared.");
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x, series: CMP_RULES.map(r => ({ label: r.label, color: r.color, width: r.width, at: t => C[r.k].has(t) ? C[r.k].get(t) : NaN })), shade: [], bands: [{ y0: 0.3, y1: 0.8, fill: "rgba(156, 195, 239, .28)" }], hlines: [{ y: 0.5, updown: true }], height: 380 });
+}
+function vibeShare() {
+  const cs = CPS.cells.filter(c => c.panel === "race"); if (!cs.length) return null;
+  const fs = cs.map(c => ({ f: indOf(c.series), w: c.lf_share }));
+  const t0 = mIdx("1985-01"), t1 = lastCps(), m = new Map();
+  for (let t = t0; t <= t1; t++) { let on = 0, w = 0; for (const c of fs) { const x = c.f(t); if (isFinite(x)) { w += c.w; if (x >= ST.p.alpha) on += c.w; } } if (w) m.set(t, 100 * on / w); }
+  return m;
+}
+function renderVibe() {
+  if (!CPS || !CPS.series || !CPS.series.all) return;
+  renderVibeAgg();
+  const a = mIdx(VIBE_START), b = lastCps();
+  // continuous: share of the labor force in a downturn
+  const sh = document.getElementById("vb-share"), SH = vibeShare();
+  if (sh && SH) {
+    let avgV = 0, nV = 0, pk = 0, pkT = a; for (let t = a; t <= b; t++) if (SH.has(t)) { avgV += SH.get(t); nV++; if (SH.get(t) > pk) { pk = SH.get(t); pkT = t; } }
+    sh.innerHTML = figure("Share of the Labor Force in a Downturn", TP("Race × Education × Sex × Age Cells (CPS)", "the Labor-Force-Weighted Share of Cells Above Threshold", "1985"),
+      `<div class="vbody"></div><div class="results">${result("Average share since " + mLab(a), f1(avgV / nV, 0) + "%", "of the labor force", "in cells whose own indicator was above the threshold")}${result("Highest share", f1(pk, 0) + "%", mLab(pkT), "no NBER recession declared")}</div>`,
+      "Each of 72 groups of workers (race × education × sex × age) gets its own Modified Sahm Rule indicator; the line is the share of the labor force, weighted by each group’s average labor-force share, in groups whose indicator is at or above the threshold. Shaded: NBER recessions. Small cells are noisy, so the line is rarely zero even in expansions.");
+    lineChart(softBody(sh.querySelector(".vbody")), { ...SERIES_LINE, x: [mIdx("1985-01"), b], series: [{ label: "Share in a downturn", color: "--d7", width: 1.75, at: t => SH.has(t) ? SH.get(t) : NaN, smooth: true }], shade: SHADE(), hlines: [], height: 300, yUnit: "%" });
+  }
+  // groups
+  const dims = {
+    race: { lab: "Race", items: [["R_Black", "Black", "--s-black"], ["R_Hispanic", "Hispanic", "--s-hisp"], ["R_Asian", "Asian", "--s-asian"], ["R_White", "White", "--s-white"], ["all", "All workers", "--s-agg"]].map(([id, l, c]) => ({ s: CPS.series[id], l, c })) },
+    income: { lab: "Income", items: [["D1", "Poorest decile", "--d1"], ["D3", "3rd decile", "--d3"], ["D5", "Middle decile", "--d5"], ["D8", "8th decile", "--d8"], ["D10", "Richest decile", "--d10"], ["all", "All workers", "--s-agg"]].map(([id, l, c]) => ({ s: CPS.series[id], l, c })) },
+    education: { lab: "Education", items: [["LTHS", "Less than high school", "--s-lths"], ["HS", "High school", "--s-hs"], ["SomeCol", "Some college", "--s-sc"], ["BAplus", "Bachelor’s or more", "--s-ba"]].map(([e, l, c]) => ({ s: cellGroup({ race: "any", sex: "any", educ: e, incq: "any" }, "race"), l, c })).concat([{ s: CPS.series.all, l: "All workers", c: "--s-agg" }]) }
+  };
+  const D = dims[SITE.vibeDim], gl = document.getElementById("vb-groups");
+  const items = D.items.filter(it => it.s);
+  const rows = items.map(it => ({ ...it, st: vibeStats(it.s, a, b) }));
+  gl.innerHTML = figure(`Who Was in a Downturn, by ${D.lab}`, TP(D.lab === "Race" ? "Racial and Ethnic Data (CPS)" : D.lab === "Income" ? "Family-Income Decile Data (CPS)" : "Educational Attainment Data (CPS cells)", "Reference Lines", "2021"),
+    `<div class="fig-ctl"><div class="segs" id="vbdim">${Object.entries(dims).map(([k, v]) => `<button data-v="${k}" aria-pressed="${k === SITE.vibeDim}">${v.lab}</button>`).join("")}</div>${swatches(items.map(it => ({ label: it.l, color: it.c })))}</div><div class="vbody"></div>
+    <div class="tablewrap"><table><thead><tr><th class="l">Group</th><th>Months above threshold</th><th>First crossed</th><th>Peak indicator</th><th>Average</th><th>Latest</th></tr></thead><tbody>${rows.map(r => `<tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(${r.c})"></i>${esc(r.l)}</td><td class="num">${r.st.on} of ${r.st.n}</td><td class="num">${r.st.first === null ? "never" : mLab(r.st.first)}</td><td class="num">${f1(r.st.pk, 2)} <span class="na">${r.st.pkT === null ? "" : mLab(r.st.pkT)}</span></td><td class="num">${f1(r.st.mean, 2)}</td><td class="num">${f1(r.st.last, 2)}</td></tr>`).join("")}</tbody></table></div>`,
+    `Indicator values in percentage points; threshold ${ST.p.alpha}. Counts run from ${mLab(a)} to ${mLab(b)}. Source: IPUMS CPS Basic Monthly, weighted, seasonally adjusted.`);
+  gl.querySelectorAll("#vbdim button").forEach(x => x.onclick = () => { SITE.vibeDim = x.dataset.v; renderVibe(); });
+  lineChart(softBody(gl.querySelector(".vbody")), { ...SERIES_LINE, x: [mIdx("2021-05"), b], series: items.map(it => indLine(it.s, it.l, it.c, it.l === "All workers" ? "4 4" : "", it.l === "All workers" ? 1.5 : 1.9)), shade: [], hlines: UPDOWN(), height: 360 });
+  // decomposition over the period
+  const S = CPS.series, edu = (x, y) => { const r = likeCf({ race: "any", sex: "any", educ: x, incq: "any" }, { race: "any", sex: "any", educ: y, incq: "any" }); return r ? { A: cellGroup({ race: "any", sex: "any", educ: x, incq: "any" }, "race"), B: cellGroup({ race: "any", sex: "any", educ: y, incq: "any" }, "race"), C: r.cf, Dd: r.bref } : null; };
+  const pairs = [
+    { name: "Black vs White", A: S.R_Black, B: S.R_White, C: S.R_Black_cf, Dd: S.R_White },
+    { name: "Hispanic vs White", A: S.R_Hispanic, B: S.R_White, C: S.R_Hispanic_cf, Dd: S.R_White },
+    { name: "Poorest vs richest decile", A: S.D1, B: S.D10, C: S.D1_cf, Dd: S.D10_cf },
+    { name: "2nd-poorest vs 2nd-richest", A: S.D2, B: S.D9, C: S.D2_cf, Dd: S.D9_cf },
+    { name: "Less than HS vs bachelor’s+", ...(edu("LTHS", "BAplus") || {}) },
+    { name: "High school vs bachelor’s+", ...(edu("HS", "BAplus") || {}) }
+  ].filter(p => p.A && p.B);
+  const met = SITE.vibeMet, val = s => { if (!s) return NaN; const v = vibeStats(s, a, b); return met === "mean" ? v.mean : v.on; };
+  const drows = pairs.map(p => { const tot = val(p.A) - val(p.B), comp = p.C && p.Dd ? val(p.C) - val(p.Dd) : NaN; return { r: { name: p.name }, tot, comp, res: tot - comp }; });
+  const dc = document.getElementById("vb-decomp");
+  dc.innerHTML = figure("How Much of the Downturn Gap Is Composition?", TP("CPS Group and Cell Data", "a Composition and Residual Split Over the Vibecession", "2022"),
+    `<div class="fig-ctl"><div class="segs" id="vbmet">${[["mean", "Average indicator"], ["on", "Months above threshold"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === met}">${l}</button>`).join("")}</div>${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Residual", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}</div><div class="vbody"></div>`,
+    `Gap between each pair over ${mLab(a)} to ${mLab(b)}, measured as the ${met === "mean" ? "average level of the turning-point indicator (percentage points)" : "number of months the indicator was at or above the threshold"}. Composition: the focal group’s mix priced at the reference group’s within-cell rates. Race pairs use the export’s composition-predicted series (income, education, sex, age and region at White rates); income pairs price each decile’s demographic mix at economy-wide rates; education pairs use race × sex × income cells.`);
+  dc.querySelectorAll("#vbmet button").forEach(x => x.onclick = () => { SITE.vibeMet = x.dataset.v; renderVibe(); });
+  splitBars(dc.querySelector(".vbody"), drows, met === "mean" ? "pp" : "mo", { comp: "Composition", res: "Residual", compTip: "The part of the gap predicted by the focal group’s mix of characteristics, priced at the reference group’s rates.", resTip: "The part of the gap that mix does not explain.", totTip: "The total gap over the period. Composition and residual add up to it." });
+  if (met === "on") { const n = dc.querySelector(".sb-note"); if (n) n.textContent = "Months above threshold. Segments stack to the total (black tick). Hover a segment for what it measures."; }
+}
+
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "map", "tool", "compare", "validate", "replicate", "method"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "method"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -3310,13 +3410,8 @@ function renderEduFigs() {
   const groups = ids.map(id => ({ s: cat.get(id), label: cat.label(id), color: cat.color(id), width: id === ids[0] || id === ids[ids.length - 1] ? 2.25 : 1.75 }));
   groupFigure(document.getElementById("fig-edu"), "eduRec", "Turning Point by Education Data", TP(cps ? "Educational Attainment Data (CPS)" : "Educational Attainment Data (BLS, 25+)", "Reference Lines and Recessions", cps ? "1982" : "1992"), groups, cps ? "Source: IPUMS CPS Basic Monthly cells (race × education × sex × age), labor-force members 16+ by highest degree, weighted by average labor-force share. Shaded: NBER recession." : "Source: BLS, Current Population Survey, adults 25+. Shaded: NBER recession.");
   pairResults(document.getElementById("res-edu"), groups[0].s, groups[groups.length - 1].s, groups[0].label, groups[groups.length - 1].label);
-  const tl = document.getElementById("fig-edu-tl");
-  tl.innerHTML = figure("When the Recession Arrived, by Education", TP("Educational Attainment Data", "Onset Month Relative to the NBER Peak", "1982"), `${swatches(groups.map(g => ({ label: g.label, color: g.color })))}<div class="vbody"></div>`, `Each dot is the month a group’s indicator crossed the threshold; left of the line means before the official peak. Open circle: ${esc(groups[groups.length - 1].label)} (reference).`);
   const A = Object.fromEntries(ids.map(id => [id, { recs: matchAll(cat.get(id)) }]));
-  dotPlot(tl.querySelector(".vbody"), A, { label: cat.label, color: cat.color, st: { ref: ids[ids.length - 1] } }, ids, selRecs().filter(r => availRecs([cat.get(ids[0])]).includes(r)));
-  const en = document.getElementById("fig-edu-end");
-  en.innerHTML = figure("When the Recession Ends, by Education", TP("Educational Attainment Data", "Signal End Relative to the NBER Trough", "1982"), `${swatches(groups.map(g => ({ label: g.label, color: g.color })))}<div class="vbody"></div>`, `Each dot is the month a group’s indicator fell back below the threshold, ending its recession signal; right of the line means the recession lasted past its official end for that group. Open circle: ${esc(groups[groups.length - 1].label)} (reference).`);
-  dotPlot(en.querySelector(".vbody"), A, { label: cat.label, color: cat.color, st: { ref: ids[ids.length - 1] } }, ids, selRecs().filter(r => availRecs([cat.get(ids[0])]).includes(r)), "end");
+  timingFigure(document.getElementById("fig-edu-tl"), "edu", "Education", "Educational Attainment Data", "1982", ids, A, { label: cat.label, color: cat.color, st: { ref: ids[ids.length - 1] } }, CPS_RECS(), groups[groups.length - 1].label);
   document.getElementById("edu-note").textContent = cps ? "Education groups are fixed-weight aggregates of CPS cells, so the age, sex and race mix within each group is held at its sample average. A direct export by education is a one-line addition to the R file." : "";
 }
 function renderSpatialFigs() {
@@ -3329,11 +3424,9 @@ function renderSpatialFigs() {
   const counties = Object.keys(BLS).filter(k => /^spatial_(urban|rural)$/.test(BLS[k].meta.group));
   const rows = counties.map(k => { const m = matchRec(BLS[k], rec, ST.p, pAt(BLS[k])); return { k, urban: BLS[k].meta.group === "spatial_urban", m }; }).sort((a, b) => (b.m.status === "ok" ? b.m.lead : -99) - (a.m.status === "ok" ? a.m.lead : -99));
   const lu = stats(rows.filter(r => r.urban).map(r => lead(r.m))), lr = stats(rows.filter(r => !r.urban).map(r => lead(r.m)));
-  { const SP = { R: BLS["Rural counties (avg of 10)"], U: BLS["Urban counties (avg of 8)"], N: BLS["U-3 (all)"] }, lab = { R: "Rural counties", U: "Urban counties", N: "United States (U-3)" }, col = { R: "--s-rur", U: "--s-urb", N: "--s-agg" };
-    const en = document.getElementById("fig-sp-end"), keys = ["R", "U", "N"];
-    en.innerHTML = figure("When the Recession Ends, by Place", TP("Rural and Urban County Data", "Signal End Relative to the NBER Trough", "1990"), `${swatches(keys.map(k => ({ label: lab[k], color: col[k] })))}<div class="vbody"></div>`, "Each dot is the month a group’s indicator fell back below the threshold, ending its recession signal; right of the line means the recession lasted past its official end for that group. Open circle: urban counties (reference).");
+  { const SP = { R: BLS["Rural counties (avg of 10)"], U: BLS["Urban counties (avg of 8)"], N: BLS["U-3 (all)"] }, lab = { R: "Rural counties", U: "Urban counties", N: "United States (U-3)" }, col = { R: "--s-rur", U: "--s-urb", N: "--s-agg" }, keys = ["R", "U", "N"];
     const PA = Object.fromEntries(keys.map(k => [k, { recs: matchAll(SP[k]) }]));
-    dotPlot(en.querySelector(".vbody"), PA, { label: k => lab[k], color: k => col[k], st: { ref: "U" } }, keys, selRecs().filter(r => availRecs([SP.R]).includes(r)), "end"); }
+    timingFigure(document.getElementById("fig-sp-end"), "sp", "Place", "Rural and Urban County Data", "1990", keys, PA, { label: k => lab[k], color: k => col[k], st: { ref: "U" } }, NBER.filter(r => mIdx(r.peak) >= mIdx("1990-01")), "urban counties"); }
   const el = document.getElementById("fig-sp-list");
   el.innerHTML = figure(`Which Places Entered the ${rec.name} Recession First`, `Turning Point Indicator, Modified Sahm Rule, County Level Data, Shown as Onset Relative to the NBER Peak, ${rec.name} Recession. Rural mean ${sg(lr.mean)} months (n ${lr.n}); urban mean ${sg(lu.mean)} months (n ${lu.n}).`,
     `${swatches([{ label: "Rural", color: "--s-rur" }, { label: "Urban", color: "--s-urb" }])}<div class="county-list">${rows.map(r => `<div class="county-row"><span><span class="k" style="background:var(${r.urban ? "--s-urb" : "--s-rur"})"></span>${esc(r.k)}</span><span class="n">${r.m.status === "ok" ? (r.m.lead > 0 ? `${r.m.lead} mo before` : r.m.lead < 0 ? `${-r.m.lead} mo after` : "at peak") : `<span class="tag">${r.m.status}</span>`}</span></div>`).join("")}</div>`,
@@ -3374,24 +3467,17 @@ function renderIncomeFigs() {
     dres("Lingers after trough", st.mean, "months longer", "months shorter", `past the NBER trough · SD ${f1(st.sd)}`) +
     result("Due to income itself", isFinite(sr.mean) && sl.mean ? f1(100 * sr.mean / sl.mean, 0) + "%" : "–", "of the earlier onset", "residual after pricing the poorest decile’s demographic mix at economy-wide rates");
 
-  // onset timeline
-  const tl = document.getElementById("fig-income-tl");
+  // start and end timeline
   const pick = ["D1", "D3", "D5", "D8", "D10"];
-  tl.innerHTML = figure("When the Recession Arrived, by Income", TP("Family-Income Decile Data", "Onset Month Relative to the NBER Peak", "1982"),
-    `${swatches(pick.map(id => ({ label: CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: "--" + id.toLowerCase() })))}<div class="vbody" id="inctl"></div>`, "Each dot is the month a decile’s indicator crossed the threshold; left of the line means the recession began for that group before it officially began. Open circle: richest decile (reference).");
-  const cat = { label: id => CPS.meta[id].label, color: id => "--" + id.toLowerCase(), st: { ref: "D10" } };
+  const cat = { label: id => CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: id => "--" + id.toLowerCase(), st: { ref: "D10" } };
   const A = Object.fromEntries(pick.map(id => [id, { recs: matchAll(S[id]) }]));
-  dotPlot(tl.querySelector("#inctl"), A, cat, pick, CPS_RECS().filter(r => ST.recs.has(r.id)));
-  const en = document.getElementById("fig-income-end");
-  en.innerHTML = figure("When the Recession Ends, by Income", TP("Family-Income Decile Data", "Signal End Relative to the NBER Trough", "1982"),
-    `${swatches(pick.map(id => ({ label: CPS.meta[id].label.replace(/ \(D\d+\)/, ""), color: "--" + id.toLowerCase() })))}<div class="vbody"></div>`, "Each dot is the month a group’s indicator fell back below the threshold, ending its recession signal; right of the line means the recession lasted past its official end for that group. Open circle: richest decile (reference).");
-  dotPlot(en.querySelector(".vbody"), A, cat, pick, CPS_RECS().filter(r => ST.recs.has(r.id)), "end");
+  timingFigure(document.getElementById("fig-income-tl"), "inc", "Income", "Family-Income Decile Data", "1982", pick, A, cat, CPS_RECS(), "richest decile");
 
   // decomposition
   const dc = document.getElementById("fig-income-dc");
   dc.innerHTML = figure("How Much of the Head Start Is Income Itself?", TP("Family-Income Decile Data", "a Composition and Residual Split", "1982"),
     `${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Income (residual)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="incdc"></div>`, "Gap in onset, poorest minus richest decile, in months, split into the part explained by each decile’s mix of race, education, sex, age and region (composition) and the remainder (income). Composition-predicted series price each decile’s demographic mix at economy-wide within-cell unemployment rates.");
-  splitBars(dc.querySelector("#incdc"), rows, "mo", { comp: "Composition", res: "Income (residual)", compTip: "The part of the gap explained by each decile’s mix of race, education, sex, age and region, priced at economy-wide unemployment rates within each cell.", resTip: "The part of the gap those characteristics do not explain: the head start attributable to income itself.", totTip: "The total difference in onset, poorest minus richest decile, in months. Composition and residual add up to this." });
+  splitBars(dc.querySelector("#incdc"), splitRows(S.D1, S.D10, S.D1_cf, S.D10_cf, "lead", CPS_RECS()), "mo", { comp: "Composition", res: "Income (residual)", compTip: "The part of the gap explained by each decile’s mix of race, education, sex, age and region, priced at economy-wide unemployment rates within each cell.", resTip: "The part of the gap those characteristics do not explain: the head start attributable to income itself.", totTip: "The total difference in onset, poorest minus richest decile, in months. Composition and residual add up to this." });
 }
 
 /* ---------- Race ---------- */
@@ -3414,14 +3500,13 @@ function renderRaceFigs() {
     dres("Lingers after trough", st.mean, "months longer", "months shorter", `past the NBER trough · SD ${f1(st.sd)}`) +
     result("Explained by composition", sg(sc.mean), "months", "income, education, sex, age, region priced at White rates") +
     result("Residual: race", sg(sr.mean), "months", isFinite(sr.mean) && sl.mean ? `${f1(100 * sr.mean / sl.mean, 0)}% of the gap` : "share undefined");
-  { const rg = grp.map(g => g[0]), en = document.getElementById("fig-race-end");
-    en.innerHTML = figure("When the Recession Ends, by Race", TP("Racial and Ethnic Data (CPS)", "Signal End Relative to the NBER Trough", "1982"), `${swatches(grp.map(g => ({ label: g[2], color: g[1] })))}<div class="vbody"></div>`, "Each dot is the month a group’s indicator fell back below the threshold, ending its recession signal; right of the line means the recession lasted past its official end for that group. Open circle: White workers (reference).");
+  { const rg = grp.map(g => g[0]);
     const RA = Object.fromEntries(rg.map(id => [id, { recs: matchAll(S[id]) }]));
-    dotPlot(en.querySelector(".vbody"), RA, { label: id => (grp.find(g => g[0] === id) || [, , id])[2], color: id => (grp.find(g => g[0] === id) || [, "--s-agg"])[1], st: { ref: "R_White" } }, rg, statRecs, "end"); }
+    timingFigure(document.getElementById("fig-race-end"), "race", "Race", "Racial and Ethnic Data (CPS)", "1982", rg, RA, { label: id => (grp.find(g => g[0] === id) || [, , id])[2], color: id => (grp.find(g => g[0] === id) || [, "--s-agg"])[1], st: { ref: "R_White" } }, CPS_RECS(), "White workers"); }
   const dc = document.getElementById("fig-race-dc");
   dc.innerHTML = figure("Is It Race, or What Race Is Correlated With?", TP("Racial and Ethnic Data", "a Composition and Residual Split", "1982"),
     `${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Race (residual)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="racedc"></div>`, "Gap in onset, Black minus White workers, in months, split into composition (Black workers’ own mix of income, education, sex, age and region, priced at White workers’ within-cell rates) and the residual. A positive residual means Black workers’ recession starts earlier than their characteristics predict.");
-  splitBars(dc.querySelector("#racedc"), rows, "mo", { comp: "Composition", res: "Race (residual)", compTip: "The part of the gap explained by Black workers’ mix of income, education, sex, age and region. It is the gap that would remain if Black workers faced White workers’ unemployment rates within each of those cells.", resTip: "The part of the gap those characteristics do not explain: how much earlier the recession starts for Black workers than their characteristics predict.", totTip: "The total difference in onset, Black minus White workers, in months. Composition and residual add up to this." });
+  splitBars(dc.querySelector("#racedc"), splitRows(S.R_Black, S.R_White, S.R_Black_cf, S.R_White, "lead", CPS_RECS()), "mo", { comp: "Composition", res: "Race (residual)", compTip: "The part of the gap explained by Black workers’ mix of income, education, sex, age and region. It is the gap that would remain if Black workers faced White workers’ unemployment rates within each of those cells.", resTip: "The part of the gap those characteristics do not explain: how much earlier the recession starts for Black workers than their characteristics predict.", totTip: "The total difference in onset, Black minus White workers, in months. Composition and residual add up to this." });
 }
 
 /* ---------- Subgroups ---------- */
@@ -3587,7 +3672,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare", "validate", "replicate"].includes(v);
+  const chap = ["race", "income", "education", "spatial", "vibe"].includes(v), inter = ["map", "tool", "compare", "validate", "replicate"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
@@ -4156,10 +4241,21 @@ function lineChart(el, cfg) {
 function legend(items) { return `<div class="legend">${items.map(it => `<span><i class="${it.box ? "box" : ""} ${it.dash ? "dash" : ""}" style="${it.box ? "background" : "border-color"}:var(${it.color})"></i>${esc(it.label)}</span>`).join("")}</div>`; }
 
 /* Onset dot plot: rows = recessions, x = onset month relative to NBER peak */
+SITE.timing = {};
+function timingFigure(el, key, by, data, from, ids, A, cat, recs, refLabel) {
+  if (!el) return;
+  const mode = SITE.timing[key] || "start", END = mode === "end";
+  const note = END ? "Each dot is the month a group’s indicator fell back below the threshold, ending its recession signal; right of the line means the recession lasted past its official end for that group." : "Each dot is the month a group’s indicator crossed the threshold; left of the line means the recession began for that group before it officially began.";
+  el.innerHTML = figure(`When the Recession ${END ? "Ends" : "Starts"}, by ${by}`, TP(data, END ? "Signal End Relative to the NBER Trough" : "Onset Month Relative to the NBER Peak", from),
+    `<div class="fig-ctl"><div class="segs tmode">${["start", "end"].map(m => `<button data-v="${m}" aria-pressed="${m === mode}">${m === "start" ? "Start of the recession" : "End of the recession"}</button>`).join("")}</div>${swatches(ids.map(id => ({ label: cat.label(id), color: cat.color(id) })))}</div><div class="vbody"></div>`,
+    `${note} Open circle: ${esc(refLabel)} (reference). Recessions are matched with the rule’s threshold; a group whose signal had not yet ended is noted at the right.`);
+  el.querySelectorAll(".tmode button").forEach(b => b.onclick = () => { SITE.timing[key] = b.dataset.v; timingFigure(el, key, by, data, from, ids, A, cat, recs, refLabel); });
+  dotPlot(el.querySelector(".vbody"), A, cat, ids, recs, mode);
+}
 function dotPlot(el, A, cat, ids, recs, mode) {
   const END = mode === "end", xOf = m => END ? m.afterT : -m.lead;
   el.innerHTML = ""; el.classList.add("chart");
-  const W = Math.max(320, el.clientWidth || 600), rowH = 34, M = { l: 70, r: 96, t: 22, b: 30 }, H = M.t + M.b + rowH * recs.length;
+  const W = Math.max(320, el.clientWidth || 600), rowH = 34, M = { l: 128, r: 96, t: 22, b: 30 }, H = M.t + M.b + rowH * recs.length;
   let lo = -ST.p.before, hi = ST.p.after;
   if (END) { const xs = []; for (const id of ids) for (const r of recs) { const m = A[id] && A[id].recs[r.id]; if (m && m.status === "ok" && isFinite(m.afterT)) xs.push(m.afterT); } lo = Math.min(-6, Math.floor(Math.min(...xs, 0) / 6) * 6); hi = Math.max(12, Math.ceil(Math.max(...xs, 0) / 6) * 6); }
   const X = v => M.l + (v - lo) / (hi - lo) * (W - M.l - M.r), tstep = hi - lo > 48 ? 12 : 6;
@@ -4170,7 +4266,7 @@ function dotPlot(el, A, cat, ids, recs, mode) {
   const pts = [];
   recs.forEach((r, i) => {
     const y = M.t + rowH * i + rowH / 2;
-    s += `<line x1="${M.l}" x2="${W - M.r}" y1="${y}" y2="${y}" stroke="var(--rule-2)"></line><text x="${M.l - 10}" y="${y + 4}" text-anchor="end" style="fill:var(--ink-2)">${r.name}</text>`;
+    s += `<line x1="${M.l}" x2="${W - M.r}" y1="${y}" y2="${y}" stroke="var(--rule-2)"></line><text x="${M.l - 10}" y="${y + 4}" text-anchor="end" style="fill:var(--ink-2)">${REC_NAMES_ALL(r.name)}</text>`;
     const notes = [], placed = {};
     ids.forEach(id => {
       const m = A[id] && A[id].recs[r.id]; if (!m) return;
@@ -4189,7 +4285,7 @@ function dotPlot(el, A, cat, ids, recs, mode) {
     const rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, py = (ev.clientY - rc.top) * (H + 8) / rc.height - 4;
     let best = null, bd = 14; for (const p of pts) { const d = Math.hypot(p.x - px, p.y - py); if (d < bd) { bd = d; best = p; } }
     if (!best) { tip.hidden = true; return; }
-    tip.innerHTML = `<div class="h">${esc(cat.label(best.id))} · ${best.r.name}</div>${END ? `<div class="r"><span>Signal ended</span><span class="num">${mLab(best.m.exit)}</span></div><div class="r"><span>Vs NBER trough</span><span class="num">${sg(best.m.afterT, 0)} mo</span></div>` : `<div class="r"><span>Onset</span><span class="num">${mLab(best.m.on)}</span></div><div class="r"><span>Lead vs NBER peak</span><span class="num">${sg(best.m.lead, 0)} mo</span></div>`}<div class="r"><span>Duration</span><span class="num">${f1(best.m.dur, 0)} mo</span></div><div class="r"><span>Peak indicator</span><span class="num">${f1(best.m.peak, 2)} pp</span></div>`;
+    tip.innerHTML = `<div class="h">${esc(cat.label(best.id))} · ${REC_NAMES_ALL(best.r.name)}</div>${END ? `<div class="r"><span>Signal ended</span><span class="num">${mLab(best.m.exit)}</span></div><div class="r"><span>Vs NBER trough</span><span class="num">${sg(best.m.afterT, 0)} mo</span></div>` : `<div class="r"><span>Onset</span><span class="num">${mLab(best.m.on)}</span></div><div class="r"><span>Lead vs NBER peak</span><span class="num">${sg(best.m.lead, 0)} mo</span></div>`}<div class="r"><span>Duration</span><span class="num">${f1(best.m.dur, 0)} mo</span></div><div class="r"><span>Peak indicator</span><span class="num">${f1(best.m.peak, 2)} pp</span></div>`;
     tip.hidden = false; const left = best.x / W * rc.width; tip.style.left = (left + 12 + tip.offsetWidth > rc.width ? left - tip.offsetWidth - 12 : left + 12) + "px"; tip.style.top = Math.max(0, best.y / (H + 8) * rc.height - 20) + "px";
   });
   svg.addEventListener("pointerleave", () => tip.hidden = true);
@@ -4482,7 +4578,7 @@ function decompB(body, recs) {
 function splitBars(el, rows, unit, o) {
   o = Object.assign({ comp: "Composition", res: "Residual", compTip: "The part of the gap explained by differences in characteristics.", resTip: "The part of the gap those characteristics do not explain.", totTip: "The total gap. Composition and residual add up to it." }, o || {});
   el.classList.add("chart"); el.style.position = "relative";
-  const W = Math.max(300, el.clientWidth || 500), rowH = 30, M = { l: 128, r: 16, t: 8, b: 26 }, H = M.t + M.b + rowH * rows.length;
+  const W = Math.max(300, el.clientWidth || 500), rowH = 30, M = { l: Math.max(128, 14 + 6.6 * Math.max(0, ...rows.map(d => String(REC_NAMES_ALL(d.r.name)).length))), r: 16, t: 8, b: 26 }, H = M.t + M.b + rowH * rows.length;
   // stack positive parts to the right of zero and negative parts to the left
   const seg = d => { const parts = [["comp", d.comp], ["res", d.res]]; let pos = 0, neg = 0; return parts.map(([k, v]) => { if (v >= 0) { const r = [k, pos, pos + v, v]; pos += v; return r; } const r = [k, neg + v, neg, v]; neg += v; return r; }); };
   const vals = rows.flatMap(d => isFinite(d.tot) && isFinite(d.comp) ? [d.tot, ...seg(d).flatMap(s => [s[1], s[2]])] : []).concat([0]);
