@@ -663,7 +663,18 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 /* Decomposition bars */
 .sb-note { font-size: 11.5px; color: #a3a3a3; margin: 4px 0 0; }
 .chart .tip .sb-help { max-width: 280px; white-space: normal; color: #6b6b6b; font-size: 12px; line-height: 1.45; margin-top: 4px; }
-.chart rect.sb { cursor: help; }
+.chart rect.sb { cursor: default; }
+.pbreak { display: grid; gap: 10px; padding: 26px 0 8px; margin: 10px 0; border-top: 1px solid var(--rule); }
+.pbreak p { color: var(--prose); font-size: 16px; line-height: 1.7; max-width: 70ch; margin: 0; }
+.pbreak .ov-h { margin-bottom: 2px; }
+.pb-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.pb-btns .df-button { background: var(--hero); color: #3a3a3a; border-color: #e3e3e3; text-decoration: none; }
+.pb-btns .df-button:hover { background: #efefef; color: #111; }
+.pb-btns .df-button.ghost { background: transparent; }
+.pb-btns .soon { font-family: var(--f-body); font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: none; color: #9a9a9a; border: 1px solid #ddd; border-radius: 3px; padding: 0 5px; margin-left: 4px; }
+.like-note { font-size: 12px; color: #a3a3a3; margin: 4px 0 0; }
+.subsel label.inc { }
+td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
 /* Methodology intro */
 .method-intro { display: grid; gap: 12px; margin: 6px 0 22px; }
 .method-intro p { font-size: 16px; line-height: 1.7; color: var(--prose); margin: 0; }
@@ -896,10 +907,13 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
   <p class="needs-cps loading">Loading CPS microdata series…</p>
   <div id="fig-race"></div>
   <div class="results" id="res-race"></div>
+  <section class="pbreak"><span class="ov-kicker">Why timing</span><h2 class="ov-h">Last hired, first fired, and first to know</h2><p>Black unemployment has run at roughly twice the White rate for as long as the series has existed. That gap in levels is well documented. This paper asks a different question: whether the <em>timing</em> of a recession differs, so that Black workers’ labor market turns down before the aggregate does and recovers after it.</p><p>If it does, an indicator built on the headline rate is, in effect, waiting for a recession to reach White workers before it calls one. The paper traces that lag across every recession since 1982 and asks how much of it is about race itself.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="race">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-race-dc"></div>
+  <section class="pbreak"><span class="ov-kicker">Reading the split</span><h2 class="ov-h">Composition is what a group’s mix explains; the residual is what it does not</h2><p>The composition piece prices Black workers’ own mix of income, education, sex, age and region at White workers’ unemployment rates within each of those cells. It answers: if Black workers faced White workers’ labor market, cell by cell, how much earlier would their recession still start?</p><p>The residual is what remains. It is not a direct measure of discrimination, since it also absorbs anything the cells leave out, but it is an upper bound on how much of the timing gap the observed characteristics can explain away.</p></section>
   <h2 class="sec" id="subgroups-sec"><span class="kicker">Comparing like with like</span>Same credentials, different recession?</h2>
-  <p>Pick any two groups by race, sex and education. The default compares <strong>Black women with a bachelor’s degree</strong> to <strong>White women with a bachelor’s degree</strong>: same sex, same credential, so whatever gap remains is harder to attribute to composition.</p>
+  <p>Pick any two groups by race, sex, education and income. The default starts from the headline: <strong>Black women with a bachelor’s degree</strong> against <strong>all workers</strong>. Change the benchmark to White women with a bachelor’s degree to hold sex and credential fixed.</p>
   <div id="subgroups"></div>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Racial Inequality of Recession</h2><p>The full paper sets out the data, the turning-point framework and the decompositions, with robustness checks across smoothing windows, thresholds and reference groups.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="race">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="full" data-chap="race"></div>
 </div>
 </div>
@@ -916,9 +930,14 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
   <p class="needs-cps loading">Loading CPS microdata series…</p>
   <div id="fig-income"></div>
   <div class="results" id="res-income"></div>
-  <p>Lower-income workers are concentrated in cyclically sensitive jobs and absorb hours cuts and early separations first, so their unemployment departs from its trough before the aggregate does.</p>
+  <section class="pbreak"><span class="ov-kicker">Who sees it first</span><h2 class="ov-h">The bottom of the distribution is the leading edge</h2><p>Lower-income workers are concentrated in cyclically sensitive jobs and absorb hours cuts and early separations first, so their unemployment departs from its trough before the aggregate does.</p><p>Read from the bottom up, the income distribution is an early-warning system. By the time the headline rate has moved enough to trigger a conventional indicator, the poorest tenth of families has often been in a recession for months.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="income">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-income-tl"></div>
+  <section class="pbreak"><span class="ov-kicker">Income or what income is correlated with?</span><h2 class="ov-h">Separating the paycheck from the person</h2><p>Low-income workers are also younger, less likely to hold a degree and more likely to work in industries that shed jobs early. The split below prices each decile’s demographic mix at economy-wide rates, so the composition piece is what that mix alone would predict and the residual is the head start that remains.</p></section>
   <div id="fig-income-dc"></div>
+  <h2 class="sec" id="like-income-sec"><span class="kicker">Comparing like with like</span>Same income, different recession?</h2>
+  <p>Pick any two groups by income fifth, race, sex and education. The default compares the <strong>poorest fifth of families</strong> with <strong>all workers</strong>, the headline rate. Composition prices the focal group’s mix at the benchmark’s rates within each cell.</p>
+  <div id="like-income"></div>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Income Inequality of Recession</h2><p>The full paper documents the decile series, the turning-point framework and the decompositions, and shows how the results change with the smoothing window, the threshold and the reference group.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="income">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="full" data-chap="income"></div>
 </div>
 </div>
@@ -934,8 +953,13 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 <div class="article">
   <div id="fig-edu"></div>
   <div class="results" id="res-edu"></div>
+  <section class="pbreak"><span class="ov-kicker">What a credential buys</span><h2 class="ov-h">Time, not only safety</h2><p>A degree lowers the chance of losing a job in a downturn. It also changes when the downturn arrives. Workers without a high school diploma tend to see their indicator turn first, while those with a bachelor’s degree are often the last to register a recession and the first to leave it.</p><p>That ordering matters for policy timing: support keyed to the headline rate reaches the least-educated workers after their recession is already under way.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="education">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-edu-tl"></div>
   <p class="card-status" id="edu-note"></p>
+  <h2 class="sec" id="like-edu-sec"><span class="kicker">Comparing like with like</span>Same credential, different recession?</h2>
+  <p>Pick any two groups by education, race, sex and income. The default compares workers with <strong>less than a high school diploma</strong> with <strong>all workers</strong>, the headline rate. Composition prices the focal group’s mix at the benchmark’s rates within each cell.</p>
+  <div id="like-edu"></div>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Educational Inequality of Recession</h2><p>The full paper sets out the education series, the turning-point framework and the decompositions, with robustness checks across parameters and reference groups.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="education">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="full" data-chap="education"></div>
 </div>
 </div>
@@ -3151,13 +3175,24 @@ function onsetMarkers(list, rec) { if (rec === "cur") return []; return list.map
 const SHADE = () => NBER.map(r => ({ from: mIdx(r.peak), to: mIdx(r.trough) }));
 
 /* Composition split for a focal/ref pair across recessions */
+// Match every recession for decompositions: if a series has no clean crossing at its threshold, lower the threshold
+// (or raise it, when the signal is still on from an earlier episode) until the recession is matched.
+function matchForce(s, r) {
+  const a = pAt(s); let m = matchRec(s, r, ST.p, a);
+  if (m.status === "ok" || m.status === "no data") return m;
+  const fs = m.status === "continuing" ? [1.25, 1.5, 2, 2.5, 3, 4] : [0.8, 0.6, 0.4, 0.25, 0.15];
+  for (const f of fs) { const m2 = matchRec(s, r, ST.p, a * f); if (m2.status === "ok") return { ...m2, relaxed: f }; }
+  return m;
+}
+function matchAllForce(s) { return Object.fromEntries(NBER.map(r => [r.id, matchForce(s, r)])); }
 function splitRows(fs, rs, fcf, rcf, metric, recs) {
-  const M = s => s ? matchAll(s) : null;
+  const M = s => s ? matchAllForce(s) : null;
   const A = M(fs), B = M(rs), C = M(fcf), D = rcf === rs ? B : M(rcf);
   return recs.map(r => {
     const tot = metricOf(A[r.id], metric) - metricOf(B[r.id], metric);
     const comp = C && D ? metricOf(C[r.id], metric) - metricOf(D[r.id], metric) : NaN;
-    return { r, tot, comp, res: tot - comp };
+    const relaxed = [A, B, C, D].some(X => X && X[r.id] && X[r.id].relaxed);
+    return { r, tot, comp, res: tot - comp, relaxed };
   });
 }
 
@@ -3180,8 +3215,11 @@ function renderSite() {
   if (v === "income") renderIncomeFigs();
   if (v === "overview") { const ovInc = () => incomeFigure(document.getElementById("ov-income"), "ovincrec", ovInc, { compact: true }); ovInc(); }
   if (v === "race") { renderRaceFigs(); renderSubgroups(); }
+  if (v === "income") renderLike("income", "like-income");
+  if (v === "education" && CPS && CPS.cells && CPS.cells.length) renderLike("education", "like-edu");
 }
 
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[data-soon]"); if (a) e.preventDefault(); });
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
 const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "map", "tool", "compare", "validate", "replicate", "method"];
@@ -3392,39 +3430,108 @@ function ageCf(ga, gb) {
   for (let t = t0; t <= t1; t++) { let a = 0; for (let i = 0; i < 3; i++) a += wA[i] / tot * valAt(B[i], t); v.push(isFinite(a) ? a : null); }
   return makeSeries("agecf:" + JSON.stringify(ga) + JSON.stringify(gb), subLabel(ga) + " · age-adjusted to " + subLabel(gb), `${Math.floor(t0 / 12)}-${String(t0 % 12 + 1).padStart(2, "0")}`, v);
 }
-function selHtml(side, g) {
-  const opt = (k, map, cur) => Object.entries(map).map(([v, l]) => `<option value="${v}" ${v === cur ? "selected" : ""}>${esc(l || "any sex")}</option>`).join("");
-  return `<div class="subsel"><div class="subsel-h">${side === "a" ? "Focal group" : "Benchmark group"}</div>
-    <label>Race<select data-side="${side}" data-k="race">${opt("race", { any: "any race", White: "White", Black: "Black", Hispanic: "Hispanic", Asian: "Asian" }, g.race)}</select></label>
-    <label>Sex<select data-side="${side}" data-k="sex">${opt("sex", { any: "any sex", F: "women", M: "men" }, g.sex)}</select></label>
-    <label>Education<select data-side="${side}" data-k="educ">${opt("educ", ED_LAB, g.educ)}</select></label></div>`;
+const ALLG = () => ({ race: "any", sex: "any", educ: "any", incq: "any" });
+const INC_LAB = { any: "any income", Q1: "poorest fifth", Q2: "2nd fifth", Q3: "middle fifth", Q4: "4th fifth", Q5: "richest fifth" };
+SITE.like = {
+  race: { a: { race: "Black", sex: "F", educ: "BAplus", incq: "any" }, b: ALLG(), metric: "lead", rec: "2007" },
+  income: { a: { race: "any", sex: "any", educ: "any", incq: "Q1" }, b: ALLG(), metric: "lead", rec: "2007" },
+  education: { a: { race: "any", sex: "any", educ: "LTHS", incq: "any" }, b: ALLG(), metric: "lead", rec: "2007" }
+};
+const isAllG = g => ["race", "sex", "educ", "incq"].every(k => g[k] === "any");
+function likeLabel(g) {
+  if (isAllG(g)) return "All workers (headline)";
+  const sx = { F: "women", M: "men" };
+  let who = g.race === "any" ? (g.sex === "any" ? "Workers" : (g.sex === "F" ? "Women" : "Men")) : RACE_LAB[g.race] + " " + (g.sex === "any" ? "workers" : sx[g.sex]);
+  const det = [g.educ !== "any" ? ED_LAB[g.educ] : null, g.incq !== "any" ? INC_LAB[g.incq] : null].filter(Boolean);
+  return who + (det.length ? ", " + det.join(", ") : "");
 }
-function renderSubgroups() {
-  const el = document.getElementById("subgroups");
-  const A = subSeries(SITE.sub.a), B = subSeries(SITE.sub.b);
-  const la = subLabel(SITE.sub.a), lb = subLabel(SITE.sub.b);
+const _likeCache = new Map();
+function cellGroup(g, panel) {
+  const key = panel + JSON.stringify(g);
+  if (_likeCache.has(key)) return _likeCache.get(key);
+  const cs = CPS.cells.filter(c => c.panel === panel && ["race", "sex", "educ", "incq"].every(k => g[k] === "any" || c[k] === g[k]));
+  let out = null;
+  if (cs.length) {
+    const t0 = Math.min(...cs.map(c => c.series.start)), t1 = Math.max(...cs.map(c => c.series.start + c.series.v.length - 1)), v = [];
+    for (let t = t0; t <= t1; t++) { let x = 0, w = 0; for (const c of cs) { const y = valAt(c.series, t); if (isFinite(y)) { x += y * c.lf_share; w += c.lf_share; } } v.push(w ? x / w : null); }
+    out = makeSeries("cg:" + key, likeLabel(g), `${Math.floor(t0 / 12)}-${String(t0 % 12 + 1).padStart(2, "0")}`, v);
+  }
+  _likeCache.set(key, out); return out;
+}
+function likeSeries(g) {
+  if (isAllG(g)) return { s: CPS.series.all, exact: true, id: "all" };
+  if (g.incq === "any" && g.race !== "any" && g.sex !== "any" && g.educ !== "any") { const id = `S_${g.race}_${g.sex}_${g.educ}`; if (CPS.series[id]) return { s: CPS.series[id], exact: true, id }; }
+  if (g.incq === "any" && g.sex === "any" && g.educ === "any" && g.race !== "any") { const id = "R_" + g.race; if (CPS.series[id]) return { s: CPS.series[id], exact: true, id }; }
+  return { s: cellGroup(g, g.incq !== "any" ? "income" : "race"), exact: false, id: null };
+}
+// Composition counterfactual from cells (income panel: race x sex x education x income fifth):
+// the focal group's mix over the characteristics the two groups share, priced at the benchmark's within-cell rates.
+function likeCf(A, B) {
+  const dims = ["race", "sex", "educ", "incq"], D = dims.filter(d => A[d] !== B[d]), K = dims.filter(d => !D.includes(d) && A[d] === "any");
+  const key = "cf" + JSON.stringify(A) + JSON.stringify(B);
+  if (_likeCache.has(key)) return _likeCache.get(key);
+  const cs = CPS.cells.filter(c => c.panel === "income"), inG = g => c => dims.every(d => g[d] === "any" || c[d] === g[d]);
+  const ca = cs.filter(inG(A)), cb = cs.filter(inG(B));
+  let out = null;
+  if (ca.length && cb.length && K.length) {
+    const kf = c => K.map(d => c[d]).join("|"), wA = new Map(), wB = new Map(), byB = new Map();
+    for (const c of ca) wA.set(kf(c), (wA.get(kf(c)) || 0) + c.lf_share);
+    for (const c of cb) { wB.set(kf(c), (wB.get(kf(c)) || 0) + c.lf_share); (byB.get(kf(c)) || byB.set(kf(c), []).get(kf(c))).push(c); }
+    const t0 = Math.max(Math.min(...ca.map(c => c.series.start)), Math.min(...cb.map(c => c.series.start))), t1 = Math.min(Math.max(...ca.map(c => c.series.start + c.series.v.length - 1)), Math.max(...cb.map(c => c.series.start + c.series.v.length - 1)));
+    const vf = [], vb = [];
+    for (let t = t0; t <= t1; t++) {
+      const uB = new Map(); for (const [k, list] of byB) { let x = 0, w = 0; for (const c of list) { const y = valAt(c.series, t); if (isFinite(y)) { x += y * c.lf_share; w += c.lf_share; } } if (w) uB.set(k, x / w); }
+      let f = 0, fw = 0, g = 0, gw = 0;
+      for (const [k, w] of wA) if (uB.has(k)) { f += w * uB.get(k); fw += w; }
+      for (const [k, w] of wB) if (uB.has(k)) { g += w * uB.get(k); gw += w; }
+      vf.push(fw ? f / fw : null); vb.push(gw ? g / gw : null);
+    }
+    const st = `${Math.floor(t0 / 12)}-${String(t0 % 12 + 1).padStart(2, "0")}`;
+    out = { cf: makeSeries(key, "composition-predicted", st, vf), bref: makeSeries(key + "b", "benchmark (cells)", st, vb), dims: K };
+  }
+  _likeCache.set(key, out); return out;
+}
+const DIM_LAB = { race: "race", sex: "sex", educ: "education", incq: "family income" };
+function likeSel(page, side, g) {
+  const opt = (map, cur) => Object.entries(map).map(([v, l]) => `<option value="${v}" ${v === cur ? "selected" : ""}>${esc(l)}</option>`).join("");
+  return `<div class="subsel"><div class="subsel-h">${side === "a" ? "Focal group" : "Benchmark group"}</div>
+    <label>Race<select data-side="${side}" data-k="race">${opt({ any: "any race", White: "White", Black: "Black", Hispanic: "Hispanic", Asian: "Asian" }, g.race)}</select></label>
+    <label>Sex<select data-side="${side}" data-k="sex">${opt({ any: "any sex", F: "women", M: "men" }, g.sex)}</select></label>
+    <label>Education<select data-side="${side}" data-k="educ">${opt(ED_LAB, g.educ)}</select></label>
+    <label>Income<select data-side="${side}" data-k="incq">${opt(INC_LAB, g.incq)}</select></label></div>`;
+}
+function renderSubgroups() { renderLike("race", "subgroups"); }
+function renderLike(page, elId) {
+  const el = document.getElementById(elId); if (!el || !CPS || !CPS.cells) return;
+  const L = SITE.like[page], Ag = L.a, Bg = L.b;
+  const A = likeSeries(Ag), B = likeSeries(Bg), la = likeLabel(Ag), lb = likeLabel(Bg);
   const RC = { White: "--s-white", Asian: "--s-asian", Hispanic: "--s-hisp", Black: "--s-black", any: "--s-agg" };
-  const ca = RC[SITE.sub.a.race], cb = SITE.sub.b.race === SITE.sub.a.race ? "--s-agg" : RC[SITE.sub.b.race];
-  const exactBoth = A.exact && B.exact;
-  let cf = null, cfKind = "";
-  if (A.exact && CPS.series[A.id + "_cf"] && SITE.sub.b.race === "White" && SITE.sub.a.sex === SITE.sub.b.sex && SITE.sub.a.educ === SITE.sub.b.educ) { cf = CPS.series[A.id + "_cf"]; cfKind = "full"; }
-  // (age-only adjustment from demographic cells is no longer drawn)
-  const recs = CPS_RECS().filter(r => ST.recs.has(r.id));
-  const M = SITE.subMetric;
-  const rows = A.s && B.s ? splitRows(A.s, B.s, cf, B.s, M, recs) : [];
+  const ca = Ag.race !== "any" ? RC[Ag.race] : Ag.incq !== "any" ? "--d" + ({ Q1: 2, Q2: 4, Q3: 6, Q4: 8, Q5: 10 }[Ag.incq]) : Ag.educ !== "any" ? ({ LTHS: "--s-lths", HS: "--s-hs", SomeCol: "--s-sc", BAplus: "--s-ba" }[Ag.educ]) : "--s-black";
+  const cb = isAllG(Bg) ? "--s-agg" : (Bg.race !== "any" && Bg.race !== Ag.race ? RC[Bg.race] : "--s-agg");
+  // composition: the richer export counterfactual when the comparison is the one it was built for; otherwise from cells
+  let cf = null, bref = null, compNote = "";
+  if (A.id && CPS.series[A.id + "_cf"] && ((A.id.startsWith("S_") && Bg.race === "White" && Bg.sex === Ag.sex && Bg.educ === Ag.educ && Bg.incq === "any") || (A.id.startsWith("R_") && B.id === "R_White"))) {
+    cf = CPS.series[A.id + "_cf"]; bref = B.s; compNote = "income, age, region, sector and occupation priced at White rates";
+  } else {
+    const r = likeCf(Ag, Bg);
+    if (r) { cf = r.cf; bref = r.bref; compNote = `mix of ${r.dims.map(d => DIM_LAB[d]).join(", ").replace(/, ([^,]*)$/, " and $1")} priced at ${isAllG(Bg) ? "economy-wide" : lb.charAt(0).toLowerCase() + lb.slice(1) + "’"} rates`; }
+    else compNote = Ag.race === "Asian" || Bg.race === "Asian" ? "not available for Asian workers (no cells in the export)" : "nothing left to compose: the groups differ on every characteristic";
+  }
+  const recs = CPS_RECS().filter(r => ST.recs.has(r.id)), M = L.metric, unit = METRICS[M].unit, dg = unit === "pp" ? 2 : 1;
+  const rows = A.s && B.s ? splitRows(A.s, B.s, cf, bref, M, recs) : [];
   const st = stats(rows.map(d => d.tot)), sc = stats(rows.map(d => d.comp)), sr = stats(rows.map(d => d.res));
-  const unit = METRICS[M].unit;
-  el.innerHTML = `<div class="subpick">${selHtml("a", SITE.sub.a)}<div class="vs">vs</div>${selHtml("b", SITE.sub.b)}</div>
+  const nm = `lk-${page}`;
+  el.innerHTML = `<div class="subpick">${likeSel(page, "a", Ag)}<div class="vs">vs</div>${likeSel(page, "b", Bg)}</div>
   ${!A.s || !B.s ? `<p class="note warn">No data for ${esc(!A.s ? la : lb)} in the current export.</p>` : `
-  <div class="results">${result(METRICS[M].lab, sg(st.mean, unit === "pp" ? 2 : 1), unit, `${esc(la)} minus ${esc(lb)} · SD ${f1(st.sd, unit === "pp" ? 2 : 1)} · n ${st.n}`)}${result("Composition", sg(sc.mean, unit === "pp" ? 2 : 1), unit, cfKind === "full" ? "income, age, region, sector, occupation at White rates" : "needs the exact series from the new CPS extract")}${result("Residual", sg(sr.mean, unit === "pp" ? 2 : 1), unit, isFinite(sr.mean) && st.mean ? `${f1(100 * sr.mean / st.mean, 0)}% of the gap` : "")}</div>
-  <div class="segs" id="submet">${["lead", "dur", "afterT", "peak"].map(k => `<button data-v="${k}" aria-pressed="${M === k}">${METRICS[k].lab}</button>`).join("")}</div>
-  ${figure(`${esc(la)} vs ${esc(lb)}`, TP("Race, Sex and Education Data", "Reference Lines and Recessions", "1982"), `<div class="fig-ctl">${recRadios("subrec", SITE.subRec, CPS_RECS(), true)}${swatches([{ label: la, color: ca }, { label: lb, color: cb }].concat(cf ? [{ label: cfKind === "full" ? la + " · composition-predicted" : la + " · age-adjusted", color: ca, dash: true }] : []))}</div><div class="vbody" id="subchart"></div>`,
-    `${exactBoth ? "Series computed directly from the microdata." : "Built from demographic cells (race × education × sex × age) weighted by average labor-force share, so the mix within the group is held fixed over time. Re-knit the updated export for exact race × sex × education series with a full composition counterfactual."}`)}
-  <div class="tablewrap"><table><thead><tr><th class="l">Recession</th><th>${esc(la)}</th><th>${esc(lb)}</th><th>Gap</th><th>Composition</th><th>Residual</th></tr></thead><tbody>${recs.map((r, i) => { const ma = matchRec(A.s, r, ST.p, pAt(A.s)), mb = matchRec(B.s, r, ST.p, pAt(B.s)); const f = m => m.status === "ok" ? (M === "lead" ? sg(m.lead, 0) + " mo" : f1(METRICS[M].get(m), M === "peak" ? 2 : 0)) : `<span class="tag">${m.status}</span>`; const d = rows[i]; return `<tr><td class="l">${REC_NAMES_ALL(r.name)}</td><td class="num">${f(ma)}</td><td class="num">${f(mb)}</td><td class="num">${sg(d.tot)}</td><td class="num">${sg(d.comp)}</td><td class="num">${sg(d.res)}</td></tr>`; }).join("")}</tbody></table></div>`}`;
-  el.querySelectorAll("select").forEach(s => s.onchange = () => { SITE.sub[s.dataset.side][s.dataset.k] = s.value; renderSubgroups(); });
-  el.querySelectorAll("#submet button").forEach(b => b.onclick = () => { SITE.subMetric = b.dataset.v; renderSubgroups(); });
-  wireRadios(el, "subrec", v => { SITE.subRec = v; renderSubgroups(); });
-  if (A.s && B.s) lineChart(softBody(el.querySelector("#subchart")), { ...SERIES_LINE, x: win(SITE.subRec), series: [indLine(A.s, la, ca, "", 2), indLine(B.s, lb, cb, "", 2)].concat(cf ? [indLine(cf, cfKind === "full" ? "composition-predicted" : "age-adjusted", ca, "5 4", 1.5)] : []), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers([[A.s, ca], [B.s, cb]], SITE.subRec), height: 360 });
+  <div class="results">${result(METRICS[M].lab, sg(st.mean, dg), unit, `${esc(la)} minus ${esc(lb)} · SD ${f1(st.sd, dg)} · n ${st.n}`)}${result("Composition", cf ? sg(sc.mean, dg) : "–", unit, esc(compNote))}${result("Residual", cf ? sg(sr.mean, dg) : "–", unit, cf && isFinite(sr.mean) && st.mean ? `${f1(100 * sr.mean / st.mean, 0)}% of the gap` : "")}</div>
+  <div class="segs" id="${nm}-met">${["lead", "dur", "afterT", "peak"].map(k => `<button data-v="${k}" aria-pressed="${M === k}">${METRICS[k].lab}</button>`).join("")}</div>
+  ${figure(`${esc(la)} vs ${esc(lb)}`, TP("Race, Sex, Education and Income Data", "Reference Lines and Recessions", "1982"), `<div class="fig-ctl">${recRadios(nm + "-rec", L.rec, CPS_RECS(), true)}${swatches([{ label: la, color: ca }, { label: lb, color: cb }].concat(cf ? [{ label: la + " · composition-predicted", color: ca, dash: true }] : []))}</div><div class="vbody"></div>`,
+    `${A.exact ? "Focal series computed directly from the microdata." : "Focal series built from demographic cells weighted by average labor-force share, so the mix within the group is held fixed over time."} ${isAllG(Bg) ? "Benchmark: the headline unemployment rate from the same CPS microdata." : B.exact ? "Benchmark series computed directly from the microdata." : "Benchmark built from demographic cells."} Composition: the focal group’s ${cf ? compNote : "mix"}; the dashed line is that composition-predicted series. Every recession is matched: where a series does not cross its threshold cleanly within the window, the threshold is relaxed until it does (marked †).`)}
+  <div class="tablewrap"><table><thead><tr><th class="l">Recession</th><th>${esc(la)}</th><th>${esc(lb)}</th><th>Gap</th><th>Composition</th><th>Residual</th></tr></thead><tbody>${recs.map((r, i) => { const ma = matchForce(A.s, r), mb = matchForce(B.s, r); const f = m => m.status === "ok" ? (M === "lead" ? sg(m.lead, 0) + " mo" : f1(METRICS[M].get(m), M === "peak" ? 2 : 0)) + (m.relaxed ? '<span class="relax">†</span>' : "") : `<span class="tag">${m.status}</span>`; const d = rows[i]; return `<tr><td class="l">${REC_NAMES_ALL(r.name)}</td><td class="num">${f(ma)}</td><td class="num">${f(mb)}</td><td class="num">${sg(d.tot)}</td><td class="num">${sg(d.comp)}</td><td class="num">${sg(d.res)}</td></tr>`; }).join("")}</tbody></table></div>`}`;
+  el.querySelectorAll("select").forEach(x => x.onchange = () => { L[x.dataset.side][x.dataset.k] = x.value; renderLike(page, elId); });
+  el.querySelectorAll(`#${nm}-met button`).forEach(x => x.onclick = () => { L.metric = x.dataset.v; renderLike(page, elId); });
+  wireRadios(el, nm + "-rec", v => { L.rec = v; renderLike(page, elId); });
+  if (A.s && B.s) lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: win(L.rec), series: [indLine(A.s, la, ca, "", 2), indLine(B.s, lb, cb, "", 2)].concat(cf ? [indLine(cf, "composition-predicted", ca, "5 4", 1.5)] : []), shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers([[A.s, ca], [B.s, cb]], L.rec), height: 360 });
 }
 
 /* ---------- Overview: preset charts exactly as on the SahmRule homepage ---------- */
@@ -4070,7 +4177,7 @@ function divColor(v, max) {
   const t = Math.max(-1, Math.min(1, v / (max || 1)));
   // soft diverging scale: site blue for positive, warm gray for negative, never darker than a mid tint
   const pct = Math.round(Math.sqrt(Math.abs(t)) * 52);
-  return `color-mix(in oklab, ${t >= 0 ? "#6f9fdc" : "#bfb3a3"} ${pct}%, #ffffff)`;
+  return `color-mix(in oklab, ${t >= 0 ? "#5e93db" : "#8fcbef"} ${Math.round(8 + Math.sqrt(Math.abs(t)) * 38)}%, #ffffff)`;
 }
 
 /* ===== Rendering ===== */
