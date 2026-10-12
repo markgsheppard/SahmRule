@@ -1004,7 +1004,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
 <section class="hero"><div class="in">
   <a class="chap-back" href="#validate">← Resources</a>
   <h1>Underemployment<br><span class="of">and the</span> U-Measures</h1>
-  <p class="lede">The official unemployment rate is one of six measures of labor underutilization the Bureau of Labor Statistics publishes. Run each through the same turning-point indicator and the broader measures, the ones that count cut hours and discouraged workers, signal a recession before the headline rate does.</p>
+  <p class="lede">The official unemployment rate is one of six measures of labor underutilization the Bureau of Labor Statistics publishes. Run each through the same turning-point indicator and the broader measures, the ones that count cut hours and discouraged workers, cross the same threshold before the headline rate does, partly because they are larger and partly because they count the workers who feel a downturn first.</p>
   <div class="byline"><div>Explainer and interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
 </div></section>
 <div class="article">
@@ -1015,9 +1015,12 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="tablewrap"><table class="udef" style="table-layout:fixed"><colgroup><col style="width:70px"><col><col style="width:38%"></colgroup><thead><tr><th class="l">Measure</th><th class="l">BLS definition</th><th class="l">What it adds</th></tr></thead><tbody><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d2)"></i><b>U-1</b></td><td class="l">Persons unemployed 15 weeks or longer, as a percent of the civilian labor force</td><td class="l">The long-term unemployed: the narrowest measure, and the slowest to rise</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d4)"></i><b>U-2</b></td><td class="l">Job losers and persons who completed temporary jobs, as a percent of the civilian labor force</td><td class="l">Layoffs and job endings, leaving out quits and new entrants</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d6)"></i><b>U-3</b></td><td class="l">Total unemployed, as a percent of the civilian labor force</td><td class="l">The official unemployment rate, and the input to the Sahm Rule</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d7)"></i><b>U-4</b></td><td class="l">Total unemployed plus discouraged workers, as a percent of the labor force plus discouraged workers</td><td class="l">Adds people who want a job but have stopped looking because they believe none is available</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d8)"></i><b>U-5</b></td><td class="l">U-4 plus all other persons marginally attached to the labor force, as a percent of the labor force plus all marginally attached</td><td class="l">Adds people who want a job and looked in the past year, but not in the past four weeks</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d10)"></i><b>U-6</b></td><td class="l">U-5 plus persons employed part time for economic reasons, as a percent of the labor force plus all marginally attached</td><td class="l">Adds workers who want full-time work but whose hours were cut or who could only find part-time jobs: the intensive margin</td></tr></tbody></table></div></section>
   <section class="pbreak"><span class="ov-kicker">Hours before jobs</span><h2 class="ov-h">The intensive margin moves first</h2><p>When demand weakens, firms usually cut hours before they cut jobs: shifts shrink, overtime disappears and full-time workers are moved to part time. Those workers are still employed, so the official rate does not count them, but U-6 does. Layoffs follow later, and the long-term unemployment captured by U-1 builds last.</p><p>The workers whose hours are cut first are disproportionately the same workers the rest of this site shows entering recession first: lower-income, less-educated, younger, Black and Hispanic workers. U-6 is, in effect, a composite of the leading edge of the labor market.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div id="fig-umeas-tl"></div>
-  <section class="pbreak"><span class="ov-kicker">What U-6 adds to U-3</span><h2 class="ov-h">Discouraged workers, or shorter hours?</h2><p>U-6 differs from the official rate in two steps: U-5 adds discouraged and other marginally attached workers, and U-6 then adds people working part time for economic reasons. The split below asks how much of U-6’s head start over U-3 comes from each step.</p><p>The answer is clear. In every recession since 1994, U-5 crossed the threshold in the same month as U-3: counting discouraged workers adds no early warning. All of U-6’s head start comes from workers whose hours were cut, the intensive margin.</p></section>
+  <section class="pbreak"><span class="ov-kicker">What U-6 adds to U-3</span><h2 class="ov-h">Discouraged workers, or shorter hours?</h2><p>U-6 differs from the official rate in two steps: U-5 adds discouraged and other marginally attached workers, and U-6 then adds people working part time for economic reasons. The split below asks how much of U-6’s head start over U-3 comes from each step.</p><p>The answer is clear. In every recession since 1994, U-5 crossed the threshold in the same month as U-3: counting discouraged workers adds no early warning. All of U-6’s head start over U-3 comes from adding workers whose hours were cut. As the decomposition below shows, though, much of that is because adding them makes the series larger.</p></section>
   <div id="fig-umeas-dc"></div>
+  <section class="pbreak"><span class="ov-kicker">Decomposition</span><h2 class="ov-h">Scale, composition, or the intensive margin?</h2><p>U-6 is about one and a half to two times the size of U-3, so the same 0.5-point rise is easier for it to reach. It also gives more weight to the groups that are most often underemployed. To separate these from genuinely earlier movement, the split below rebuilds U-3 and a U-6-style rate from 32 race, sex and education cells of the CPS microdata and asks three questions. How much earlier would U-3 fire if it were simply as large as U-6 (scale)? How much earlier if each group’s U-3 were scaled by that group’s own underemployment (composition)? And how much earlier does the actual U-6-style rate fire than that (within groups, the intensive margin)?</p><p>Most of U-6’s head start at a fixed threshold is scale. Composition adds little, and within groups part-time work does not consistently move before unemployment. When the threshold is scaled to each measure’s level (the <b>Threshold scaling</b> control in the full analysis below), U-6 and U-3 fire within a month of each other. The case for U-6 is less that it is faster than that it is larger: it shows how much more slack a recession creates, and for whom.</p></section>
+  <div id="fig-umeas-dc2"></div>
   <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Inequality of Recession</h2><p>The paper shows that, in a search across thousands of candidate recession indicators, a rule built on U-6 sits on or near the frontier that trades early detection against accuracy, and explains why: it captures adjustment on the intensive margin and the workers who feel a downturn first.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="#compare">Compare U-6 with the Sahm and Michez Rules</a></div></section>
+  <div class="full" data-chap="umeas"></div>
 </div>
 </div>
 
@@ -3385,7 +3388,7 @@ function renderVibe() {
 }
 
 /* ---------- Routing: one view per paper ---------- */
-const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
+const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false } };
 const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
@@ -3403,7 +3406,7 @@ function route() {
   VIEW.cur = v;
   VIEWS.forEach(x => { const el = document.getElementById("v-" + x); if (el) el.hidden = x !== v; });
   setNavCurrent(v);
-  if (v === "method") ST.tab = "methods"; else if (["race", "income", "education", "spatial"].includes(v)) ST.tab = v;
+  if (v === "method") ST.tab = "methods"; else if (["race", "income", "education", "spatial", "umeas"].includes(v)) ST.tab = v;
   placeTool();
   render();
   if (changed) window.scrollTo(0, 0);
@@ -3557,6 +3560,34 @@ async function loadUmeas() {
   }
   return (_umeas = out);
 }
+let _umcells = null;
+async function umeasSplit() {
+  if (!_umcells) {
+    const rows = await d3.csv("data/umeas_cells.csv", r => ({ cell: r.cell, date: r.date, n: +r.n, u3: +r.u3, u6: +r.u6 }));
+    const T = new Map(); let t0 = Infinity, t1 = -Infinity;
+    for (const r of rows) { const t = mIdx(r.date); t0 = Math.min(t0, t); t1 = Math.max(t1, t); if (!T.has(t)) T.set(t, []); T.get(t).push(r); }
+    const avg = {}, cnt = {};
+    for (const r of rows) { if (!avg[r.cell]) { avg[r.cell] = [0, 0]; cnt[r.cell] = 0; } avg[r.cell][0] += r.u3; avg[r.cell][1] += r.u6; cnt[r.cell]++; }
+    const ratio = Object.fromEntries(Object.entries(avg).map(([c, [a, b]]) => [c, b / a]));
+    const a3 = [], a6 = [], cf = [];
+    for (let t = t0; t <= t1; t++) { const rs = T.get(t) || []; let w = 0, x3 = 0, x6 = 0, xc = 0; for (const r of rs) { w += r.n; x3 += r.n * r.u3; x6 += r.n * r.u6; xc += r.n * r.u3 * ratio[r.cell]; } a3.push(w ? x3 / w : null); a6.push(w ? x6 / w : null); cf.push(w ? xc / w : null); }
+    const R = a6.reduce((s, v) => s + v, 0) / a3.reduce((s, v) => s + v, 0);
+    const st = `${Math.floor(t0 / 12)}-${String(t0 % 12 + 1).padStart(2, "0")}`;
+    _umcells = { u3: makeSeries("umc:u3", "U-3 (CPS cells)", st, a3), amp: makeSeries("umc:amp", "U-3 scaled to U-6 level", st, a3.map(v => v * R)), cf: makeSeries("umc:cf", "Composition-predicted U-6", st, cf), u6: makeSeries("umc:u6", "U-6-style (CPS cells)", st, a6), R };
+  }
+  const C = _umcells, on = s => r => { const m = matchForce(s, r); return m.status === "ok" ? { v: -m.lead, rel: m.relaxed } : { v: NaN }; };
+  return NBER.filter(r => r.id !== "1973" && r.id !== "1981").map(r => {
+    const o3 = on(C.u3)(r), oa = on(C.amp)(r), oc = on(C.cf)(r), o6 = on(C.u6)(r);
+    return { r, tot: o3.v - o6.v, comp: o3.v - oa.v, mid: oa.v - oc.v, res: oc.v - o6.v, relaxed: [o3, oa, oc, o6].some(x => x.rel) };
+  });
+}
+function umeasSplitBars(el, rows) {
+  splitBars(el, rows, "mo", { comp: "Scale", mid: "Composition", res: "Within groups (intensive margin)", compColor: "--s-comp", midColor: "--d5",
+    compTip: "How much earlier the rule fires when U-3 is simply scaled up to U-6’s average level: a fixed 0.5-point threshold is easier to reach for a series that is larger.",
+    midTip: "How much earlier it fires when each group’s U-3 is scaled by that group’s own average U-6/U-3 ratio: the head start from U-6 weighting more heavily the groups that are more often underemployed.",
+    resTip: "The rest: how much earlier the actual U-6-style rate fires than its composition-predicted version, because part-time-for-economic-reasons work rises earlier within groups.",
+    totTip: "The total difference in onset, U-6-style minus U-3, in months, from the same CPS cells." });
+}
 async function renderUmeas() {
   if (!window.d3) return;
   let S; try { S = await loadUmeas(); } catch (e) { return; }
@@ -3593,6 +3624,14 @@ async function renderUmeas() {
     `${swatches([{ label: "Marginally attached (U-5 vs U-3)", color: "--s-comp" }, { label: "Part time for economic reasons (U-6 vs U-5)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc"></div>`,
     "Gap in onset, U-6 minus U-3, in months, split into the step from U-3 to U-5 (adding discouraged and other marginally attached workers) and the step from U-5 to U-6 (adding workers employed part time for economic reasons). Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
   splitBars(dc.querySelector("#umdc"), splitRows(S.U6RATE, S.U3, S.U5RATE, S.U3, "lead", recs94), "mo", { comp: "Marginally attached", res: "Part time for economic reasons", compTip: "How much earlier U-5 signals than U-3: the head start from counting discouraged and other marginally attached workers.", resTip: "How much earlier U-6 signals than U-5: the head start from counting workers whose hours were cut or who could only find part-time work.", totTip: "The total difference in onset, U-6 minus U-3, in months." });
+  const dc2 = document.getElementById("fig-umeas-dc2");
+  if (dc2 && !dc2.dataset.built) {
+    dc2.dataset.built = "1";
+    dc2.innerHTML = figure("Scale, Composition, or the Intensive Margin?", TP("U-3 and U-6-Style Rates from CPS Race × Sex × Education Cells", "a Three-Way Split", "1976"),
+      `${swatches([{ label: "Scale", color: "--s-comp" }, { label: "Composition", color: "--d5" }, { label: "Within groups (intensive margin)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc2"></div>`,
+      "Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted; 32 cells of race (White, Black, Hispanic, Asian from 1989), sex and four education levels, weighted by sample size. U-6-style rate: unemployed plus employed part time for economic reasons, as a share of the labor force (the microdata do not identify marginally attached workers). Scale: U-3 multiplied by the average ratio of U-6 to U-3. Composition: each cell’s U-3 multiplied by that cell’s own average ratio. Within groups: the actual U-6-style rate. Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
+    umeasSplit().then(rows => umeasSplitBars(dc2.querySelector("#umdc2"), rows)).catch(() => {});
+  }
 }
 
 /* ---------- Race ---------- */
@@ -4242,6 +4281,10 @@ function saveState() { try { localStorage.setItem("rte-state", JSON.stringify({ 
 
 /* ===== Catalogs ===== */
 function catalog(tab) {
+  if (tab === "umeas") {
+    ST.umeas = ST.umeas || { focal: ["U6RATE", "U5RATE", "U4RATE"], ref: "U3" };
+    return { groups: UM.map(([id, l, c]) => ({ id, label: l, color: c, set: "u" })), base: _umeas.U3, get: id => _umeas[id], st: ST.umeas, label: id => (UM.find(u => u[0] === id) || [, id])[1], color: id => (UM.find(u => u[0] === id) || [, , "--s-agg"])[2] };
+  }
   if (tab === "race" && ST.src === "bls") {
     const groups = Object.keys(BLS).filter(l => l !== "U-3 (all)" && !String(BLS[l].meta.group).startsWith("spatial")).map(l => ({ id: l, label: l, color: BLS_COLOR[l] || "--s-agg", set: BLS[l].meta.group }));
     return { groups, base: BLS["U-3 (all)"], get: id => BLS[id], st: ST.race, label: id => id, color: id => BLS_COLOR[id] || "--s-agg" };
@@ -4492,6 +4535,7 @@ function render() {
   for (const t of ["race", "income", "education", "spatial", "methods"]) document.getElementById("tab-" + t) && document.getElementById("tab-" + t).setAttribute("aria-selected", ST.tab === t ? "true" : "false");
   main.innerHTML = "";
   if (ST.tab === "methods") return renderMethods();
+  if (ST.tab === "umeas" && !_umeas) { main.innerHTML = `<p class="note">Loading the U-measures…</p>`; loadUmeas().then(() => render()).catch(() => {}); return; }
   if (ST.tab === "income" && !CPS) return renderIncomeEmpty();
   if (ST.tab === "race" && ST.src === "cps" && !CPS) ST.src = "bls";
   const cat = withBase(catalog(ST.tab));
@@ -4607,6 +4651,11 @@ const DMETH = {
 };
 function decompBlock(cat, A, prim, ref, recs) {
   const tab = ST.tab, sec = h("section", { class: "block" });
+  if (tab === "umeas") {
+    sec.innerHTML = `<div class="block-head"><h2>Scale, composition, or the intensive margin?</h2></div><p class="note">U-6-style rate (unemployed plus part time for economic reasons) against U-3, both built from 32 race × sex × education cells of CPS microdata. The head start splits into the part from U-6’s larger scale, the part from its tilt toward groups that are more often underemployed, and the remainder within groups.</p><div class="vbody" id="umfull"></div>`;
+    umeasSplit().then(rows => umeasSplitBars(sec.querySelector("#umfull"), rows)).catch(() => {});
+    return sec;
+  }
   const avail = tab === "race" ? ["A", "B", "C", "D"] : tab === "income" ? ["B", "C", "D"] : tab === "education" ? ["D"] : [];
   if (!avail.length) { sec.innerHTML = `<div class="block-head"><h2>Decomposition</h2></div><p class="note">County series are published rates with no demographic detail, so there is nothing to decompose yet. The planned approach: CPS unemployment by metro/non-metro status (METRO) and state, with the same composition counterfactual used for race and income.</p>`; return sec; }
   if (!avail.includes(ST.decomp[tab])) ST.decomp[tab] = avail[0];
@@ -4695,7 +4744,7 @@ function splitBars(el, rows, unit, o) {
   el.classList.add("chart"); el.style.position = "relative";
   const W = Math.max(300, el.clientWidth || 500), rowH = 30, M = { l: Math.max(128, 14 + 6.6 * Math.max(0, ...rows.map(d => String(REC_NAMES_ALL(d.r.name)).length))), r: 16, t: 8, b: 26 }, H = M.t + M.b + rowH * rows.length;
   // stack positive parts to the right of zero and negative parts to the left
-  const seg = d => { const parts = [["comp", d.comp], ["res", d.res]]; let pos = 0, neg = 0; return parts.map(([k, v]) => { if (v >= 0) { const r = [k, pos, pos + v, v]; pos += v; return r; } const r = [k, neg + v, neg, v]; neg += v; return r; }); };
+  const seg = d => { const parts = [["comp", d.comp]].concat(o.mid && isFinite(d.mid) ? [["mid", d.mid]] : []).concat([["res", d.res]]); let pos = 0, neg = 0; return parts.map(([k, v]) => { if (v >= 0) { const r = [k, pos, pos + v, v]; pos += v; return r; } const r = [k, neg + v, neg, v]; neg += v; return r; }); };
   const vals = rows.flatMap(d => isFinite(d.tot) && isFinite(d.comp) ? [d.tot, ...seg(d).flatMap(s => [s[1], s[2]])] : []).concat([0]);
   let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals); if (hi - lo < 1) { hi += 0.5; lo -= 0.5; }
   const X = v => M.l + (v - lo) / (hi - lo) * (W - M.l - M.r);
@@ -4706,15 +4755,15 @@ function splitBars(el, rows, unit, o) {
     const y = M.t + i * rowH + 6, bh = rowH - 12;
     s += `<text x="${M.l - 8}" y="${y + bh / 2 + 4}" text-anchor="end" style="fill:var(--ink-2)">${REC_NAMES_ALL(d.r.name)}</text>`;
     if (!isFinite(d.tot) || !isFinite(d.comp)) { s += `<text x="${M.l + 6}" y="${y + bh / 2 + 4}">not matched</text>`; return; }
-    for (const [k, a, b, v] of seg(d)) s += `<rect class="sb" data-k="${k}" data-i="${i}" x="${X(a)}" y="${y}" width="${Math.max(1, X(b) - X(a))}" height="${bh}" fill="var(${k === "comp" ? "--s-comp" : "--s-resid"})" stroke="var(--surface)" stroke-width="1"></rect>`;
+    for (const [k, a, b, v] of seg(d)) s += `<rect class="sb" data-k="${k}" data-i="${i}" x="${X(a)}" y="${y}" width="${Math.max(1, X(b) - X(a))}" height="${bh}" fill="var(${k === "comp" ? (o.compColor || "--s-comp") : k === "mid" ? (o.midColor || "--d5") : "--s-resid"})" stroke="var(--surface)" stroke-width="1"></rect>`;
     s += `<rect class="sb" data-k="tot" data-i="${i}" x="${X(d.tot) - 4}" y="${y - 4}" width="8" height="${bh + 8}" fill="transparent"></rect><line x1="${X(d.tot)}" x2="${X(d.tot)}" y1="${y - 4}" y2="${y + bh + 4}" stroke="var(--ink)" stroke-width="2" pointer-events="none"></line>`;
   });
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${s}</svg><div class="tip" hidden></div><p class="sb-note">${unit === "pp" ? "Percentage points" : "Months"}. Segments stack to the total (black tick). Hover a segment for what it measures.</p>`;
   const tip = el.querySelector(".tip"), svg = el.querySelector("svg"), u = unit === "pp" ? " pp" : " months";
-  const name = { comp: o.comp, res: o.res, tot: "Total gap" }, help = { comp: o.compTip, res: o.resTip, tot: o.totTip };
+  const name = { comp: o.comp, mid: o.mid, res: o.res, tot: "Total gap" }, help = { comp: o.compTip, mid: o.midTip, res: o.resTip, tot: o.totTip };
   svg.addEventListener("pointermove", ev => {
     const r = ev.target.closest && ev.target.closest(".sb"); if (!r) { tip.hidden = true; return; }
-    const d = rows[+r.dataset.i], k = r.dataset.k, v = k === "comp" ? d.comp : k === "res" ? d.res : d.tot;
+    const d = rows[+r.dataset.i], k = r.dataset.k, v = k === "comp" ? d.comp : k === "mid" ? d.mid : k === "res" ? d.res : d.tot;
     tip.innerHTML = `<div class="h">${REC_NAMES_ALL(d.r.name)} · ${esc(name[k])}</div><div class="r"><span>Value</span><span class="num">${sg(v)}${u}</span></div><div class="sb-help">${esc(help[k])}</div>`;
     tip.hidden = false;
     const rc = el.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14;
