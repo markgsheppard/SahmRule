@@ -102,6 +102,7 @@ input[type="number"] { width: 72px; }
 .tile .det { font-size: 12px; color: var(--ink-2); }
 .tile .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 
+table.udef td, table.udef th { white-space: normal; vertical-align: top; line-height: 1.45; }
 .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
 th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
@@ -797,7 +798,8 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
       <a href="#validate" data-v="resources" class="sub-trigger" aria-haspopup="true">Resources <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <div class="sub sub-sm" role="menu">
         <a href="#validate" data-v="validate" role="menuitem"><span class="sub-t">Indicator <i>Validations</i></span><span class="sub-d">Thousands of rules on the anticipation-precision frontier</span></a>
-        <a href="#replicate" data-v="replicate" role="menuitem"><span class="sub-t">Replications</span><span class="sub-d">Re-examining published tests of the Sahm Rule</span></a>
+        <a href="#replicate" data-v="replicate" role="menuitem"><span class="sub-t">Academic <i>Replications</i></span><span class="sub-d">Re-examining published tests of the Sahm Rule</span></a>
+        <a href="#underemployment" data-v="umeas" role="menuitem"><span class="sub-t">Underemployment <i>and the U-Measures</i></span><span class="sub-d">Six measures of labor utilization, U-1 to U-6</span></a>
         <a href="#vibe" data-v="vibe" role="menuitem"><span class="sub-t">Comments on the <i>Vibecession</i></span><span class="sub-d">A downturn for some, never called for all</span></a>
       </div>
     </div>
@@ -998,6 +1000,27 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
 
 
 <!-- ===== The Vibecession ===== -->
+<div class="view" id="v-umeas" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#validate">← Resources</a>
+  <h1>Underemployment<br><span class="of">and the</span> U-Measures</h1>
+  <p class="lede">The official unemployment rate is one of six measures of labor underutilization the Bureau of Labor Statistics publishes. Run each through the same turning-point indicator and the broader measures, the ones that count cut hours and discouraged workers, signal a recession before the headline rate does.</p>
+  <div class="byline"><div>Explainer and interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <p class="needs-umeas loading">Loading the U-measures…</p>
+  <div id="fig-umeas"></div>
+  <div class="results" id="res-umeas"></div>
+  <section class="pbreak"><span class="ov-kicker">Six ways to count slack</span><h2 class="ov-h">What each measure adds</h2><p>Each U-measure widens the one before it. U-1 and U-2 are narrower than the official rate; U-4 through U-6 add people the official rate leaves out: workers too discouraged to search, people who want a job but have not looked recently, and workers who are employed but working fewer hours than they want. U-4, U-5 and U-6 begin in 1994, when the redesigned Current Population Survey made them possible, so they cover the 2001, 2007–09 and 2020 recessions.</p>
+  <div class="tablewrap"><table class="udef" style="table-layout:fixed"><colgroup><col style="width:70px"><col><col style="width:38%"></colgroup><thead><tr><th class="l">Measure</th><th class="l">BLS definition</th><th class="l">What it adds</th></tr></thead><tbody><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d2)"></i><b>U-1</b></td><td class="l">Persons unemployed 15 weeks or longer, as a percent of the civilian labor force</td><td class="l">The long-term unemployed: the narrowest measure, and the slowest to rise</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d4)"></i><b>U-2</b></td><td class="l">Job losers and persons who completed temporary jobs, as a percent of the civilian labor force</td><td class="l">Layoffs and job endings, leaving out quits and new entrants</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d6)"></i><b>U-3</b></td><td class="l">Total unemployed, as a percent of the civilian labor force</td><td class="l">The official unemployment rate, and the input to the Sahm Rule</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d7)"></i><b>U-4</b></td><td class="l">Total unemployed plus discouraged workers, as a percent of the labor force plus discouraged workers</td><td class="l">Adds people who want a job but have stopped looking because they believe none is available</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d8)"></i><b>U-5</b></td><td class="l">U-4 plus all other persons marginally attached to the labor force, as a percent of the labor force plus all marginally attached</td><td class="l">Adds people who want a job and looked in the past year, but not in the past four weeks</td></tr><tr><td class="l"><i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--d10)"></i><b>U-6</b></td><td class="l">U-5 plus persons employed part time for economic reasons, as a percent of the labor force plus all marginally attached</td><td class="l">Adds workers who want full-time work but whose hours were cut or who could only find part-time jobs: the intensive margin</td></tr></tbody></table></div></section>
+  <section class="pbreak"><span class="ov-kicker">Hours before jobs</span><h2 class="ov-h">The intensive margin moves first</h2><p>When demand weakens, firms usually cut hours before they cut jobs: shifts shrink, overtime disappears and full-time workers are moved to part time. Those workers are still employed, so the official rate does not count them, but U-6 does. Layoffs follow later, and the long-term unemployment captured by U-1 builds last.</p><p>The workers whose hours are cut first are disproportionately the same workers the rest of this site shows entering recession first: lower-income, less-educated, younger, Black and Hispanic workers. U-6 is, in effect, a composite of the leading edge of the labor market.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
+  <div id="fig-umeas-tl"></div>
+  <section class="pbreak"><span class="ov-kicker">What U-6 adds to U-3</span><h2 class="ov-h">Discouraged workers, or shorter hours?</h2><p>U-6 differs from the official rate in two steps: U-5 adds discouraged and other marginally attached workers, and U-6 then adds people working part time for economic reasons. The split below asks how much of U-6’s head start over U-3 comes from each step.</p><p>The answer is clear. In every recession since 1994, U-5 crossed the threshold in the same month as U-3: counting discouraged workers adds no early warning. All of U-6’s head start comes from workers whose hours were cut, the intensive margin.</p></section>
+  <div id="fig-umeas-dc"></div>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Inequality of Recession</h2><p>The paper shows that, in a search across thousands of candidate recession indicators, a rule built on U-6 sits on or near the frontier that trades early detection against accuracy, and explains why: it captures adjustment on the intensive margin and the workers who feel a downturn first.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="#compare">Compare U-6 with the Sahm and Michez Rules</a></div></section>
+</div>
+</div>
+
 <div class="view" id="v-vibe" hidden>
 <section class="hero"><div class="in">
   <a class="chap-back" href="#validate">← Resources</a>
@@ -1131,7 +1154,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
 <!-- ===== Replications ===== -->
 <div class="view" id="v-replicate" hidden>
 <section class="hero"><div class="in">
-  <h1>Replications</h1>
+  <h1>Academic<br>Replications</h1>
   <p class="lede">Published evaluations of the Sahm Rule, re-run with the rule as it is defined. The first is “Works Like a Sahm,” a 2024 article in <i>Economics Letters</i>.</p>
   <div class="byline"><div>Replication note <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div></div>
 </div></section>
@@ -3271,6 +3294,7 @@ function renderSite() {
   if (v === "compare") renderCompare();
   if (v === "vibe") renderVibeAgg();
   if (v === "replicate") renderReplicate();
+  if (v === "umeas") renderUmeas();
   if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
   if (!ok) return;
@@ -3362,10 +3386,11 @@ function renderVibe() {
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "method", "thanks"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
+  if (v === "underemployment") v = "umeas";
   if (v && !VIEWS.includes(v)) {
     const el = document.getElementById(v);
     if (el && !el.closest(".view[hidden]")) {
@@ -3514,6 +3539,60 @@ function renderIncomeFigs() {
   dc.innerHTML = figure("How Much of the Head Start Is Income Itself?", TP("Family-Income Decile Data", "a Composition and Residual Split", "1982"),
     `${swatches([{ label: "Composition", color: "--s-comp" }, { label: "Income (residual)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="incdc"></div>`, "Gap in onset, poorest minus richest decile, in months, split into the part explained by each decile’s mix of race, education, sex, age and region (composition) and the remainder (income). Composition-predicted series price each decile’s demographic mix at economy-wide within-cell unemployment rates.");
   splitBars(dc.querySelector("#incdc"), splitRows(S.D1, S.D10, S.D1_cf, S.D10_cf, "lead", CPS_RECS()), "mo", { comp: "Composition", res: "Income (residual)", compTip: "The part of the gap explained by each decile’s mix of race, education, sex, age and region, priced at economy-wide unemployment rates within each cell.", resTip: "The part of the gap those characteristics do not explain: the head start attributable to income itself.", totTip: "The total difference in onset, poorest minus richest decile, in months. Composition and residual add up to this." });
+}
+
+
+/* ---------- Underemployment and the U-measures ---------- */
+const UM = [["U1RATE", "U-1", "--d2"], ["U2RATE", "U-2", "--d4"], ["U3", "U-3", "--d6"], ["U4RATE", "U-4", "--d7"], ["U5RATE", "U-5", "--d8"], ["U6RATE", "U-6", "--d10"]];
+SITE.uRec = "2007";
+let _umeas = null;
+async function loadUmeas() {
+  if (_umeas) return _umeas;
+  const out = {};
+  for (const [code, lab] of UM) {
+    if (code === "U3" && typeof BLS !== "undefined" && BLS["U-3 (all)"]) { out[code] = BLS["U-3 (all)"]; continue; }
+    const rows = await toolCsv(code === "U3" ? "UNRATE" : code);
+    const st = (d => d instanceof Date ? d.toISOString().slice(0, 7) : String(d).slice(0, 7))(rows[0].date);
+    out[code] = makeSeries("um:" + code, lab, st, rows.map(r => r.value));
+  }
+  return (_umeas = out);
+}
+async function renderUmeas() {
+  if (!window.d3) return;
+  let S; try { S = await loadUmeas(); } catch (e) { return; }
+  document.querySelectorAll(".needs-umeas").forEach(x => x.remove());
+  const recsAll = NBER.filter(r => r.id !== "1973"), recs94 = NBER.filter(r => ["2001", "2007", "2020"].includes(r.id));
+  const el = document.getElementById("fig-umeas");
+  const lines = UM.map(([c, l, col]) => indLine(S[c], l, col, "", c === "U6RATE" || c === "U3" ? 2.25 : 1.5));
+  el.innerHTML = figure("Turning Point by Labor Utilization",
+    TP("U-1 to U-6 Labor Utilization Data (BLS)", "Reference Lines and Recessions", "1948 (U-4 to U-6 from 1994)"),
+    `<div class="fig-ctl">${recRadios("urec", SITE.uRec, recsAll, true)}${swatches(UM.map(u => ({ label: u[1], color: u[2] })))}</div><div class="vbody"></div>`,
+    "Source: BLS via FRED (U1RATE, U2RATE, UNRATE, U4RATE, U5RATE, U6RATE), seasonally adjusted. Each line is one measure of labor underutilization run through its own indicator. Shaded: NBER recession. Dots mark when each measure crossed the threshold. U-4, U-5 and U-6 begin in 1994.");
+  wireRadios(el, "urec", v => { SITE.uRec = v; renderUmeas(); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: win(SITE.uRec), series: lines, shade: SHADE(), hlines: UPDOWN(), markers: onsetMarkers(UM.map(u => [S[u[0]], u[2]]), SITE.uRec), height: 400 });
+
+  // results strip: U-6 vs U-3, and U-1 vs U-3
+  const rl = splitRows(S.U6RATE, S.U3, null, null, "lead", recs94), rd = splitRows(S.U6RATE, S.U3, null, null, "dur", recs94), rt = splitRows(S.U6RATE, S.U3, null, null, "afterT", recs94);
+  const r1 = splitRows(S.U1RATE, S.U3, null, null, "lead", recsAll);
+  const sl = stats(rl.map(d => d.tot)), sd = stats(rd.map(d => d.tot)), st = stats(rt.map(d => d.tot)), s1 = stats(r1.map(d => d.tot));
+  document.getElementById("res-umeas").innerHTML =
+    dres("Advance of recession", sl.mean, "months earlier", "months later", `U-6 vs U-3 · ${sl.pos} of ${sl.n} recessions since 1994`) +
+    dres("Recession length", sd.mean, "months longer", "months shorter", `U-6 vs U-3 signal duration · SD ${f1(sd.sd)}`) +
+    dres("Lingers after trough", st.mean, "months longer", "months shorter", `U-6 vs U-3, past the NBER trough`) +
+    dres("Long-term unemployment", s1.mean, "months earlier", "months later", `U-1 vs U-3 · the lagging edge, ${s1.n} recessions since 1980`);
+
+  // start and end timeline
+  const ids = UM.map(u => u[0]);
+  const A = Object.fromEntries(ids.map(id => [id, { recs: matchAll(S[id]) }]));
+  timingFigure(document.getElementById("fig-umeas-tl"), "umeas", "Measure of Labor Utilization", "U-1 to U-6 Labor Utilization Data (BLS)", "1948", ids, A,
+    { label: id => UM.find(u => u[0] === id)[1], color: id => UM.find(u => u[0] === id)[2], st: { ref: "U3" } }, recs94, "U-3, the official rate");
+
+  // decomposition of U-6's head start over U-3
+  const dc = document.getElementById("fig-umeas-dc");
+  dc.innerHTML = figure("What Gives U-6 Its Head Start?", TP("U-3, U-5 and U-6 Labor Utilization Data (BLS)", "a Two-Step Split", "1994"),
+    `${swatches([{ label: "Marginally attached (U-5 vs U-3)", color: "--s-comp" }, { label: "Part time for economic reasons (U-6 vs U-5)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc"></div>`,
+    "Gap in onset, U-6 minus U-3, in months, split into the step from U-3 to U-5 (adding discouraged and other marginally attached workers) and the step from U-5 to U-6 (adding workers employed part time for economic reasons). Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
+  splitBars(dc.querySelector("#umdc"), splitRows(S.U6RATE, S.U3, S.U5RATE, S.U3, "lead", recs94), "mo", { comp: "Marginally attached", res: "Part time for economic reasons", compTip: "How much earlier U-5 signals than U-3: the head start from counting discouraged and other marginally attached workers.", resTip: "How much earlier U-6 signals than U-5: the head start from counting workers whose hours were cut or who could only find part-time work.", totTip: "The total difference in onset, U-6 minus U-3, in months." });
 }
 
 /* ---------- Race ---------- */
@@ -3708,7 +3787,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe"].includes(v); const meth = ["method", "thanks"].includes(v);
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas"].includes(v); const meth = ["method", "thanks"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources") || (meth && a.dataset.v === "methodgrp")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
