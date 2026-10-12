@@ -1019,6 +1019,8 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div id="fig-umeas-dc"></div>
   <section class="pbreak"><span class="ov-kicker">Decomposition</span><h2 class="ov-h">Scale, composition, or the intensive margin?</h2><p>U-6 is about one and a half to two times the size of U-3, so the same 0.5-point rise is easier for it to reach. It also gives more weight to the groups that are most often underemployed. To separate these from genuinely earlier movement, the split below rebuilds U-3 and a U-6-style rate from 32 race, sex and education cells of the CPS microdata and asks three questions. How much earlier would U-3 fire if it were simply as large as U-6 (scale)? How much earlier if each group’s U-3 were scaled by that group’s own underemployment (composition)? And how much earlier does the actual U-6-style rate fire than that (within groups, the intensive margin)?</p><p>Most of U-6’s head start at a fixed threshold is scale. Composition adds little, and within groups part-time work does not consistently move before unemployment. When the threshold is scaled to each measure’s level (the <b>Threshold scaling</b> control in the full analysis below), U-6 and U-3 fire within a month of each other. The case for U-6 is less that it is faster than that it is larger: it shows how much more slack a recession creates, and for whom.</p></section>
   <div id="fig-umeas-dc2"></div>
+  <section class="pbreak"><span class="ov-kicker">Oaxaca–Blinder</span><h2 class="ov-h">Who is underemployed, beyond their characteristics?</h2><p>Two decompositions of the same CPS microdata, with the controls used across the site: demographics (age, sex, education, family, region, metro status, veteran status, nativity), then industry, occupation and sector, then income. The first asks who is <i>underemployed but not unemployed</i>: the gap between two groups in the share working part time for economic reasons, and how much of it their characteristics explain. The second asks whether a gap <i>grows</i> when the intensive margin is counted, by decomposing the same comparison with U-3 and with the U-6-style rate side by side.</p></section>
+  <div id="fig-umeas-ob"></div>
   <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Inequality of Recession</h2><p>The paper shows that, in a search across thousands of candidate recession indicators, a rule built on U-6 sits on or near the frontier that trades early detection against accuracy, and explains why: it captures adjustment on the intensive margin and the workers who feel a downturn first.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="#compare">Compare U-6 with the Sahm and Michez Rules</a></div></section>
   <div class="full" data-chap="umeas"></div>
 </div>
@@ -3588,6 +3590,64 @@ function umeasSplitBars(el, rows) {
     resTip: "The rest: how much earlier the actual U-6-style rate fires than its composition-predicted version, because part-time-for-economic-reasons work rises earlier within groups.",
     totTip: "The total difference in onset, U-6-style minus U-3, in months, from the same CPS cells." });
 }
+
+/* Oaxaca–Blinder for underemployment outcomes (decomp_u6.csv from section 7 of the CPS master) */
+SITE.uob = { view: "pter", comp: "race_Black_White", spec: "jobs", period: "rec" };
+const UOB_COMPS = { race_Black_White: "Black vs White", race_Hispanic_White: "Hispanic vs White", inc_D01_D10: "Poorest vs richest decile", inc_Q1_Q5: "Poorest vs richest fifth", educ_LTHS_BAplus: "Less than HS vs bachelor’s+", educ_HS_BAplus: "High school vs bachelor’s+", sex_Women_Men: "Women vs men" };
+const UOB_SPECS = { demo: "Demographics", jobs: "+ industry, occupation, sector", full: "+ income" };
+const UOB_OUT = { u3: "U-3 (unemployed)", u6: "U-6-style (unemployed or part time for economic reasons)", pter: "Part time for economic reasons" };
+const UOB_BLK = { age: "Age", sex: "Sex", educ: "Education", family: "Family", region: "Region", metro: "Metro status", veteran: "Veteran", nativity: "Nativity", jobs: "Industry, occupation, sector", income: "Income", race: "Race" };
+let _uob = null;
+async function loadUob() {
+  if (_uob !== null) return _uob;
+  try { const r = await d3.csv("data/decomp_u6.csv"); _uob = r.length ? r : false; } catch (e) { _uob = false; }
+  return _uob;
+}
+function uobAvg(rows, comp, spec, out, period) {
+  const inRec = d => { const t = mIdx(d.date); return NBER.some(r => t >= mIdx(r.peak) && t <= mIdx(r.trough)); };
+  const sel = rows.filter(d => d.comp_id === comp && d.spec === spec && d.outcome === out && (period === "all" || (period === "rec") === inRec(d)));
+  if (!sel.length) return null;
+  const keys = Object.keys(sel[0]).filter(k => !["comp_id", "spec", "outcome", "date"].includes(k));
+  const o = { n: sel.length };
+  for (const k of keys) { const v = sel.map(d => +d[k]).filter(isFinite); o[k] = v.length ? v.reduce((a, b) => a + b, 0) / v.length : NaN; }
+  return o;
+}
+async function renderUob() {
+  const el = document.getElementById("fig-umeas-ob"); if (!el) return;
+  const rows = await loadUob(), U = SITE.uob;
+  const ctl = `<div class="fig-ctl" style="flex-direction:column;align-items:flex-start;gap:8px">
+    <div class="segs" id="uobview"><button data-v="pter" aria-pressed="${U.view === "pter"}">Who is underemployed</button><button data-v="grow" aria-pressed="${U.view === "grow"}">Does the gap grow from U-3 to U-6?</button></div>
+    <div class="row" style="gap:10px;flex-wrap:wrap"><select id="uobcomp" aria-label="Comparison">${Object.entries(UOB_COMPS).map(([k, v]) => `<option value="${k}" ${k === U.comp ? "selected" : ""}>${v}</option>`).join("")}</select>
+    <div class="segs" id="uobspec">${Object.entries(UOB_SPECS).map(([k, v]) => `<button data-v="${k}" aria-pressed="${k === U.spec}">${v}</button>`).join("")}</div>
+    <div class="segs" id="uobper">${[["rec", "Recession months"], ["exp", "Expansion months"], ["all", "All months"]].map(([k, v]) => `<button data-v="${k}" aria-pressed="${k === U.period}">${v}</button>`).join("")}</div></div></div>`;
+  const foot = "Source: IPUMS CPS Basic Monthly, weighted. Oaxaca–Blinder decomposition estimated each month as a linear probability model with pooled coefficients; the comparison’s own variable is left out of the controls. Averages over the months selected; recession months are NBER peak to trough. Industry, occupation and sector are partly outcomes of unequal access to jobs, so the demographic and jobs control sets are best read side by side. The unexplained part is what the controls do not account for; it is not by itself a causal estimate.";
+  if (!rows) {
+    el.innerHTML = figure("Oaxaca–Blinder: Underemployment Gaps", "", `${ctl}<p class="note">These decompositions come from section 7 of the CPS master R Markdown, which writes <code>decomp_u6.csv</code>. They will appear here once that file is added to the site’s data folder.</p>`, foot);
+  } else {
+    const outs = U.view === "pter" ? ["pter"] : ["u3", "u6", "pter"];
+    const R = outs.map(o => ({ o, a: uobAvg(rows, U.comp, U.spec, o, U.period) })).filter(x => x.a);
+    const blks = Object.keys(UOB_BLK).filter(b => R.some(x => isFinite(x.a["blk_" + b]) && Math.abs(x.a["blk_" + b]) > 0.005));
+    const max = Math.max(0.5, ...R.map(x => Math.max(Math.abs(x.a.gap), Math.abs(x.a.explained) + Math.abs(x.a.unexplained))));
+    const bar = x => { const ex = x.a.explained, un = x.a.unexplained, W = v => Math.abs(v) / max * 100;
+      return `<div style="display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:10px;margin:8px 0"><div style="font-size:13px">${UOB_OUT[x.o]}</div><div style="display:flex;height:22px;background:var(--rule)"><span title="Explained ${sg(ex, 2)} pp" style="width:${W(ex)}%;background:var(--s-comp)"></span><span title="Unexplained ${sg(un, 2)} pp" style="width:${W(un)}%;background:var(--s-resid)"></span></div><div class="num" style="font-size:12.5px">${f1(x.a.gap, 2)} pp · <b>${isFinite(un / x.a.gap) ? f1(100 * un / x.a.gap, 0) + "%" : "–"}</b> unexpl.</div></div>`; };
+    const tbl = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th class="l">Contribution (pp)</th>${R.map(x => `<th>${x.o === "u3" ? "U-3" : x.o === "u6" ? "U-6-style" : "Part time, econ."}</th>`).join("")}</tr></thead><tbody>
+      <tr><td class="l">${esc(UOB_COMPS[U.comp].split(" vs ")[0])} rate</td>${R.map(x => `<td class="num">${f1(x.a.yA, 2)}</td>`).join("")}</tr>
+      <tr><td class="l">${esc(UOB_COMPS[U.comp].split(" vs ")[1])} rate</td>${R.map(x => `<td class="num">${f1(x.a.yB, 2)}</td>`).join("")}</tr>
+      ${blks.map(b => `<tr><td class="l">${UOB_BLK[b]}</td>${R.map(x => `<td class="num">${sg(x.a["blk_" + b], 2)}</td>`).join("")}</tr>`).join("")}
+      <tr><td class="l"><b>Explained</b></td>${R.map(x => `<td class="num">${sg(x.a.explained, 2)}</td>`).join("")}</tr>
+      <tr><td class="l"><b>Unexplained</b></td>${R.map(x => `<td class="num">${sg(x.a.unexplained, 2)}</td>`).join("")}</tr>
+      <tr><td class="l"><b>Gap</b></td>${R.map(x => `<td class="num">${sg(x.a.gap, 2)}</td>`).join("")}</tr></tbody></table></div>`;
+    let lead = "";
+    if (U.view === "grow") { const a = R.find(x => x.o === "u3"), b = R.find(x => x.o === "u6"); if (a && b) lead = `<p class="note">Counting part time for economic reasons, the ${esc(UOB_COMPS[U.comp])} gap goes from ${f1(a.a.gap, 2)} to ${f1(b.a.gap, 2)} percentage points, and the unexplained part from ${f1(a.a.unexplained, 2)} to ${f1(b.a.unexplained, 2)} (${f1(100 * a.a.unexplained / a.a.gap, 0)}% to ${f1(100 * b.a.unexplained / b.a.gap, 0)}% of the gap).</p>`; }
+    el.innerHTML = figure(U.view === "pter" ? "Who Is Underemployed but Not Unemployed?" : "Does the Gap Grow When the Intensive Margin Counts?", "",
+      `${ctl}${swatches([{ label: "Explained by characteristics", color: "--s-comp" }, { label: "Unexplained", color: "--s-resid" }])}<div class="vbody">${R.length ? R.map(bar).join("") + lead + tbl : `<p class="note">No months available for this selection.</p>`}</div>`, foot);
+  }
+  el.querySelectorAll("#uobview button").forEach(b => b.onclick = () => { U.view = b.dataset.v; renderUob(); });
+  el.querySelectorAll("#uobspec button").forEach(b => b.onclick = () => { U.spec = b.dataset.v; renderUob(); });
+  el.querySelectorAll("#uobper button").forEach(b => b.onclick = () => { U.period = b.dataset.v; renderUob(); });
+  const cs = el.querySelector("#uobcomp"); if (cs) cs.onchange = () => { U.comp = cs.value; renderUob(); };
+}
+
 async function renderUmeas() {
   if (!window.d3) return;
   let S; try { S = await loadUmeas(); } catch (e) { return; }
@@ -3632,6 +3692,7 @@ async function renderUmeas() {
       "Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted; 32 cells of race (White, Black, Hispanic, Asian from 1989), sex and four education levels, weighted by sample size. U-6-style rate: unemployed plus employed part time for economic reasons, as a share of the labor force (the microdata do not identify marginally attached workers). Scale: U-3 multiplied by the average ratio of U-6 to U-3. Composition: each cell’s U-3 multiplied by that cell’s own average ratio. Within groups: the actual U-6-style rate. Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
     umeasSplit().then(rows => umeasSplitBars(dc2.querySelector("#umdc2"), rows)).catch(() => {});
   }
+  renderUob();
 }
 
 /* ---------- Race ---------- */
