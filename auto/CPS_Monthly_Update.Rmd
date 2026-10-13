@@ -1,0 +1,421 @@
+---
+title: "CPS monthly update (runs on GitHub)"
+output: html_document
+params:
+  skip_fetch: false    # TRUE rebuilds the site files from auto/state without asking IPUMS for anything
+  max_new_months: 6    # safety cap on how many new months one run will pull
+  seed: 20261010
+  min_n_decomp: 150
+---
+
+This is the automatic counterpart of `Inequality_of_Recession_CPS_Master.Rmd`. Instead of re-reading 50 years of microdata, it asks IPUMS whether any monthly CPS sample is newer than the last month in `auto/state/`, downloads only those months, runs them through **the master's own functions** (copied verbatim below), appends the unadjusted results to the history, and redoes the seasonal adjustment on the full history. It then rewrites the four CPS files the site reads:
+
+* `data/explorer_series.csv` and `data/explorer_cells.csv` (series, composition counterfactuals, Oaxaca–Blinder by month)
+* `data/umeas_cells.csv` (race × sex × education U-3 and U-6-style rates, for the underemployment page)
+* `data/decomp_u6.csv` (Oaxaca–Blinder for U-3, U-6-style and part time for economic reasons)
+
+The IPUMS key comes from the repository secret `IPUMS_API_KEY`; it is never written to a file. After a full re-knit of the master, run `Build_CPS_State.Rmd` to replace the history.
+
+```{r setup}
+library(data.table); library(zoo); library(forecast)
+knitr::opts_knit$set(root.dir = normalizePath(".."))   # repository root
+```
+
+```{r master-functions}
+# ---- Copied verbatim from Inequality_of_Recession_CPS_Master.Rmd ----
+num <- function(d, v) if (v %in% names(d)) as.integer(d[[v]]) else rep(NA_integer_, nrow(d))
+
+recode_cps <- function(d) {
+  d[, wt    := as.numeric(wtfinl)]
+  d[, unemp := as.integer(as.integer(empstat) >= 20L)]
+  d[, age := as.integer(age)]; d[, educ := as.integer(educ)]
+  d[, race := as.integer(race)]; d[, hispan := as.integer(hispan)]
+  d[, faminc := as.integer(faminc)]
+  # outcomes beyond U-3
+  d[, ptecon := as.integer(unemp == 0L & num(d, "wkstat") %in% wk_ptecon)]
+  d[, jobloser := as.integer(unemp == 1L & num(d, "whyunemp") %in% wu_loser)]
+
+  # race / ethnicity, mutually exclusive
+  d[, race4 := fifelse(hispan >= 100L & hispan < 900L, "Hispanic",
+               fifelse(race == 100L, "White",
+               fifelse(race == 200L, "Black",
+               fifelse(race %in% c(650L, 651L, 652L), "Asian", "Other"))))]
+  d[, hisp4 := fcase(hispan >= 100L & hispan < 200L, "Mexican",
+                     hispan >= 200L & hispan < 300L, "PuertoRican",
+                     hispan >= 300L & hispan < 400L, "Cuban",
+                     hispan >= 400L & hispan < 900L, "OtherHispanic",
+                     default = NA_character_)]
+  d[, sex := fifelse(as.integer(sex) == 1L, "M", "F")]
+  d[, age3 := fcase(age <= 24L, "16-24", age <= 54L, "25-54", default = "55+")]
+  d[, age5 := fcase(age <= 24L, "16-24", age <= 34L, "25-34", age <= 44L, "35-44",
+                    age <= 54L, "45-54", default = "55+")]
+  d[, educ4 := fcase(educ >= 2L  & educ <= 71L,  "LTHS",
+                     educ >= 72L & educ <= 73L,  "HS",
+                     educ >= 80L & educ <= 100L, "SomeCol",
+                     educ >= 110L & educ < 999L, "BAplus",
+                     default = "Unk")]
+  rg <- num(d, "region")
+  d[, region4 := fcase(rg %/% 10L == 1L, "NE", rg %/% 10L == 2L, "MW",
+                       rg %/% 10L == 3L, "S",  rg %/% 10L == 4L, "W", default = "Unk")]
+  d[, state := sprintf("%02d", num(d, "statefip"))]
+  mt <- num(d, "metro")
+  d[, metro3 := fcase(mt == 1L, "Nonmetro", mt == 2L, "PrincipalCity",
+                      mt %in% c(3L, 4L), "Suburb", default = "Unk")]
+  d[, metro2 := fcase(mt == 1L, "Nonmetro", mt %in% 2:4, "Metro", default = "Unk")]
+  nv <- num(d, "nativity")
+  d[, nativity2 := fcase(nv %in% 1:4, "Native", nv == 5L, "ForeignBorn", default = "Unk")]
+  vs <- num(d, "vetstat")
+  d[, vet2 := fcase(vs == 2L, "Veteran", vs == 1L, "NonVeteran", default = "Unk")]
+  df <- num(d, "diffany")
+  d[, disab2 := fcase(df == 2L, "Disability", df == 1L, "NoDisability", default = "Unk")]
+  ms <- num(d, "marst")
+  d[, marst2 := fifelse(ms %in% c(1L, 2L), "Married", "NotMarried")]
+  nc <- num(d, "nchild")
+  d[, kids2 := fifelse(!is.na(nc) & nc > 0L, "Kids", "NoKids")]
+
+  i90 <- num(d, "ind1990")
+  d[, ind := fcase(i90 == 0L | is.na(i90),           "None",
+                   i90 >= 10L  & i90 <= 32L,         "Ag",
+                   i90 >= 40L  & i90 <= 60L,         "MinConst",
+                   i90 >= 100L & i90 <= 392L,        "Manuf",
+                   i90 >= 400L & i90 <= 472L,        "TransUtil",
+                   i90 >= 500L & i90 <= 691L,        "Trade",
+                   i90 >= 700L & i90 <= 712L,        "FIRE",
+                   i90 >= 721L & i90 <= 791L,        "BusPersServ",
+                   i90 >= 800L & i90 <= 893L,        "ProfEntServ",
+                   i90 >= 900L & i90 <= 932L,        "PubAdmin",
+                   default = "Other")]
+  cw <- num(d, "classwkr")
+  d[, sector := fcase(cw %in% c(25L, 27L, 28L),  "Gov",
+                      cw >= 10L & cw <= 14L,     "Self",
+                      cw >= 20L & cw <= 24L,     "Private",
+                      default = "None")]
+  o10 <- num(d, "occ2010")
+  d[, occ := fcase(o10 >= 10L   & o10 <= 950L,  "MgmtBusFin",
+                   o10 >= 1000L & o10 <= 3540L, "Professional",
+                   o10 >= 3600L & o10 <= 4650L, "Service",
+                   o10 >= 4700L & o10 <= 5940L, "SalesOffice",
+                   o10 >= 6000L & o10 <= 7630L, "ConstrMaint",
+                   o10 >= 7700L & o10 <= 9750L, "ProdTransport",
+                   default = "None")]
+  d[]
+}
+
+# Weighted income decile within a month: sort by FAMINC, random tie-break
+assign_deciles <- function(d) {
+  d[, u_tie := runif(.N)]
+  setorder(d, faminc, u_tie)
+  d[, prank := (cumsum(wt) - wt / 2) / sum(wt)]
+  d[, dec  := sprintf("D%02d", pmin(10L, as.integer(floor(prank * 10)) + 1L))]
+  d[, incq := paste0("Q", (as.integer(substr(dec, 2, 3)) + 1L) %/% 2L)]
+  d[, c("u_tie", "prank") := NULL]
+  d[]
+}
+wrate <- function(u, w) sum(u * w) / sum(w)
+UNK <- c("Unk", NA)
+BLOCKS <- list(
+  age = "age5", sex = "sex", educ = "educ4", family = c("marst2", "kids2"),
+  region = "region4", metro = "metro3", veteran = "vet2", nativity = "nativity2",
+  jobs = c("ind", "occ", "sector"), income = "incq", race = "race4"
+)
+SPECS <- list(
+  demo = c("age", "sex", "educ", "family", "region", "metro", "veteran", "nativity"),
+  jobs = c("age", "sex", "educ", "family", "region", "metro", "veteran", "nativity", "jobs"),
+  full = c("age", "sex", "educ", "family", "region", "metro", "veteran", "nativity", "jobs", "income", "race")
+)
+comp_pred <- function(focal, ref, cells, fallback) {
+  rf  <- ref[, .(u_ref = wrate(unemp, wt)), by = cells]
+  rfc <- ref[, .(u_fb  = wrate(unemp, wt)), by = fallback]
+  wf  <- focal[, .(w = sum(wt)), by = cells]
+  wf  <- merge(wf, rf, by = cells, all.x = TRUE)
+  wf  <- merge(wf, rfc, by = fallback, all.x = TRUE)
+  wf[is.na(u_ref), u_ref := u_fb]
+  wf <- wf[!is.na(u_ref)]
+  sum(wf$w * wf$u_ref) / sum(wf$w)
+}
+oaxaca_month <- function(dA, dB, xvars, do_logit = TRUE) {
+  dd <- rbind(dA[, c("unemp", "wt", xvars), with = FALSE][, grp := 1L],
+              dB[, c("unemp", "wt", xvars), with = FALSE][, grp := 0L])
+  for (v in xvars) dd[[v]] <- factor(dd[[v]])
+  xv <- xvars[vapply(xvars, function(v) nlevels(dd[[v]]) > 1, logical(1))]
+  X  <- model.matrix(reformulate(xv), dd)
+  y <- dd$unemp; w <- dd$wt; g <- dd$grp
+  wm <- function(M, idx) colSums(M[idx, , drop = FALSE] * w[idx]) / sum(w[idx])
+  xA <- wm(X, g == 1L); xB <- wm(X, g == 0L)
+  yA <- wrate(y[g == 1L], w[g == 1L]); yB <- wrate(y[g == 0L], w[g == 0L]); gap <- yA - yB
+  bP <- lm.wfit(cbind(X, grp = g), y, w)$coefficients[colnames(X)]; bP[is.na(bP)] <- 0
+  bB <- lm.wfit(X[g == 0L, , drop = FALSE], y[g == 0L], w[g == 0L])$coefficients; bB[is.na(bB)] <- 0
+  ep <- sum((xA - xB) * bP); er <- sum((xA - xB) * bB)
+  out <- list(gap = gap, expl_pooled = ep, unexpl_pooled = gap - ep, expl_ref = er, unexpl_ref = gap - er)
+  if (do_logit) {
+    fl <- suppressWarnings(glm.fit(X[g == 0L, , drop = FALSE], y[g == 0L],
+                                   weights = w[g == 0L] / mean(w[g == 0L]), family = binomial()))
+    bl <- fl$coefficients; bl[is.na(bl)] <- 0
+    pA <- plogis(X[g == 1L, , drop = FALSE] %*% bl); pAb <- sum(pA * w[g == 1L]) / sum(w[g == 1L])
+    out$expl_logit <- pAb - yB; out$unexpl_logit <- yA - pAb
+  }
+  out
+}
+dec_name <- c("Poorest decile (D1)", "2nd-poorest decile (D2)", "3rd decile (D3)", "4th decile (D4)",
+              "Middle decile (D5)", "6th decile (D6)", "7th decile (D7)", "8th decile (D8)",
+              "2nd-richest decile (D9)", "Richest decile (D10)")
+legacy_month <- function(d) {
+  # d: income-valid, recoded, deciles assigned
+  d <- copy(d); d[, decn := as.integer(substr(dec, 2, 3))]
+  cells_income_cf <- c("race4", "educ4", "sex", "age3", "region4")
+  cells_race_cf   <- c("incq", "educ4", "sex", "age3", "region4")
+  cells_fallback  <- c("educ4", "sex", "age3")
+  oax_x_income <- c("race4", "educ4", "sex", "age3", "region4", "ind")
+  oax_x_race   <- c("incq",  "educ4", "sex", "age3", "region4", "ind")
+  sub_x <- c("incq", "age3", "region4", "marst2", "ind", "sector", "occ")
+  res <- list()
+  add <- function(panel, family, role, id, label, base_id, value, n = NA_integer_)
+    res[[length(res) + 1L]] <<- data.table(panel = panel, family = family, role = role, series_id = id,
+                                          label = label, base_id = base_id, value_raw = 100 * value, n_obs = n)
+  add("both", "Aggregate", "actual", "all", "All (CPS, income-valid)", "all", wrate(d$unemp, d$wt), nrow(d))
+  for (k in 1:10) {
+    dk <- d[decn == k]
+    add("income", "Decile", "actual", paste0("D", k), dec_name[k], paste0("D", k), wrate(dk$unemp, dk$wt), nrow(dk))
+    add("income", "Composition-predicted", "cf", paste0("D", k, "_cf"), paste0(dec_name[k], " · composition-predicted"),
+        paste0("D", k), comp_pred(dk, d, cells_income_cf, cells_fallback))
+  }
+  for (pr in list(c(1, 10), c(1, 5), c(2, 9))) {
+    a <- if (identical(pr, c(1, 5))) d[decn <= 2] else d[decn == pr[1]]
+    b <- if (identical(pr, c(1, 5))) d[decn >= 9] else d[decn == pr[2]]
+    tag <- if (identical(pr, c(1, 5))) "Q1_Q5" else paste0("D", pr[1], "_D", pr[2])
+    lab <- if (identical(pr, c(1, 5))) "Poorest fifth vs richest fifth" else if (pr[1] == 1) "Poorest vs richest decile" else "2nd-poorest vs 2nd-richest decile"
+    o <- oaxaca_month(a, b, oax_x_income, TRUE)
+    for (nm in names(o)) add("income", paste0("Oaxaca: ", lab), nm, paste0("oax_", tag, "_", nm), paste0(lab, " · ", nm), paste0("oax_", tag), o[[nm]])
+  }
+  white <- d[race4 == "White"]
+  for (r in c("White", "Black", "Hispanic", "Asian")) {
+    dr <- d[race4 == r]
+    add("race", "Group (CPS, NH)", "actual", paste0("R_", r), r, paste0("R_", r), wrate(dr$unemp, dr$wt), nrow(dr))
+    if (r != "White") {
+      add("race", "Composition-predicted", "cf", paste0("R_", r, "_cf"), paste0(r, " · composition-predicted (White within-cell rates)"),
+          paste0("R_", r), comp_pred(dr, white, cells_race_cf, cells_fallback))
+      add("race", "Composition-reweighted", "cf_rw", paste0("R_", r, "_rw"), paste0(r, " within-cell rates · White composition"),
+          paste0("R_", r), comp_pred(white, dr, cells_race_cf, cells_fallback))
+      if (r != "Asian" || nrow(dr) > 300) {
+        o <- oaxaca_month(dr, white, oax_x_race, TRUE)
+        for (nm in names(o)) add("race", paste0("Oaxaca: ", r, " vs White"), nm, paste0("oax_", r, "_W_", nm), paste0(r, " vs White · ", nm), paste0("oax_", r, "_W"), o[[nm]])
+      }
+    }
+  }
+  sx_lab <- c(M = "men", F = "women")
+  ed_lab <- c(LTHS = "less than HS", HS = "HS diploma", SomeCol = "some college", BAplus = "bachelor's+")
+  for (sx in c("F", "M")) for (ed in names(ed_lab)) {
+    wsub <- d[race4 == "White" & sex == sx & educ4 == ed]
+    for (r in c("White", "Black", "Hispanic", "Asian")) {
+      sub <- d[race4 == r & sex == sx & educ4 == ed]
+      if (nrow(sub) < 30) next
+      id <- paste0("S_", r, "_", sx, "_", ed); lab <- paste0(r, " ", sx_lab[[sx]], ", ", ed_lab[[ed]])
+      add("subgroup", "Race x sex x education", "actual", id, lab, id, wrate(sub$unemp, sub$wt), nrow(sub))
+      if (r != "White" && nrow(wsub) >= 30) {
+        add("subgroup", "Composition-predicted", "cf", paste0(id, "_cf"),
+            paste0(lab, " · composition-predicted (White ", sx_lab[[sx]], ", ", ed_lab[[ed]], " rates)"), id,
+            comp_pred(sub, wsub, c("incq", "age3", "region4", "sector", "occ"), c("age3")))
+        if (r %in% c("Black", "Hispanic")) {
+          o <- oaxaca_month(sub, wsub, sub_x, do_logit = FALSE)
+          for (nm in names(o)) add("subgroup", paste0("Oaxaca: ", lab, " vs White"), nm, paste0("oax_", id, "_", nm), paste0(lab, " vs White · ", nm), paste0("oax_", id), o[[nm]])
+        }
+      }
+    }
+  }
+  base <- d[race4 %in% c("White", "Black", "Hispanic", "Asian") & educ4 != "Unk"]
+  cr <- base[, .(value_raw = 100 * wrate(unemp, wt), w = sum(wt), n = .N), by = .(race = race4, educ = educ4, sex, age = age3)]
+  cr[, `:=`(panel = "race", incq = "all")]
+  ci <- base[, .(value_raw = 100 * wrate(unemp, wt), w = sum(wt), n = .N), by = .(incq, race = race4, educ = educ4, sex)]
+  ci[, `:=`(panel = "income", age = "all")]
+  list(series = rbindlist(res), cells = rbindlist(list(cr, ci), use.names = TRUE))
+}
+# about income use every row; the `full` control set then adds income quintile
+# with an explicit "Unk" level for respondents without a valid FAMINC.
+d_full_with_income <- function(d, d_inc) {
+  if (is.null(d_inc)) return(d)
+  key <- c("serial", "pernum")
+  if (all(key %in% names(d)) && all(key %in% names(d_inc))) {
+    d <- merge(d[, !c("dec", "incq")], d_inc[, c(key, "dec", "incq"), with = FALSE], by = key, all.x = TRUE)
+  }
+  d[]
+}
+stl_sadj <- function(x, dates) {
+  if (sum(!is.na(x)) < 36) return(x)
+  x  <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
+  xs <- as.numeric(zoo::rollmean(zoo::zoo(x), k = 3, fill = NA, align = "center"))
+  xs[is.na(xs)] <- x[is.na(xs)]
+  ts_x <- ts(xs, start = c(as.integer(format(min(dates), "%Y")), as.integer(format(min(dates), "%m"))), frequency = 12)
+  as.numeric(forecast::seasadj(stl(ts_x, s.window = "periodic", robust = TRUE, t.window = 13)))
+}
+fill_grid <- function(DT, key, cols) {
+  span <- DT[, .(d0 = min(date), d1 = max(date)), by = key]
+  grid <- span[, .(date = seq(d0, d1, by = "month")), by = key]
+  merge(grid, DT[, c(key, "date", cols), with = FALSE], by = c(key, "date"), all.x = TRUE)
+}
+```
+
+```{r u6-functions}
+# ---- Section 7 of the master (underemployment decompositions) ----
+U6_OUTCOMES <- c(u3 = "unemp", u6 = "u6", pter = "ptecon")
+U6_COMPS <- list(
+  list(id = "race_Black_White",    A = quote(race4 == "Black"),    B = quote(race4 == "White"),  own = "race", inc = FALSE),
+  list(id = "race_Hispanic_White", A = quote(race4 == "Hispanic"), B = quote(race4 == "White"),  own = "race", inc = FALSE),
+  list(id = "inc_D01_D10",         A = quote(dec == "D01"),        B = quote(dec == "D10"),      own = "income", inc = TRUE),
+  list(id = "inc_Q1_Q5",           A = quote(incq == "Q1"),        B = quote(incq == "Q5"),      own = "income", inc = TRUE),
+  list(id = "educ_LTHS_BAplus",    A = quote(educ4 == "LTHS"),     B = quote(educ4 == "BAplus"), own = "educ", inc = FALSE),
+  list(id = "educ_HS_BAplus",      A = quote(educ4 == "HS"),       B = quote(educ4 == "BAplus"), own = "educ", inc = FALSE),
+  list(id = "sex_Women_Men",       A = quote(sex == "F"),          B = quote(sex == "M"),        own = "sex", inc = FALSE)
+)
+ob_one <- function(dd, xblocks, yv) {
+  xvars <- unlist(BLOCKS[xblocks], use.names = FALSE)
+  xvars <- xvars[vapply(xvars, function(v) { x <- dd[[v]]; length(unique(x[!(x %in% UNK)])) > 1L }, logical(1))]
+  for (v in xvars) dd[[v]] <- factor(fifelse(dd[[v]] %in% UNK, "Unk", dd[[v]]))
+  X <- model.matrix(reformulate(if (length(xvars)) xvars else "1"), dd)
+  vnames <- c("(Intercept)", xvars)[attr(X, "assign") + 1L]
+  y <- dd[[yv]]; w <- dd$wt; g <- dd$grp; A <- g == 1L; B <- g == 0L
+  yA <- wrate(y[A], w[A]); yB <- wrate(y[B], w[B])
+  wm <- function(idx) colSums(X[idx, , drop = FALSE] * w[idx]) / sum(w[idx])
+  bP <- lm.wfit(cbind(X, grp = g), y, w)$coefficients[colnames(X)]; bP[is.na(bP)] <- 0
+  contrib <- (wm(A) - wm(B)) * bP
+  blk <- vapply(names(BLOCKS), function(b) sum(contrib[vnames %in% BLOCKS[[b]]]), numeric(1))
+  expl <- sum(contrib)
+  c(yA = yA, yB = yB, gap = yA - yB, explained = expl, unexplained = yA - yB - expl, setNames(blk, paste0("blk_", names(blk))))
+}
+u6_decomp <- function(d_all, d_inc) {
+  out <- list()
+  for (cp in U6_COMPS) {
+    src <- if (cp$inc) d_inc else d_all
+    if (is.null(src) || !nrow(src)) next
+    a <- src[eval(cp$A)]; b <- src[eval(cp$B)]
+    if (nrow(a) < params$min_n_decomp || nrow(b) < params$min_n_decomp) next
+    dd <- rbind(a[, grp := 1L], b[, grp := 0L])
+    for (sp in names(SPECS)) {
+      blocks <- setdiff(SPECS[[sp]], cp$own)
+      if (!cp$inc && "income" %in% blocks && !any(!is.na(dd$incq))) blocks <- setdiff(blocks, "income")
+      for (o in names(U6_OUTCOMES)) {
+        r <- tryCatch(ob_one(copy(dd), blocks, U6_OUTCOMES[[o]]), error = function(e) NULL)
+        if (is.null(r)) next
+        out[[length(out) + 1L]] <- as.data.table(as.list(r))[, `:=`(comp_id = cp$id, spec = sp, outcome = o, nA = nrow(a), nB = nrow(b))]
+      }
+    }
+  }
+  rbindlist(out, fill = TRUE)
+}
+```
+
+```{r state}
+ls_raw <- fread("auto/state/legacy_series_raw.csv.gz", colClasses = list(character = "date"))
+lc_raw <- fread("auto/state/legacy_cells_raw.csv.gz", colClasses = list(character = "date"))
+ug_raw <- fread("auto/state/umeas_groups_raw.csv.gz", colClasses = list(character = "date"))
+u6_raw <- fread("data/decomp_u6.csv", colClasses = list(character = "date"))
+last_done <- max(ls_raw$date)
+new_months <- character(0)
+cat("History runs through", last_done, "\n")
+```
+
+```{r month-processor}
+# One new month, start to finish: the master's process_month() steps, keeping only what the site reads.
+process_new_month <- function(dm, key) {
+  y <- as.integer(substr(key, 1, 4)); m <- as.integer(substr(key, 6, 7))
+  set.seed(params$seed + y * 100L + m)   # same seed as the master, so deciles match a full re-knit
+  d <- copy(dm)
+  d <- d[!is.na(wtfinl) & as.numeric(wtfinl) > 0]
+  d <- recode_cps(d); d[, u6 := as.integer(unemp == 1L | ptecon == 1L)]
+  d[, `:=`(dec = NA_character_, incq = NA_character_)]
+  d_inc <- d[!is.na(faminc) & !(faminc %in% faminc_bad) & faminc > 0L]
+  d_inc <- if (nrow(d_inc) > 1000L) assign_deciles(copy(d_inc)) else NULL
+  d_all <- d_full_with_income(d, d_inc)
+  lg <- legacy_month(d_inc)
+  ls_raw <<- rbind(ls_raw, lg$series[, date := key], fill = TRUE)
+  lc_raw <<- rbind(lc_raw, lg$cells[, .(panel, race, educ, sex, age, incq, date = key, value_raw, w, n)], fill = TRUE)
+  g <- d_all[!(race4 %in% UNK) & !(sex %in% UNK) & !(educ4 %in% UNK), .(n = .N, w = sum(wt), u3 = 100 * sum(wt * unemp) / sum(wt), u6l = 100 * sum(wt * (unemp + ptecon)) / sum(wt)), by = .(race4, sex, educ4)]
+  ug_raw <<- rbind(ug_raw, g[, .(series_id = sprintf("race4=%s&sex=%s&educ4=%s", race4, sex, educ4), date = key, n, w, u3, u6l)])
+  u6 <- u6_decomp(d_all, d_inc)
+  num_cols <- setdiff(names(u6), c("comp_id", "spec", "outcome", "nA", "nB"))
+  for (cc in num_cols) u6[, (cc) := round(100 * get(cc), 4)]
+  u6_raw <<- rbind(u6_raw, u6[, date := key], fill = TRUE)
+  new_months <<- c(new_months, key)
+  cat("Processed", key, "\n")
+}
+```
+
+```{r fetch}
+if (!params$skip_fetch) {
+  library(ipumsr)
+  stopifnot(nzchar(Sys.getenv("IPUMS_API_KEY")))
+  info <- get_sample_info("cps")
+  keep <- grepl("^cps\\d{4}_\\d{2}[bs]$", info$name) & !grepl("ASEC|Annual Social|March Supplement", info$description, ignore.case = TRUE)
+  samples <- sort(info$name[keep]); samples <- samples[!duplicated(substr(samples, 4, 10))]
+  ym <- sprintf("%s-%s-01", substr(samples, 4, 7), substr(samples, 9, 10))
+  samples <- samples[ym > last_done]; samples <- head(samples, params$max_new_months)
+  cat("New monthly samples:", if (length(samples)) paste(samples, collapse = ", ") else "none", "\n")
+  if (length(samples)) {
+    vars <- c("YEAR", "MONTH", "SERIAL", "PERNUM", "WTFINL", "EMPSTAT", "WKSTAT", "WHYUNEMP", "AGE", "SEX", "RACE", "HISPAN",
+              "EDUC", "MARST", "NCHILD", "NATIVITY", "VETSTAT", "DIFFANY", "FAMINC", "REGION", "STATEFIP", "METRO",
+              "IND1990", "OCC2010", "CLASSWKR")
+    ext <- submit_extract(define_extract_micro("cps", "Inequality of Recession: automatic monthly update", samples = samples, variables = vars))
+    ext <- wait_for_extract(ext, initial_delay_seconds = 30, verbose = TRUE)
+    dl <- tempfile(); dir.create(dl)
+    ddi_path <- download_extract(ext, download_dir = dl)
+    ddi <- read_ipums_ddi(ddi_path)
+    lbl <- function(v) as.data.table(ipums_val_labels(ddi, !!rlang::sym(v)))
+    fam <- lbl("FAMINC"); faminc_bad <- fam[grepl("missing|refused|don.?t know|blank|niu|not in universe", lbl, ignore.case = TRUE), val]
+    wk <- lbl("WKSTAT"); wk_ptecon <- wk[grepl("economic", lbl, ignore.case = TRUE) & !grepl("non-?economic", lbl, ignore.case = TRUE) &
+                                         !grepl("^full-?time hours", lbl, ignore.case = TRUE) & !grepl("unemployed", lbl, ignore.case = TRUE), val]
+    wu <- lbl("WHYUNEMP"); wu_loser <- wu[grepl("loser|layoff|lost|temporary job ended", lbl, ignore.case = TRUE), val]
+    micro <- read_ipums_micro(ddi, verbose = FALSE)
+    micro <- as.data.table(lapply(micro, function(col) { attributes(col) <- NULL; col })); setnames(micro, tolower(names(micro)))
+    micro <- micro[as.integer(age) >= 16L & as.integer(empstat) %in% c(10L, 12L, 20L, 21L, 22L)]
+    for (key in sort(unique(micro[, sprintf("%d-%02d-01", as.integer(year), as.integer(month))]))) {
+      y <- as.integer(substr(key, 1, 4)); m <- as.integer(substr(key, 6, 7))
+      process_new_month(micro[as.integer(year) == y & as.integer(month) == m], key)
+    }
+  }
+}
+```
+
+```{r write-state}
+if (length(new_months)) {
+  fwrite(ls_raw, "auto/state/legacy_series_raw.csv.gz")
+  fwrite(lc_raw, "auto/state/legacy_cells_raw.csv.gz")
+  fwrite(ug_raw, "auto/state/umeas_groups_raw.csv.gz")
+}
+```
+
+```{r export, eval = length(new_months) > 0 || params$skip_fetch}
+# explorer_series.csv: the master's export-legacy step, written in the site's compact format
+series <- copy(ls_raw)[, date := as.Date(date)]
+grid <- data.table(date = seq(min(series$date), max(series$date), by = "month"))
+meta <- unique(series[, .(panel, family, role, series_id, label, base_id)], by = "series_id")
+series <- merge(CJ(series_id = meta$series_id, date = grid$date), series[, .(series_id, date, value_raw, n_obs)], by = c("series_id", "date"), all.x = TRUE)
+series <- merge(series, meta, by = "series_id"); setorder(series, series_id, date)
+series[, value_sa := stl_sadj(value_raw, date), by = series_id]
+out <- series[, .(panel, family, role, series_id, label, base_id, date = format(date, "%Y-%m-01"), value_sa = round(value_sa, 3))]
+out[, first := seq_len(.N) == 1L, by = series_id]
+out[first == FALSE, `:=`(family = "", label = "", base_id = "")][, first := NULL]
+fwrite(out, "data/explorer_series.csv")
+
+# explorer_cells.csv
+cells <- copy(lc_raw)[, date := as.Date(date)]
+cells[, cell_id := paste(panel, race, educ, sex, age, incq, sep = "|")]
+cmeta <- cells[, .(lf_share = mean(w), n_mean = mean(n), cover = .N / nrow(grid)), by = .(cell_id, panel, race, educ, sex, age, incq)]
+cmeta[, lf_share := lf_share / sum(lf_share), by = panel]
+keep <- cmeta[cover >= 0.9, cell_id]
+cells <- merge(CJ(cell_id = keep, date = grid$date), cells[cell_id %in% keep, .(cell_id, date, value_raw)], by = c("cell_id", "date"), all.x = TRUE)
+setorder(cells, cell_id, date); cells[, value_sa := stl_sadj(value_raw, date), by = cell_id]
+cells <- merge(cells, cmeta[cell_id %in% keep], by = "cell_id")
+fwrite(cells[, .(panel, cell_id, race, educ, sex, age, incq, lf_share = signif(lf_share, 5), n_mean = round(n_mean),
+                 date = format(date, "%Y-%m-01"), value_sa = round(value_sa, 3))], "data/explorer_cells.csv")
+
+# umeas_cells.csv: race x sex x education U-3 and U-6-style, seasonally adjusted
+ug <- copy(ug_raw)[, date := as.Date(date)][!grepl("Unk|Other", series_id)]
+ug <- fill_grid(ug, "series_id", c("n", "u3", "u6l")); setorder(ug, series_id, date)
+ug[, `:=`(u3_sa = stl_sadj(u3, date), u6_sa = stl_sadj(u6l, date)), by = series_id]
+ug[, cell := gsub("race4=|sex=|educ4=", "", gsub("&", "|", series_id))]
+fwrite(ug[, .(cell, date = format(date, "%Y-%m"), n, u3 = round(u3_sa, 3), u6 = round(u6_sa, 3))], "data/umeas_cells.csv")
+
+# decomp_u6.csv: unadjusted, appended
+setorder(u6_raw, comp_id, spec, outcome, date)
+fwrite(u6_raw, "data/decomp_u6.csv")
+cat("Site files rewritten through", max(series$date), "\n")
+```
