@@ -1,0 +1,35 @@
+---
+title: "Build the CPS history the automatic monthly update extends"
+output: html_document
+params:
+  months_dir: "../../The Inequality of Recession/data/master/months"
+  u6_csv: "../data/decomp_u6.csv"
+---
+
+Run this once after every **full** re-knit of `Inequality_of_Recession_CPS_Master.Rmd`. It collects the unadjusted month-by-month results the master saved in `data/master/months/` and writes them to `auto/state/`. The GitHub workflow (`CPS_Monthly_Update.Rmd`) then appends each new month to these files and redoes the seasonal adjustment, so the site never needs the 12 GB of microdata.
+
+Knit it from the repository's `auto/` folder, with `params$months_dir` pointing at the master's `months/` folder. If you also knitted section 7 of the master, copy its `decomp_u6.csv` into the repository's `data/` folder at the same time.
+
+```{r build}
+library(data.table)
+mf <- list.files(params$months_dir, pattern = "^y\\d{4}_m\\d{2}\\.rds$", full.names = TRUE)
+stopifnot(length(mf) > 0)
+dt_of <- function(f) sprintf("%s-%s-01", sub("^y(\\d{4})_m(\\d{2})\\.rds$", "\\1", basename(f)), sub("^y(\\d{4})_m(\\d{2})\\.rds$", "\\2", basename(f)))
+LS <- list(); LC <- list(); UG <- list()
+for (f in mf) {
+  r <- readRDS(f); dt <- dt_of(f)
+  if (!is.null(r$legacy)) {
+    LS[[length(LS) + 1L]] <- r$legacy$series[, date := dt]
+    LC[[length(LC) + 1L]] <- r$legacy$cells[, date := dt]
+  }
+  g <- r$groups
+  if (!is.null(g) && nrow(g)) UG[[length(UG) + 1L]] <- g[combo == "race4__sex__educ4", .(series_id, date = dt, n, w, u3 = 100 * u3, u6l = 100 * u6l)]
+}
+ls <- rbindlist(LS); lc <- rbindlist(LC, use.names = TRUE); ug <- rbindlist(UG)
+dir.create("state", showWarnings = FALSE)
+fwrite(ls[, .(panel, family, role, series_id, label, base_id, date, value_raw, n_obs)], "state/legacy_series_raw.csv.gz")
+fwrite(lc[, .(panel, race, educ, sex, age, incq, date, value_raw, w, n)], "state/legacy_cells_raw.csv.gz")
+fwrite(ug, "state/umeas_groups_raw.csv.gz")
+cat("Months:", length(mf), "| legacy series rows:", nrow(ls), "| legacy cell rows:", nrow(lc), "| race x sex x education rows:", nrow(ug), "\n")
+cat("Last month in the history:", max(ls$date), "\n")
+```
