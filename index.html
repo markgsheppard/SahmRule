@@ -665,6 +665,15 @@ a.draft-tag:hover, a.draft-tag:focus-visible { color: #111; border-color: #111; 
 .sb-note { font-size: 11.5px; color: #a3a3a3; margin: 4px 0 0; }
 .chart .tip .sb-help { max-width: 280px; white-space: normal; color: #6b6b6b; font-size: 12px; line-height: 1.45; margin-top: 4px; }
 .chart rect.sb { cursor: default; }
+.readme { position: relative; display: block; width: fit-content; margin: 2px 0 10px; font-size: 12px; color: #6b6b6b; border-bottom: 1px dotted #a3a3a3; cursor: default; outline: none; }
+.readme .readme-tip { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
+.readme .readme-tip p { margin: 0 0 7px; } .readme .readme-tip p:last-child { margin: 0; }
+.readme:hover .readme-tip, .readme:focus .readme-tip, .readme:focus-within .readme-tip { display: block; }
+.chart .tip .sb-say { max-width: 300px; white-space: normal; color: #262626; font-size: 12.5px; line-height: 1.5; margin-top: 4px; }
+.uob-wrap { position: relative; cursor: default; }
+.uob-wrap .tip { max-width: 340px; }
+.uob-wrap .tip .sb-say { white-space: normal; color: #262626; font-size: 12.5px; line-height: 1.5; }
+.uob-plain { background: #f5f8fc; border-left: 3px solid var(--s-comp); padding: 10px 14px; margin: 10px 0 4px; font-size: 13.5px; line-height: 1.6; color: #333; }
 .pbreak { display: grid; gap: 10px; padding: 26px 0 8px; margin: 10px 0; border-top: 1px solid var(--rule); }
 .pbreak p { color: var(--prose); font-size: 16px; line-height: 1.7; max-width: 70ch; margin: 0; }
 .pbreak .ov-h { margin-bottom: 2px; }
@@ -3248,6 +3257,7 @@ function recRadios(name, cur, recs, named) {
 function wireRadios(root, name, onPick) { root.querySelectorAll(`input[name="${name}"]`).forEach(i => i.onchange = () => onPick(i.value)); }
 function swatches(items) { return `<div class="swatches">${items.map(it => `<span class="swatch"><span class="swatch__swatch ${it.dash ? "dash" : ""}" style="${it.dash ? "border-color" : "background"}:var(${it.color})"></span>${esc(it.label)}</span>`).join("")}</div>`; }
 function TP(data, shown, from) { return `Turning Point Indicator, Modified Sahm Rule, ${data}, Shown with ${shown}, Data from ${from} to Present <span class="vparams">(k = ${ST.p.k}, m = ${ST.p.m}, α = ${ST.p.alpha})</span>`; }
+function readme(html) { return `<span class="readme" tabindex="0">How to read this chart ⓘ<span class="readme-tip">${html}</span></span>`; }
 function figure(title, sub, body, foot) { return `<figure class="vfig"><div class="vhead"><div class="vtitle">${title}</div></div>${body}${(sub || foot) ? `<details class="fig-note"><summary>Notes and source</summary>${sub ? `<p>${sub}</p>` : ""}${foot ? `<p>${foot}</p>` : ""}</details>` : ""}</figure>`; }
 const SERIES_LINE = { years: true, noTicks: true };
 const UPDOWN = () => [{ y: ST.p.alpha, updown: true }];
@@ -3562,6 +3572,22 @@ async function loadUmeas() {
   }
   return (_umeas = out);
 }
+const MO = v => { const a = Math.abs(Math.round(v)); return a + (a === 1 ? " month" : " months"); };
+function u6say(d, k) {
+  const r = REC_NAMES_ALL(d.r.name), t = d.tot;
+  const head = `In the ${r} recession, U-6 crossed the recession threshold ${t === 0 ? "in the same month as" : MO(t) + (t > 0 ? " before" : " after")} U-3.`;
+  if (k === "tot") return head;
+  if (k === "comp") return `${head} Counting discouraged and other marginally attached workers (going from U-3 to U-5) ${d.comp === 0 ? "changed the timing by nothing" : (d.comp > 0 ? "moved the signal " + MO(d.comp) + " earlier" : "moved it " + MO(d.comp) + " later")}.`;
+  return `${head} Counting people who work part time because they cannot get full-time hours (going from U-5 to U-6) ${d.res === 0 ? "changed the timing by nothing" : (d.res > 0 ? "moved the signal " + MO(d.res) + " earlier" : "moved it " + MO(d.res) + " later")}.`;
+}
+function scaleSay(d, k) {
+  const r = REC_NAMES_ALL(d.r.name), t = d.tot;
+  const head = `In the ${r} recession, the U-6-style rate crossed the threshold ${t === 0 ? "in the same month as" : MO(t) + (t > 0 ? " before" : " after")} U-3.`;
+  if (k === "tot") return head;
+  if (k === "comp") return `${head} ${d.comp === 0 ? "None of that" : MO(d.comp) + (d.comp > 0 ? "" : " (in the other direction)")} ${d.comp === 0 ? "comes" : "come" + (Math.abs(d.comp) === 1 ? "s" : "")} from size alone: U-6 is roughly 1.6 times as large as U-3, so a 0.5-point rise arrives sooner even if nothing else differs.`;
+  if (k === "mid") return `${head} ${d.mid === 0 ? "None of it" : MO(d.mid)} comes from U-6 leaning more heavily on the groups that are most often underemployed.`;
+  return `${head} ${d.res === 0 ? "None of it" : MO(d.res)} reflects part-time work moving ${d.res >= 0 ? "earlier" : "later"} than unemployment within the same groups, the intensive margin itself.`;
+}
 let _umcells = null;
 async function umeasSplit() {
   if (!_umcells) {
@@ -3584,7 +3610,7 @@ async function umeasSplit() {
   });
 }
 function umeasSplitBars(el, rows) {
-  splitBars(el, rows, "mo", { comp: "Scale", mid: "Composition", res: "Within groups (intensive margin)", compColor: "--s-comp", midColor: "--d5",
+  splitBars(el, rows, "mo", { say: scaleSay, comp: "Scale", mid: "Composition", res: "Within groups (intensive margin)", compColor: "--s-comp", midColor: "--d5",
     compTip: "How much earlier the rule fires when U-3 is simply scaled up to U-6’s average level: a fixed 0.5-point threshold is easier to reach for a series that is larger.",
     midTip: "How much earlier it fires when each group’s U-3 is scaled by that group’s own average U-6/U-3 ratio: the head start from U-6 weighting more heavily the groups that are more often underemployed.",
     resTip: "The rest: how much earlier the actual U-6-style rate fires than its composition-predicted version, because part-time-for-economic-reasons work rises earlier within groups.",
@@ -3628,8 +3654,18 @@ async function renderUob() {
     const R = outs.map(o => ({ o, a: uobAvg(rows, U.comp, U.spec, o, U.period) })).filter(x => x.a);
     const blks = Object.keys(UOB_BLK).filter(b => R.some(x => isFinite(x.a["blk_" + b]) && Math.abs(x.a["blk_" + b]) > 0.005));
     const max = Math.max(0.5, ...R.map(x => Math.max(Math.abs(x.a.gap), Math.abs(x.a.explained) + Math.abs(x.a.unexplained))));
-    const bar = x => { const ex = x.a.explained, un = x.a.unexplained, W = v => Math.abs(v) / max * 100;
-      return `<div style="display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:10px;margin:8px 0"><div style="font-size:13px">${UOB_OUT[x.o]}</div><div style="display:flex;height:22px;background:var(--rule)"><span title="Explained ${sg(ex, 2)} pp" style="width:${W(ex)}%;background:var(--s-comp)"></span><span title="Unexplained ${sg(un, 2)} pp" style="width:${W(un)}%;background:var(--s-resid)"></span></div><div class="num" style="font-size:12.5px">${f1(x.a.gap, 2)} pp · <b>${isFinite(un / x.a.gap) ? f1(100 * un / x.a.gap, 0) + "%" : "–"}</b> unexpl.</div></div>`; };
+    const [GA, GB] = UOB_COMPS[U.comp].split(" vs ");
+    const CTRL = { demo: "age, sex, education, family, region, metro status, veteran status and nativity", jobs: "age, sex, education, family, region, metro status, veteran status, nativity, industry, occupation and sector", full: "age, sex, education, family, region, metro status, veteran status, nativity, industry, occupation, sector and income" }[U.spec];
+    const WHAT = { u3: "unemployed", u6: "unemployed or working part time because they cannot get full-time hours", pter: "working part time because they cannot get full-time hours" };
+    const pts = v => `${f1(Math.abs(v), 2)} percentage point${Math.abs(v) === 1 ? "" : "s"}`;
+    const sayRow = (x, k) => {
+      const a = x.a, base = `${GA} workers were ${pts(a.gap)} ${a.gap >= 0 ? "more" : "less"} likely than ${/^(White|Black|Hispanic)/.test(GB) ? GB : GB.toLowerCase()} workers to be ${WHAT[x.o]} (${f1(a.yA, 2)}% vs ${f1(a.yB, 2)}%).`;
+      if (k === "ex") return `${base} Differences in ${CTRL} would lead us to expect ${pts(a.explained)} of that gap.`;
+      if (k === "un") return `${base} The other ${pts(a.unexplained)} is not explained by those characteristics: ${GA} workers fare worse than ${/^(White|Black|Hispanic)/.test(GB) ? GB : GB.toLowerCase()} workers who look like them on every one of these measures.`;
+      return base;
+    };
+    const bar = (x, i) => { const ex = x.a.explained, un = x.a.unexplained, W = v => Math.abs(v) / max * 100;
+      return `<div style="display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:10px;margin:8px 0"><div style="font-size:13px">${UOB_OUT[x.o]}</div><div style="display:flex;height:22px;background:var(--rule)"><span class="uobs" data-i="${i}" data-k="ex" style="width:${W(ex)}%;background:var(--s-comp)"></span><span class="uobs" data-i="${i}" data-k="un" style="width:${W(un)}%;background:var(--s-resid)"></span></div><div class="num" style="font-size:12.5px">${f1(x.a.gap, 2)} pp · <b>${isFinite(un / x.a.gap) ? f1(100 * un / x.a.gap, 0) + "%" : "–"}</b> unexpl.</div></div>`; };
     const tbl = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th class="l">Contribution (pp)</th>${R.map(x => `<th>${x.o === "u3" ? "U-3" : x.o === "u6" ? "U-6-style" : "Part time, econ."}</th>`).join("")}</tr></thead><tbody>
       <tr><td class="l">${esc(UOB_COMPS[U.comp].split(" vs ")[0])} rate</td>${R.map(x => `<td class="num">${f1(x.a.yA, 2)}</td>`).join("")}</tr>
       <tr><td class="l">${esc(UOB_COMPS[U.comp].split(" vs ")[1])} rate</td>${R.map(x => `<td class="num">${f1(x.a.yB, 2)}</td>`).join("")}</tr>
@@ -3638,9 +3674,25 @@ async function renderUob() {
       <tr><td class="l"><b>Unexplained</b></td>${R.map(x => `<td class="num">${sg(x.a.unexplained, 2)}</td>`).join("")}</tr>
       <tr><td class="l"><b>Gap</b></td>${R.map(x => `<td class="num">${sg(x.a.gap, 2)}</td>`).join("")}</tr></tbody></table></div>`;
     let lead = "";
-    if (U.view === "grow") { const a = R.find(x => x.o === "u3"), b = R.find(x => x.o === "u6"); if (a && b) lead = `<p class="note">Counting part time for economic reasons, the ${esc(UOB_COMPS[U.comp])} gap goes from ${f1(a.a.gap, 2)} to ${f1(b.a.gap, 2)} percentage points, and the unexplained part from ${f1(a.a.unexplained, 2)} to ${f1(b.a.unexplained, 2)} (${f1(100 * a.a.unexplained / a.a.gap, 0)}% to ${f1(100 * b.a.unexplained / b.a.gap, 0)}% of the gap).</p>`; }
+    const per = { rec: "in recession months", exp: "in expansion months", all: "on average since 1976" }[U.period];
+    if (U.view === "grow") { const a = R.find(x => x.o === "u3"), b = R.find(x => x.o === "u6"); if (a && b) { const dg = b.a.gap - a.a.gap, de = b.a.explained - a.a.explained, du = b.a.unexplained - a.a.unexplained;
+      lead = `<div class="uob-plain"><b>In plain terms:</b> ${per}, the ${GA}–${GB} gap is ${pts(a.a.gap)} counting only unemployment. Counting involuntary part-time work as well, it is ${pts(b.a.gap)}, so the intensive margin ${dg >= 0 ? "adds" : "removes"} <b>${pts(dg)}</b>. Of that extra ${pts(dg)}, ${pts(de)} would be expected from differences in ${CTRL}, and <b>${pts(du)}</b> is not explained by them.</div>`; } }
+    else { const a = R[0]; if (a) lead = `<div class="uob-plain"><b>In plain terms:</b> ${per}, ${GA} workers were ${pts(a.a.gap)} ${a.a.gap >= 0 ? "more" : "less"} likely to be working part time because they could not get full-time hours (${f1(a.a.yA, 2)}% vs ${f1(a.a.yB, 2)}%). Differences in ${CTRL} account for ${pts(a.a.explained)} of that; <b>${pts(a.a.unexplained)}</b> remains after comparing workers who look alike on all of them.</div>`; }
+    const howto = readme(`<p><b>What you are looking at.</b> Each bar is the gap between two groups in one outcome, measured in percentage points of the labor force. The full bar is the raw gap: how much more often the first group is ${U.view === "pter" ? "stuck in part-time work it did not choose" : "unemployed, or unemployed or stuck in involuntary part-time work"}.</p><p><b>The light piece</b> is the part of the gap we would expect just from the two groups being different on the controls you select (for example, if one group is younger or has less schooling). <b>The dark piece</b> is what is left over when workers who look alike on all of those measures are compared.</p><p><b>How to read it.</b> ${U.view === "grow" ? "Compare the U-3 bar with the U-6-style bar. The difference between them is what counting involuntary part-time work adds to the gap; the box below says how much of that extra is explained. If the dark share stays about the same, part-time work falls on the same workers in the same way unemployment does." : "A long dark piece means the group is far more often underemployed than its characteristics predict."} The controls buttons add characteristics step by step; industry and occupation can themselves reflect unequal access to jobs, so compare the first two settings. Hover a piece for the numbers in plain words.</p>`);
     el.innerHTML = figure(U.view === "pter" ? "Who Is Underemployed but Not Unemployed?" : "Does the Gap Grow When the Intensive Margin Counts?", "",
-      `${ctl}${swatches([{ label: "Explained by characteristics", color: "--s-comp" }, { label: "Unexplained", color: "--s-resid" }])}<div class="vbody">${R.length ? R.map(bar).join("") + lead + tbl : `<p class="note">No months available for this selection.</p>`}</div>`, foot);
+      `${ctl}${howto}${swatches([{ label: "Explained by characteristics", color: "--s-comp" }, { label: "Unexplained", color: "--s-resid" }])}<div class="vbody uob-wrap">${R.length ? R.map(bar).join("") + lead + tbl : `<p class="note">No months available for this selection.</p>`}<div class="tip" hidden></div></div>`, foot);
+    const wrap = el.querySelector(".uob-wrap"), tip = wrap && wrap.querySelector(".tip");
+    if (wrap) {
+      wrap.addEventListener("pointermove", ev => {
+        const sp = ev.target.closest && ev.target.closest(".uobs"); if (!sp) { tip.hidden = true; return; }
+        const x = R[+sp.dataset.i];
+        tip.innerHTML = `<div class="h">${UOB_OUT[x.o]} · ${sp.dataset.k === "ex" ? "Explained" : "Unexplained"}</div><div class="sb-say">${sayRow(x, sp.dataset.k)}</div>`;
+        tip.hidden = false;
+        const rc = wrap.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14;
+        tip.style.left = Math.max(0, left) + "px"; tip.style.top = (ev.clientY - rc.top + 12) + "px";
+      });
+      wrap.addEventListener("pointerleave", () => tip.hidden = true);
+    }
   }
   el.querySelectorAll("#uobview button").forEach(b => b.onclick = () => { U.view = b.dataset.v; renderUob(); });
   el.querySelectorAll("#uobspec button").forEach(b => b.onclick = () => { U.spec = b.dataset.v; renderUob(); });
@@ -3681,14 +3733,14 @@ async function renderUmeas() {
   // decomposition of U-6's head start over U-3
   const dc = document.getElementById("fig-umeas-dc");
   dc.innerHTML = figure("What Gives U-6 Its Head Start?", TP("U-3, U-5 and U-6 Labor Utilization Data (BLS)", "a Two-Step Split", "1994"),
-    `${swatches([{ label: "Marginally attached (U-5 vs U-3)", color: "--s-comp" }, { label: "Part time for economic reasons (U-6 vs U-5)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc"></div>`,
+    `${readme(`<p><b>What you are looking at.</b> Each row is a recession. The black tick shows how many months earlier the recession rule fired on U-6 than on the official unemployment rate (U-3). A tick at 4 means U-6 called the recession 4 months sooner.</p><p><b>The colored pieces</b> split those months by what U-6 adds. U-6 is built from U-3 in two steps: first add discouraged and other marginally attached workers (that gives U-5, light), then add people working part time because they cannot get full-time hours (dark). Each piece is how many months of the head start that step is responsible for.</p><p><b>How to read it.</b> If the bar is all dark, the whole head start comes from involuntary part-time work. A piece to the left of zero means that step made the signal later, not earlier. Hover a piece for the numbers in plain words.</p>`)}${swatches([{ label: "Marginally attached (U-5 vs U-3)", color: "--s-comp" }, { label: "Part time for economic reasons (U-6 vs U-5)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc"></div>`,
     "Gap in onset, U-6 minus U-3, in months, split into the step from U-3 to U-5 (adding discouraged and other marginally attached workers) and the step from U-5 to U-6 (adding workers employed part time for economic reasons). Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
-  splitBars(dc.querySelector("#umdc"), splitRows(S.U6RATE, S.U3, S.U5RATE, S.U3, "lead", recs94), "mo", { comp: "Marginally attached", res: "Part time for economic reasons", compTip: "How much earlier U-5 signals than U-3: the head start from counting discouraged and other marginally attached workers.", resTip: "How much earlier U-6 signals than U-5: the head start from counting workers whose hours were cut or who could only find part-time work.", totTip: "The total difference in onset, U-6 minus U-3, in months." });
+  splitBars(dc.querySelector("#umdc"), splitRows(S.U6RATE, S.U3, S.U5RATE, S.U3, "lead", recs94), "mo", { say: u6say, comp: "Marginally attached", res: "Part time for economic reasons", compTip: "How much earlier U-5 signals than U-3: the head start from counting discouraged and other marginally attached workers.", resTip: "How much earlier U-6 signals than U-5: the head start from counting workers whose hours were cut or who could only find part-time work.", totTip: "The total difference in onset, U-6 minus U-3, in months." });
   const dc2 = document.getElementById("fig-umeas-dc2");
   if (dc2 && !dc2.dataset.built) {
     dc2.dataset.built = "1";
     dc2.innerHTML = figure("Scale, Composition, or the Intensive Margin?", TP("U-3 and U-6-Style Rates from CPS Race × Sex × Education Cells", "a Three-Way Split", "1976"),
-      `${swatches([{ label: "Scale", color: "--s-comp" }, { label: "Composition", color: "--d5" }, { label: "Within groups (intensive margin)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc2"></div>`,
+      `${readme(`<p><b>What you are looking at.</b> Each row is a recession. The black tick is how many months earlier the recession rule fires on a U-6-style rate (unemployed plus involuntary part-time) than on U-3, both built from the same CPS microdata.</p><p><b>Three reasons U-6 could fire first</b>, one color each:</p><p><b>Scale (lightest).</b> U-6 is about 1.6 times as large as U-3, so the same 0.5-point rise is easier to reach. These months would appear even if U-6 were just a bigger copy of U-3.</p><p><b>Composition (middle).</b> U-6 gives more weight to the groups that are most often underemployed, and those groups enter recessions first.</p><p><b>Within groups (darkest).</b> What is left: part-time work rising before unemployment for the same kind of worker. This is the intensive margin, firms cutting hours before jobs.</p><p><b>How to read it.</b> Most of each bar is the lightest color, so most of U-6’s head start comes from its size rather than from earlier movement. Pieces left of zero pushed the signal later. Hover a piece for the numbers in plain words.</p>`)}${swatches([{ label: "Scale", color: "--s-comp" }, { label: "Composition", color: "--d5" }, { label: "Within groups (intensive margin)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="umdc2"></div>`,
       "Source: IPUMS CPS Basic Monthly, weighted, STL seasonally adjusted; 32 cells of race (White, Black, Hispanic, Asian from 1989), sex and four education levels, weighted by sample size. U-6-style rate: unemployed plus employed part time for economic reasons, as a share of the labor force (the microdata do not identify marginally attached workers). Scale: U-3 multiplied by the average ratio of U-6 to U-3. Composition: each cell’s U-3 multiplied by that cell’s own average ratio. Within groups: the actual U-6-style rate. Every recession is matched; where a series does not cross its threshold cleanly the threshold is relaxed until it does (marked †).");
     umeasSplit().then(rows => umeasSplitBars(dc2.querySelector("#umdc2"), rows)).catch(() => {});
   }
@@ -4825,7 +4877,7 @@ function splitBars(el, rows, unit, o) {
   svg.addEventListener("pointermove", ev => {
     const r = ev.target.closest && ev.target.closest(".sb"); if (!r) { tip.hidden = true; return; }
     const d = rows[+r.dataset.i], k = r.dataset.k, v = k === "comp" ? d.comp : k === "mid" ? d.mid : k === "res" ? d.res : d.tot;
-    tip.innerHTML = `<div class="h">${REC_NAMES_ALL(d.r.name)} · ${esc(name[k])}</div><div class="r"><span>Value</span><span class="num">${sg(v)}${u}</span></div><div class="sb-help">${esc(help[k])}</div>`;
+    tip.innerHTML = `<div class="h">${REC_NAMES_ALL(d.r.name)} · ${esc(name[k])}</div><div class="r"><span>Value</span><span class="num">${sg(v)}${u}</span></div>${o.say ? `<div class="sb-say">${o.say(d, k)}</div>` : ""}<div class="sb-help">${esc(help[k])}</div>`;
     tip.hidden = false;
     const rc = el.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14;
     tip.style.left = Math.max(0, left) + "px"; tip.style.top = (ev.clientY - rc.top + 12) + "px";
