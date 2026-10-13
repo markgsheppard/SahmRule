@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /old_index_htmls/
+Disallow: /original/
+
+Sitemap: https://inequalityofrecession.com/sitemap.xml
