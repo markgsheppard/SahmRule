@@ -11,6 +11,10 @@ on:
         description: "Rebuild the site files from auto/state without asking IPUMS for new months"
         type: boolean
         default: false
+      test_month:
+        description: "Test only: re-pull one month already on the site (e.g. 2026-09), compare it with the stored history, and commit nothing"
+        type: string
+        default: ""
 
 concurrency:
   group: cps-monthly-update
@@ -18,12 +22,12 @@ concurrency:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 180
     environment: github-pages
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -43,16 +47,33 @@ jobs:
             any::ipumsr
             any::rmarkdown
             any::knitr
+            any::R.utils
+            any::rlang
 
       - name: Pull any new CPS months and rebuild the site files
         working-directory: auto
         env:
           IPUMS_API_KEY: ${{ secrets.IPUMS_API_KEY }}
+          TEST_MONTH: ${{ github.event.inputs.test_month }}
+          SKIP_FETCH: ${{ github.event.inputs.skip_fetch == 'true' && 'TRUE' || 'FALSE' }}
+        shell: bash
         run: |
-          Rscript -e 'rmarkdown::render("CPS_Monthly_Update.Rmd", params = list(skip_fetch = ${{ github.event.inputs.skip_fetch == 'true' && 'TRUE' || 'FALSE' }}), output_dir = tempdir())'
+          set +e
+          Rscript -e 'rmarkdown::render("CPS_Monthly_Update.Rmd", params = list(skip_fetch = as.logical(Sys.getenv("SKIP_FETCH")), test_month = Sys.getenv("TEST_MONTH")), output_dir = tempdir())' > render.log 2>&1
+          status=$?
+          tail -60 render.log
+          if [ $status -ne 0 ]; then
+            # Put the R error where it is easy to find: the run's summary page and its annotations
+            msg=$(grep -E -A4 "^(Error|Quitting)" render.log | head -c 1500 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')
+            echo "::error title=CPS update failed in R::${msg:-see the log of this step}"
+            { echo "### The CPS update stopped with an R error"; echo; echo '```'; tail -40 render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          rm -f render.log
+          exit $status
 
       - name: Commit and push changes
         id: commit
+        if: github.event.inputs.test_month == '' || github.event.inputs.test_month == null
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

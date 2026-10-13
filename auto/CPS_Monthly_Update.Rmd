@@ -6,6 +6,7 @@ params:
   max_new_months: 6    # safety cap on how many new months one run will pull
   seed: 20261010
   min_n_decomp: 150
+  test_month: ""       # e.g. "2026-09": re-pull a month already in the history, compare, and write nothing
 ---
 
 This is the automatic counterpart of `Inequality_of_Recession_CPS_Master.Rmd`. Instead of re-reading 50 years of microdata, it asks IPUMS whether any monthly CPS sample is newer than the last month in `auto/state/`, downloads only those months, runs them through **the master's own functions** (copied verbatim below), appends the unadjusted results to the history, and redoes the seasonal adjustment on the full history. It then rewrites the four CPS files the site reads:
@@ -311,6 +312,15 @@ u6_raw <- fread("data/decomp_u6.csv", colClasses = list(character = "date"))
 last_done <- max(ls_raw$date)
 new_months <- character(0)
 cat("History runs through", last_done, "\n")
+
+# Test mode: set aside one month that is already in the history, so it can be pulled again and compared
+test_key <- if (nzchar(params$test_month)) sprintf("%s-01", substr(params$test_month, 1, 7)) else ""
+if (nzchar(test_key)) {
+  stopifnot(test_key %in% ls_raw$date)
+  orig <- list(series = ls_raw[date == test_key], cells = lc_raw[date == test_key], groups = ug_raw[date == test_key], u6 = u6_raw[date == test_key])
+  ls_raw <- ls_raw[date != test_key]; lc_raw <- lc_raw[date != test_key]; ug_raw <- ug_raw[date != test_key]; u6_raw <- u6_raw[date != test_key]
+  cat("TEST MODE: re-pulling", test_key, "and comparing; nothing will be written\n")
+}
 ```
 
 ```{r month-processor}
@@ -347,7 +357,8 @@ if (!params$skip_fetch) {
   keep <- grepl("^cps\\d{4}_\\d{2}[bs]$", info$name) & !grepl("ASEC|Annual Social|March Supplement", info$description, ignore.case = TRUE)
   samples <- sort(info$name[keep]); samples <- samples[!duplicated(substr(samples, 4, 10))]
   ym <- sprintf("%s-%s-01", substr(samples, 4, 7), substr(samples, 9, 10))
-  samples <- samples[ym > last_done]; samples <- head(samples, params$max_new_months)
+  samples <- if (nzchar(test_key)) samples[ym == test_key] else head(samples[ym > last_done], params$max_new_months)
+  if (nzchar(test_key) && !length(samples)) stop("IPUMS lists no monthly sample for ", test_key)
   cat("New monthly samples:", if (length(samples)) paste(samples, collapse = ", ") else "none", "\n")
   if (length(samples)) {
     vars <- c("YEAR", "MONTH", "SERIAL", "PERNUM", "WTFINL", "EMPSTAT", "WKSTAT", "WHYUNEMP", "AGE", "SEX", "RACE", "HISPAN",
@@ -374,6 +385,29 @@ if (!params$skip_fetch) {
 }
 ```
 
+```{r test-report, eval = nzchar(test_key)}
+# Compare the fresh pull with what the history already holds for the same month
+cmp <- function(a, b, by, cols) {
+  m <- merge(a, b, by = by, suffixes = c(".old", ".new"))
+  d <- sapply(cols, function(cc) max(abs(as.numeric(m[[paste0(cc, ".old")]]) - as.numeric(m[[paste0(cc, ".new")]])), na.rm = TRUE))
+  data.table(rows_old = nrow(a), rows_new = nrow(b), matched = nrow(m), worst_col = names(which.max(d)), max_abs_diff = signif(max(d), 3))
+}
+fresh <- list(series = ls_raw[date == test_key], cells = lc_raw[date == test_key], groups = ug_raw[date == test_key], u6 = u6_raw[date == test_key])
+rep <- rbind(
+  cbind(table = "explorer series (raw)", cmp(orig$series, fresh$series, "series_id", c("value_raw", "n_obs"))),
+  cbind(table = "explorer cells (raw)", cmp(orig$cells, fresh$cells, c("panel", "race", "educ", "sex", "age", "incq"), c("value_raw", "n"))),
+  cbind(table = "U-measure groups (raw)", cmp(orig$groups, fresh$groups, "series_id", c("n", "u3", "u6l"))),
+  cbind(table = "U-6 decomposition, non-income", cmp(orig$u6[!grepl("^inc_", comp_id)], fresh$u6[!grepl("^inc_", comp_id)], c("comp_id", "spec", "outcome"), c("nA", "nB", "gap", "explained", "unexplained"))),
+  cbind(table = "U-6 decomposition, income", cmp(orig$u6[grepl("^inc_", comp_id)], fresh$u6[grepl("^inc_", comp_id)], c("comp_id", "spec", "outcome"), c("gap", "explained", "unexplained"))))
+print(rep)
+sm <- Sys.getenv("GITHUB_STEP_SUMMARY")
+if (nzchar(sm)) cat(c(sprintf("### Test pull of %s: fresh IPUMS data vs. the stored history", substr(test_key, 1, 7)), "",
+                      "| Table | Rows stored | Rows fresh | Matched | Largest difference | In column |", "|---|---|---|---|---|---|",
+                      rep[, sprintf("| %s | %d | %d | %d | %s | %s |", table, rows_old, rows_new, matched, format(max_abs_diff), worst_col)], "",
+                      "Differences near zero mean the automatic pull reproduces the master. Nothing was committed."), file = sm, sep = "\n", append = TRUE)
+new_months <- character(0)   # test mode never writes
+```
+
 ```{r write-state}
 if (length(new_months)) {
   fwrite(ls_raw, "auto/state/legacy_series_raw.csv.gz")
@@ -382,7 +416,7 @@ if (length(new_months)) {
 }
 ```
 
-```{r export, eval = length(new_months) > 0 || params$skip_fetch}
+```{r export, eval = !nzchar(test_key) && (length(new_months) > 0 || params$skip_fetch)}
 # explorer_series.csv: the master's export-legacy step, written in the site's compact format
 series <- copy(ls_raw)[, date := as.Date(date)]
 grid <- data.table(date = seq(min(series$date), max(series$date), by = "month"))
