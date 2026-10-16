@@ -1,0 +1,436 @@
+---
+title: "The Case for U-7: a ladder of labor underutilization from public CPS microdata"
+author: "Mark G. Sheppard"
+output: html_document
+params:
+  rebuild: false     # TRUE re-reads the IPUMS extract and rewrites data-source/u7/ (slow: two passes over ~80 million records)
+  ddi: "~/Desktop/The Inequality of Recession/data/master/cps_00014.xml"   # IPUMS CPS Basic Monthly, 1976-2026, all persons
+  alpha: 0.5         # recession threshold, percentage points
+  k: 6               # smoothing window (months), as in the papers
+  w: 12              # comparison window, current month included
+  theta: 1           # skills mismatch: degree levels above the occupation's 75th percentile
+  window: 5          # years in the rolling reference window for occupational requirements
+---
+
+This file builds the measures behind the two unlinked pages on the site, **The Case for U-7** (`#u7`) and **Building U-7 from Public Data** (`#u7-data`). It extends the Bureau of Labor Statistics' six measures of labor underutilization with four broader ones, each adding one more group of people whose labor is not fully used, and runs every measure through the same turning-point rule as the rest of the site.
+
+| Measure | Adds | Formula | Source |
+|---|---|---|---|
+| U-3 | Unemployed | U / LF | BLS (UNRATE) |
+| U-4 | Discouraged workers | (U + D) / (LF + D) | BLS (U4RATE) |
+| U-5 | Other marginally attached | (U + MA) / (LF + MA) | BLS (U5RATE) |
+| U-6 | Part time for economic reasons | (U + MA + PTER) / (LF + MA) | BLS (U6RATE) |
+| **U-7** | **Skills-mismatched workers** | (U + MA + PTER + SM) / (LF + MA) | U-6 plus CPS microdata |
+| U-8 | Everyone else outside the labor force who wants a job | (U + WJ + PTER + SM) / (LF + WJ) | U-6 plus CPS microdata |
+| U-9 | Own-account (unincorporated) self-employed | adds SEu to the U-8 numerator | U-6 plus CPS microdata |
+| U-10 | Incorporated self-employed | adds SEi to the U-9 numerator | U-6 plus CPS microdata |
+
+U-7 is the measure in the RDC proposal: $U7 = (U + MA + PTER + SM)/(LF + MA)$. A worker is **skills-mismatched** (SM) when their highest degree is at least `theta` degree levels above the 75th percentile of degrees held by workers in the same occupation (a realized-matches definition). Degree levels: no high-school diploma, high-school diploma (including some college without a degree), associate, bachelor's, master's, professional or doctorate. Occupational requirements come from a rolling reference window, the previous `window` years of CPS data, phased in month by month so that no January jumps appear; workers counted as part time for economic reasons are not counted again. U-9 and U-10 follow `gig_work_rates_U7_U10.Rmd`: self-employment as the margin of independent and gig work, counting only self-employed workers not already counted. Multiple jobholding, the other gig margin in that file, needs the IPUMS variable `MULTJOB`, which this extract does not include.
+
+**Data.** U-3 to U-6 are the official seasonally adjusted BLS series (FRED, in `data-source/tool-data`). Everything beyond U-6 comes from the IPUMS CPS Basic Monthly files (`cps_00014`, January 1994 to September 2026, civilians 16 and older, final weights `WTFINL`), aggregated into the files in `data-source/u7/`:
+
+* `u7_groups.csv`: monthly weighted counts by race and ethnicity (labor force, employed, unemployed, part time for economic reasons, not in the labor force but wanting a job, self-employed, and so on);
+* `u7_cells.csv.gz`: employed workers by month, occupation (`OCC2010`), degree level and class (part time for economic reasons, own-account self-employed, incorporated self-employed, other), 1994 on;
+* `u7_groupcells.csv.gz`: labor force, unemployment, part-time and skills-mismatch counts by month, race, sex, age, nativity and education, with mismatch measured with the main definition;
+* `u7_crosswalk.csv`: monthly mismatch counts under the major-group requirement crosswalk in `The Case for U7.Rmd`, for comparison;
+* `occ2010_labels.csv`: the IPUMS titles of the `OCC2010` codes.
+
+These tabulations were first produced by a streaming reader run over the raw `cps_00014.dat.gz` on the Mac, which implements the same rules as the `rebuild-pass1` and `rebuild-pass2` chunks below; on a 500,000-record test sample from 2016 to 2022 the two give identical counts. Set `rebuild: true` to recreate them in R from the extract.
+
+The marginally attached cannot be identified in this extract (it has the reason for not looking, `WNLOOK`, but not availability or past-year search), so U-7 takes them from the official U-5: with $u_3 = U/LF$ and $m = MA/LF$, $U5 = (u_3 + m)/(1 + m)$, so $m = (U5 - U3)/(1 - U5)$ and $U7 = U6 + SM/(LF \cdot (1+m))$. October 2025, when the federal shutdown cancelled the household survey, is interpolated, as everywhere on the site.
+
+**Turning points.** Every series is scored with the site's rule (the `k`-month average minus its minimum over the last `w` months, threshold `alpha`), matched to the 2001, 2007-09 and 2020 recessions between 18 months before and 12 months after each NBER peak, with thresholds also scaled to each measure's level or volatility as in the site's "Threshold scaling" control. Precision is the share of all crossings since 1995 that fall inside those windows. The JavaScript on the pages recomputes the same numbers from `data/u7_series.csv`, so the series are rounded to six decimals before they are scored here.
+
+**Outputs.** `data/u7_series.csv` (every measure, its components and the subgroup series, seasonally adjusted) and `data/u7_summary.json` (the numbers quoted on the pages).
+
+```{r setup}
+suppressMessages({ library(data.table); library(zoo); library(forecast); library(jsonlite) })
+knitr::opts_knit$set(root.dir = normalizePath(".."))   # repository root
+```
+
+```{r helpers}
+mi  <- function(s) as.integer(substr(s, 1, 4)) * 12L + as.integer(substr(s, 6, 7)) - 1L
+lab <- function(t) sprintf("%d-%02d", t %/% 12L, t %% 12L + 1L)
+# Same seasonal adjustment as every other microdata series on the site (three-month centered average, then STL)
+sa <- function(x) {
+  x  <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
+  xs <- as.numeric(zoo::rollmean(zoo::zoo(x), k = 3, fill = NA, align = "center"))
+  xs[is.na(xs)] <- x[is.na(xs)]
+  as.numeric(forecast::seasadj(stl(ts(xs, frequency = 12), s.window = "periodic", robust = TRUE, t.window = 13)))
+}
+# The same adjustment without the three-month average, used only to compare with the official (unsmoothed) series
+sa_raw <- function(x) {
+  x <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
+  as.numeric(forecast::seasadj(stl(ts(x, frequency = 12), s.window = "periodic", robust = TRUE, t.window = 13)))
+}
+# Turning-point indicator: k-month average minus its minimum over the last w months (current month included)
+rule <- function(x, k = params$k, w = params$w) {
+  a <- frollmean(x, k, align = "right", algo = "exact")
+  a - frollapply(a, w, min, align = "right")
+}
+NB <- data.table(id = c("2001", "2007", "2020"), peak = mi(c("2001-03", "2007-12", "2020-02")),
+                 trough = mi(c("2001-11", "2009-06", "2020-04")), prev = mi(c("1991-03", "2001-11", "2009-06")))
+# Episodes above the threshold, as in the site's JavaScript (missing months are skipped, not breaks)
+episodes <- function(ind, alpha) {
+  out <- list(); cur <- NULL; f <- which(!is.na(ind))[1]
+  if (is.na(f)) return(out)
+  for (i in f:length(ind)) {
+    x <- ind[i]; if (is.na(x)) next
+    if (is.null(cur) && x >= alpha) cur <- c(on = i, off = NA)
+    else if (!is.null(cur) && x < alpha) { cur[["off"]] <- i; out[[length(out) + 1]] <- cur; cur <- NULL }
+  }
+  if (!is.null(cur)) out[[length(out) + 1]] <- cur
+  out
+}
+# Match a series' signal to one recession: first episode starting between 18 months before and 12 months after the
+# NBER peak (not before the previous trough); "continuing" if an episode is already under way when the window opens
+match_rec <- function(ind, t, r, alpha, before = 18L, after = 12L) {
+  R <- NB[id == r]; W0 <- max(R$peak - before, R$prev + 1L); W1 <- R$peak + after
+  i0 <- match(W0, t); i1 <- match(W1, t); f <- which(!is.na(ind))[1]
+  out <- list(status = "no data", on = NA_integer_, lead = NA_real_, exit = NA_integer_, dur = NA_real_, after_trough = NA_real_)
+  if (is.na(i0) || is.na(f) || f > i0) return(out)
+  eps <- episodes(ind, alpha)
+  if (any(vapply(eps, function(e) e[["on"]] < i0 && (is.na(e[["off"]]) || e[["off"]] > i0), logical(1)))) { out$status <- "continuing"; return(out) }
+  hit <- Filter(function(e) e[["on"]] >= i0 && e[["on"]] <= i1, eps)
+  if (!length(hit)) { out$status <- "no signal"; return(out) }
+  e <- hit[[1]]; on <- t[e[["on"]]]; ex <- if (is.na(e[["off"]])) NA_integer_ else t[e[["off"]]]
+  list(status = "ok", on = on, lead = R$peak - on, exit = ex, dur = ex - on, after_trough = ex - R$trough)
+}
+starts_of <- function(ind, alpha) {
+  on <- !is.na(ind) & ind >= alpha
+  which(on & !c(FALSE, on[-length(on)]) & c(FALSE, !is.na(ind[-length(ind)])))
+}
+in_window <- function(s) vapply(s, function(x) any(x >= NB$peak - 18L & x <= NB$peak + 12L), logical(1))
+# Threshold scaling, as the site's "Threshold scaling" control: by mean level, or by the volatility of 12-month changes
+alpha_for <- function(x, base, scale, alpha = params$alpha, k = params$k) {
+  if (scale == "fixed") return(alpha)
+  ok <- !is.na(x) & !is.na(base)
+  if (scale == "level") return(alpha * mean(x[ok]) / mean(base[ok]))
+  a1 <- frollmean(x, k, algo = "exact"); a2 <- frollmean(base, k, algo = "exact")
+  d1 <- a1 - shift(a1, 12); d2 <- a2 - shift(a2, 12); ok2 <- !is.na(d1) & !is.na(d2)
+  alpha * sd(d1[ok2]) / sd(d2[ok2])
+}
+score <- function(x, t, base, scale = "fixed") {
+  a <- alpha_for(x, base, scale); ind <- rule(x)
+  m <- setNames(lapply(NB$id, function(r) match_rec(ind, t, r, a)), NB$id)
+  s <- t[starts_of(ind, a)]
+  list(alpha = a, m = m, sig = s, n_true = sum(in_window(s)), false = s[!in_window(s)], ind = ind)
+}
+```
+
+```{r rebuild-pass1, eval = params$rebuild}
+# Re-aggregate the IPUMS extract, pass 1: u7_groups.csv and u7_cells.csv.gz. Pass 2 (u7_groupcells.csv.gz and
+# u7_crosswalk.csv) needs the occupational requirements, so it runs after the thresholds chunk.
+library(ipumsr)
+ddi <- read_ipums_ddi(path.expand(params$ddi))
+vars <- c("YEAR", "MONTH", "WTFINL", "AGE", "SEX", "RACE", "HISPAN", "NATIVITY", "EMPSTAT", "LABFORCE", "OCC2010", "CLASSWKR",
+          "DURUNEMP", "WHYUNEMP", "WNLOOK", "WKSTAT", "EDUC")
+lev_of <- function(educ) fcase(educ >= 2L & educ <= 72L, 0L, educ %in% c(73L, 81L), 1L, educ %in% c(91L, 92L), 2L,
+                               educ == 111L, 3L, educ == 123L, 4L, educ %in% c(124L, 125L), 5L, default = -1L)
+prep <- function(x) {
+  d <- as.data.table(lapply(x, function(col) { attributes(col) <- NULL; col })); setnames(d, tolower(names(d)))
+  d <- d[age >= 16 & empstat >= 10]                       # civilians 16 and older
+  d[, `:=`(date = sprintf("%d-%02d", as.integer(year), as.integer(month)), w = as.numeric(wtfinl),
+           emp = empstat %in% c(10L, 12L), une = empstat %in% 20:22, nilf = labforce == 1L, lev = lev_of(as.integer(educ)))]
+  d[, pter := emp & wkstat %in% 20:22]
+  d[, wj := nilf & ((wnlook >= 1L & wnlook <= 11L) | wnlook == 997L)]
+  d[, race5 := fifelse(hispan >= 100L & hispan < 900L, "Hispanic", fifelse(race == 100L, "White", fifelse(race == 200L, "Black",
+               fifelse(race %in% c(650L, 651L, 652L), "Asian", "Other"))))]
+  d[]
+}
+pass1 <- function(d) list(
+  g = d[, .(pop = sum(w), lf = sum(w * (labforce == 2L)), emp = sum(w * emp), une = sum(w * une),
+            u15 = sum(w * (une & durunemp >= 15L & durunemp < 999L)), ulos = sum(w * (une & whyunemp %in% 1:3)),
+            pter = sum(w * pter), ptne = sum(w * (emp & wkstat %in% c(12L, 40L, 41L))), ftpe = sum(w * (emp & wkstat == 14L)),
+            nilf = sum(w * nilf), wj = sum(w * wj), wjmk = sum(w * (nilf & wnlook >= 1L & wnlook <= 5L)),
+            seu = sum(w * (emp & classwkr == 13L)), sei = sum(w * (emp & classwkr == 14L)), fam = sum(w * (emp & classwkr == 29L)),
+            n_lf = sum(labforce == 2L), n_emp = sum(emp)), by = .(date, group = race5)],
+  c = d[emp & year >= 1992 & occ2010 > 0 & occ2010 < 9800 & lev >= 0L,
+        .(w = sum(w), n = .N), by = .(date, occ2010, lev, cls = fcase(pter, 1L, classwkr == 13L, 2L, classwkr == 14L, 3L, default = 0L))])
+acc <- list()
+read_ipums_micro_chunked(ddi, IpumsSideEffectCallback$new(function(x, pos) { acc[[length(acc) + 1]] <<- pass1(prep(x)) }),
+                         chunk_size = 2e6, vars = vars, verbose = FALSE)
+G1 <- rbindlist(lapply(acc, `[[`, "g"))[, lapply(.SD, sum), by = .(date, group)]
+G1 <- rbind(G1[, lapply(.SD, sum), by = date, .SDcols = !"group"][, group := "All"], G1, use.names = TRUE)
+fwrite(G1[order(group, date)], "data-source/u7/u7_groups.csv")
+fwrite(rbindlist(lapply(acc, `[[`, "c"))[, .(w = sum(w), n = sum(n)), by = .(date, occ2010, lev, cls)][order(date, occ2010, lev, cls)],
+       "data-source/u7/u7_cells.csv.gz")
+rm(acc); gc()
+```
+
+```{r thresholds}
+CL <- fread("data-source/u7/u7_cells.csv.gz")[date >= "1994-01"]
+CL[, `:=`(yr = as.integer(substr(date, 1, 4)), mo = as.integer(substr(date, 6, 7)))]
+# 75th percentile of degree level among the workers in each occupation, pooled over the months in d
+p75 <- function(d) {
+  d <- d[, .(w = sum(w)), by = .(occ2010, lev)][order(occ2010, lev)]
+  d[, cs := cumsum(w) / sum(w), by = occ2010]
+  d[cs >= 0.75 - 1e-12, .(p75 = min(lev)), by = occ2010]
+}
+# Requirements used in year y: the previous L years (the first L years of data, for the earliest years)
+ref_years <- function(y, L) {
+  lo <- max(1994L, y - L); hi <- y - 1L
+  if (hi < 1994L + L - 1L) { lo <- 1994L; hi <- 1994L + L - 1L }
+  c(lo, hi)
+}
+thr_table <- function(L) rbindlist(lapply(1993:2026, function(y) { r <- ref_years(y, L); cbind(year = y, p75(CL[yr >= r[1] & yr <= r[2]])) }))
+POOLED <- p75(CL)            # one set of requirements for the whole period: the fallback, and the "fixed" variant
+TH <- thr_table(params$window)
+table(POOLED$p75)            # occupations by required degree level (0 none ... 5 professional or doctorate)
+```
+
+```{r rebuild-pass2, eval = params$rebuild}
+# Pass 2: subgroup cells with the main mismatch definition, and the crosswalk comparison
+xw <- data.table(lo = c(10, 500, 1000, 1300, 1600, 2000, 2100, 2200, 2600, 3000, 3600, 3700, 4000, 4200, 4300, 4700, 5000, 6000, 6200, 7000, 7700, 9000),
+                 hi = c(430, 950, 1240, 1560, 1980, 2060, 2160, 2550, 2960, 3540, 3655, 3955, 4160, 4250, 4650, 4965, 5940, 6130, 6940, 7630, 8965, 9750),
+                 req = c(111, 111, 111, 111, 111, 111, 123, 111, 80, 111, 73, 73, 60, 60, 73, 73, 73, 60, 73, 73, 73, 60))
+req_of <- integer(10000); for (i in seq_len(nrow(xw))) req_of[(xw$lo[i]:xw$hi[i]) + 1L] <- as.integer(xw$req[i])
+pass2 <- function(d) {
+  d <- d[year >= 1994]
+  d[, `:=`(yr = as.integer(year), mo = as.integer(month))]
+  d <- merge(d, TH[, .(yr = year + 1L, occ2010, p0 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+  d <- merge(d, TH[, .(yr = year, occ2010, p1 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+  d <- merge(d, POOLED[, .(occ2010, pA = p75)], by = "occ2010", all.x = TRUE)
+  d[is.na(p0), p0 := pA]; d[is.na(p1), p1 := pA]
+  d[, ok := emp & occ2010 > 0 & occ2010 < 9800 & lev >= 0L & !is.na(pA)]
+  d[, smf := fifelse(ok, (1 - mo / 12) * (lev >= p0 + params$theta) + (mo / 12) * (lev >= p1 + params$theta), 0)]
+  d[, smA := fifelse(ok, as.numeric(lev >= pA + params$theta), 0)]
+  d[, `:=`(sx = fifelse(sex == 2L, "F", "M"), fb = as.integer(nativity == 5L),
+           ag = fcase(age < 22L, "16-21", age < 28L, "22-27", age < 35L, "28-34", age < 55L, "35-54", default = "55+"),
+           e4 = fcase(lev <= 0L, "LTHS", lev == 1L, "HS", lev == 2L, "Assoc", default = "BAplus"))]
+  d[, el := fcase(educ <= 1L | educ == 999L, 0L, educ < 73L, 60L, educ == 73L, 73L, educ >= 80L & educ < 111L, 80L,
+                  educ == 111L, 111L, educ >= 123L, 123L, default = 0L)]
+  d[, rq := req_of[pmin(pmax(occ2010, 0L), 9999L) + 1L]]
+  d[, over := emp & rq > 0L & el > 0L & el > rq]
+  list(gc = d[, .(lf = sum(w * (labforce == 2L)), emp = sum(w * emp), une = sum(w * une), pter = sum(w * pter), wj = sum(w * wj),
+                  smP = sum(w * smf * !pter), smP_all = sum(w * smf), smA = sum(w * smA * !pter),
+                  seu = sum(w * (1 - smf) * (emp & !pter & classwkr == 13L)), sei = sum(w * (1 - smf) * (emp & !pter & classwkr == 14L)),
+                  n_emp = sum(emp), n_lf = sum(labforce == 2L)), by = .(date, race = race5, sex = sx, age = ag, fborn = fb, educ = e4)],
+       cw = d[, .(cw_all = sum(w * over), cw_np = sum(w * (over & !pter))), by = date])
+}
+acc <- list()
+read_ipums_micro_chunked(ddi, IpumsSideEffectCallback$new(function(x, pos) { acc[[length(acc) + 1]] <<- pass2(prep(x)) }),
+                         chunk_size = 2e6, vars = vars, verbose = FALSE)
+gcols <- c("date", "race", "sex", "age", "fborn", "educ")
+fwrite(rbindlist(lapply(acc, `[[`, "gc"))[, lapply(.SD, sum), by = gcols][lf + emp + wj > 0][order(date, race, sex, age, fborn, educ)], "data-source/u7/u7_groupcells.csv.gz")
+fwrite(rbindlist(lapply(acc, `[[`, "cw"))[, lapply(.SD, sum), by = date][order(date)], "data-source/u7/u7_crosswalk.csv")
+rm(acc); gc()
+```
+
+```{r load}
+G  <- fread("data-source/u7/u7_groups.csv")
+GC <- fread("data-source/u7/u7_groupcells.csv.gz")
+CW <- fread("data-source/u7/u7_crosswalk.csv")
+end <- max(G$date)
+D <- data.table(date = format(seq(as.Date("1994-01-01"), as.Date(paste0(end, "-01")), by = "month"), "%Y-%m"))
+D[, t := mi(date)]
+off <- function(id) { x <- fread(sprintf("data-source/tool-data/%s.csv", id)); data.table(date = substr(as.character(x$date), 1, 7), v = as.numeric(x$value)) }
+for (id in c("UNRATE", "U1RATE", "U2RATE", "U4RATE", "U5RATE", "U6RATE")) D <- merge(D, setnames(off(id), "v", id), by = "date", all.x = TRUE)
+D <- merge(D, G[group == "All", !"group"], by = "date", all.x = TRUE)
+setorder(D, date)
+stopifnot(!anyNA(D[, .(UNRATE, U4RATE, U5RATE, U6RATE)]))
+cat("Months without CPS microdata (interpolated):", D[is.na(lf), date], "\n")
+```
+
+```{r mismatch}
+# Monthly mismatch counts under a set of requirements (NULL = pooled, fixed), phased in month by month
+sm_counts <- function(TH = NULL, theta = params$theta) {
+  x <- merge(CL, POOLED[, .(occ2010, pA = p75)], by = "occ2010")
+  if (is.null(TH)) x[, f := as.numeric(lev >= pA + theta)] else {
+    x <- merge(x, TH[, .(yr = year + 1L, occ2010, p0 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+    x <- merge(x, TH[, .(yr = year, occ2010, p1 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+    x[is.na(p0), p0 := pA]; x[is.na(p1), p1 := pA]
+    x[, f := (1 - mo / 12) * (lev >= p0 + theta) + (mo / 12) * (lev >= p1 + theta)]
+  }
+  x <- x[, .(sm = sum(w * f * (cls != 1L)), sm_all = sum(w * f), se = sum(w * (1 - f) * (cls == 2L)), sei = sum(w * (1 - f) * (cls == 3L))), by = date]
+  x[D[, .(date)], on = "date"]
+}
+# January 2003: the CPS moved to the 2000 Census occupation codes, which shifts every occupation-based count.
+# The level before the break is moved by the January jump net of the usual January change (three-month means each side).
+brk <- function(x, at = "2003-01") {
+  i <- match(at, D$date)
+  jump <- function(j) mean(x[j:(j + 2)], na.rm = TRUE) - mean(x[(j - 3):(j - 1)], na.rm = TRUE)
+  jan <- setdiff(which(substr(D$date, 6, 7) == "01" & seq_len(nrow(D)) > 3 & seq_len(nrow(D)) <= nrow(D) - 2), i)
+  d <- jump(i) - mean(vapply(jan, jump, 0))
+  x[seq_len(i - 1)] <- x[seq_len(i - 1)] + d
+  attr(x, "break") <- d
+  x
+}
+V <- list(main = sm_counts(TH), w3 = sm_counts(thr_table(3)), w10 = sm_counts(thr_table(10)), fixed = sm_counts(NULL),
+          theta2 = sm_counts(TH, theta = 2))
+V$crosswalk <- CW[D[, .(date)], on = "date"][, .(date, sm = cw_np, sm_all = cw_all, se = NA_real_, sei = NA_real_)]
+# check: the subgroup cells were built with the same main definition
+chk <- merge(V$main[, .(date, sm)], GC[, .(smP = sum(smP)), by = date], by = "date")
+stopifnot(max(abs(chk$sm / chk$smP - 1)) < 1e-4)
+comp <- lapply(V, function(v) {
+  r <- list(sm = brk(v$sm / D$lf), se = if (all(is.na(v$se))) NULL else brk(v$se / D$lf), sei = if (all(is.na(v$sei))) NULL else brk(v$sei / D$lf))
+  list(sm = sa(r$sm), se = if (is.null(r$se)) NULL else sa(r$se), sei = if (is.null(r$sei)) NULL else sa(r$sei), break_sm = attr(r$sm, "break"))
+})
+sapply(comp, function(z) round(100 * z$break_sm, 2))   # size of the 2003 coding break, percentage points of the labor force
+```
+
+```{r ladder}
+L <- D[, .(date, t, U1 = U1RATE, U2 = U2RATE, U3 = UNRATE, U4 = U4RATE, U5 = U5RATE, U6 = U6RATE)]
+L[, m := (U5 - U3) / (100 - U5)]               # marginally attached per labor-force member, from the official U-5
+L[, p := (U6 - U5) / 100 * (1 + m)]            # part time for economic reasons per labor-force member, from the official U-6
+L[, wj := sa(D$wj / D$lf)]                     # everyone not in the labor force who wants a job (includes the marginally attached)
+rungs <- function(c) list(
+  U7  = L$U6 + 100 * c$sm / (1 + L$m),
+  U8  = 100 * (L$U3 / 100 + L$wj + L$p + c$sm) / (1 + L$wj),
+  U9  = if (is.null(c$se)) NULL else 100 * (L$U3 / 100 + L$wj + L$p + c$sm + c$se) / (1 + L$wj),
+  U10 = if (is.null(c$se)) NULL else 100 * (L$U3 / 100 + L$wj + L$p + c$sm + c$se + c$sei) / (1 + L$wj))
+R <- rungs(comp$main)
+for (nm in names(R)) L[, (nm) := R[[nm]]]
+for (v in c("w3", "w10", "fixed", "theta2", "crosswalk")) L[, (paste0("U7_", v)) := rungs(comp[[v]])$U7]
+# U-7 split into its parts (they add up to U-7)
+L[, `:=`(c_u = U3 / (1 + m), c_ma = 100 * m / (1 + m), c_pt = U6 - U5, c_sm = U7 - U6)]
+# Every series is rounded to six decimals here, as written to data/u7_series.csv, so the site's JavaScript and this file
+# score exactly the same numbers (a value that rounds to the threshold could otherwise fall on different sides of it)
+SER <- c("U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", paste0("U7_", c("w3", "w10", "fixed", "theta2", "crosswalk")), "c_u", "c_ma", "c_pt", "c_sm")
+L[, (SER) := lapply(.SD, round, 6), .SDcols = SER]
+LADDER <- c("U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10")
+L[date == max(date), c(list(date = date), lapply(.SD, round, 1)), .SDcols = LADDER]
+L[, lapply(.SD, function(x) round(mean(x), 1)), .SDcols = LADDER]
+```
+
+```{r validate}
+# How well the microdata reproduce the official pieces they share
+V3 <- data.table(date = L$date, micro = 100 * sa_raw(D$une / D$lf), official = L$U3)
+VP <- data.table(date = L$date, micro = 100 * sa_raw(D$pter / D$lf), official = 100 * L$p)
+validation <- list(u3_mean_diff = mean(V3$micro - V3$official), u3_sd_diff = sd(V3$micro - V3$official), u3_cor = cor(V3$micro, V3$official),
+                   pter_mean_diff = mean(VP$micro - VP$official), pter_sd_diff = sd(VP$micro - VP$official), pter_cor = cor(VP$micro, VP$official),
+                   wj_vs_ma = mean(100 * (L$wj - L$m)))
+str(validation)
+```
+
+```{r turning-points}
+tp_table <- function(S, names, scale) rbindlist(lapply(names, function(nm) {
+  s <- score(S[[nm]], L$t, L$U3, scale)
+  data.table(measure = nm, scale = scale, alpha = s$alpha, rec = NB$id,
+             status = vapply(s$m, function(z) z$status, ""), onset = vapply(s$m, function(z) if (is.na(z$on)) NA_character_ else lab(z$on), ""),
+             lead = vapply(s$m, function(z) z$lead, 0), dur = vapply(s$m, function(z) z$dur, 0),
+             after_trough = vapply(s$m, function(z) z$after_trough, 0),
+             n_sig = length(s$sig), n_true = s$n_true, false = paste(lab(s$false), collapse = " "))
+}))
+TP <- rbindlist(lapply(c("fixed", "level", "vol"), function(sc) tp_table(L, LADDER, sc)))
+TP <- merge(TP, TP[measure == "U3", .(scale, rec, lead_u3 = lead)], by = c("scale", "rec"))
+TP[, head_start := lead - lead_u3]
+dcast(TP[scale == "fixed"], measure ~ rec, value.var = "lead")
+TP[scale == "fixed" & rec == "2001", .(measure, alpha, n_sig, n_true, precision = round(100 * n_true / n_sig), false)]
+dcast(TP, measure + scale ~ rec, value.var = "lead")
+# Robustness: the classic Sahm rule (three-month average against the minimum of the previous 12 months)
+classic <- rbindlist(lapply(c("U3", "U6", "U7", "U8"), function(nm) {
+  a <- frollmean(L[[nm]], 3); ind <- a - shift(frollapply(a, 12, min), 1)
+  m <- lapply(NB$id, function(r) match_rec(ind, L$t, r, params$alpha)); s <- L$t[starts_of(ind, params$alpha)]
+  data.table(measure = nm, rec = NB$id, lead = vapply(m, function(z) z$lead, 0), n_sig = length(s), n_true = sum(in_window(s)))
+}))
+dcast(classic, measure + n_sig + n_true ~ rec, value.var = "lead")
+```
+
+```{r cycle}
+# The skills margin over the cycle: does it move with U-6, or against it?
+ch12 <- function(x) { a <- frollmean(x, params$k); a - shift(a, 12) }
+cyc <- list(cor_sm_u6 = cor(ch12(L$c_sm), ch12(L$U6), use = "complete.obs"),
+            sd12 = sapply(L[, .(U3, U6, U7, c_sm)], function(x) sd(ch12(x), na.rm = TRUE)))
+# change in U-6 and in the mismatch part of U-7 from the peak to a year after the trough, and over the next three years
+at <- function(x, tt) x[match(tt, L$t)]
+L[, c_se := U10 - U8]                         # the self-employment rungs, in U-10 points
+cyc$recessions <- NB[, .(id, se_down = at(L$c_se, trough + 12L) - at(L$c_se, peak), u6_down = at(L$U6, trough + 12L) - at(L$U6, peak), sm_down = at(L$c_sm, trough + 12L) - at(L$c_sm, peak),
+                         u6_up = at(L$U6, trough + 48L) - at(L$U6, trough + 12L), sm_up = at(L$c_sm, trough + 48L) - at(L$c_sm, trough + 12L))]
+# Recovery: share of each measure's recession rise (pre-recession low to recession high, six-month averages) still left 2 and 4 years after the trough
+recov <- rbindlist(lapply(c("U3", "U6", "U7", "U8"), function(nm) {
+  a <- frollmean(L[[nm]], params$k)
+  NB[, { lo <- min(at(a, (peak - 12L):peak)); hi <- max(at(a, peak:(trough + 24L)))
+         .(measure = nm, low = lo, high = hi, left24 = (at(a, trough + 24L) - lo) / (hi - lo), left48 = (at(a, trough + 48L) - lo) / (hi - lo)) }, by = id]
+}))
+cyc$recessions; recov
+```
+
+```{r groups}
+GC[, educ := fifelse(educ == "SomeCol", "Assoc", educ)]   # older files labelled associate degrees "SomeCol"
+grp <- list(All = quote(TRUE), White = quote(race == "White"), Black = quote(race == "Black"), Hispanic = quote(race == "Hispanic"), Asian = quote(race == "Asian"),
+            Men = quote(sex == "M"), Women = quote(sex == "F"), `16-21` = quote(age == "16-21"), `22-27` = quote(age == "22-27"), `28-34` = quote(age == "28-34"),
+            `35-54` = quote(age == "35-54"), `55+` = quote(age == "55+"), LTHS = quote(educ == "LTHS"), HS = quote(educ == "HS"), Assoc = quote(educ == "Assoc"),
+            BAplus = quote(educ == "BAplus"), Foreign = quote(fborn == 1L), Native = quote(fborn == 0L))
+gser <- function(e) GC[eval(e), lapply(.SD, sum), by = date, .SDcols = c("lf", "emp", "une", "pter", "smP", "smP_all", "n_lf", "n_emp")][D[, .(date)], on = "date"]
+GS <- lapply(grp, gser)
+GSER <- as.data.table(c(list(date = L$date), unlist(lapply(names(GS), function(g) {
+  x <- GS[[g]]; setNames(list(round(100 * sa(x$une / x$lf), 6), round(100 * sa((x$une + x$pter) / x$lf), 6)), paste0("g_", g, c("_u3", "_u6s")))
+}), recursive = FALSE)))
+# Frontier statistics for the subgroup series (fixed threshold)
+gtp <- rbindlist(lapply(names(GS), function(g) rbindlist(lapply(c("u3", "u6s"), function(v) {
+  s <- score(GSER[[paste0("g_", g, "_", v)]], L$t, L$U3)
+  data.table(group = g, measure = v, lead = mean(vapply(s$m, function(z) z$lead, 0)), caught = sum(vapply(s$m, function(z) z$status == "ok", TRUE)),
+             n_sig = length(s$sig), n_true = s$n_true)
+}))))
+gtp[, precision := round(100 * n_true / n_sig)]
+gtp
+# Who is mismatched: share of employed workers above their occupation's requirement, the last 24 months of data
+last24 <- tail(L$date[!is.na(D$lf)], 24)
+rate <- function(e) GC[date %in% last24 & eval(e), .(rate = 100 * sum(smP_all) / sum(emp), n = sum(n_emp) / length(last24))]
+mis <- rbindlist(lapply(names(grp), function(g) cbind(group = g, rate(grp[[g]]))))
+mis_ba <- rbindlist(lapply(c("All", "White", "Black", "Hispanic", "Asian", "Foreign", "Native", "Men", "Women"), function(g)
+  cbind(group = g, rate(bquote(.(grp[[g]]) & educ == "BAplus")))))
+mis_grad <- rbindlist(lapply(c("All", "White", "Black", "Hispanic", "Asian"), function(g)
+  cbind(group = g, rate(bquote(.(grp[[g]]) & educ == "BAplus" & age == "22-27")))))
+mis; mis_ba; mis_grad
+# Mismatch rate among college graduates, by year and race (not break-adjusted; read from 2003 on)
+mis_ba_year <- GC[educ == "BAplus" & race %in% c("White", "Black", "Hispanic", "Asian"), .(rate = 100 * sum(smP_all) / sum(emp)), by = .(year = as.integer(substr(date, 1, 4)), race)]
+```
+
+```{r occupations}
+# Where the mismatched work: the occupations with the most skills-mismatched workers in the last 24 months,
+# with the requirement used for the latest year (the 75th percentile of degrees over the previous five years)
+OL <- fread("data-source/u7/occ2010_labels.csv")
+LEV <- c("No diploma", "High school", "Associate", "Bachelor's", "Master's", "Professional or doctorate")
+yl <- as.integer(substr(max(L$date), 1, 4))
+oc <- merge(CL[date %in% last24], TH[year == yl, .(occ2010, req = p75)], by = "occ2010")
+occ <- oc[, .(emp = sum(w) / length(last24), mism = sum(w * (lev >= req + params$theta)) / length(last24), req = req[1]), by = occ2010]
+occ <- merge(occ, OL, by = "occ2010", all.x = TRUE)[order(-mism)]
+occ[, `:=`(share = 100 * mism / emp, required = LEV[req + 1L], counted_from = LEV[pmin(req + params$theta, 5L) + 1L])]
+top_occ <- head(occ, 12)
+top_occ[, .(label, required, counted_from, emp = round(emp / 1e3), mism = round(mism / 1e3), share = round(share, 1))]
+```
+
+```{r sensitivity}
+VARS <- c(U7 = "Main: previous 5 years, one degree level", U7_w3 = "Previous 3 years", U7_w10 = "Previous 10 years",
+          U7_fixed = "Fixed requirements, 1994-2026", U7_theta2 = "Two degree levels above", U7_crosswalk = "Major-group crosswalk (The Case for U7.Rmd)")
+sens <- rbindlist(lapply(names(VARS), function(nm) {
+  s <- score(L[[nm]], L$t, L$U3); sv <- score(L[[nm]], L$t, L$U3, "vol")
+  data.table(variant = nm, label = VARS[[nm]], mean = mean(L[[nm]]), latest = tail(L[[nm]], 1), sm_share = mean(L[[nm]] - L$U6),
+             lead_2001 = s$m[["2001"]]$lead, lead_2007 = s$m[["2007"]]$lead, lead_2020 = s$m[["2020"]]$lead,
+             n_sig = length(s$sig), n_true = s$n_true, vol_alpha = sv$alpha,
+             vlead_2001 = sv$m[["2001"]]$lead, vlead_2007 = sv$m[["2007"]]$lead, vlead_2020 = sv$m[["2020"]]$lead, vn_sig = length(sv$sig), vn_true = sv$n_true)
+}))
+sens
+```
+
+```{r export}
+r2 <- function(x, d = 3) round(x, d)
+out <- cbind(L[, c("date", SER), with = FALSE], GSER[, !"date"])
+fwrite(out, "data/u7_series.csv")
+lastm <- max(L$date)
+summary <- list(
+  updated = format(Sys.Date()), last = lastm, missing = D[is.na(lf), date], params = params[c("alpha", "k", "w", "theta", "window")],
+  latest = as.list(L[date == lastm, lapply(.SD, r2, 1), .SDcols = c(LADDER, "c_u", "c_ma", "c_pt", "c_sm")]),
+  mean = as.list(L[, lapply(.SD, function(x) r2(mean(x), 1)), .SDcols = LADDER]),
+  range = lapply(setNames(LADDER, LADDER), function(nm) r2(range(L[[nm]]), 1)),
+  peak2020 = as.list(L[date == "2020-04", lapply(.SD, r2, 1), .SDcols = LADDER]),
+  occupations = nrow(POOLED), req_levels = as.list(table(POOLED$p75)),
+  sm_latest_lf = r2(100 * tail(comp$main$sm, 1), 2), sm_latest_emp = r2(100 * GC[date == lastm, sum(smP_all) / sum(emp)], 1),
+  break2003 = as.list(r2(100 * sapply(comp, function(z) z$break_sm), 2)),
+  validation = lapply(validation, r2), wj_mean = r2(100 * mean(L$wj), 2), ma_mean = r2(100 * mean(L$m), 2),
+  tp = TP[, .(measure, scale, alpha = r2(alpha, 2), rec, status, onset, lead, head_start, dur, after_trough, n_sig, n_true, false)],
+  cycle = list(cor_sm_u6 = r2(cyc$cor_sm_u6, 2), sd12 = as.list(r2(cyc$sd12, 2)), recessions = cyc$recessions[, lapply(.SD, function(x) if (is.numeric(x)) r2(x, 2) else x)]),
+  recovery = recov[, .(id, measure, low = r2(low, 2), high = r2(high, 2), left24 = r2(left24, 2), left48 = r2(left48, 2))],
+  groups_tp = gtp[, .(group, measure, lead = r2(lead, 2), caught, n_sig, n_true, precision)],
+  mismatch = list(by_group = mis[, .(group, rate = r2(rate, 1), n = round(n))], ba = mis_ba[, .(group, rate = r2(rate, 1), n = round(n))],
+                  recent_grads = mis_grad[, .(group, rate = r2(rate, 1), n = round(n))], window = range(last24),
+                  ba_by_year = mis_ba_year[order(race, year), .(year, race, rate = r2(rate, 1))]),
+  sensitivity = sens[, lapply(.SD, function(x) if (is.numeric(x)) r2(x, 2) else x)],
+  classic = classic,
+  top_occupations = top_occ[, .(occ2010, label, required, counted_from, emp_k = round(emp / 1e3), mism_k = round(mism / 1e3), share = r2(share, 1))],
+  validation_series = list(dates = V3$date, u3_micro = r2(V3$micro, 2), pter_micro = r2(VP$micro, 2), pter_official = r2(VP$official, 2)))
+writeLines(toJSON(summary, auto_unbox = TRUE, na = "null", digits = NA, pretty = FALSE), "data/u7_summary.json")
+cat("Wrote data/u7_series.csv and data/u7_summary.json\n")
+```
