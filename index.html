@@ -613,6 +613,15 @@ td.num.pos, td.num.neg, .pos, .neg { color: #222; }
 .byline .wp-link:hover, .byline .wp-link:focus-visible { color: #111; text-decoration-color: #111; }
 .sp-hex { max-width: 560px; width: 100%; margin: 4px auto 0; position: relative; }
 .counties-viz-main .readme { font-family: var(--f-body); margin: 6px 0 4px; }
+.cv-left { display: grid; gap: 10px; justify-items: start; }
+.sa-toggle { position: relative; display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-body); }
+.sa-toggle .segs button { font-family: var(--f-body); color: #525252; }
+.sa-toggle .segs button[aria-pressed="true"] { color: var(--ink); }
+.sa-toggle .sa-i { font-size: 13px; color: #a3a3a3; cursor: default; outline: none; }
+.sa-toggle .sa-tip { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 30; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 10px 12px; font-size: 12.5px; line-height: 1.55; color: #444; text-align: left; pointer-events: none; }
+.sa-toggle:hover .sa-tip, .sa-toggle .sa-i:focus-visible + .sa-tip { display: block; }
+.sa-toggle.off { opacity: .45; }
+.sa-toggle.off .sa-tip { display: none !important; }
 .sp-legend { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; font-size: 12px; color: #6b6b6b; margin-top: 8px; }
 .sp-legend i { width: 26px; height: 8px; display: inline-block; }
 .sp-legend .lab { margin-left: 10px; }
@@ -1056,7 +1065,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="byline"><div><a class="wp-link" href="#" data-soon data-paper="spatial" title="The working paper is coming soon">Working paper</a> <span class="draft-tag">Illustration</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
 </div></section>
 <div class="article">
-  <figure class="vfig" id="sp-hexfig"><div class="vhead"><div class="vtitle">Turning Point by County Data, by State</div><p class="vsub" id="sp-hex-sub">Turning Point Indicator, Modified Sahm Rule, County Level Data (seasonally adjusted), Shown as the Share of Each State’s Counties Above the Threshold in the Latest Month</p></div><div class="sp-hex" id="sp-hex"></div><details class="fig-note"><summary>Notes and source</summary><p>Each hexagon is a state, shaded by the share of its counties whose own turning-point indicator (six-month rule, k = 6, m = 12, α = 0.5, after seasonal adjustment) is above the threshold in the latest month. Hover a state for the count. Source: BLS Local Area Unemployment Statistics via FRED.</p></details></figure>
+  <figure class="vfig" id="sp-hexfig"><div class="vhead"><div class="vtitle">Turning Point by County Data, by State</div></div><div class="fig-ctl" id="sp-hex-ctl"></div><div class="sp-hex" id="sp-hex"></div><details class="fig-note"><summary>Notes and source</summary><p id="sp-hex-note">Turning Point Indicator, Modified Sahm Rule, County Level Data (as published, three-month rule), Shown as the Share of Each State’s Counties Above the Threshold in the Latest Month</p><p>Each hexagon is a state, shaded by the share of its counties whose own turning-point indicator is above the threshold in the latest month. <b>As published</b> uses county rates as BLS releases them with a fast three-month rule (k = 3, 13-month window), as on the map below and on the overview page. <b>Seasonally adjusted</b> removes each county’s regular calendar swings first and uses the six-month rule from the papers (k = 6, m = 12, α = 0.5); it leaves out counties whose source series could not be verified as their own. Hover a state for the count. Source: BLS Local Area Unemployment Statistics via FRED.</p></details></figure>
   <div class="results" id="sp-cards"></div>
   <section class="pbreak"><span class="ov-kicker">Why place</span><h2 class="ov-h">A recession spreads across the map</h2><p>The other papers in this series sort people: by income, by race, by education. This one sorts places. The Bureau of Labor Statistics estimates an unemployment rate every month for each of the country’s <span data-sp="counties">3,136</span> counties, and every one of those series can be run through the same turning-point rule. Watched this way, a recession spreads across the map rather than switching on everywhere at once. Some counties turn early, some late, and some register downturns that never add up to a national recession.</p><p>Three patterns stand out. A handful of counties call recessions cleanly and almost never cry wolf. Counties that turn early tend to raise more false alarms, the same trade-off between speed and accuracy that governs national recession indicators. And places inherit the seasons of the industries they host, strongly enough to fake a recession even after standard seasonal adjustment.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="spatial">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="counties-viz-main" id="county-map" data-howto="1"></div>
@@ -3203,7 +3212,9 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     accuracy: { domain: [1, 5, 10, 15, 20], range: d3.schemeBlues[6], label: "Accuracy", tickFormat: d => Math.round(d) + "%" },
     committee_lead_time: { domain: [50, 75, 100, 125], range: d3.schemeBlues[6].slice(1, 6), tickFormat: d => Math.round(d), label: "Advance" }
   };
-  const S = { metric: "sahm_value", idx: null, ts: {}, agg: null, geo: null, dates: null, loading: null, root: null };
+  const S = { metric: "sahm_value", idx: null, selT: null, sa: false, ts: {}, agg: null, geo: null, dates: null, loading: null, root: null };
+  const SA_TIP = `<b>What the seasonal adjustment does.</b> County unemployment rises and falls with the calendar: it climbs each winter when holiday and outdoor jobs end, and each summer when students and school-year workers look for work. BLS does not remove these swings from county data.<br><br><b>As published</b> uses the county rates as released, with a fast three-month version of the rule, so part of what lights up is the season rather than the economy.<br><br><b>Seasonally adjusted</b> first removes each county’s regular calendar pattern (STL, the method used for every series on this site), then applies the six-month rule from the papers. A county lights up only when its unemployment rises by more than its usual seasonal swing.`;
+  window.saToggleHTML = sa => `<div class="sa-toggle"><div class="segs" role="group" aria-label="Seasonal adjustment">${[["0", "As published"], ["1", "Seasonally adjusted"]].map(([v, l]) => `<button type="button" data-sa="${v}" aria-pressed="${String((v === "1") === !!sa)}">${l}</button>`).join("")}</div><span class="sa-i" tabindex="0" aria-label="What the seasonal adjustment does">ⓘ</span><span class="sa-tip" role="tooltip">${SA_TIP}</span></div>`;
 
   function renderScrubber(el, values, initial, onChange) {
     el.innerHTML = "";
@@ -3225,13 +3236,13 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     upd();
   }
 
-  async function loadTs(metric) {
-    const file = metric === "sahm_value" ? "sahm" : "unemployment";
-    if (S.ts[file]) return S.ts[file];
-    const j = await d3.json(`data-source/map-data/${file}.json`);
+  async function loadTs(metric, sa) {
+    const file = metric === "sahm_value" ? "sahm" : "unemployment", key = file + (sa ? "_sa" : "");
+    if (S.ts[key]) return S.ts[key];
+    const j = await d3.json(sa ? `data/spatial_map_${file}.json` : `data-source/map-data/${file}.json`);
     const [y, m] = j.start.split("-").map(Number);
     j.dates = Array.from({ length: j.n }, (_, i) => new Date(Date.UTC(y, m - 1 + i, 1)));
-    S.ts[file] = j; return j;
+    S.ts[key] = j; return j;
   }
 
   async function ensureBase() {
@@ -3251,14 +3262,19 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     const root = S.root; if (!root) return;
     const cfg = CFG[S.metric], mapEl = root.querySelector("#counties-viz"), slider = root.querySelector("#countries-viz-slider");
     let valueOf;
+    const tog = root.querySelector(".sa-toggle");
+    if (tog) { tog.classList.toggle("off", !cfg.timeSeries); tog.querySelectorAll("button").forEach(b => { b.disabled = !cfg.timeSeries; b.setAttribute("aria-pressed", String((b.dataset.sa === "1") === S.sa)); }); }
     if (cfg.timeSeries) {
-      const ts = await loadTs(S.metric);
-      const dates = ts.dates.slice(cfg.startDateIndex || 0);
-      if (S.idx === null || S.idx >= dates.length || S.lastMetric !== S.metric) S.idx = dates.length - 1;
-      S.lastMetric = S.metric;
+      const sdi = S.sa && S.metric === "sahm_value" ? 16 : (cfg.startDateIndex || 0);
+      const ts = await loadTs(S.metric, S.sa);
+      const dates = ts.dates.slice(sdi);
+      // keep the month the reader picked when switching measure or adjustment
+      let idx = S.selT ? dates.findIndex(d => +d === +S.selT) : -1;
+      S.idx = idx >= 0 ? idx : dates.length - 1;
       slider.hidden = false;
-      if (slider.dataset.metric !== S.metric) { slider.dataset.metric = S.metric; renderScrubber(slider.querySelector(".slider-content"), dates, S.idx, i => { S.idx = i; draw(); }); }
-      const col = S.idx + (cfg.startDateIndex || 0), rowOf = new Map(ts.ids.map((id, i) => [id, i]));
+      const skey = S.metric + (S.sa ? "|sa" : "");
+      if (slider.dataset.metric !== skey) { slider.dataset.metric = skey; renderScrubber(slider.querySelector(".slider-content"), dates, S.idx, i => { S.idx = i; S.selT = dates[i]; draw(); }); }
+      const col = S.idx + sdi, rowOf = new Map(ts.ids.map((id, i) => [id, i]));
       valueOf = id => { const r = rowOf.get(id); if (r === undefined) return null; const v = ts.v[r][col]; return v === null ? null : v / ts.scale; };
       root.querySelector("#cv-when").textContent = monthFormat(dates[S.idx]);
     } else {
@@ -3268,7 +3284,7 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     }
     const plot = Plot.plot({
       width: 975, height: 610, projection: "identity",
-      color: { type: "threshold", domain: cfg.domain, range: cfg.range, label: cfg.label, legend: true, tickFormat: cfg.tickFormat },
+      color: { type: "threshold", domain: cfg.domain, range: cfg.range, label: cfg.label + (S.sa && cfg.timeSeries ? " · seasonally adjusted" : ""), legend: true, tickFormat: cfg.tickFormat },
       marks: [
         Plot.geo(S.counties, Plot.centroid({
           fill: d => { const v = valueOf(d.id); return v === null || v === undefined || Number.isNaN(v) ? 0 : v; },
@@ -3285,18 +3301,19 @@ window.SahmTool = { SahmRuleDashboard, vRecessionIndicatorChart, compute_sahm_ru
     if (S.root === root && root.dataset.ready) return;
     if (S.root && S.root !== root) { S.root.innerHTML = ""; delete S.root.dataset.ready; }
     S.root = root; root.dataset.ready = "1";
-    const howto = root.dataset.howto ? `<span class="readme" tabindex="0">How to read this map ⓘ<span class="readme-tip"><p>Each county is shaded by its turning-point indicator in the selected month: the rise in its unemployment rate above its recent low. Drag the timeline to watch a recession move across the country.</p><p>The map runs a fast three-month version of the rule on the county rates as BLS publishes them, without seasonal adjustment. The charts below use the six-month rule from the papers, applied after seasonal adjustment.</p></span></span>` : "";
+    const howto = root.dataset.howto ? `<span class="readme" tabindex="0">How to read this map ⓘ<span class="readme-tip"><p>Each county is shaded by its turning-point indicator in the selected month: the rise in its unemployment rate above its recent low. Drag the timeline to watch a recession move across the country.</p><p>By default the map uses the county rates as BLS publishes them, without seasonal adjustment, and a fast three-month version of the rule. Switch to “Seasonally adjusted” to remove each county’s regular calendar swings and use the six-month rule from the papers, the version behind the charts below.</p></span></span>` : "";
     root.innerHTML = `<h3>Turning Point by County Data</h3>
       <p class="cv-sub">Turning Point Indicator, Modified Sahm Rule, County Level Data, Shown with Color Variation, Data from 1991 to Present <span id="cv-when" hidden></span></p>${howto}
       <div class="counties-viz-controls">
-        <div class="counties-viz-radios" role="radiogroup" aria-label="Map measure">
+        <div class="cv-left"><div class="counties-viz-radios" role="radiogroup" aria-label="Map measure">
           ${[["unemployment_rate", "Unemployment"], ["sahm_value", "Outlook"], ["accuracy", "Accuracy"], ["committee_lead_time", "Advance"]].map(([v, l]) => `<label><input type="radio" name="cv-metric" value="${v}" ${v === S.metric ? "checked" : ""}> ${l}</label>`).join("")}
-        </div>
+        </div>${window.saToggleHTML(S.sa)}</div>
         <div id="countries-viz-slider" class="countries-viz-slider" hidden><div class="slider-content"></div><label>TIMELINE</label></div>
       </div>
       <div id="counties-viz"><p class="loading">Loading 3,134 counties…</p></div>
       <div class="counties-viz-foot"><b>Source:</b> BLS Local Area Unemployment Statistics, county unemployment rates, 1990 to present. <b>Outlook</b> is the county’s Sahm Rule value; <b>Accuracy</b> and <b>Advance</b> summarize how well each county’s signal matched national recessions and how many days it led the NBER committee. <b>Author:</b> <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a>. <b>Visualized by:</b> <a href="https://ghviniashvili.com/" target="_blank" rel="noopener">Giorgi Gviniashvili</a> and <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a>.</div>`;
     root.querySelectorAll('input[name="cv-metric"]').forEach(r => r.addEventListener("change", e => { if (e.target.checked) { S.metric = e.target.value; draw(); } }));
+    root.querySelectorAll(".sa-toggle button").forEach(btn => btn.addEventListener("click", () => { const v = btn.dataset.sa === "1"; if (v === S.sa) return; S.sa = v; draw(); }));
     try { await ensureBase(); await draw(); } catch (e) { console.error(e); root.querySelector("#counties-viz").innerHTML = `<p class="note warn">The county map could not load its data files.</p>`; }
   }
   async function share() {
@@ -3626,6 +3643,17 @@ function spLoad() {
   return SPX.loading;
 }
 const spMon = s => mLab(mIdx(s));
+// Hexagon map on the spatial page: starts on the published data (as on the overview page); the button switches to the adjusted version
+async function spHex() {
+  const el = document.getElementById("sp-hex"), ctl = document.getElementById("sp-hex-ctl"); if (!el) return;
+  const sa = !!SPX.hexSA;
+  if (ctl && window.saToggleHTML) { ctl.innerHTML = window.saToggleHTML(sa); ctl.querySelectorAll(".sa-toggle button").forEach(b => b.onclick = () => { const v = b.dataset.sa === "1"; if (v !== !!SPX.hexSA) { SPX.hexSA = v; spHex(); } }); }
+  let hx = null;
+  try { hx = sa || !(window.CountiesMap && CountiesMap.stateShare) ? await spStateShare() : await CountiesMap.stateShare(); } catch (e) { console.error(e); return; }
+  hexMap(el, hx);
+  const note = document.getElementById("sp-hex-note");
+  if (note) note.textContent = `Turning Point Indicator, Modified Sahm Rule, County Level Data (${sa ? "seasonally adjusted" : "as published, three-month rule"}), Shown as the Share of Each State’s Counties Above the Threshold, ${d3.utcFormat("%B %Y")(hx.date)}`;
+}
 // State shares for the hexagon map, latest month, from data/spatial_states.json (seasonally adjusted six-month rule)
 async function spStateShare() {
   const S = await d3.json("data/spatial_states.json"), last = S.n - 1, inv = Object.fromEntries(Object.entries(FIPS).map(([f, a]) => [a, f]));
@@ -3640,7 +3668,7 @@ async function renderSpatialExtras() {
   let D;
   try { D = await spLoad(); } catch (e) { console.error(e); const c = document.getElementById("sp-cards"); if (c) c.outerHTML = `<p class="note warn">The county statistics could not be loaded.</p>`; return; }
   if (!document.getElementById("sp-cards")) return;
-  try { const hx = await spStateShare(), el = document.getElementById("sp-hex"); if (el) { hexMap(el, hx); const sub = document.getElementById("sp-hex-sub"); if (sub) sub.textContent = `Turning Point Indicator, Modified Sahm Rule, County Level Data (seasonally adjusted), Shown as the Share of Each State’s Counties Above the Threshold, ${d3.utcFormat("%B %Y")(hx.date)}`; } } catch (e) { console.error(e); }
+  spHex();
   for (const [fn, id] of [[spFill, null], [spCards, "sp-cards"], [spBell, "fig-sp-bell"], [spFrontier, "fig-sp-front"], [spGw, "fig-sp-gw"], [spHeat, "fig-sp-heat"], [spSeas, "fig-sp-seas"], [spSeasEx, "fig-sp-seas-ex"]]) {
     try { fn(id ? document.getElementById(id) : null, D); } catch (e) { console.error(e); }
   }
@@ -4354,7 +4382,7 @@ async function renderViews() {
     await mini("vmini-u", ["UNRATE", "U6RATE"], ["U-3", "U-6"], ["--d4", "--d10"], "1994-01-01");
     await mini("vmini-race", ["LNS14000003", "LNS14000006"], ["White", "Black"], ["--s-white", "--s-black"], "1975-01-01");
     await mini("vmini-edu", ["LNS14027659", "LNS14027662"], ["Less than HS", "Bachelor's+"], ["--s-lths", "--s-ba"], "1993-01-01");
-    { let hx = null; try { hx = await spStateShare(); } catch (e) { if (window.CountiesMap && CountiesMap.stateShare) hx = await CountiesMap.stateShare(); } if (hx) hexMap(document.getElementById("vmini-county"), hx); }
+    if (window.CountiesMap && CountiesMap.stateShare) hexMap(document.getElementById("vmini-county"), await CountiesMap.stateShare());
   } catch (e) { console.error(e); }
 }
 
