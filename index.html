@@ -154,6 +154,11 @@ input[type="number"] { width: 72px; }
 .tile .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 
 table.udef td, table.udef th { white-space: normal; vertical-align: top; line-height: 1.45; }
+table.udef tr.hl td { background: #f4f8fd; }
+#v-u7 .tablewrap table, #v-u7-data .tablewrap table { min-width: 600px; }
+#v-u7 .pbreak p a, #v-u7-data .pbreak p a, #v-u7-data .lede a { color: inherit; text-decoration: underline; text-decoration-color: #b8b8b8; text-underline-offset: 3px; }
+#v-u7 .pbreak p a:hover, #v-u7-data .pbreak p a:hover, #v-u7-data .lede a:hover { color: #111; text-decoration-color: #111; }
+table.u7occ td:first-child { min-width: 200px; }
 .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
 th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
@@ -1123,6 +1128,62 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div id="fig-umeas-ob"></div>
   <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Inequality of Recession</h2><p>The paper shows that, in a search across thousands of candidate recession indicators, a rule built on U-6 sits on or near the frontier that trades early detection against accuracy, and explains why: it captures adjustment on the intensive margin and the workers who feel a downturn first.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="#compare">Compare U-6 with the Sahm and Michez Rules</a></div></section>
   <div class="full" data-chap="umeas"></div>
+</div>
+</div>
+
+<!-- ===== The Case for U-7 (unlisted: reached only by its link, not from the navigation) ===== -->
+<div class="view" id="v-u7" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#underemployment">← Underemployment and the U-Measures</a>
+  <h1>The Case <span class="of">for</span> U-7</h1>
+  <p class="lede">The Bureau of Labor Statistics stops counting at U-6: the unemployed, people who have given up looking, and workers who want more hours. A seventh measure would also count workers who have the job and the hours, but not a job that uses their education. Built from the public Current Population Survey, U-7 is about <span data-u7="times">…</span> times U-6, because about one worker in seven holds a degree their job does not call for. Run through the same turning-point rule as the rest of this site, the new rungs are not faster alarms than U-6. They show how far a recession reaches, whom it reaches, and how long it takes to undo.</p>
+  <div class="byline"><div><a class="wp-link" href="#" data-soon data-paper="u7" title="The working paper is coming soon">Working paper</a> <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <p class="needs-u7 loading">Loading the U-7 ladder…</p>
+  <div id="fig-u7-ladder"></div>
+  <div class="results" id="res-u7"></div>
+  <section class="pbreak"><span class="ov-kicker">The argument</span><h2 class="ov-h">Broad measures pool the margins</h2><p>Recessions reach some workers first. On this site’s other pages, unemployment among Black workers, young workers, workers without a diploma and lower-income households turns up before the national rate. A rule built on any one of those series also sounds more false alarms, because the samples are small, the series are noisy, and some shocks belong to one group or one industry rather than to the economy. A broad measure such as U-6 pools those margins without inheriting all of that noise. It reaches the workers who feel a downturn first because it counts more kinds of underutilization, not because it singles out any one group.</p><p>If breadth is the virtue, how far can it go? The ladder below adds four rungs to the official six, all built from the public CPS microdata: workers whose degree is above what their occupation typically requires (U-7, the measure proposed in the paper), everyone outside the labor force who says they want a job (U-8), and two margins of independent and gig work, the own-account and the incorporated self-employed (U-9 and U-10). Each rung counts everyone the rung below it counts, and no one twice.</p></section>
+  <div class="tablewrap" id="tab-u7-def"></div>
+  <section class="pbreak"><span class="ov-kicker">Turning points</span><h2 class="ov-h">Bigger is not faster</h2><p>Run through the same rule, the rungs above U-6 do not call recessions any sooner than U-6 does. U-6 itself crosses the threshold before U-3, by <span data-u7="u6hs07">…</span> in the Financial Collapse, because firms cut hours before they cut jobs. U-7 adds nothing to that head start: it crossed <span data-u7="u7vs6">…</span>. U-8 to U-10 are no faster. With the threshold scaled to each measure’s size (the <b>Threshold scaling</b> control in the full analysis below), U-7 crosses <span data-u7="lvl7">…</span> U-3 on average. Scaled to its volatility instead, it crosses <span data-u7="vol7txt">…</span>, and <span data-u7="vol7fa">…</span> of its <span data-u7="vol7n">…</span> crossings since 1995 were false alarms.</p><p>One exception shows how fragile the comparison is. With the classic three-month Sahm rule instead of this site’s six-month version, U-7 flags the Financial Collapse <span data-u7="classic07">…</span>. How much the answer moves with the rule and with the definition of mismatch is on the <a href="#u7-data">data page</a>.</p></section>
+  <div id="fig-u7-tp"></div>
+  <div id="fig-u7-tl"></div>
+  <div id="fig-u7-dc"></div>
+  <section class="pbreak"><span class="ov-kicker">Why</span><h2 class="ov-h">Mismatch falls when jobs are cut</h2><p>The reason is in what U-7 adds. Many skills-mismatched workers hold the jobs a recession cuts first: retail sales, food service, driving, warehouse and construction work. When those jobs go, mismatched workers become unemployed, and U-7, which already counted them, does not rise. Mismatch then rebuilds in the recovery, as people take the jobs on offer rather than the jobs they trained for. Since 1994 the twelve-month change in the mismatch part of U-7 has run against the change in U-6, with a correlation of <span data-u7="corr">…</span>. From each NBER peak to a year after the trough, it <span data-u7="sm0120">…</span>, and <span data-u7="sm07txt">…</span> in 2007–09 while U-6 rose <span data-u7="u607">…</span> points.</p><p>So U-7 measures how much labor a recession wastes better than it marks when one starts. In April 2020 it reached <span data-u7="apr20">…</span> percent: <span data-u7="apr20txt">…</span> of the labor force was unemployed, marginally attached, cut to part time, or working below their qualifications.</p></section>
+  <div id="fig-u7-parts"></div>
+  <section class="pbreak"><span class="ov-kicker">Recoveries</span><h2 class="ov-h">A recovery in unemployment is not a recovery in utilization</h2><p>Where U-7 earns its place is on the way out. Four years after the 2007–09 recession ended, <span data-u7="l48u3_07">…</span> percent of that recession’s rise in the official unemployment rate was still there; for U-7 it was <span data-u7="l48u7_07">…</span> percent. After 2001 the gap was wider: <span data-u7="l48u3_01">…</span> percent for U-3 and <span data-u7="l48u7_01">…</span> percent for U-7. After 2020 every measure had all but recovered within two years. As unemployment falls, part of what looks like recovery is people moving into jobs that do not use what they know.</p></section>
+  <div id="fig-u7-rec"></div>
+  <section class="pbreak"><span class="ov-kicker">Breadth or narrowness</span><h2 class="ov-h">Earlier warnings, more false alarms</h2><p>The chart places every measure on the speed–accuracy frontier from the spatial page: how early its signal comes, on average, against the share of its signals that were real recessions. The narrow series sit low and to the right: unemployment among Black workers, young workers, workers without a diploma and immigrants turns up early but rings falsely more often. The official rate sits high and to the left, late but right every time since 1994. U-6 buys part of the narrow series’ head start, and pays a similar price in false alarms; U-7 to U-10, built on the same hours margin, add size without improving on it.</p><p>With three recessions and a handful of signals per series, one false alarm moves a measure by 15 to 25 points, so the pattern, not the ranking, is the finding. Several of the false alarms are recent: the broad measures crossed the threshold in 2024 and 2025, and, as of these data, the NBER has not dated a recession since 2020.</p></section>
+  <div id="fig-u7-front"></div>
+  <section class="pbreak"><span class="ov-kicker">Who</span><h2 class="ov-h">Degrees that go unused</h2><p>Mismatch is not spread evenly. Among college graduates, <span data-u7="ba_black">…</span> percent of Black workers and <span data-u7="ba_hisp">…</span> percent of Hispanic workers hold jobs that do not call for their degree, against <span data-u7="ba_white">…</span> percent of White graduates. For immigrants with a degree it is <span data-u7="ba_foreign">…</span> percent. Among recent graduates aged 22 to 27, <span data-u7="gr_black">…</span> percent of Black and <span data-u7="gr_hisp">…</span> percent of Hispanic graduates are mismatched, against <span data-u7="gr_white">…</span> percent of White graduates. U-1 through U-6 count every one of them as fully employed.</p></section>
+  <div id="fig-u7-who"></div>
+  <section class="pbreak"><span class="ov-kicker">Next</span><h2 class="ov-h">What the restricted data would add</h2><p>The public CPS can build U-7, but only coarsely. Occupations come in <span data-u7="occs">…</span> harmonized categories, education stops at the highest degree, there is no field of study, and subgroup samples are too small for monthly mismatch series by race or by place. The restricted American Community Survey and LEHD files in the proposal would sharpen the level and the distribution of mismatch: detailed occupations, field of degree, local labor markets, and earnings records to test whether mismatched workers are in fact paid less, and move on when they can.</p><p>They will not sharpen the timing. The ACS is annual and LEHD quarterly, so monthly turning points still have to come from the CPS. The public-data ladder on this page is the monthly companion to the restricted-data measure.</p></section>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Case for U-7</h2><p>The paper builds U-7 from public data, sets out the ladder from U-3 to U-10, and asks what a seventh measure adds to the six the BLS publishes: a fuller count of wasted labor, a map of who bears it, and a recovery that runs longer than the headline rate shows.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="u7">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="#u7-data">How U-7 is built</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+  <div class="full" data-chap="u7"></div>
+</div>
+</div>
+
+<!-- ===== Building U-7 from Public Data (unlisted methods page) ===== -->
+<div class="view" id="v-u7-data" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#u7">← The Case for U-7</a>
+  <h1>Building U-7 <span class="of">from</span> Public Data</h1>
+  <p class="lede">How the ten measures on <a href="#u7">The Case for U-7</a> are put together: which pieces come from the official series and which from the CPS microdata, how skills mismatch is defined, how closely the microdata reproduce the official numbers, and how much the results depend on the choices.</p>
+  <div class="byline"><div>Methods note <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <p class="needs-u7 loading">Loading the U-7 ladder…</p>
+  <section class="pbreak"><span class="ov-kicker">The ladder</span><h2 class="ov-h">Ten measures, one rule</h2><p>U-3 to U-6 are the official seasonally adjusted series. Each rung above them adds one more group to the numerator and, when the group is outside the labor force, to the denominator too. A worker who fits two groups is counted once, in the lower rung: a mismatched worker who is also part time for economic reasons is already in U-6, and a self-employed worker who is mismatched is already in U-7.</p><p>The microdata cannot identify the marginally attached: the extract records why people outside the labor force are not looking, but not whether they could start a job or have looked in the past year. U-7 therefore takes them from the official U-5. Writing <i>u</i> = U/LF and <i>m</i> = MA/LF, U-5 = (<i>u</i> + <i>m</i>)/(1 + <i>m</i>), which gives <i>m</i> = (U-5 − U-3)/(1 − U-5) and so the U-6 denominator, LF + MA.</p></section>
+  <div class="tablewrap" id="tab-u7-formula"></div>
+  <section class="pbreak"><span class="ov-kicker">U-7</span><h2 class="ov-h">Skills mismatch, step by step</h2><p><b>Degree levels.</b> Six steps of highest degree: no high-school diploma; high school, including some college without a degree; associate; bachelor’s; master’s; professional or doctorate.</p><p><b>What a job requires.</b> For each of the <span data-u7="occs">…</span> harmonized occupations in the CPS (<span class="mono">OCC2010</span>), the requirement is the degree at the occupation’s 75th percentile over the previous five years of data: three in four of its workers hold that degree or less. A worker is mismatched with a degree at least one level above it. This is a realized-matches definition, as in the proposal, rather than a job-analysis one: it asks what workers in the occupation actually hold.</p><p><b>A moving reference.</b> Because requirements are re-measured every year, the rising education of the workforce does not by itself raise U-7. Each year’s update is phased in month by month, so the series has no January steps.</p><p><b>The 2003 recode.</b> In January 2003 the CPS moved to the 2000 Census occupation codes, which shifts every occupation-based count. The level before 2003 is moved by the January jump net of the usual January change: <span data-u7="brk">…</span> points for the main definition.</p><p><b>Counted once.</b> Workers part time for economic reasons are left out of the mismatch count, because U-6 already includes them.</p></section>
+  <div id="fig-u7-occ"></div>
+  <section class="pbreak"><span class="ov-kicker">U-8 to U-10</span><h2 class="ov-h">The want-a-job pool and the self-employed</h2><p><b>U-8</b> widens the pool from the marginally attached to everyone outside the labor force who says they want a job: the people the CPS asks why they are not looking (<span class="mono">WNLOOK</span>). Since 1994 they have averaged <span data-u7="wj">…</span> per hundred labor-force members, against <span data-u7="ma">…</span> marginally attached. The BLS publishes a similar count, persons not in the labor force who currently want a job.</p><p><b>U-9 and U-10</b> follow the gig-work ladder in the draft code: own-account (unincorporated) and incorporated self-employment (<span class="mono">CLASSWKR</span> 13 and 14), counting only the self-employed not already counted as mismatched or part time for economic reasons. The draft’s other gig margin, multiple jobholding, needs the IPUMS variable <span class="mono">MULTJOB</span>, which the extract used here does not include; it is the obvious next addition.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Validation</span><h2 class="ov-h">Do the microdata match the official series?</h2><p>Rebuilt from the microdata and seasonally adjusted with STL, the unemployment rate stays within about <span data-u7="v_u3sd">…</span> points of the official rate in a typical month (average difference <span data-u7="v_u3md">…</span>, correlation <span data-u7="v_u3cor">…</span>), and part time for economic reasons within about <span data-u7="v_ptsd">…</span> points of the official share implied by U-5 and U-6. The microdata use the CPS final weights and the BLS its composite weights and its own seasonal adjustment, so small gaps are expected.</p></section>
+  <div id="fig-u7-val"></div>
+  <section class="pbreak"><span class="ov-kicker">Sensitivity</span><h2 class="ov-h">How much the definition matters</h2><p>The level depends heavily on how mismatch is defined. Requiring two degree levels instead of one cuts the mismatch part of U-7 from about <span data-u7="s_main">…</span> to about <span data-u7="s_t2">…</span> points; the major-group crosswalk in <span class="mono">The Case for U7.Rmd</span>, which lets every sales and office job require only high school, puts it near <span data-u7="s_cw">…</span>. Holding requirements fixed at their 1994–2026 levels lets rising education push U-7 up over time, from <span data-u7="s_fx0">…</span> percent in 1994 to <span data-u7="s_fx1">…</span> percent now.</p><p>Timing depends on the choices less, but enough to matter for the claim that mismatch gives earlier warning. Across the definitions below, U-7 crosses the threshold in 2007–09 anywhere from <span data-u7="s_rng">…</span>, with the main definition <span data-u7="s_m07">…</span>. With the classic Sahm rule (a three-month average against the previous twelve months’ low), U-7 flags 2007–09 <span data-u7="classic07b">…</span>.</p></section>
+  <div id="fig-u7-sens"></div>
+  <section class="pbreak"><span class="ov-kicker">Turning points</span><h2 class="ov-h">The rule and the scoring</h2><p><b>Seasonal adjustment.</b> U-3 to U-6 are the official seasonally adjusted series. Each microdata component (the mismatched, the want-a-job pool, the self-employed, and every subgroup series) is a monthly ratio to the labor force adjusted as everywhere else on the site: a three-month centered average, then STL with a fixed seasonal pattern. October 2025, when the shutdown cancelled the household survey, is interpolated.</p><p><b>The rule.</b> The site’s Modified Sahm Rule: a six-month average of the rate minus its lowest value over the past twelve months, with a threshold of 0.5 points. A recession is matched to the first crossing between 18 months before and 12 months after the NBER peak; a crossing outside every such window is a false alarm, and precision is the share of crossings since 1995 that were real. The full analysis on the U-7 page changes every one of these settings, including thresholds scaled to each measure’s level or volatility.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Code and data</span><h2 class="ov-h">Files</h2><p>Everything on these two pages is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/U7_Ladder.Rmd</span></a> from monthly tabulations of the IPUMS CPS Basic Monthly files, January 1994 to <span data-u7="last">…</span>, in <a href="https://github.com/markgsheppard/SahmRule/tree/main/data-source/u7" target="_blank" rel="noopener"><span class="mono">data-source/u7/</span></a>. The Rmd writes <a href="data/u7_series.csv"><span class="mono">data/u7_series.csv</span></a>, every measure and component, seasonally adjusted, and <a href="data/u7_summary.json"><span class="mono">data/u7_summary.json</span></a>, the numbers quoted here. With <span class="mono">rebuild: true</span> it recreates the tabulations from an IPUMS extract. Microdata: IPUMS CPS, University of Minnesota, <a href="https://www.ipums.org" target="_blank" rel="noopener">ipums.org</a>.</p><div class="pb-btns"><a class="df-button ghost" href="#u7">Back to The Case for U-7</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
 </div>
 </div>
 
@@ -3426,6 +3487,8 @@ function renderSite() {
   if (v === "vibe") renderVibeAgg();
   if (v === "replicate") renderReplicate();
   if (v === "umeas") renderUmeas();
+  if (v === "u7") renderU7();
+  if (v === "u7-data") renderU7Data();
   if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
   if (!ok) return;
@@ -3516,8 +3579,8 @@ function renderVibe() {
 }
 
 /* ---------- Routing: one view per paper ---------- */
-const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "method", "thanks"];
+const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false, u7: false } };
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "u7", "u7-data", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -3534,7 +3597,7 @@ function route() {
   VIEW.cur = v;
   VIEWS.forEach(x => { const el = document.getElementById("v-" + x); if (el) el.hidden = x !== v; });
   setNavCurrent(v);
-  if (v === "method") ST.tab = "methods"; else if (["race", "income", "education", "spatial", "umeas"].includes(v)) ST.tab = v;
+  if (v === "method") ST.tab = "methods"; else if (["race", "income", "education", "spatial", "umeas", "u7"].includes(v)) ST.tab = v;
   placeTool();
   render();
   if (changed) window.scrollTo(0, 0);
@@ -4143,6 +4206,386 @@ async function renderUmeas() {
   renderUob();
 }
 
+/* ---------- The Case for U-7 (unlisted pages #u7 and #u7-data; data from data-source/U7_Ladder.Rmd) ---------- */
+const U7L = [["U3", "U-3", "--d2"], ["U4", "U-4", "--d3"], ["U5", "U-5", "--d4"], ["U6", "U-6", "--d5"], ["U7", "U-7", "--d7"], ["U8", "U-8", "--d8"], ["U9", "U-9", "--d9"], ["U10", "U-10", "--d10"]];
+const U7DASH = id => id === "U9" || id === "U10" ? "5 3" : "";
+const U7V = [["U7", "U-7", "Main: previous five years, one degree level", "--d7"], ["U7_w3", "U-7, three-year requirements", "Previous three years", "--d4"], ["U7_w10", "U-7, ten-year requirements", "Previous ten years", "--d9"],
+  ["U7_fixed", "U-7, fixed requirements", "Requirements fixed over 1994–2026", "--s-agg"], ["U7_theta2", "U-7, two levels above", "Two degree levels above, not one", "--d2"], ["U7_crosswalk", "U-7, major-group crosswalk", "Major-group crosswalk (The Case for U7.Rmd)", "--d10"]];
+const U7G = [["Black", "Black", "--s-black"], ["Hispanic", "Hispanic", "--s-hisp"], ["Asian", "Asian", "--s-asian"], ["White", "White", "--s-white"], ["Men", "Men", "--s-men"], ["Women", "Women", "--s-women"],
+  ["16-21", "Ages 16–21", "--d3"], ["22-27", "Ages 22–27", "--d4"], ["28-34", "Ages 28–34", "--d5"], ["35-54", "Ages 35–54", "--d7"], ["55+", "Ages 55+", "--d9"],
+  ["LTHS", "No diploma", "--s-lths"], ["HS", "High school", "--s-hs"], ["Assoc", "Associate degree", "--s-sc"], ["BAplus", "Bachelor’s or more", "--s-ba"], ["Foreign", "Foreign-born", "--d8"], ["Native", "Native-born", "--d3"]];
+const U7R = () => NBER.filter(r => ["2001", "2007", "2020"].includes(r.id));
+const U7NAME = r => REC_NAMES_ALL(r.name);
+Object.assign(SITE, { u7Rec: "2007", u7Set: "core", u7H: "48", u7Who: "ba", u7Fr: "both", u7Val: "u3", u7Sens: "pub" });
+let _u7 = null;
+function u7lab(id) {
+  const a = U7L.find(u => u[0] === id); if (a) return a[1];
+  const v = U7V.find(u => u[0] === id); if (v) return v[1];
+  const g = /^g_(.+)_(u3|u6s)$/.exec(id); if (g) { const x = U7G.find(y => y[0] === g[1]); return (x ? x[1] : g[1]) + (g[2] === "u3" ? "" : ", U-6-style"); }
+  return id;
+}
+function u7col(id) {
+  const a = U7L.find(u => u[0] === id); if (a) return a[2];
+  const v = U7V.find(u => u[0] === id); if (v) return v[3];
+  const g = /^g_(.+)_(u3|u6s)$/.exec(id), x = g && U7G.find(y => y[0] === g[1]); return x ? x[2] : "--s-agg";
+}
+async function loadU7() {
+  if (_u7) return _u7;
+  const [rows, sum] = await Promise.all([d3.csv("data/u7_series.csv"), d3.json("data/u7_summary.json")]);
+  const st = rows[0].date, S = {};
+  for (const k of rows.columns) if (k !== "date") S[k] = makeSeries("u7:" + k, u7lab(k), st, rows.map(r => r[k]));
+  return (_u7 = { S, sum });
+}
+const u7Alpha = s => seriesAlpha(s, _u7.S.U3, ST.p);
+function u7Match(s) { const a = u7Alpha(s); return Object.fromEntries(NBER.map(r => [r.id, matchRec(s, r, ST.p, a)])); }
+function u7Signals(s) {
+  const a = u7Alpha(s), S = sahm(s, ST.p.k, ST.p.m, ST.p.pre), peaks = U7R().map(r => mIdx(r.peak));
+  const on = episodes(S.ind, a).filter(e => !e.censored).map(e => e.on + s.start), inW = t => peaks.some(P => t >= P - ST.p.before && t <= P + ST.p.after);
+  return { all: on, real: on.filter(inW), fa: on.filter(t => !inW(t)) };
+}
+const u7List = arr => arr.length < 2 ? arr.join("") : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
+const u7Rel = v => !isFinite(v) ? "without a matched signal" : v > 0 ? `${MO(v)} before the NBER peak` : v < 0 ? `${MO(v)} after the NBER peak` : "in the month of the NBER peak";
+const u7RelS = v => !isFinite(v) ? "without a matched signal" : v > 0 ? `${MO(v)} before the peak` : v < 0 ? `${MO(v)} after it` : "at the peak";
+// The page text describes the default rule, whatever the full analysis below is set to
+const U7P0 = { k: 6, m: 12, pre: false, alpha: 0.5, scale: "fixed", before: 18, after: 12, exit: "below", minDur: 0 };
+const u7Match0 = s => Object.fromEntries(NBER.map(r => [r.id, matchRec(s, r, U7P0, U7P0.alpha)]));
+// "in the same month as U-6 in the Financial Collapse and COVID-19 recessions and 2 months later in the Dot-Com Bust"
+function u7VersusL(la, lb, other) {
+  const same = [], diff = [];
+  for (const r of U7R()) { const x = la[r.id], y = lb[r.id]; if (!isFinite(x) || !isFinite(y) || x === null || y === null) continue; const d = x - y; (d === 0 ? same : diff).push([U7NAME(r), d]); }
+  const parts = [];
+  if (same.length) parts.push(`in the same month as ${other} in the ${u7List(same.map(x => x[0]))} recession${same.length > 1 ? "s" : ""}`);
+  for (const [n, d] of diff) parts.push(`${MO(d)} ${d > 0 ? "earlier" : "later"} in the ${n}`);
+  return parts.length ? u7List(parts) : "at no time it could be compared with " + other;
+}
+const u7Leads = m => Object.fromEntries(U7R().map(r => [r.id, m[r.id] && m[r.id].status === "ok" ? m[r.id].lead : NaN]));
+const u7Versus = (a, b, other) => u7VersusL(u7Leads(a), u7Leads(b), other);
+const u7TpLeads = (s, id, scale) => Object.fromEntries(U7R().map(r => { const x = s.tp.find(z => z.measure === id && z.scale === scale && z.rec === r.id); return [r.id, x && x.lead !== null ? x.lead : NaN]; }));
+function u7Facts(D, A) {
+  const s = D.sum, L = s.latest, F = {}, S = D.S;
+  F.last = mLab(mIdx(s.last)); F.times = (L.U7 / L.U6).toFixed(1);
+  const m7 = u7Match0(S.U7), m6 = u7Match0(S.U6), m3 = u7Match0(S.U3);
+  F.u7vs6 = u7Versus(m7, m6, "U-6");
+  const h607 = m6["2007"].lead - m3["2007"].lead; F.u6hs07 = MO(h607);
+  const l7 = u7TpLeads(s, "U7", "level"), l3 = u7TpLeads(s, "U3", "level"), dl = U7R().map(r => l7[r.id] - l3[r.id]).filter(isFinite), avl = dl.reduce((a, b) => a + b, 0) / dl.length;
+  F.lvl7 = `${f1(Math.abs(avl))} months ${avl > 0 ? "before" : "after"}`;
+  F.vol7txt = u7VersusL(u7TpLeads(s, "U7", "vol"), u7TpLeads(s, "U3", "vol"), "U-3");
+  const v7 = s.tp.find(z => z.measure === "U7" && z.scale === "vol"); F.vol7fa = String(v7.n_sig - v7.n_true); F.vol7n = String(v7.n_sig);
+  const cl = (m, r) => s.classic.find(x => x.measure === m && x.rec === r) || {};
+  const c7 = cl("U7", "2007"), c6 = cl("U6", "2007"), c3 = cl("U3", "2007"), fa = m => cl(m, "2007").n_sig - cl(m, "2007").n_true;
+  F.classic07 = `${u7Rel(c7.lead)}, where U-6 flags it ${u7RelS(c6.lead)} and U-3 ${u7RelS(c3.lead)}`;
+  F.classic07b = `${u7Rel(c7.lead)} (U-6: ${u7RelS(c6.lead)}; U-3: ${u7RelS(c3.lead)}), with ${fa("U7")} false alarm${fa("U7") === 1 ? "" : "s"} since 1995 (U-6: ${fa("U6")}; U-3: ${fa("U3")})`;
+  F.corr = s.cycle.cor_sm_u6.toFixed(2).replace("-", "−");
+  const rc = id => s.cycle.recessions.find(r => r.id === id), mv = d => Math.abs(d) < 0.15 ? `barely moved (${sg(d, 2)} points)` : d < 0 ? `fell ${f1(-d)} points` : `rose ${f1(d)} points`;
+  const d01 = rc("2001").sm_down, d20 = rc("2020").sm_down;
+  F.sm0120 = d01 <= -0.15 && d20 <= -0.15 ? `fell ${f1(-d01)} points in 2001 and ${f1(-d20)} points in 2020` : `${mv(d01)} in 2001 and ${mv(d20)} in 2020`;
+  F.sm07txt = mv(rc("2007").sm_down); F.u607 = f1(rc("2007").u6_down);
+  F.apr20 = f1(s.peak2020.U7); F.apr20txt = s.peak2020.U7 > 100 / 3 ? "more than a third" : s.peak2020.U7 > 25 ? "more than a quarter" : "a large share";
+  const lf = (id, m) => Math.round(100 * ((s.recovery.find(r => r.id === id && r.measure === m) || {}).left48));
+  F.l48u3_07 = lf("2007", "U3"); F.l48u7_07 = lf("2007", "U7"); F.l48u3_01 = lf("2001", "U3"); F.l48u7_01 = lf("2001", "U7");
+  const mm = (k, g) => Math.round((s.mismatch[k].find(x => x.group === g) || {}).rate);
+  F.ba_black = mm("ba", "Black"); F.ba_hisp = mm("ba", "Hispanic"); F.ba_white = mm("ba", "White"); F.ba_foreign = mm("ba", "Foreign");
+  F.gr_black = mm("recent_grads", "Black"); F.gr_hisp = mm("recent_grads", "Hispanic"); F.gr_white = mm("recent_grads", "White");
+  F.occs = String(s.occupations); F.brk = sg(s.break2003.main, 2); F.wj = f1(s.wj_mean); F.ma = f1(s.ma_mean);
+  F.v_u3sd = f1(s.validation.u3_sd_diff, 2); F.v_u3md = sg(s.validation.u3_mean_diff, 2); F.v_u3cor = s.validation.u3_cor.toFixed(3); F.v_ptsd = f1(s.validation.pter_sd_diff, 2);
+  const sv = id => s.sensitivity.find(x => x.variant === id) || {};
+  F.s_main = f1(sv("U7").sm_share, 0); F.s_t2 = f1(sv("U7_theta2").sm_share, 0); F.s_cw = f1(sv("U7_crosswalk").sm_share, 0);
+  const fx = S.U7_fixed; F.s_fx0 = f1(fx.v.slice(0, 12).reduce((a, b) => a + b, 0) / 12); F.s_fx1 = f1(fx.v[fx.v.length - 1]);
+  const l07 = s.sensitivity.map(x => x.lead_2007).filter(isFinite), lo = Math.min(...l07), hi = Math.max(...l07);
+  F.s_rng = `${u7Rel(hi)} to ${u7RelS(lo)}`; F.s_m07 = u7RelS(sv("U7").lead_2007);
+  return F;
+}
+function u7Fill(D, A) { const F = u7Facts(D, A); document.querySelectorAll("[data-u7]").forEach(e => { const k = e.dataset.u7; if (F[k] !== undefined) e.textContent = F[k]; }); }
+
+const U7DEF = {
+  U3: ["The unemployed: without a job, available, and looking in the past four weeks", "BLS"],
+  U4: ["Discouraged workers: want a job but have stopped looking because they believe none is available", "BLS"],
+  U5: ["All other marginally attached: want a job and looked in the past year, but not in the past four weeks", "BLS"],
+  U6: ["Part time for economic reasons: want full-time work, but hours were cut or only part-time work was found", "BLS"],
+  U7: ["Skills-mismatched workers: a degree at least one level above what three in four workers in the same occupation hold", "CPS microdata, added to U-6"],
+  U8: ["Everyone else outside the labor force who wants a job, whatever the reason they are not looking", "CPS microdata"],
+  U9: ["Own-account self-employed not already counted: the unincorporated margin of independent and gig work", "CPS microdata"],
+  U10: ["Incorporated self-employed not already counted", "CPS microdata"]
+};
+const u7Dot = id => `<i class="k" style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(${u7col(id)})"></i>`;
+function u7DefTable(el, D) {
+  if (!el) return;
+  const L = D.sum.latest;
+  el.innerHTML = `<table class="udef" style="table-layout:fixed"><colgroup><col style="width:76px"><col><col style="width:84px"><col style="width:23%"></colgroup><thead><tr><th class="l">Measure</th><th class="l">What it adds</th><th>${esc(mLab(mIdx(D.sum.last)))}</th><th class="l">Source</th></tr></thead><tbody>${U7L.map(([id]) => `<tr${id === "U7" ? ' class="hl"' : ""}><td class="l">${u7Dot(id)}<b>${u7lab(id)}</b></td><td class="l">${U7DEF[id][0]}</td><td class="num">${f1(L[id])}%</td><td class="l">${U7DEF[id][1]}</td></tr>`).join("")}</tbody></table>`;
+}
+function u7FormulaTable(el) {
+  if (!el) return;
+  const R = [["U3", "Unemployed, U", "Labor force, LF", "BLS: UNRATE"], ["U4", "Discouraged, D", "LF + D", "BLS: U4RATE"], ["U5", "Marginally attached, MA (includes D)", "LF + MA", "BLS: U5RATE"], ["U6", "Part time for economic reasons, PTER", "LF + MA", "BLS: U6RATE"],
+    ["U7", "Skills-mismatched, SM (not PTER)", "LF + MA", "U-6, plus SM from <span class=\"mono\">EDUC</span>, <span class=\"mono\">OCC2010</span>, <span class=\"mono\">WKSTAT</span>"], ["U8", "Want a job, WJ (includes MA)", "LF + WJ", "U-7, with WJ from <span class=\"mono\">LABFORCE</span>, <span class=\"mono\">WNLOOK</span>"],
+    ["U9", "Own-account self-employed, SEu (not PTER or SM)", "LF + WJ", "U-8, plus <span class=\"mono\">CLASSWKR</span> = 13"], ["U10", "Incorporated self-employed, SEi (not PTER or SM)", "LF + WJ", "U-9, plus <span class=\"mono\">CLASSWKR</span> = 14"]];
+  el.innerHTML = `<table class="udef" style="table-layout:fixed"><colgroup><col style="width:76px"><col style="width:34%"><col style="width:17%"><col></colgroup><thead><tr><th class="l">Measure</th><th class="l">Adds to the numerator</th><th class="l">Denominator</th><th class="l">Built from</th></tr></thead><tbody>${R.map(([id, a, d, b]) => `<tr${id === "U7" ? ' class="hl"' : ""}><td class="l">${u7Dot(id)}<b>${u7lab(id)}</b></td><td class="l">${a}</td><td class="l">${d}</td><td class="l">${b}</td></tr>`).join("")}</tbody></table>`;
+}
+function u7Ladder(el, D) {
+  if (!el) return;
+  const S = D.S, t1 = S.U3.start + S.U3.v.length - 1;
+  const lines = U7L.map(([id, l, c]) => ({ label: l, color: c, dash: U7DASH(id), width: id === "U7" ? 3 : ["U3", "U6"].includes(id) ? 2 : 1.5, at: t => valAt(S[id], t) }));
+  el.innerHTML = figure("The Ladder of Labor Underutilization, U-3 to U-10", "Labor Underutilization Rates, U-3 to U-10, Percent, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present",
+    `${readme(`<p><b>What you are looking at.</b> Each line is one measure of labor underutilization, as a percent of the labor force (plus, for the broader measures, the people outside it they count). Each rung counts everyone the rung below it counts, so the lines never cross.</p><p><b>The official six stop at U-6.</b> U-7 adds workers whose degree is above what their occupation requires, U-8 adds everyone outside the labor force who wants a job, and U-9 and U-10 (dashed) add the self-employed.</p><p><b>How to read it.</b> Hover for every measure in a month. Shaded: NBER recessions.</p>`)}<div class="fig-ctl">${swatches(U7L.map(u => ({ label: u[1], color: u[2], dash: !!U7DASH(u[0]) })))}</div><div class="vbody"></div>`,
+    `Sources: BLS via FRED (UNRATE, U4RATE, U5RATE, U6RATE), seasonally adjusted. U-7 to U-10 add counts from the IPUMS CPS Basic Monthly files (civilians 16 and older, final weights), seasonally adjusted with the site’s STL procedure. Construction: <a href="#u7-data">Building U-7 from Public Data</a>.`);
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [S.U3.start, t1], series: lines, shade: SHADE(), yUnit: "%", height: 420, aria: "U-3 to U-10, 1994 to present" });
+}
+function u7Cards(el, D, A) {
+  if (!el) return;
+  const s = D.sum, L = s.latest, recs = U7R();
+  const hs = id => stats(recs.map(r => lead(A[id].recs[r.id]) - lead(A.U3.recs[r.id]))), h7 = hs("U7"), h6 = hs("U6");
+  const lf = m => (s.recovery.find(r => r.id === "2007" && r.measure === m) || {}).left48;
+  el.innerHTML =
+    result(`U-7, ${mLab(mIdx(s.last))}`, f1(L.U7), "percent", `against ${f1(L.U6)}% for U-6 and ${f1(L.U3)}% for U-3`) +
+    result("Skills-mismatched workers", f1(L.c_sm), "points of U-7", `about ${Math.round(s.sm_latest_emp)}% of employed workers`) +
+    dres("Head start over U-3", h7.mean, "months earlier", "months later", `U-7, average of ${h7.n} recessions since 1994 · U-6: ${sg(h6.mean)}`) +
+    result("Still elevated four years on", Math.round(100 * lf("U7")), "% of the rise left", `U-7 after 2007–09 · U-3: ${Math.round(100 * lf("U3"))}%`);
+}
+function u7Onsets(list, rec) {
+  const r = NBER.find(x => x.id === rec); if (!r) return [];
+  return list.map(([s, color]) => { const m = matchRec(s, r, ST.p, u7Alpha(s)); if (m.status !== "ok") return null; const SS = sahm(s, ST.p.k, ST.p.m, ST.p.pre); return { t: m.on, v: SS.ind[m.on - s.start], color }; }).filter(Boolean);
+}
+function u7Tp(el, D) {
+  if (!el) return;
+  const S = D.S, set = SITE.u7Set, ids = set === "core" ? ["U3", "U6", "U7", "U8"] : U7L.map(u => u[0]);
+  const lines = ids.map(id => indLine(S[id], u7lab(id), u7col(id), U7DASH(id), id === "U7" ? 2.75 : ["U3", "U6"].includes(id) ? 2 : 1.5));
+  el.innerHTML = figure("Turning Point by Labor Utilization, U-3 to U-10", TP("U-3 to U-10 Labor Utilization Data (BLS and CPS Microdata)", "Reference Lines and Recessions", "1994"),
+    `${readme(`<p><b>What you are looking at.</b> Each line is one measure run through the turning-point rule: its six-month average minus its lowest value over the past year. A line above the threshold signals a recession.</p><p><b>The dots</b> mark the month each measure first crossed the threshold near the chosen recession. Dots further left called the recession sooner.</p><p><b>How to read it.</b> Pick a recession above the chart. The broader lines rise further, but they do not cross much sooner.</p>`)}<div class="fig-ctl">${recRadios("u7rec", SITE.u7Rec, U7R(), true)}<div class="segs" id="u7set">${[["core", "U-3, U-6, U-7, U-8"], ["all", "All eight"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === set}">${l}</button>`).join("")}</div></div>${swatches(ids.map(id => ({ label: u7lab(id), color: u7col(id), dash: !!U7DASH(id) })))}<div class="vbody"></div>`,
+    "Sources: BLS via FRED (UNRATE, U4RATE, U5RATE, U6RATE) and IPUMS CPS Basic Monthly microdata (U-7 to U-10), seasonally adjusted. Each line is one measure run through its own indicator. Shaded: NBER recession. Dots mark when each measure crossed the threshold.");
+  wireRadios(el, "u7rec", v => { SITE.u7Rec = v; u7Tp(el, D); });
+  el.querySelectorAll("#u7set button").forEach(b => b.onclick = () => { SITE.u7Set = b.dataset.v; u7Tp(el, D); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: win(SITE.u7Rec), series: lines, shade: SHADE(), hlines: UPDOWN(), markers: u7Onsets(ids.map(id => [S[id], u7col(id)]), SITE.u7Rec), height: 400 });
+}
+function u7say(d, k) {
+  const r = REC_NAMES_ALL(d.r.name), t = d.tot;
+  const head = `In the ${r} recession, U-7 crossed the recession threshold ${t === 0 ? "in the same month as" : MO(t) + (t > 0 ? " before" : " after")} U-3.`;
+  if (k === "tot") return head;
+  if (k === "comp") return `${head} The official broader measures, going from U-3 to U-6, ${d.comp === 0 ? "changed the timing by nothing" : (d.comp > 0 ? "moved the signal " + MO(d.comp) + " earlier" : "moved it " + MO(d.comp) + " later")}.`;
+  return `${head} Adding skills-mismatched workers, going from U-6 to U-7, ${d.res === 0 ? "changed the timing by nothing" : (d.res > 0 ? "moved the signal " + MO(d.res) + " earlier" : "moved it " + MO(d.res) + " later")}.`;
+}
+function u7Split(el, D) {
+  if (!el) return;
+  const S = D.S;
+  el.innerHTML = figure("What Gives U-7 Its Head Start?", TP("U-3, U-6 and U-7 Labor Utilization Data (BLS and CPS Microdata)", "a Two-Step Split", "1994"),
+    `${readme(`<p><b>What you are looking at.</b> Each row is a recession. The black tick shows how many months earlier the rule fired on U-7 than on the official unemployment rate (U-3).</p><p><b>The colored pieces</b> split those months into the step from U-3 to U-6, the official broader measures (light), and the step from U-6 to U-7, adding skills-mismatched workers (dark).</p><p><b>How to read it.</b> If the bar is all light, the head start comes from the official measures and mismatch adds nothing. A dark piece left of zero means adding mismatched workers made the signal later. Hover a piece for the numbers in plain words.</p>`)}${swatches([{ label: "U-3 to U-6 (official measures)", color: "--s-comp" }, { label: "U-6 to U-7 (skills mismatch)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="u7dc"></div>`,
+    "Gap in onset, U-7 minus U-3, in months, split into U-6 minus U-3 and U-7 minus U-6. Where a series does not cross its threshold cleanly near a recession, the threshold is relaxed until it does.");
+  splitBars(el.querySelector("#u7dc"), splitRows(S.U7, S.U3, S.U6, S.U3, "lead", U7R()), "mo", { say: u7say, comp: "U-3 to U-6", res: "Skills mismatch (U-6 to U-7)", compTip: "How much earlier U-6 signals than U-3: the head start from discouraged and marginally attached workers and involuntary part time.", resTip: "How much earlier U-7 signals than U-6: the head start from counting skills-mismatched workers.", totTip: "The total difference in onset, U-7 minus U-3, in months." });
+}
+// Stacked areas for the parts of U-7
+function stackChart(el, cfg) {
+  el.innerHTML = ""; el.classList.add("chart");
+  const W = Math.max(320, el.clientWidth || 800), H = cfg.height || Math.round(Math.min(380, Math.max(240, W * 0.42))), M = { l: 44, r: 14, t: 10, b: 28 };
+  const s0 = cfg.series[0].s, x0 = s0.start, x1 = s0.start + s0.v.length - 1, n = x1 - x0 + 1;
+  const cum = Array.from({ length: n }, (_, i) => { let acc = 0; return cfg.series.map(se => { const v = valAt(se.s, x0 + i), lo = acc; acc += isFinite(v) ? v : 0; return [lo, acc]; }); });
+  const hi = Math.max(...cum.map(c => c[c.length - 1][1])) * 1.04, lo = 0;
+  const X = t => M.l + (t - x0) / (x1 - x0 || 1) * (W - M.l - M.r), Y = v => M.t + (hi - v) / (hi - lo) * (H - M.t - M.b);
+  let s = "";
+  for (const v of niceTicks(lo, hi, 5)) s += `<line class="gl" x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}${cfg.yUnit || ""}</text>`;
+  const maxT = Math.max(2, Math.floor((W - M.l - M.r) / 64)), stepM = [12, 24, 60, 120].find(st => (x1 - x0) / st <= maxT) || 120;
+  for (let t = Math.ceil(x0 / stepM) * stepM; t <= x1; t += stepM) s += `<text x="${X(t)}" y="${H - 8}" text-anchor="middle">${Math.floor(t / 12)}</text>`;
+  cfg.series.forEach((se, k) => {
+    let d = ""; for (let i = 0; i < n; i++) d += (i ? "L" : "M") + X(x0 + i).toFixed(1) + "," + Y(cum[i][k][1]).toFixed(1);
+    for (let i = n - 1; i >= 0; i--) d += "L" + X(x0 + i).toFixed(1) + "," + Y(cum[i][k][0]).toFixed(1);
+    s += `<path d="${d}Z" fill="var(${se.color})" opacity=".9"></path>`;
+  });
+  for (const sh of (cfg.shade || [])) { const a = Math.max(x0, sh.from), b = Math.min(x1, sh.to); if (b >= a) s += `<rect x="${X(a)}" y="${M.t}" width="${Math.max(1, X(b) - X(a))}" height="${H - M.t - M.b}" fill="rgba(38,42,49,.10)"></rect>`; }
+  s += `<line class="xh" x1="0" x2="0" y1="${M.t}" y2="${H - M.b}" stroke="var(--ink-3)" stroke-width="1" visibility="hidden"></line>`;
+  const svg = document.createElementNS(SVGNS, "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", cfg.aria || "stacked area chart"); svg.innerHTML = s; el.appendChild(svg);
+  const tip = h("div", { class: "tip", hidden: "" }); el.appendChild(tip); const xh = svg.querySelector(".xh");
+  svg.addEventListener("pointermove", ev => {
+    const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width, t = Math.round(x0 + (px - M.l) / (W - M.l - M.r) * (x1 - x0));
+    if (t < x0 || t > x1) { tip.hidden = true; xh.setAttribute("visibility", "hidden"); return; }
+    xh.setAttribute("x1", X(t)); xh.setAttribute("x2", X(t)); xh.setAttribute("visibility", "visible");
+    const c = cum[t - x0];
+    tip.innerHTML = `<div class="h">${mLab(t)}</div>` + cfg.series.slice().reverse().map(se => `<div class="r"><span><i class="k" style="background:var(${se.color})"></i>${esc(se.label)}</span><span class="num">${f1(valAt(se.s, t), 1)}</span></div>`).join("") + `<div class="r"><span><b>${esc(cfg.total || "Total")}</b></span><span class="num"><b>${f1(c[c.length - 1][1], 1)}</b></span></div>`;
+    tip.hidden = false; const left = (X(t) / W) * r.width, tw = tip.offsetWidth; tip.style.left = (left + 14 + tw > r.width ? left - tw - 14 : left + 14) + "px"; tip.style.top = "8px";
+  });
+  svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.setAttribute("visibility", "hidden"); });
+}
+function u7Parts(el, D) {
+  if (!el) return;
+  const S = D.S, keys = [["c_u", "Unemployed", "--d2"], ["c_ma", "Marginally attached", "--d4"], ["c_pt", "Part time for economic reasons", "--d6"], ["c_sm", "Skills-mismatched", "--d9"]];
+  el.innerHTML = figure("What U-7 Is Made Of", "Parts of U-7, Percent of the Labor Force plus the Marginally Attached, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present",
+    `${readme(`<p><b>What you are looking at.</b> U-7 split into the four groups it counts, stacked. The top of the stack is U-7.</p><p><b>How to read it.</b> In a recession the three lower bands swell. The top band, skills-mismatched workers, does not: it shrinks in 2001 and 2020 and holds steady in 2007–09, then grows during the recoveries. Hover for the parts in any month.</p>`)}${swatches(keys.map(k => ({ label: k[1], color: k[2] })))}<div class="vbody" id="u7parts"></div>`,
+    "U-7 = (unemployed + marginally attached + part time for economic reasons + skills-mismatched) ÷ (labor force + marginally attached). The first three parts come from the official U-3, U-5 and U-6; the last from the CPS microdata.");
+  stackChart(softBody(el.querySelector("#u7parts")), { series: keys.map(([id, l, c]) => ({ label: l, color: c, s: S[id] })), shade: SHADE(), yUnit: "%", total: "U-7", aria: "Parts of U-7 over time" });
+}
+function u7Recov(el, D) {
+  if (!el) return;
+  const R = D.sum.recovery, hz = SITE.u7H, ids = ["U3", "U6", "U7", "U8"], recs = U7R();
+  el.innerHTML = figure("How Much of the Recession Is Still There?", "Share of Each Measure’s Recession Rise Still Remaining after the NBER Trough, Six-Month Averages of Seasonally Adjusted Rates, Recessions since 1994",
+    `${readme(`<p><b>What you are looking at.</b> For each recession, how much of each measure’s rise was still there two or four years after the official end. 100% means no recovery at all, 0% means back to the pre-recession low, and below zero means better than before.</p><p><b>How to read it.</b> Longer bars for U-7 and U-8 than for U-3 mean the broader measures took longer to come back: part of the fall in unemployment was people moving into jobs below their qualifications.</p>`)}<div class="fig-ctl"><div class="segs" id="u7h">${[["24", "Two years after the trough"], ["48", "Four years after"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === hz}">${l}</button>`).join("")}</div>${swatches(ids.map(id => ({ label: u7lab(id), color: u7col(id) })))}</div><div class="vbody" id="u7recb"></div>`,
+    "Rise: from the lowest six-month average in the year before the NBER peak to the highest in the two years after the trough. Remaining: how far the six-month average stood above that pre-recession low, as a share of the rise.");
+  el.querySelectorAll("#u7h button").forEach(b => b.onclick = () => { SITE.u7H = b.dataset.v; u7Recov(el, D); });
+  const body = el.querySelector("#u7recb"); body.classList.add("chart");
+  const W = Math.max(300, body.clientWidth || 600), bh = 13, gap = 4, gH = ids.length * (bh + gap) + 16, M = { l: 136, r: 44, t: 6, b: 28 }, H = M.t + M.b + gH * recs.length;
+  const val = (r, m) => { const x = R.find(z => z.id === r.id && z.measure === m); return x ? 100 * x["left" + hz] : NaN; };
+  const all = recs.flatMap(r => ids.map(m => val(r, m))).filter(isFinite), lo = Math.min(0, ...all), hi = Math.max(100, ...all);
+  const X = v => M.l + (v - lo) / (hi - lo) * (W - M.l - M.r);
+  let s = "";
+  for (const v of niceTicks(lo, hi, 5)) s += `<line x1="${X(v)}" x2="${X(v)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--rule)"></line><text x="${X(v)}" y="${H - 8}" text-anchor="middle">${v}%</text>`;
+  s += `<line x1="${X(0)}" x2="${X(0)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--ink-3)"></line>`;
+  recs.forEach((r, i) => {
+    const y0 = M.t + i * gH + 6;
+    s += `<text x="${M.l - 10}" y="${y0 + ids.length * (bh + gap) / 2 + 2}" text-anchor="end" style="fill:var(--ink-2)">${esc(U7NAME(r))}</text>`;
+    ids.forEach((m, j) => { const v = val(r, m), y = y0 + j * (bh + gap); if (!isFinite(v)) return; const a = X(Math.min(0, v)), b = X(Math.max(0, v));
+      s += `<rect class="rb" data-i="${i}" data-m="${m}" x="${a}" y="${y}" width="${Math.max(1, b - a)}" height="${bh}" rx="2" fill="var(${u7col(m)})"></rect><text x="${X(Math.max(0, v)) + 5}" y="${y + bh - 2.5}" style="font-size:11px" pointer-events="none">${Math.round(v)}%</text>`; });
+  });
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${s}</svg><div class="tip" hidden></div>`;
+  const svg = body.querySelector("svg"), tip = body.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => {
+    const t = ev.target.closest && ev.target.closest(".rb"); if (!t) { tip.hidden = true; return; }
+    const r = recs[+t.dataset.i], m = t.dataset.m, x = R.find(z => z.id === r.id && z.measure === m);
+    tip.innerHTML = `<div class="h">${esc(u7lab(m))} · ${esc(U7NAME(r))}</div><div class="r"><span>Pre-recession low</span><span class="num">${f1(x.low, 1)}%</span></div><div class="r"><span>Recession high</span><span class="num">${f1(x.high, 1)}%</span></div><div class="r"><span>Left after 2 years</span><span class="num">${Math.round(100 * x.left24)}%</span></div><div class="r"><span>Left after 4 years</span><span class="num">${Math.round(100 * x.left48)}%</span></div>`;
+    tip.hidden = false; const rc = body.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = (ev.clientY - rc.top + 12) + "px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+}
+const U7SHORT = { BAplus: "Bachelor’s+", Assoc: "Associate", "16-21": "Ages 16–21", "55+": "Ages 55+" };
+function u7Front(el, D) {
+  if (!el) return;
+  const S = D.S, recs = U7R(), mode = SITE.u7Fr;
+  const pt = (id, kind) => {
+    const s = S[id]; if (!s) return null;
+    const m = u7Match(s), L = recs.map(r => lead(m[r.id])), ok = L.filter(isFinite), sig = u7Signals(s);
+    return { id, kind, label: kind === "ladder" ? u7lab(id) : (U7SHORT[id.slice(2, -3)] || (U7G.find(g => "g_" + g[0] + "_u3" === id) || [, id])[1]), lead: ok.length ? ok.reduce((a, b) => a + b, 0) / ok.length : NaN, caught: ok.length, L, prec: sig.all.length ? sig.real.length / sig.all.length : NaN, n: sig.all.length, real: sig.real.length, fa: sig.fa };
+  };
+  const P = U7L.map(u => pt(u[0], "ladder")).concat(U7G.map(g => pt("g_" + g[0] + "_u3", "group"))).filter(p => p && isFinite(p.lead) && isFinite(p.prec));
+  const shown = P.filter(p => mode === "both" || p.kind === mode);
+  const front = shown.filter(p => !shown.some(q => q !== p && q.lead >= p.lead && q.prec >= p.prec && (q.lead > p.lead || q.prec > p.prec))).sort((a, b) => a.lead - b.lead);
+  el.innerHTML = figure("Speed Against Accuracy: Broad Measures and Narrow Groups", `${TP("U-3 to U-10 and Subgroup Unemployment Rates (BLS and CPS Microdata)", "the Anticipation–Precision Frontier", "1994")}. Horizontal: average months between each series’ first crossing and the NBER peak over the 2001, 2007–09 and 2020 recessions, positive when the signal came before the peak. Vertical: share of all crossings since 1995 that fell between ${ST.p.before} months before and ${ST.p.after} months after a peak.`,
+    `${readme(`<p><b>What you are looking at.</b> Each dot is one series. Further right means its recession signal came earlier, on average, relative to the official start of the recession. Higher means a larger share of its signals were real recessions rather than false alarms.</p><p><b>Dark dots</b> are the measures of underutilization, U-3 to U-10. <b>Light dots</b> are unemployment rates for single groups of workers.</p><p><b>The frontier.</b> The blue line connects the series no other series beats on both counts at once. Moving along it to the right buys earlier warning at the price of more false alarms.</p>`)}<div class="fig-ctl"><div class="segs" id="u7fr">${[["both", "Both"], ["ladder", "The ladder"], ["group", "Subgroups"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === mode}">${l}</button>`).join("")}</div></div><div class="vbody" id="u7frb"></div><div class="val-key"><span><i style="background:var(--d9)"></i>Measure of underutilization (U-3 to U-10)</span><span><i style="background:#a9d1f4"></i>Unemployment rate of one group</span><span><i style="background:#5a9be0;border-radius:0;height:2px;width:16px;vertical-align:3px"></i>Frontier</span></div>`,
+    "Sources: BLS via FRED for U-3 to U-6; IPUMS CPS Basic Monthly for U-7 to U-10 and for the group unemployment rates, seasonally adjusted with the site’s STL procedure. Concept: Michaillat (2025), the anticipation–precision frontier.");
+  el.querySelectorAll("#u7fr button").forEach(b => b.onclick = () => { SITE.u7Fr = b.dataset.v; u7Front(el, D); });
+  const body = el.querySelector("#u7frb"); body.classList.add("chart");
+  const W = Math.max(320, body.clientWidth || 860), H = Math.round(Math.min(540, Math.max(360, W * 0.58))), M = { l: 52, r: 18, t: 34, b: 46 };
+  const xs = shown.map(p => p.lead), x0 = Math.floor(Math.min(...xs, -6)) - 1, x1 = Math.ceil(Math.max(...xs, 2)) + 1;
+  const X = v => M.l + (v - x0) / (x1 - x0) * (W - M.l - M.r), Y = p => M.t + (1 - p) * (H - M.t - M.b);
+  let s = "";
+  for (const p of [0, .25, .5, .75, 1]) s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(p)}" y2="${Y(p)}" stroke="#eee" stroke-dasharray="2 3"></line><text x="${M.l - 6}" y="${Y(p) + 3.5}" text-anchor="end">${Math.round(p * 100)}%</text>`;
+  const xstep = x1 - x0 > 16 ? 2 : 1;
+  for (let v = Math.ceil(x0 / xstep) * xstep; v <= x1; v += xstep) s += `<text x="${X(v)}" y="${H - M.b + 16}" text-anchor="middle">${v > 0 ? "+" + v : v}</text>`;
+  s += `<line x1="${X(0)}" x2="${X(0)}" y1="${M.t}" y2="${H - M.b}" stroke="#cfcfcf"></line><text x="${X(0) + 4}" y="${H - M.b - 6}" style="fill:#8a8a8a">NBER peak</text>`;
+  const narrow = W < 560;
+  s += `<text x="${(M.l + W - M.r) / 2}" y="${H - 8}" text-anchor="middle" style="fill:#737373">${narrow ? "Months of warning before the peak · earlier →" : "Average warning before the NBER peak (months) · earlier →"}</text>`;
+  s += `<text transform="translate(13 ${(M.t + H - M.b) / 2}) rotate(-90)" text-anchor="middle" style="fill:#737373">${narrow ? "Real signals · more accurate →" : "Signals that were real recessions · more accurate →"}</text>`;
+  if (front.length > 1) s += `<path d="${front.map((p, i) => (i ? "L" : "M") + X(p.lead).toFixed(1) + "," + Y(p.prec).toFixed(1)).join("")}" fill="none" stroke="#5a9be0" stroke-width="1.8"></path>`;
+  // labels: coincident points share one label (measures first); simple collision avoidance
+  const groups = new Map();
+  for (const p of shown.slice().sort((a, b) => (a.kind === "ladder" ? 0 : 1) - (b.kind === "ladder" ? 0 : 1))) { const k = p.lead.toFixed(2) + "|" + p.prec.toFixed(3); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(p); }
+  const boxes = [], fs = W < 560 ? 10 : 11, cw = fs * 0.58, place = (txt, x, y) => {
+    const w = txt.length * cw + 4, cands = [[x + 9, y + 4], [x - 9 - w, y + 4], [x - w / 2, y - 10], [x - w / 2, y + 18], [x + 9, y - 9], [x + 9, y + 17], [x - 9 - w, y - 9], [x - 9 - w, y + 17], [x - w / 2, y - 22], [x - w / 2, y + 30], [x + 9, y - 21], [x + 9, y + 29], [x - w / 2, y - 34], [x - w / 2, y + 42]];
+    for (const [lx, ly] of cands) { const b = [lx, ly - fs + 1, lx + w, ly + 2]; if (lx < M.l - 40 || lx + w > W - 2 || ly - fs < 2 || ly > H - M.b + 2) continue; if (!boxes.some(o => !(b[2] < o[0] || b[0] > o[2] || b[3] < o[1] || b[1] > o[3]))) { boxes.push(b); return [lx, ly]; } }
+    return null;
+  };
+  const G = [...groups.values()];
+  for (const g of G) { const x = X(g[0].lead), y = Y(g[0].prec); for (const q of g) { q._x = x; q._y = y; } boxes.push([x - 5, y - 5, x + 5, y + 5]); }
+  const isLad = g => g.some(q => q.kind === "ladder");
+  let dots = "", labs = "";
+  for (const g of G.slice().sort((a, b) => isLad(a) - isLad(b))) {   // groups first, measures drawn on top
+    const lad = isLad(g), p = g.find(q => q.kind === "ladder") || g[0], onF = g.some(q => front.includes(q));
+    dots += `<circle cx="${p._x}" cy="${p._y}" r="${lad ? 5.5 : 4.5}" fill="${lad ? `var(${g.some(q => q.id === "U7") ? "--d10" : "--d8"})` : "#a9d1f4"}" stroke="${onF ? "#5a9be0" : "#fff"}" stroke-width="${onF ? 2 : 1.4}"></circle>`;
+  }
+  for (const g of G.slice().sort((a, b) => isLad(b) - isLad(a))) {   // measures labelled first
+    const lad = isLad(g), txt = g.map(q => q.label).join(" · "), at = place(txt, g[0]._x, g[0]._y);
+    if (at) labs += `<text x="${at[0]}" y="${at[1]}" style="font-size:${fs}px;fill:${lad ? "#2b2b2b" : "#6b6b6b"};font-weight:${lad ? 600 : 400};paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round">${esc(txt)}</text>`;
+  }
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${s}${dots}${labs}</svg><div class="tip" hidden></div>`;
+  const svg = body.querySelector("svg"), tip = body.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => {
+    const rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, py = (ev.clientY - rc.top) * H / rc.height;
+    let best = null, bd = 12; for (const p of shown) { const d = Math.hypot(p._x - px, p._y - py); if (d < bd) { bd = d; best = p; } }
+    if (!best) { tip.hidden = true; return; }
+    const same = shown.filter(q => q._x === best._x && q._y === best._y);
+    tip.innerHTML = same.map(p => `<div class="h">${esc(p.label)}${p.kind === "group" ? " · unemployment rate" : ""}</div>${recs.map((r, i) => `<div class="r"><span>${esc(U7NAME(r))}</span><span class="num">${isFinite(p.L[i]) ? (p.L[i] > 0 ? p.L[i] + " mo before" : p.L[i] < 0 ? -p.L[i] + " mo after" : "at peak") : "no signal"}</span></div>`).join("")}<div class="r"><span>Real signals</span><span class="num">${p.real} of ${p.n}</span></div><div class="r"><span>False alarms</span><span>${p.fa.length ? p.fa.map(t => mShort(t)).join(", ") : "none"}</span></div>`).join("");
+    tip.hidden = false; const left = best._x / W * rc.width; tip.style.left = (left + 14 + tip.offsetWidth > rc.width ? left - tip.offsetWidth - 14 : left + 14) + "px"; tip.style.top = Math.max(0, best._y / H * rc.height - 20) + "px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+}
+const U7WHO = { All: ["All", "--d10"], White: ["White", "--s-white"], Black: ["Black", "--s-black"], Hispanic: ["Hispanic", "--s-hisp"], Asian: ["Asian", "--s-asian"], Native: ["Native-born", "--d3"], Foreign: ["Foreign-born", "--d8"], Men: ["Men", "--s-men"], Women: ["Women", "--s-women"],
+  Assoc: ["Associate degree", "--s-sc"], BAplus: ["Bachelor’s or more", "--s-ba"], "16-21": ["Ages 16–21", "--d3"], "22-27": ["Ages 22–27", "--d4"], "28-34": ["Ages 28–34", "--d5"], "35-54": ["Ages 35–54", "--d7"], "55+": ["Ages 55+", "--d9"] };
+function u7Who(el, D) {
+  if (!el) return;
+  const Mi = D.sum.mismatch, k = SITE.u7Who, w = Mi.window;
+  const sets = { ba: { rows: Mi.ba, order: ["All", "White", "Black", "Hispanic", "Asian", "Native", "Foreign", "Men", "Women"], who: "college graduates" },
+    recent_grads: { rows: Mi.recent_grads, order: ["All", "White", "Black", "Hispanic", "Asian"], who: "college graduates aged 22 to 27" },
+    by_group: { rows: Mi.by_group, order: ["All", "Assoc", "BAplus", "16-21", "22-27", "28-34", "35-54", "55+", "White", "Black", "Hispanic", "Asian", "Native", "Foreign", "Men", "Women"], who: "all employed workers" } };
+  const set = sets[k], rows = set.order.map(g => set.rows.find(x => x.group === g)).filter(Boolean);
+  el.innerHTML = figure("Who Holds a Degree Their Job Does Not Require?", `Share of Employed Workers Whose Degree Is at Least One Level above Their Occupation’s Requirement, ${esc(set.who[0].toUpperCase() + set.who.slice(1))}, ${mLab(mIdx(w[0]))} to ${mLab(mIdx(w[1]))}, CPS Microdata`,
+    `${readme(`<p><b>What you are looking at.</b> For each group, the share of employed workers whose highest degree is at least one level above what three in four workers in their occupation hold.</p><p><b>How to read it.</b> Longer bars mean more of the group’s education goes unused. Among college graduates, Black, Hispanic and immigrant workers are the most often mismatched.</p>`)}<div class="fig-ctl"><div class="segs" id="u7who">${[["ba", "College graduates"], ["recent_grads", "Recent graduates, 22–27"], ["by_group", "All workers"]].map(([kk, l]) => `<button data-v="${kk}" aria-pressed="${kk === k}">${l}</button>`).join("")}</div></div><div class="vbody" id="u7whob"></div>`,
+    `Average over the last 24 months of data, weighted. Workers without at least an associate degree cannot be mismatched under this definition, because every occupation’s requirement is at least a high-school diploma. The smallest group shown has about ${Math.round(Math.min(...rows.map(r => r.n))).toLocaleString()} workers in the survey each month.`);
+  el.querySelectorAll("#u7who button").forEach(b => b.onclick = () => { SITE.u7Who = b.dataset.v; u7Who(el, D); });
+  const body = el.querySelector("#u7whob"); body.classList.add("chart");
+  const W = Math.max(300, body.clientWidth || 600), bh = 18, gap = 7, M = { l: 132, r: 46, t: 4, b: 24 }, H = M.t + M.b + rows.length * (bh + gap);
+  const hi = Math.max(10, ...rows.map(r => r.rate)) * 1.08, X = v => M.l + v / hi * (W - M.l - M.r);
+  let s = "";
+  for (const v of niceTicks(0, hi, 5)) s += `<line x1="${X(v)}" x2="${X(v)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--rule)"></line><text x="${X(v)}" y="${H - 6}" text-anchor="middle">${v}%</text>`;
+  rows.forEach((r, i) => {
+    const y = M.t + i * (bh + gap), [lab, col] = U7WHO[r.group] || [r.group, "--d6"];
+    s += `<text x="${M.l - 10}" y="${y + bh / 2 + 4}" text-anchor="end" style="fill:var(--ink-2);font-weight:${r.group === "All" ? 600 : 400}">${esc(lab)}</text><rect x="${M.l}" y="${y}" width="${Math.max(1, X(r.rate) - M.l)}" height="${bh}" rx="2" fill="var(${col})"></rect><text x="${X(r.rate) + 6}" y="${y + bh / 2 + 4}" style="font-size:11.5px">${Math.round(r.rate)}%</text>`;
+  });
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Skills-mismatch rates by group">${s}</svg>`;
+}
+async function renderU7() {
+  if (!window.d3) return;
+  let D; try { D = await loadU7(); } catch (e) { return; }
+  document.querySelectorAll(".needs-u7").forEach(x => x.remove());
+  const S = D.S, A = Object.fromEntries(U7L.map(([id]) => [id, { recs: u7Match(S[id]), alpha: u7Alpha(S[id]) }]));
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  run(() => u7Fill(D, A));
+  run(() => u7Ladder(document.getElementById("fig-u7-ladder"), D));
+  run(() => u7Cards(document.getElementById("res-u7"), D, A));
+  run(() => u7DefTable(document.getElementById("tab-u7-def"), D));
+  run(() => u7Tp(document.getElementById("fig-u7-tp"), D));
+  run(() => timingFigure(document.getElementById("fig-u7-tl"), "u7", "Measure of Labor Utilization", "U-3 to U-10 Labor Utilization Data (BLS and CPS Microdata)", "1994", U7L.map(u => u[0]), A, { label: u7lab, color: u7col, st: { ref: "U3" } }, U7R(), "U-3, the official rate"));
+  run(() => u7Split(document.getElementById("fig-u7-dc"), D));
+  run(() => u7Parts(document.getElementById("fig-u7-parts"), D));
+  run(() => u7Recov(document.getElementById("fig-u7-rec"), D));
+  run(() => u7Front(document.getElementById("fig-u7-front"), D));
+  run(() => u7Who(document.getElementById("fig-u7-who"), D));
+}
+
+/* ----- Building U-7 from Public Data ----- */
+function u7Occ(el, D) {
+  if (!el) return;
+  const T = D.sum.top_occupations, w = D.sum.mismatch.window;
+  el.innerHTML = figure("Where the Mismatched Work", `The Twelve Occupations with the Most Skills-Mismatched Workers, Monthly Averages, ${mLab(mIdx(w[0]))} to ${mLab(mIdx(w[1]))}, CPS Microdata`,
+    `<div class="tablewrap"><table class="udef u7occ"><thead><tr><th class="l">Occupation</th><th class="l">Requirement</th><th class="l">Mismatched from</th><th>Workers</th><th>Mismatched</th><th>Share</th></tr></thead><tbody>${T.map(o => `<tr><td class="l">${esc(o.label)}</td><td class="l">${esc(o.required)}</td><td class="l">${esc(o.counted_from)}</td><td class="num">${(o.emp_k / 1000).toFixed(1)}M</td><td class="num">${Math.round(o.mism_k).toLocaleString()}K</td><td class="num">${f1(o.share)}%</td></tr>`).join("")}</tbody></table></div>`,
+    "Requirement: the degree at the occupation’s 75th percentile over the previous five years of data, so that three in four of its workers hold that degree or less (the requirement in force for the latest year). Mismatched from: the lowest degree that counts as mismatched. Workers and mismatched workers are monthly averages, including workers part time for economic reasons. Occupation titles are the IPUMS OCC2010 labels.");
+}
+function u7Val(el, D) {
+  if (!el) return;
+  const V = D.sum.validation_series, k = SITE.u7Val, st = V.dates[0];
+  const a = k === "u3" ? D.S.U3 : makeSeries("u7v:po", "Official", st, V.pter_official), b = makeSeries("u7v:" + k, "CPS microdata", st, k === "u3" ? V.u3_micro : V.pter_micro);
+  el.innerHTML = figure(k === "u3" ? "The Unemployment Rate, Official and Rebuilt from the Microdata" : "Part Time for Economic Reasons, Official and Rebuilt from the Microdata", `${k === "u3" ? "Unemployment Rate (U-3)" : "Persons Employed Part Time for Economic Reasons"}, Percent of the Labor Force, Seasonally Adjusted, Data from 1994 to Present`,
+    `<div class="fig-ctl"><div class="segs" id="u7val">${[["u3", "Unemployment rate"], ["pter", "Part time for economic reasons"]].map(([kk, l]) => `<button data-v="${kk}" aria-pressed="${kk === k}">${l}</button>`).join("")}</div>${swatches([{ label: "Official (BLS)", color: "--d4" }, { label: "CPS microdata", color: "--d10", dash: true }])}</div><div class="vbody"></div>`,
+    k === "u3" ? "Official: BLS UNRATE. Microdata: unemployed as a share of the labor force, IPUMS CPS final weights, STL-adjusted without the three-month average so it can be compared month by month." : "Official: implied by the BLS U-5 and U-6, (U-6 − U-5) × (1 + MA/LF). Microdata: workers in WKSTAT 20, 21 or 22 as a share of the labor force, adjusted the same way.");
+  el.querySelectorAll("#u7val button").forEach(bt => bt.onclick = () => { SITE.u7Val = bt.dataset.v; u7Val(el, D); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [b.start, b.start + b.v.length - 1], series: [{ label: "Official (BLS)", color: "--d4", width: 2.6, at: t => valAt(a, t) }, { label: "CPS microdata", color: "--d10", width: 1.3, dash: "4 3", at: t => valAt(b, t) }], shade: SHADE(), yUnit: "%", height: 320 });
+}
+function u7Sens(el, D) {
+  if (!el) return;
+  const S = D.S, T = D.sum.sensitivity, k = SITE.u7Sens, ids = U7V.map(v => v[0]).filter(id => k === "all" || id !== "U7_crosswalk");
+  const ldx = v => !isFinite(v) ? "–" : v > 0 ? "+" + v : String(v).replace("-", "−");
+  el.innerHTML = figure("How Much the Definition of Mismatch Matters", "U-7 under Six Definitions of Skills Mismatch, Percent, Seasonally Adjusted, Data from 1994 to Present",
+    `<div class="fig-ctl"><div class="segs" id="u7sens">${[["pub", "Five definitions"], ["all", "With the major-group crosswalk"]].map(([kk, l]) => `<button data-v="${kk}" aria-pressed="${kk === k}">${l}</button>`).join("")}</div>${swatches(ids.map(id => ({ label: (U7V.find(v => v[0] === id) || [])[2], color: u7col(id) })))}</div><div class="vbody"></div>
+     <div class="tablewrap" style="margin-top:14px"><table class="udef"><thead><tr><th class="l">Definition</th><th>Average U-7</th><th>Mismatch part</th><th>2001</th><th>2007–09</th><th>2020</th><th>Real signals</th></tr></thead><tbody>${T.map(r => `<tr${r.variant === "U7" ? ' class="hl"' : ""}><td class="l">${u7Dot(r.variant)}${esc((U7V.find(v => v[0] === r.variant) || [])[2] || r.label)}</td><td class="num">${f1(r.mean)}%</td><td class="num">${f1(r.sm_share)}</td><td class="num">${ldx(r.lead_2001)}</td><td class="num">${ldx(r.lead_2007)}</td><td class="num">${ldx(r.lead_2020)}</td><td class="num">${r.n_true} of ${r.n_sig}</td></tr>`).join("")}</tbody></table></div>`,
+    `Onsets: months before the NBER peak at the site’s default rule (k = 6, m = 12, α = 0.5); negative means after. Mismatch part: average points of U-7. Main definition: the 75th percentile of degrees in the occupation over the previous five years, one degree level above, phased in monthly. Major-group crosswalk: the occupational requirements in The Case for U7.Rmd, where an occupation’s whole major group shares one requirement.`);
+  el.querySelectorAll("#u7sens button").forEach(b => b.onclick = () => { SITE.u7Sens = b.dataset.v; u7Sens(el, D); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [S.U7.start, S.U7.start + S.U7.v.length - 1], series: ids.map(id => ({ label: u7lab(id), color: u7col(id), width: id === "U7" ? 2.8 : 1.5, dash: id === "U7_fixed" ? "4 3" : "", at: t => valAt(S[id], t) })), shade: SHADE(), yUnit: "%", height: 340 });
+}
+async function renderU7Data() {
+  if (!window.d3) return;
+  let D; try { D = await loadU7(); } catch (e) { return; }
+  document.querySelectorAll(".needs-u7").forEach(x => x.remove());
+  const S = D.S, A = Object.fromEntries(U7L.map(([id]) => [id, { recs: u7Match(S[id]), alpha: u7Alpha(S[id]) }]));
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  run(() => u7Fill(D, A));
+  run(() => u7FormulaTable(document.getElementById("tab-u7-formula")));
+  run(() => u7Occ(document.getElementById("fig-u7-occ"), D));
+  run(() => u7Val(document.getElementById("fig-u7-val"), D));
+  run(() => u7Sens(document.getElementById("fig-u7-sens"), D));
+}
+
 /* ---------- Race ---------- */
 function renderRaceFigs() {
   const S = CPS.series;
@@ -4335,7 +4778,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas"].includes(v); const meth = ["method", "thanks"].includes(v);
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas", "u7", "u7-data"].includes(v); const meth = ["method", "thanks"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources") || (meth && a.dataset.v === "methodgrp")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
@@ -4790,6 +5233,11 @@ function saveState() { try { localStorage.setItem("rte-state", JSON.stringify({ 
 
 /* ===== Catalogs ===== */
 function catalog(tab) {
+  if (tab === "u7") {
+    ST.u7 = ST.u7 || { focal: ["U7", "U6"], ref: "U3" };
+    const ids = U7L.map(u => u[0]).concat(U7V.slice(1).map(v => v[0]));
+    return { groups: ids.map(id => ({ id, label: u7lab(id), color: u7col(id), set: "u7" })), base: _u7.S.U3, get: id => _u7.S[id], st: ST.u7, label: u7lab, color: u7col };
+  }
   if (tab === "umeas") {
     ST.umeas = ST.umeas || { focal: ["U6RATE", "U5RATE", "U4RATE"], ref: "U3" };
     return { groups: UM.map(([id, l, c]) => ({ id, label: l, color: c, set: "u" })), base: _umeas.U3, get: id => _umeas[id], st: ST.umeas, label: id => (UM.find(u => u[0] === id) || [, id])[1], color: id => (UM.find(u => u[0] === id) || [, , "--s-agg"])[2] };
@@ -5045,6 +5493,7 @@ function render() {
   main.innerHTML = "";
   if (ST.tab === "methods") return renderMethods();
   if (ST.tab === "umeas" && !_umeas) { main.innerHTML = `<p class="note">Loading the U-measures…</p>`; loadUmeas().then(() => render()).catch(() => {}); return; }
+  if (ST.tab === "u7" && !_u7) { main.innerHTML = `<p class="note">Loading the U-7 ladder…</p>`; loadU7().then(() => render()).catch(() => {}); return; }
   if (ST.tab === "income" && !CPS) return renderIncomeEmpty();
   if (ST.tab === "race" && ST.src === "cps" && !CPS) ST.src = "bls";
   const cat = withBase(catalog(ST.tab));
@@ -5160,6 +5609,13 @@ const DMETH = {
 };
 function decompBlock(cat, A, prim, ref, recs) {
   const tab = ST.tab, sec = h("section", { class: "block" });
+  if (tab === "u7") {
+    const r94 = recs.filter(r => ["2001", "2007", "2020"].includes(r.id));
+    sec.innerHTML = `<div class="block-head"><h2>What gives U-7 its head start?</h2></div><p class="note">U-7 against U-3, split into the step from U-3 to U-6 (the official broader measures) and the step from U-6 to U-7 (skills-mismatched workers), with the parameters set above.</p>${swatches([{ label: "U-3 to U-6", color: "--s-comp" }, { label: "U-6 to U-7 (skills mismatch)", color: "--s-resid" }, { label: "Total gap", color: "--ink" }])}<div class="vbody" id="u7full"></div>`;
+    if (r94.length) setTimeout(() => splitBars(sec.querySelector("#u7full"), splitRows(_u7.S.U7, _u7.S.U3, _u7.S.U6, _u7.S.U3, "lead", r94), "mo", { say: u7say, comp: "U-3 to U-6", res: "Skills mismatch (U-6 to U-7)", compTip: "How much earlier U-6 signals than U-3.", resTip: "How much earlier U-7 signals than U-6: the head start from counting skills-mismatched workers.", totTip: "The total difference in onset, U-7 minus U-3, in months." }), 0);
+    else sec.querySelector("#u7full").innerHTML = `<p class="note">Select the 2001, 2007–09 or 2020 recession above: U-7 begins in 1994.</p>`;
+    return sec;
+  }
   if (tab === "umeas") {
     sec.innerHTML = `<div class="block-head"><h2>Scale, composition, or the intensive margin?</h2></div><p class="note">U-6-style rate (unemployed plus part time for economic reasons) against U-3, both built from 32 race × sex × education cells of CPS microdata. The head start splits into the part from U-6’s larger scale, the part from its tilt toward groups that are more often underemployed, and the remainder within groups.</p><div class="vbody" id="umfull"></div>`;
     umeasSplit().then(rows => umeasSplitBars(sec.querySelector("#umfull"), rows)).catch(() => {});
