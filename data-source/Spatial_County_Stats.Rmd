@@ -1,0 +1,199 @@
+---
+title: "Spatial Inequality of Recession: county statistics for the site"
+output: html_document
+params:
+  alpha: 0.5          # recession threshold, percentage points
+  k: 6                # smoothing window (months), as in the papers
+  w: 12               # comparison window, current month included
+  signals_from: "1993-01"   # first month counted as a signal (series start 1990; rule and seasonal adjustment need history)
+---
+
+This file turns the county unemployment rates that the map uses (`data-source/map-data/chunk-*.csv`, BLS Local Area Unemployment Statistics via FRED, not seasonally adjusted) into the statistics behind the figures on the spatial page. It is rendered by the data-update workflow every time the county data are refreshed, so the figures and the numbers quoted in the text stay current.
+
+Steps:
+
+1. **Check each county's series.** `counties-full.csv` was built by searching FRED by county name, and some counties were matched to another place's series (for example, Arlington and Alexandria, Virginia, carry the District of Columbia's series). A county is kept only if its series belongs to it: a `LAUCN` series with the county's own FIPS code, or a named series whose state prefix matches the county's state and whose name stem matches the county name, and which no other matching county also uses. `VAFAIR5URN` is confirmed on FRED as Fairfax County (not Fairfax city).
+2. **Seasonally adjust** each county with the same STL procedure the site uses for every other series.
+3. **Run the turning-point rule** (six-month average minus its 12-month low, threshold 0.5) and record every signal (upward crossing) from 1993 on.
+4. **Score each county** against the 2001, 2007–09 and 2020 recessions: a signal counts as a real recession if it falls between 18 months before and 12 months after an NBER peak, the same window the papers use to match onsets.
+5. **Write** the site files: `data/spatial_counties.csv`, `data/spatial_states.json`, `data/spatial_seasonal.csv`, `data/spatial_paths.json` and `data/spatial_summary.json`.
+
+```{r setup}
+suppressMessages({ library(data.table); library(zoo); library(forecast); library(jsonlite) })
+knitr::opts_knit$set(root.dir = normalizePath(".."))   # repository root
+```
+
+```{r helpers}
+mi  <- function(s) as.integer(substr(s, 1, 4)) * 12L + as.integer(substr(s, 6, 7)) - 1L
+lab <- function(t) sprintf("%d-%02d", t %/% 12L, t %% 12L + 1L)
+# Same seasonal adjustment as every other series on the site (three-month centered average, then STL)
+stl_sadj <- function(x) {
+  x  <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
+  xs <- as.numeric(zoo::rollmean(zoo::zoo(x), k = 3, fill = NA, align = "center"))
+  xs[is.na(xs)] <- x[is.na(xs)]
+  fit <- stl(ts(xs, frequency = 12), s.window = "periodic", robust = TRUE, t.window = 13)
+  list(sa = as.numeric(forecast::seasadj(fit)), seasonal = as.numeric(fit$time.series[, "seasonal"]))
+}
+# Turning-point indicator: k-month average minus its minimum over the last w months (current month included)
+rule <- function(x, k = params$k, w = params$w) {
+  a <- frollmean(x, k, align = "right")
+  a - frollapply(a, w, min, align = "right")
+}
+# Signals: months where the indicator crosses the threshold from below
+starts_of <- function(ind, alpha = params$alpha) {
+  on <- !is.na(ind) & ind >= alpha
+  prev_ok <- c(FALSE, !is.na(ind[-length(ind)]))
+  prev_on <- c(FALSE, on[-length(on)])
+  which(on & !prev_on & prev_ok)
+}
+PEAKS  <- c(`2001` = mi("2001-03"), `2007` = mi("2007-12"), `2020` = mi("2020-02"))
+TROUGH <- c(`2001` = mi("2001-11"), `2007` = mi("2009-06"), `2020` = mi("2020-04"))
+in_window <- function(t) vapply(t, function(x) any(x >= PEAKS - 18L & x <= PEAKS + 12L), logical(1))
+```
+
+```{r series-check}
+cf <- fread("data-source/counties-full.csv", colClasses = "character")
+cf[, key := toupper(gsub("[^A-Za-z]", "", County))]
+cf[, own_laucn := grepl("^LAUCN", SeriesId) & substr(SeriesId, 6, 10) == Fips_ID]
+cf[, stem := ifelse(grepl("^[A-Z]{2}[A-Z]+?[0-9]*URN$", SeriesId, perl = TRUE),
+                    sub("^[A-Z]{2}([A-Z]+?)[0-9]*URN$", "\\1", SeriesId, perl = TRUE), NA_character_)]
+cf[, named_ok := !is.na(stem) & nchar(stem) >= 2 & substr(SeriesId, 1, 2) == State & startsWith(key, stem)]
+cf[, cand := own_laucn | named_ok]
+cf[, n_cand := sum(cand), by = SeriesId]
+OVERRIDE <- c(VAFAIR5URN = "51059")   # FRED: "Unemployment Rate in Fairfax County, VA"
+cf[, valid := cand & (n_cand == 1L | (SeriesId %in% names(OVERRIDE) & Fips_ID == OVERRIDE[SeriesId]))]
+cf[is.na(valid), valid := FALSE]
+cat(sprintf("%d counties; %d with a series that belongs to them; %d excluded\n", nrow(cf), sum(cf$valid), sum(!cf$valid)))
+```
+
+```{r read}
+files <- list.files("data-source/map-data", pattern = "^chunk-\\d+\\.csv$", full.names = TRUE)
+d <- rbindlist(lapply(files, fread, select = c("county_id", "date", "unemployment_rate"), colClasses = list(character = "county_id")))
+d[, county_id := sprintf("%05d", as.integer(county_id))]
+d[, t := mi(date)]
+setorder(d, county_id, t)
+T0 <- min(d$t); T1 <- max(d$t)
+cat("County data", lab(T0), "to", lab(T1), "\n")
+```
+
+```{r per-county}
+GW <- c("11001", "51013", "51510", "51059", "51600", "51610", "51107", "51153", "51683", "51685", "51179", "51061",
+        "51177", "51630", "51047", "51043", "51187", "51157", "24031", "24033", "24021", "24017", "24009", "54037")  # greater Washington (DC metro area)
+from <- mi(params$signals_from)
+res <- list(); ind_sa <- list(); paths <- list()
+for (id in unique(d$county_id)) {
+  g <- d[county_id == id]
+  tt <- seq(min(g$t), max(g$t)); x <- g$unemployment_rate[match(tt, g$t)]
+  if (sum(!is.na(x)) < 60) next
+  st <- stl_sadj(x); raw <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
+  I  <- rule(st$sa); IR <- rule(raw)
+  ind_sa[[id]] <- data.table(t = tt, on = !is.na(I) & I >= params$alpha, ok = !is.na(I))
+  score <- function(ind) {
+    s <- tt[starts_of(ind)]; s <- s[s >= from]
+    lead <- vapply(names(PEAKS), function(r) { P <- PEAKS[[r]]; h <- s[s >= P - 18L & s <= P + 12L]; if (length(h)) as.integer(P - h[1]) else NA_integer_ }, integer(1))
+    list(s = s, true = s[in_window(s)], false = s[!in_window(s)], lead = lead)
+  }
+  a <- score(I); r <- score(IR)
+  res[[id]] <- data.table(fips = id, n_sig = length(a$s), n_true = length(a$true),
+    lead_2001 = a$lead[["2001"]], lead_2007 = a$lead[["2007"]], lead_2020 = a$lead[["2020"]],
+    mean_rate = mean(x, na.rm = TRUE), seas_amp = diff(range(st$seasonal)),
+    false_dates = paste(lab(a$false), collapse = ";"), false_months = paste(a$false %% 12L + 1L, collapse = ";"),
+    raw_false_months = paste(r$false %% 12L + 1L, collapse = ";"), raw_n_sig = length(r$s), raw_n_true = length(r$true))
+  paths[[id]] <- list(start = lab(tt[1]), sa = round(st$sa, 2), raw = round(raw, 2))
+}
+C <- rbindlist(res)
+C <- merge(cf[, .(fips = Fips_ID, county = County, state = State, series = SeriesId, valid)], C, by = "fips", all.y = TRUE)
+C[, recall := (!is.na(lead_2001)) + (!is.na(lead_2007)) + (!is.na(lead_2020))]
+C[, lead := rowMeans(cbind(lead_2001, lead_2007, lead_2020), na.rm = TRUE)]
+C[is.nan(lead), lead := NA_real_]
+C[, prec := ifelse(n_sig > 0, n_true / n_sig, NA_real_)]
+C[, gw := fips %in% GW]
+C[, bellwether := valid & recall == 3L & n_sig == 3L]
+# Frontier: among valid counties that caught all three recessions, the best precision available at each lead
+V <- C[valid == TRUE & recall == 3L & !is.na(prec)][order(-lead, -prec)]
+best <- -1; front <- character(0)
+for (i in seq_len(nrow(V))) if (V$prec[i] > best + 1e-9) { front <- c(front, V$fips[i]); best <- V$prec[i] }
+C[, frontier := fips %in% front]
+cat(sprintf("valid %d · bellwethers %d · frontier %d\n", sum(C$valid), sum(C$bellwether), length(front)))
+```
+
+```{r states}
+S <- rbindlist(lapply(names(ind_sa), function(id) ind_sa[[id]][, fips := id]))
+S <- merge(S, C[valid == TRUE, .(fips, state)], by = "fips")
+S <- S[ok == TRUE, .(on = sum(on), n = .N), by = .(state, t)]
+months <- seq(max(min(S$t), from), T1)
+states <- sort(unique(S$state))
+mat <- function(col) lapply(states, function(s) { z <- S[state == s]; v <- z[[col]][match(months, z$t)]; v[is.na(v)] <- 0L; v })
+NAT <- S[t %in% months, .(on = sum(on), n = sum(n)), by = t][order(t)]
+write_json(list(start = lab(months[1]), n = length(months), states = states, on = mat("on"), tot = mat("n"),
+                nat_on = NAT$on, nat_n = NAT$n), "data/spatial_states.json", auto_unbox = TRUE)
+# Local recessions: a majority of a state's counties above the threshold for 6+ months, away from national recessions
+rec_months <- unlist(lapply(list(c("1990-07", "1991-03"), c("2001-03", "2001-11"), c("2007-12", "2009-06"), c("2020-02", "2020-04")),
+                            function(p) seq(mi(p[1]) - 6L, mi(p[2]) + 24L)))
+EP <- rbindlist(lapply(states, function(s) {
+  z <- S[state == s & t %in% months][order(t)]; z[, sh := on / n]
+  r <- rle(z$sh >= 0.5); ends <- cumsum(r$lengths); begs <- ends - r$lengths + 1
+  rbindlist(lapply(which(r$values & r$lengths >= 6), function(j) {
+    tt <- z$t[begs[j]:ends[j]]; if (any(tt %in% rec_months)) return(NULL)
+    data.table(state = s, start = lab(min(tt)), end = lab(max(tt)), months = length(tt), peak = round(max(z$sh[begs[j]:ends[j]]), 2), counties = max(z$n))
+  }))
+}))
+EP[]
+```
+
+```{r seasonal}
+fm <- function(v) { x <- as.integer(unlist(strsplit(v[nzchar(v)], ";"))); tabulate(x, 12) }
+Q <- C[valid == TRUE]
+Q[, amp_q := cut(seas_amp, quantile(seas_amp, 0:5 / 5), include.lowest = TRUE, labels = 1:5)]
+SE <- data.table(month = 1:12, raw = fm(Q$raw_false_months), adj = fm(Q$false_months))
+fwrite(SE, "data/spatial_seasonal.csv")
+AMP <- Q[, .(counties = .N, seas_amp = median(seas_amp), false_adj = mean(n_sig - n_true), false_raw = mean(raw_n_sig - raw_n_true), rate = median(mean_rate)), by = amp_q][order(amp_q)]
+AMP
+```
+
+```{r export}
+fwrite(C[, .(fips, county, state, valid, gw, bellwether, frontier, n_sig, n_true, prec = round(prec, 3), recall,
+             lead = round(lead, 2), lead_2001, lead_2007, lead_2020, mean_rate = round(mean_rate, 2), seas_amp = round(seas_amp, 2), false_dates)],
+       "data/spatial_counties.csv")
+# Series for the figures that draw individual counties: greater Washington, the frontier, bellwethers, and the most seasonal counties
+fast <- C[valid == TRUE & recall == 3L & prec >= 0.7 & lead >= 6, fips]     # fast and fairly accurate counties
+examples <- c("18039", "55105")   # Elkhart, IN (recreational vehicles) and Rock, WI (autos): fast, manufacturing-heavy counties
+pick <- unique(c(C[valid & gw, fips], front, fast, intersect(examples, C$fips), C[bellwether == TRUE][order(-lead)][1:6, fips], Q[order(-seas_amp)][1:6, fips]))
+write_json(lapply(setNames(pick, pick), function(id) c(paths[[id]], list(name = paste0(C[fips == id, county], ", ", C[fips == id, state])))),
+           "data/spatial_paths.json", auto_unbox = TRUE, digits = NA)
+pct <- function(x, v) round(100 * mean(v < x, na.rm = TRUE))
+VC <- C[valid == TRUE]; GWV <- VC[gw == TRUE]
+NOVA <- c("51059", "51107", "51153")   # Fairfax, Loudoun and Prince William counties, Virginia
+ff <- VC[fips == "51059"]
+seas <- SE[, .(raw_janfeb = round(100 * sum(raw[1:2]) / sum(raw)), raw_julaug = round(100 * sum(raw[7:8]) / sum(raw)),
+              adj_janfeb = round(100 * sum(adj[1:2]) / sum(adj)), adj_julaug = round(100 * sum(adj[7:8]) / sum(adj)),
+              adj_max = round(100 * max(adj) / sum(adj)), adj_min = round(100 * min(adj) / sum(adj)))]
+nat_share <- NAT[, .(t, sh = on / n)]
+y24 <- nat_share[t >= mi("2024-01") & t <= mi("2024-12")]
+summary <- list(
+  data_from = lab(T0), data_to = lab(T1), signals_from = params$signals_from,
+  counties = nrow(cf), valid = nrow(VC), excluded = nrow(cf) - sum(cf$valid),
+  signals = sum(VC$n_sig), real = sum(VC$n_true), precision = round(100 * sum(VC$n_true) / sum(VC$n_sig)),
+  raw_precision = round(100 * sum(VC$raw_n_true) / sum(VC$raw_n_sig)),
+  caught_all = sum(VC$recall == 3L), bellwethers = sum(VC$bellwether),
+  bw_lead = round(mean(VC[bellwether == TRUE]$lead), 1),
+  gw_counties = nrow(GWV), gw_lead = round(mean(GWV$lead, na.rm = TRUE), 1), gw_prec = round(100 * mean(GWV$prec, na.rm = TRUE)),
+  gw_lead_pct = pct(mean(GWV$lead, na.rm = TRUE), VC$lead), gw_prec_pct = pct(mean(GWV$prec, na.rm = TRUE), VC$prec),
+  all_lead = round(mean(VC$lead, na.rm = TRUE), 1), all_prec = round(100 * mean(VC$prec, na.rm = TRUE)),
+  fairfax = list(lead = round(ff$lead, 1), prec = round(100 * ff$prec), n_sig = ff$n_sig, false_dates = ff$false_dates,
+                 lead_2001 = ff$lead_2001, lead_2007 = ff$lead_2007, lead_2020 = ff$lead_2020),
+  nova = list(counties = c("Fairfax", "Loudoun", "Prince William"), lead = round(mean(VC[fips %in% NOVA]$lead), 1), prec = round(100 * mean(VC[fips %in% NOVA]$prec)),
+              false_dates = paste(VC[fips %in% NOVA]$false_dates, collapse = ";")),
+  dc = list(prec = round(100 * VC[fips == "11001"]$prec), n_sig = VC[fips == "11001"]$n_sig, lead = round(VC[fips == "11001"]$lead, 1)),
+  gw_false_2025 = GWV[grepl("2025|2026", false_dates), .N], gw_false_other = GWV[nzchar(gsub("2025-[0-9]{2}|2026-[0-9]{2}|;", "", false_dates)), .N],
+  frontier = C[fips %in% front][order(lead), .(fips, name = paste0(county, ", ", state), lead = round(lead, 1), prec = round(100 * prec), n_sig)],
+  seasonal = seas,
+  amp_ratio = round(AMP[amp_q == 5]$false_adj / AMP[amp_q == 1]$false_adj, 1),
+  amp_top = Q[order(-seas_amp)][1:3, paste0(county, ", ", state)],
+  share_2024_max = round(100 * max(y24$sh)), share_2024_month = lab(y24$t[which.max(y24$sh)]),
+  lead_bins = VC[recall == 3L, .(counties = .N, prec = round(100 * mean(prec))), by = .(bin = cut(lead, c(-Inf, -2, 2, 6, Inf), labels = c("late", "on time", "early", "very early")))][order(bin)],
+  episodes = EP
+)
+write_json(summary, "data/spatial_summary.json", auto_unbox = TRUE, pretty = TRUE, digits = NA)
+str(summary[c("valid", "precision", "raw_precision", "bellwethers", "bw_lead", "gw_lead", "gw_prec", "gw_lead_pct", "gw_prec_pct", "amp_ratio")])
+```

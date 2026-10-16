@@ -1,0 +1,759 @@
+{
+  "data_from": "1990-01",
+  "data_to": "2026-08",
+  "signals_from": "1993-01",
+  "counties": 3136,
+  "valid": 2823,
+  "excluded": 313,
+  "signals": 27852,
+  "real": 9984,
+  "precision": 36,
+  "raw_precision": 29,
+  "caught_all": 2446,
+  "bellwethers": 22,
+  "bw_lead": -2.5,
+  "gw_counties": 21,
+  "gw_lead": -2.7,
+  "gw_prec": 61,
+  "gw_lead_pct": 26,
+  "gw_prec_pct": 91,
+  "all_lead": 0.8,
+  "all_prec": 40,
+  "fairfax": {
+    "lead": -4.3,
+    "prec": 75,
+    "n_sig": 4,
+    "false_dates": "2025-09",
+    "lead_2001": -4,
+    "lead_2007": -7,
+    "lead_2020": -2
+  },
+  "nova": {
+    "counties": ["Fairfax", "Loudoun", "Prince William"],
+    "lead": -4,
+    "prec": 75,
+    "false_dates": "2025-09;2025-11;2025-11"
+  },
+  "dc": {
+    "prec": 33,
+    "n_sig": 9,
+    "lead": -4.7
+  },
+  "gw_false_2025": 14,
+  "gw_false_other": 15,
+  "frontier": [
+    {
+      "fips": "37119",
+      "name": "Mecklenburg, NC",
+      "lead": 2.3,
+      "prec": 100,
+      "n_sig": 3
+    },
+    {
+      "fips": "16041",
+      "name": "Franklin, ID",
+      "lead": 8,
+      "prec": 86,
+      "n_sig": 7
+    },
+    {
+      "fips": "28085",
+      "name": "Lincoln, MS",
+      "lead": 13.7,
+      "prec": 67,
+      "n_sig": 9
+    },
+    {
+      "fips": "28039",
+      "name": "George, MS",
+      "lead": 16,
+      "prec": 50,
+      "n_sig": 12
+    },
+    {
+      "fips": "37177",
+      "name": "Tyrrell, NC",
+      "lead": 16.3,
+      "prec": 35,
+      "n_sig": 26
+    }
+  ],
+  "seasonal": [
+    {
+      "raw_janfeb": 39,
+      "raw_julaug": 8,
+      "adj_janfeb": 22,
+      "adj_julaug": 17,
+      "adj_max": 12,
+      "adj_min": 6
+    }
+  ],
+  "amp_ratio": 2.3,
+  "amp_top": ["Skagway, AK", "Mackinac, MI", "Cheboygan, MI"],
+  "share_2024_max": 55,
+  "share_2024_month": "2024-11",
+  "lead_bins": [
+    {
+      "bin": "late",
+      "counties": 793,
+      "prec": 42
+    },
+    {
+      "bin": "on time",
+      "counties": 784,
+      "prec": 44
+    },
+    {
+      "bin": "early",
+      "counties": 527,
+      "prec": 42
+    },
+    {
+      "bin": "very early",
+      "counties": 342,
+      "prec": 39
+    }
+  ],
+  "episodes": [
+    {
+      "state": "AK",
+      "start": "1993-06",
+      "end": "1994-04",
+      "months": 11,
+      "peak": 0.64,
+      "counties": 25
+    },
+    {
+      "state": "AK",
+      "start": "1995-06",
+      "end": "1996-10",
+      "months": 17,
+      "peak": 0.91,
+      "counties": 25
+    },
+    {
+      "state": "AK",
+      "start": "1998-09",
+      "end": "1999-08",
+      "months": 12,
+      "peak": 0.68,
+      "counties": 25
+    },
+    {
+      "state": "AK",
+      "start": "2024-06",
+      "end": "2025-03",
+      "months": 10,
+      "peak": 0.67,
+      "counties": 25
+    },
+    {
+      "state": "AK",
+      "start": "2025-08",
+      "end": "2026-02",
+      "months": 7,
+      "peak": 0.71,
+      "counties": 25
+    },
+    {
+      "state": "AL",
+      "start": "2024-02",
+      "end": "2024-08",
+      "months": 7,
+      "peak": 0.73,
+      "counties": 62
+    },
+    {
+      "state": "AR",
+      "start": "1996-03",
+      "end": "1996-11",
+      "months": 9,
+      "peak": 0.6,
+      "counties": 50
+    },
+    {
+      "state": "AR",
+      "start": "2023-10",
+      "end": "2024-03",
+      "months": 6,
+      "peak": 0.66,
+      "counties": 50
+    },
+    {
+      "state": "AR",
+      "start": "2025-09",
+      "end": "2026-03",
+      "months": 7,
+      "peak": 0.92,
+      "counties": 50
+    },
+    {
+      "state": "AZ",
+      "start": "1996-02",
+      "end": "1996-11",
+      "months": 10,
+      "peak": 0.8,
+      "counties": 15
+    },
+    {
+      "state": "AZ",
+      "start": "2024-11",
+      "end": "2026-08",
+      "months": 22,
+      "peak": 0.87,
+      "counties": 15
+    },
+    {
+      "state": "CA",
+      "start": "2023-06",
+      "end": "2024-04",
+      "months": 11,
+      "peak": 0.94,
+      "counties": 54
+    },
+    {
+      "state": "CA",
+      "start": "2024-07",
+      "end": "2024-12",
+      "months": 6,
+      "peak": 0.65,
+      "counties": 54
+    },
+    {
+      "state": "CO",
+      "start": "1996-02",
+      "end": "1996-07",
+      "months": 6,
+      "peak": 0.61,
+      "counties": 62
+    },
+    {
+      "state": "CO",
+      "start": "1998-05",
+      "end": "1998-10",
+      "months": 6,
+      "peak": 0.66,
+      "counties": 62
+    },
+    {
+      "state": "CO",
+      "start": "2023-11",
+      "end": "2025-03",
+      "months": 17,
+      "peak": 0.94,
+      "counties": 62
+    },
+    {
+      "state": "CT",
+      "start": "2023-12",
+      "end": "2024-05",
+      "months": 6,
+      "peak": 1,
+      "counties": 7
+    },
+    {
+      "state": "DC",
+      "start": "1995-05",
+      "end": "1996-03",
+      "months": 11,
+      "peak": 1,
+      "counties": 1
+    },
+    {
+      "state": "DC",
+      "start": "2004-07",
+      "end": "2005-02",
+      "months": 8,
+      "peak": 1,
+      "counties": 1
+    },
+    {
+      "state": "DC",
+      "start": "2025-02",
+      "end": "2026-03",
+      "months": 14,
+      "peak": 1,
+      "counties": 1
+    },
+    {
+      "state": "DE",
+      "start": "1996-02",
+      "end": "1996-09",
+      "months": 8,
+      "peak": 1,
+      "counties": 3
+    },
+    {
+      "state": "DE",
+      "start": "2025-07",
+      "end": "2026-05",
+      "months": 11,
+      "peak": 1,
+      "counties": 3
+    },
+    {
+      "state": "FL",
+      "start": "2025-09",
+      "end": "2026-08",
+      "months": 12,
+      "peak": 0.98,
+      "counties": 63
+    },
+    {
+      "state": "GA",
+      "start": "1995-09",
+      "end": "1996-02",
+      "months": 6,
+      "peak": 0.54,
+      "counties": 150
+    },
+    {
+      "state": "GA",
+      "start": "2004-11",
+      "end": "2005-08",
+      "months": 10,
+      "peak": 0.86,
+      "counties": 150
+    },
+    {
+      "state": "HI",
+      "start": "1994-04",
+      "end": "1994-12",
+      "months": 9,
+      "peak": 1,
+      "counties": 3
+    },
+    {
+      "state": "HI",
+      "start": "1995-10",
+      "end": "1996-08",
+      "months": 11,
+      "peak": 1,
+      "counties": 3
+    },
+    {
+      "state": "IA",
+      "start": "2024-09",
+      "end": "2025-05",
+      "months": 9,
+      "peak": 0.89,
+      "counties": 90
+    },
+    {
+      "state": "IL",
+      "start": "1995-12",
+      "end": "1996-06",
+      "months": 7,
+      "peak": 0.71,
+      "counties": 70
+    },
+    {
+      "state": "IL",
+      "start": "2025-10",
+      "end": "2026-05",
+      "months": 8,
+      "peak": 0.94,
+      "counties": 70
+    },
+    {
+      "state": "IN",
+      "start": "2024-06",
+      "end": "2025-01",
+      "months": 8,
+      "peak": 0.96,
+      "counties": 82
+    },
+    {
+      "state": "KS",
+      "start": "2003-12",
+      "end": "2004-05",
+      "months": 6,
+      "peak": 0.63,
+      "counties": 101
+    },
+    {
+      "state": "KS",
+      "start": "2024-07",
+      "end": "2025-03",
+      "months": 9,
+      "peak": 0.97,
+      "counties": 101
+    },
+    {
+      "state": "KY",
+      "start": "2023-11",
+      "end": "2025-01",
+      "months": 15,
+      "peak": 0.8,
+      "counties": 82
+    },
+    {
+      "state": "LA",
+      "start": "1994-03",
+      "end": "1994-10",
+      "months": 8,
+      "peak": 0.66,
+      "counties": 59
+    },
+    {
+      "state": "LA",
+      "start": "2014-08",
+      "end": "2015-06",
+      "months": 11,
+      "peak": 1,
+      "counties": 59
+    },
+    {
+      "state": "LA",
+      "start": "2024-01",
+      "end": "2024-12",
+      "months": 12,
+      "peak": 0.92,
+      "counties": 59
+    },
+    {
+      "state": "MA",
+      "start": "2024-07",
+      "end": "2024-12",
+      "months": 6,
+      "peak": 0.77,
+      "counties": 13
+    },
+    {
+      "state": "MD",
+      "start": "2024-01",
+      "end": "2026-04",
+      "months": 28,
+      "peak": 1,
+      "counties": 21
+    },
+    {
+      "state": "ME",
+      "start": "2024-11",
+      "end": "2025-04",
+      "months": 6,
+      "peak": 0.75,
+      "counties": 16
+    },
+    {
+      "state": "MI",
+      "start": "2024-07",
+      "end": "2025-06",
+      "months": 12,
+      "peak": 1,
+      "counties": 78
+    },
+    {
+      "state": "MN",
+      "start": "1996-03",
+      "end": "1996-09",
+      "months": 7,
+      "peak": 0.69,
+      "counties": 84
+    },
+    {
+      "state": "MN",
+      "start": "2024-08",
+      "end": "2026-08",
+      "months": 25,
+      "peak": 1,
+      "counties": 84
+    },
+    {
+      "state": "MO",
+      "start": "2023-07",
+      "end": "2024-12",
+      "months": 18,
+      "peak": 0.88,
+      "counties": 74
+    },
+    {
+      "state": "MS",
+      "start": "2004-10",
+      "end": "2005-11",
+      "months": 14,
+      "peak": 0.92,
+      "counties": 65
+    },
+    {
+      "state": "MS",
+      "start": "2024-11",
+      "end": "2025-09",
+      "months": 11,
+      "peak": 1,
+      "counties": 65
+    },
+    {
+      "state": "MT",
+      "start": "1995-02",
+      "end": "1995-10",
+      "months": 9,
+      "peak": 0.56,
+      "counties": 55
+    },
+    {
+      "state": "MT",
+      "start": "1998-02",
+      "end": "1998-09",
+      "months": 8,
+      "peak": 0.75,
+      "counties": 55
+    },
+    {
+      "state": "MT",
+      "start": "2025-09",
+      "end": "2026-04",
+      "months": 8,
+      "peak": 0.87,
+      "counties": 55
+    },
+    {
+      "state": "NC",
+      "start": "1995-12",
+      "end": "1996-05",
+      "months": 6,
+      "peak": 0.57,
+      "counties": 95
+    },
+    {
+      "state": "NH",
+      "start": "2024-10",
+      "end": "2025-06",
+      "months": 9,
+      "peak": 1,
+      "counties": 10
+    },
+    {
+      "state": "NJ",
+      "start": "2006-03",
+      "end": "2006-08",
+      "months": 6,
+      "peak": 0.83,
+      "counties": 18
+    },
+    {
+      "state": "NJ",
+      "start": "2023-06",
+      "end": "2024-04",
+      "months": 11,
+      "peak": 1,
+      "counties": 18
+    },
+    {
+      "state": "NJ",
+      "start": "2025-06",
+      "end": "2025-12",
+      "months": 7,
+      "peak": 1,
+      "counties": 18
+    },
+    {
+      "state": "NM",
+      "start": "1995-11",
+      "end": "1996-11",
+      "months": 13,
+      "peak": 0.87,
+      "counties": 31
+    },
+    {
+      "state": "NM",
+      "start": "2026-01",
+      "end": "2026-08",
+      "months": 8,
+      "peak": 0.87,
+      "counties": 31
+    },
+    {
+      "state": "NV",
+      "start": "2022-07",
+      "end": "2023-04",
+      "months": 10,
+      "peak": 0.94,
+      "counties": 16
+    },
+    {
+      "state": "OH",
+      "start": "1995-11",
+      "end": "1996-08",
+      "months": 10,
+      "peak": 0.72,
+      "counties": 85
+    },
+    {
+      "state": "OH",
+      "start": "2024-05",
+      "end": "2025-06",
+      "months": 14,
+      "peak": 0.94,
+      "counties": 85
+    },
+    {
+      "state": "OK",
+      "start": "2025-11",
+      "end": "2026-08",
+      "months": 10,
+      "peak": 0.97,
+      "counties": 75
+    },
+    {
+      "state": "OR",
+      "start": "1996-01",
+      "end": "1997-07",
+      "months": 19,
+      "peak": 0.92,
+      "counties": 36
+    },
+    {
+      "state": "OR",
+      "start": "2024-09",
+      "end": "2026-02",
+      "months": 18,
+      "peak": 1,
+      "counties": 36
+    },
+    {
+      "state": "RI",
+      "start": "2023-11",
+      "end": "2025-04",
+      "months": 18,
+      "peak": 1,
+      "counties": 4
+    },
+    {
+      "state": "SC",
+      "start": "1996-01",
+      "end": "1996-10",
+      "months": 10,
+      "peak": 0.68,
+      "counties": 41
+    },
+    {
+      "state": "SC",
+      "start": "1998-10",
+      "end": "1999-09",
+      "months": 12,
+      "peak": 0.83,
+      "counties": 41
+    },
+    {
+      "state": "SC",
+      "start": "2024-03",
+      "end": "2025-03",
+      "months": 13,
+      "peak": 1,
+      "counties": 41
+    },
+    {
+      "state": "SC",
+      "start": "2025-11",
+      "end": "2026-05",
+      "months": 7,
+      "peak": 1,
+      "counties": 41
+    },
+    {
+      "state": "TN",
+      "start": "1995-06",
+      "end": "1996-04",
+      "months": 11,
+      "peak": 0.71,
+      "counties": 79
+    },
+    {
+      "state": "TN",
+      "start": "1997-01",
+      "end": "1997-08",
+      "months": 8,
+      "peak": 0.59,
+      "counties": 79
+    },
+    {
+      "state": "UT",
+      "start": "1998-05",
+      "end": "1998-11",
+      "months": 7,
+      "peak": 0.72,
+      "counties": 29
+    },
+    {
+      "state": "UT",
+      "start": "2024-06",
+      "end": "2024-11",
+      "months": 6,
+      "peak": 0.83,
+      "counties": 29
+    },
+    {
+      "state": "VT",
+      "start": "2024-10",
+      "end": "2025-03",
+      "months": 6,
+      "peak": 0.71,
+      "counties": 14
+    },
+    {
+      "state": "WA",
+      "start": "1998-02",
+      "end": "1998-07",
+      "months": 6,
+      "peak": 0.68,
+      "counties": 38
+    },
+    {
+      "state": "WA",
+      "start": "1999-02",
+      "end": "1999-07",
+      "months": 6,
+      "peak": 0.71,
+      "counties": 38
+    },
+    {
+      "state": "WA",
+      "start": "2023-10",
+      "end": "2024-08",
+      "months": 11,
+      "peak": 0.97,
+      "counties": 38
+    },
+    {
+      "state": "WA",
+      "start": "2025-10",
+      "end": "2026-03",
+      "months": 6,
+      "peak": 0.84,
+      "counties": 38
+    },
+    {
+      "state": "WV",
+      "start": "1995-07",
+      "end": "1996-05",
+      "months": 11,
+      "peak": 0.59,
+      "counties": 54
+    },
+    {
+      "state": "WV",
+      "start": "2023-10",
+      "end": "2024-04",
+      "months": 7,
+      "peak": 0.74,
+      "counties": 54
+    },
+    {
+      "state": "WV",
+      "start": "2025-09",
+      "end": "2026-04",
+      "months": 8,
+      "peak": 0.94,
+      "counties": 54
+    },
+    {
+      "state": "WY",
+      "start": "2016-01",
+      "end": "2016-10",
+      "months": 10,
+      "peak": 0.83,
+      "counties": 23
+    }
+  ]
+}

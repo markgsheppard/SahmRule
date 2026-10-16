@@ -76,10 +76,56 @@ jobs:
           name: fetch-tool-data-files
           path: ./data-source/tool-data
 
+  spatial-stats:
+    # County statistics behind the charts on the spatial page (data-source/Spatial_County_Stats.Rmd).
+    # Runs on the freshly fetched county data; if it fails, the rest of the update still goes through.
+    runs-on: ubuntu-24.04
+    needs: fetch-map-data
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Download files from fetch-map-data
+        uses: actions/download-artifact@v4
+        with:
+          name: fetch-map-data-files
+          path: ./data-source/map-data
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install R packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::data.table
+            any::zoo
+            any::forecast
+            any::jsonlite
+            any::rmarkdown
+            any::knitr
+
+      - name: Compute county statistics for the spatial page
+        working-directory: data-source
+        run: Rscript -e 'rmarkdown::render("Spatial_County_Stats.Rmd", output_dir = tempdir())'
+
+      - name: Upload spatial statistics
+        uses: actions/upload-artifact@v4
+        with:
+          name: spatial-stats-files
+          path: data/spatial_*
+
   commit:
     runs-on: ubuntu-latest
     environment: github-pages
-    needs: [fetch-map-data, fetch-tool-data] # Ensure this job waits for both previous jobs
+    needs: [fetch-map-data, fetch-tool-data, spatial-stats] # Ensure this job waits for the previous jobs
+    # Commit the BLS and county data even if the spatial statistics fail
+    if: ${{ !cancelled() && needs.fetch-map-data.result == 'success' && needs.fetch-tool-data.result == 'success' }}
 
     steps:
       - name: Checkout repository
@@ -96,6 +142,13 @@ jobs:
         with:
           name: fetch-tool-data-files
           path: ./data-source/tool-data
+
+      - name: Download spatial statistics
+        if: ${{ needs.spatial-stats.result == 'success' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: spatial-stats-files
+          path: ./data
 
       - name: Configure Git
         run: |
