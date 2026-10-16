@@ -154,8 +154,6 @@ input[type="number"] { width: 72px; }
 .tile .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 
 table.udef td, table.udef th { white-space: normal; vertical-align: top; line-height: 1.45; }
-table.sp-front { margin: 6px 0 4px; }
-table.sp-front td:first-child, table.sp-front th:first-child { text-align: left; }
 .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
 th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
@@ -427,6 +425,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--f-body); }
   --s-men: #5d97dc; --s-women: #2b5cad;
   --s-a1: #c3e0f8; --s-a2: #a0ccf2; --s-a3: #7db6eb; --s-a4: #5a9be0; --s-a5: #3a7bcc; --s-a6: #255cae;
   --s-urb: #1f4ea8; --s-rur: #8fc1ee;
+  --s-gw: #17397c; --s-fast: #6aa7e6; --s-bw: #4f8ad7; --s-raw: #a9d1f4; --s-adj: #1f3f8f;
   --u1: #142f6e; --u2: #1f4ea8; --u3: #2f68bf; --u4: #3f7fcf; --u5: #5591da;
   --r1: #6aa7e6; --r2: #7fb4ea; --r3: #94c2ee; --r4: #a9d1f4; --r5: #bedcf6;
   --s-comp: #a9d1f4; --s-resid: #1f3f8f;
@@ -610,6 +609,9 @@ td.num.pos, td.num.neg, .pos, .neg { color: #222; }
 .hexmap svg text.lt { fill: #1e3a8a; }
 .hexmap .hx-legend { display: flex; gap: 2px; align-items: center; font-size: 10.5px; color: #8a8a8a; margin-top: 6px; }
 .hexmap .hx-legend i { width: 18px; height: 6px; display: inline-block; }
+.sp-legend { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; font-size: 12px; color: #6b6b6b; margin-top: 8px; }
+.sp-legend i { width: 26px; height: 8px; display: inline-block; }
+.sp-legend .lab { margin-left: 10px; }
 
 .ov-lead { font-size: 16px; line-height: 1.7; color: var(--prose); margin: 0 0 6px; max-width: 70ch; }
 /* Timeline label appears only while sliding */
@@ -1050,28 +1052,36 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="byline"><div>Working paper <span class="draft-tag">Illustration</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
 </div></section>
 <div class="article">
-  <p>The other papers in this series sort people: by income, by race, by education. This one sorts places. The Bureau of Labor Statistics estimates an unemployment rate every month for each of the country’s 3,136 counties through its Local Area Unemployment Statistics program, and every one of those series can be run through the same turning-point rule. The result is a recession that spreads across the map rather than switching on everywhere at once: some counties turn early, some late, and some register downturns that the national numbers never call.</p>
-  <p>Three things come out of looking at recessions this way. A small set of counties have called every recession since 2001 and nothing else, which makes them close to bellwethers. Counties that signal earlier tend to raise more false alarms, the same trade-off between speed and accuracy that governs national recession indicators. And local data carry seasonal swings large enough to fake a recession, which is a reason to adjust county and sector series more carefully than the official statistics do.</p>
-  <p class="note">How to read the map: each county is shaded by its turning-point indicator in the selected month, the rise in its unemployment rate above its recent low. Drag the slider to watch a recession move across the country. The map runs a fast three-month version of the rule on the published county rates, which BLS does not seasonally adjust. The figures quoted in the text below use the slower six-month rule from the papers, applied after seasonal adjustment.</p>
-  <div class="counties-viz-main wide" id="county-map"></div>
-  <section class="pbreak"><span class="ov-kicker">Bellwether counties</span><h2 class="ov-h">A few places call recessions cleanly</h2><p>Since 1993, 73 counties have crossed the recession threshold in each of the three national recessions (2001, 2007–09 and 2020) and at no other time. They include Mecklenburg and Wake in North Carolina, Dallas, Collin and Denton in Texas, Clark County in Nevada, Chester County in Pennsylvania and Napa County in California. Many are large, diversified metropolitan economies whose mix of industries resembles the nation’s, so their labor markets move with the national cycle rather than with one local employer or crop.</p><p>Bellwethers are accurate but not early. On average they cross the threshold about two months after the official peak. That is still well before the NBER announces a peak, which took four to twelve months after the last three recessions.</p></section>
-  <section class="pbreak"><span class="ov-kicker">Speed against accuracy</span><h2 class="ov-h">Counties that see it coming also cry wolf</h2><p>Some counties turn many months before the national peak. The cost is false alarms. A county whose indicator is driven by a single plant, a commodity price or a tourist season will often cross the threshold early in a real recession, but it will also cross it when nothing national is happening. Pascal Michaillat calls the set of best attainable combinations the anticipation–precision frontier: for any given lead, the best precision a signal can achieve, and for any given precision, the earliest warning.</p><p>Counties trace out that frontier. Along it, each extra month of warning costs precision:</p>
-  <table class="udef sp-front"><thead><tr><th>County</th><th>Average warning before the NBER peak</th><th>Share of its signals that were real recessions</th><th>Recessions caught</th></tr></thead><tbody>
-  <tr><td>Napa, CA</td><td>2.3 months</td><td>100%</td><td>3 of 3</td></tr>
-  <tr><td>Franklin, ID</td><td>3.7 months</td><td>86%</td><td>3 of 3</td></tr>
-  <tr><td>Barron, WI</td><td>9.0 months</td><td>83%</td><td>3 of 3</td></tr>
-  <tr><td>Rusk, WI</td><td>14.7 months</td><td>78%</td><td>3 of 3</td></tr>
-  <tr><td>Perry, IL</td><td>17.7 months</td><td>50%</td><td>3 of 3</td></tr>
-  </tbody></table>
-  <p>Across all counties, only about 42 percent of signals since 1993 fell near a national recession. A county that called the 2007–09 recession a year early is not necessarily a better forecaster. More often it is a noisier one. The useful question is which places sit on the frontier, and how to combine them.</p></section>
-  <section class="pbreak"><span class="ov-kicker">Recessions the aggregate misses</span><h2 class="ov-h">A region can be in recession while the nation is not</h2><p>Not every false alarm is noise. Some are real local recessions that never add up to a national one. Most of Louisiana’s counties crossed the threshold in 2014–15 after oil prices collapsed, and most of Wyoming’s in 2016, while the national rate kept falling. In 2024, when the national Sahm rule triggered without a recession following, about a third of all counties were above the threshold, and majorities of counties in more than a dozen states. The indicator has been elevated across most of Maryland since 2024 and in the District of Columbia since early 2025, a period that includes the 2025 cuts to the federal workforce.</p><p>Because these episodes are tied to places, policy can cause them and can also cure them. A state budget cut, a regulatory change or a federal decision about where jobs sit can start a local recession. State unemployment insurance, state spending and economic development can cushion one. A national indicator averages all of this away. A county map shows where a downturn is concentrated, which is the information a governor or a state legislature needs.</p></section>
-  <section class="pbreak"><span class="ov-kicker">Seasonality</span><h2 class="ov-h">Places carry the seasons of the industries they host</h2><p>A county’s labor market reflects its population and, through it, the industries that employ that population. Resort, farming, fishing and college counties have seasons that national data average out. BLS does not seasonally adjust county unemployment, and on the unadjusted series the seasons look like recessions: 43 percent of false alarms begin in January or February, after holiday hiring ends, and another 26 percent in July or August.</p><p>Standard seasonal adjustment removes that calendar pattern; after adjustment, false alarms are spread evenly through the year. But it does not fully tame the most seasonal places. Counties in the top fifth by seasonal swing, such as Mackinac in Michigan, Nantucket in Massachusetts and Denali in Alaska, still produce nearly twice as many false alarms after adjustment as the least seasonal fifth. Part of that reflects their higher and more volatile unemployment, but it points to the same conclusion: local and sector-level data need seasonal adjustment designed for them, not borrowed from national patterns.</p></section>
+  <p>The other papers in this series sort people: by income, by race, by education. This one sorts places. The Bureau of Labor Statistics estimates an unemployment rate every month for each of the country’s <span data-sp="counties">3,136</span> counties, and every one of those series can be run through the same turning-point rule. Watched this way, a recession spreads across the map rather than switching on everywhere at once. Some counties turn early, some late, and some register downturns that never add up to a national recession.</p>
+  <p>Three patterns stand out. A handful of counties call recessions cleanly and almost never cry wolf. Counties that turn early tend to raise more false alarms, the same trade-off between speed and accuracy that governs national recession indicators. And places inherit the seasons of the industries they host, strongly enough to fake a recession even after standard seasonal adjustment.</p>
+  <div class="results" id="sp-cards"></div>
+  <p class="note">How to read the map: each county is shaded by its turning-point indicator in the selected month, the rise in its unemployment rate above its recent low. Drag the timeline to watch a recession move across the country. The map runs a fast three-month version of the rule on the county rates as BLS publishes them, without seasonal adjustment. The charts below use the six-month rule from the papers, applied after seasonal adjustment.</p>
+  <div class="counties-viz-main" id="county-map"></div>
+
+  <section class="pbreak"><span class="ov-kicker">Bellwether counties</span><h2 class="ov-h">A few places call recessions cleanly</h2><p>Since 1993, <span data-sp="bellwethers">22</span> counties have crossed the recession threshold in each of the last three national recessions, 2001, 2007–09 and 2020, and at no other time. Many sit in North Carolina’s Piedmont, around Charlotte, Greensboro and Raleigh–Durham; others are suburbs of New York, Philadelphia and Omaha. Their mix of industries is close to the nation’s, so their labor markets move with the national cycle rather than with one plant, crop or tourist season.</p><p>Bellwethers are accurate but not early. On average they cross the threshold <span data-sp="bw_lead_abs">2.5</span> months after the official peak. That is still well before the NBER announces a peak, which took four to twelve months after each of the last three recessions.</p></section>
+  <div id="fig-sp-bell"></div>
+
+  <section class="pbreak"><span class="ov-kicker">Speed against accuracy</span><h2 class="ov-h">Early warning comes with false alarms</h2><p>Some counties turn many months before the national peak. The cost is false alarms. A county whose labor market rides on a single plant, a commodity price or a tourist season will often cross the threshold early in a real recession, but it will also cross it when nothing national is happening. Pascal Michaillat calls the best attainable combinations of the two the anticipation–precision frontier: for any given lead, the most accurate a signal can be, and for any given accuracy, the earliest warning it can give.</p><p>For the typical county the penalty for speed is modest. Among counties that turned six months or more before the peak, <span data-sp="bin_vearly">39</span> percent of signals were real recessions, against <span data-sp="bin_ontime">44</span> percent for counties that turned close to it. At the frontier the trade-off is steep: every extra month of warning costs accuracy, and no county is both very early and always right.</p></section>
+  <div id="fig-sp-front"></div>
+
+  <section class="pbreak"><span class="ov-kicker">Greater Washington</span><h2 class="ov-h">Slow, but sure</h2><p>The suburbs of Washington, D.C., show the trade-off in its purest form. Fairfax, Loudoun and Prince William counties in Virginia crossed the threshold in each of the last three recessions, but about <span data-sp="nova_lead_abs">4</span> months after the official peak, later than most of the country. When they did cross, it was almost always real: <span data-sp="nova_prec">75</span> percent of their signals came near a national recession, against about <span data-sp="all_prec">40</span> percent for the typical county. Across the whole metropolitan area, signals arrive later than in <span data-sp="gw_slower">74</span> percent of counties and are more accurate than in <span data-sp="gw_prec_pct">91</span> percent.</p><p>The reason is likely the same on both sides of the trade-off. Many residents of Northern Virginia and suburban Maryland work for the federal government or for the contractors, consultants and services that depend on it. That work is insulated from the private-sector shocks that start most recessions, so a downturn reaches these counties late. And because only a broad, national downturn gets through that insulation, a signal from these counties is rarely a false alarm. The exception proves the rule: the only false alarms these three counties have sounded since 1993 came in late 2025, when the shock came from the federal government itself.</p><p>The District of Columbia proper behaves differently. Its unemployment rate is higher and more volatile, and only <span data-sp="dc_prec">33</span> percent of its signals were real. The accuracy belongs to the suburbs. At the opposite corner sits Elkhart County, Indiana, where most of the country’s recreational vehicles are built. RV sales are among the first things households cut when times turn, so Elkhart’s indicator crossed the threshold <span data-sp="elk_lead">11.7</span> months before the national peak on average. But only <span data-sp="elk_prec">55</span> percent of its signals were real: the same exposure to the private-sector cycle that makes it fast makes it jumpy.</p></section>
+  <div id="fig-sp-gw"></div>
+  <div class="results" id="res-sp-gw"></div>
+
+  <section class="pbreak"><span class="ov-kicker">Recessions the aggregate misses</span><h2 class="ov-h">A region can be in recession while the nation is not</h2><p>Not every false alarm is noise. Some are real local recessions that never add up to a national one. Every Louisiana parish in the data crossed the threshold in 2014–15 after oil prices collapsed, and most of Wyoming’s counties in 2016, while the national unemployment rate kept falling. In <span data-sp="m2024">November 2024</span>, <span data-sp="share_2024_max">55</span> percent of all counties were above the threshold, the highest share at any time since 1993 that was not during or just after a national recession, yet no national recession followed. Maryland’s counties were above it from early 2024 into 2026, and the District from early 2025 to early 2026.</p><p>Because these episodes are tied to places, policy can cause them and can also cure them. A state budget cut, a regulatory change or a federal decision about where jobs sit can start a local recession; state unemployment insurance, state spending and economic development can cushion one. A national indicator averages all of this away. A county view shows where a downturn is concentrated, which is the information a governor or a state legislature needs.</p></section>
+  <div id="fig-sp-heat"></div>
+
+  <section class="pbreak"><span class="ov-kicker">Seasonality</span><h2 class="ov-h">Places carry the seasons of the industries they host</h2><p>A county’s labor market reflects the people who live there and, through them, the industries that employ them. Resort, farming, fishing and college towns have seasons that national data average out. BLS does not seasonally adjust county unemployment, and on the unadjusted series the seasons look like recessions: <span data-sp="raw_janfeb">39</span> percent of false alarms begin in January or February, after holiday hiring ends and outdoor work stops for the winter.</p><p>Standard seasonal adjustment helps but does not finish the job. After the same adjustment the site applies to every series, false alarms still cluster in the first months of the year (<span data-sp="adj_janfeb">22</span> percent in January and February, against 17 percent if they were spread evenly), and the most seasonal fifth of counties, such as <span data-sp="amp_top">Skagway, Alaska and Mackinac, Michigan</span>, still raise <span data-sp="amp_ratio">2.3</span> times as many false alarms as the least seasonal fifth. Seasonal patterns that shift over time, as industries grow and shrink, escape a fixed seasonal adjustment. County data, and the sector data behind them, need seasonal adjustment designed for them rather than borrowed from national patterns.</p></section>
+  <div id="fig-sp-seas"></div>
+  <div id="fig-sp-seas-ex"></div>
+
+  <h2 class="sec" id="rural-urban-sec"><span class="kicker">Rural and urban</span>Eighteen counties, one rule</h2>
   <div id="fig-sp"></div>
   <div class="results" id="res-sp"></div>
   <div id="fig-sp-list"></div>
   <div id="fig-sp-end"></div>
   <p class="note">Eighteen counties chosen to illustrate (eight large urban, ten rural), from BLS Local Area Unemployment Statistics.</p>
-  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Spatial Inequality of Recession</h2><p>The paper will apply the turning-point rule to every county, map the anticipation–precision frontier across places, and separate local recessions from seasonal and sampling noise. Figures in the text use county unemployment from BLS Local Area Unemployment Statistics, January 1990 to August 2026, seasonally adjusted with STL and run through the six-month rule with a 0.5-point threshold. A signal counts as real if it falls between 18 months before and 12 months after an NBER peak.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="spatial">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Spatial Inequality of Recession</h2><p>The paper applies the turning-point rule to every county, maps the anticipation–precision frontier across places, and separates local recessions from seasonal and sampling noise. The statistics on this page use county unemployment rates from BLS Local Area Unemployment Statistics, <span data-sp="range">January 1990 to August 2026</span>, seasonally adjusted with STL and run through the six-month rule with a 0.5-point threshold. A signal counts as a real recession if it falls between 18 months before and 12 months after an NBER peak. They are recomputed every time the county data are refreshed. <span data-sp="excluded">313</span> counties are left out because the series attached to them in the source file could not be verified as their own.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="spatial">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="full" data-chap="spatial"></div>
 </div>
 </div>
@@ -3592,6 +3602,266 @@ function renderSpatialFigs() {
   el.innerHTML = figure(`Which Places Entered the ${rec.name} Recession First`, `Turning Point Indicator, Modified Sahm Rule, County Level Data, Shown as Onset Relative to the NBER Peak, ${rec.name} Recession. Rural mean ${sg(lr.mean)} months (n ${lr.n}); urban mean ${sg(lu.mean)} months (n ${lu.n}).`,
     `${swatches([{ label: "Rural", color: "--s-rur" }, { label: "Urban", color: "--s-urb" }])}<div class="county-list">${rows.map(r => `<div class="county-row"><span><span class="k" style="background:var(${r.urban ? "--s-urb" : "--s-rur"})"></span>${esc(r.k)}</span><span class="n">${r.m.status === "ok" ? (r.m.lead > 0 ? `${r.m.lead} mo before` : r.m.lead < 0 ? `${-r.m.lead} mo after` : "at peak") : `<span class="tag">${r.m.status}</span>`}</span></div>`).join("")}</div>`,
     "Uses the recession picked in the chart above. Small rural counties are noisy; try “Ignore blips” or a larger k in the full analysis.");
+  renderSpatialExtras();
+}
+
+/* ---------- Spatial: county statistics (data/spatial_*, built by data-source/Spatial_County_Stats.Rmd) ---------- */
+const SPX = { data: null, loading: null, hl: "gw", seasEx: null };
+SITE.spGwRec = "2007";
+function spLoad() {
+  if (SPX.data) return Promise.resolve(SPX.data);
+  if (!SPX.loading) {
+    const num = v => (v === "" || v === "NA" || v == null) ? NaN : +v, tf = v => v === "TRUE" || v === "true";
+    SPX.loading = Promise.all([
+      d3.csv("data/spatial_counties.csv", d => ({ fips: d.fips, county: d.county, state: d.state, valid: tf(d.valid), gw: tf(d.gw), bellwether: tf(d.bellwether), frontier: tf(d.frontier),
+        n_sig: +d.n_sig, n_true: +d.n_true, prec: num(d.prec), recall: +d.recall, lead: num(d.lead), l01: num(d.lead_2001), l07: num(d.lead_2007), l20: num(d.lead_2020),
+        rate: num(d.mean_rate), amp: num(d.seas_amp), fa: (d.false_dates && d.false_dates !== "NA") ? d.false_dates.split(";").filter(Boolean) : [] })),
+      d3.json("data/spatial_states.json"), d3.csv("data/spatial_seasonal.csv", d3.autoType), d3.json("data/spatial_paths.json"), d3.json("data/spatial_summary.json")
+    ]).then(([C, S, SE, P, SUM]) => (SPX.data = { C, S, SE, P, SUM }));
+  }
+  return SPX.loading;
+}
+const spMon = s => mLab(mIdx(s));
+const spName = c => `${c.county}, ${c.state}`;
+const spLead = v => !isFinite(v) ? "–" : v > 0.25 ? `${f1(v)} mo before` : v < -0.25 ? `${f1(-v)} mo after` : "at the peak";
+const spPct = v => isFinite(v) ? Math.round(100 * v) + "%" : "–";
+async function renderSpatialExtras() {
+  let D;
+  try { D = await spLoad(); } catch (e) { console.error(e); const c = document.getElementById("sp-cards"); if (c) c.outerHTML = `<p class="note warn">The county statistics could not be loaded.</p>`; return; }
+  if (!document.getElementById("sp-cards")) return;
+  for (const [fn, id] of [[spFill, null], [spCards, "sp-cards"], [spBell, "fig-sp-bell"], [spFrontier, "fig-sp-front"], [spGw, "fig-sp-gw"], [spHeat, "fig-sp-heat"], [spSeas, "fig-sp-seas"], [spSeasEx, "fig-sp-seas-ex"]]) {
+    try { fn(id ? document.getElementById(id) : null, D); } catch (e) { console.error(e); }
+  }
+}
+const SP_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const spMonLong = s => SP_MONTHS[+s.slice(5, 7) - 1] + " " + s.slice(0, 4);
+function spFill(_, D) {
+  const S = D.SUM, bins = Object.fromEntries((S.lead_bins || []).map(b => [b.bin, b.prec]));
+  const AB = { AK: "Alaska", MI: "Michigan", MA: "Massachusetts", CA: "California", UT: "Utah", MO: "Missouri", WI: "Wisconsin", NC: "North Carolina", ME: "Maine", MN: "Minnesota", NY: "New York", CO: "Colorado", WY: "Wyoming", MT: "Montana", ID: "Idaho", WA: "Washington", NH: "New Hampshire", VT: "Vermont", OR: "Oregon", NV: "Nevada", AZ: "Arizona", NM: "New Mexico", TX: "Texas", FL: "Florida", HI: "Hawaii" };
+  const longName = n => { const [c, st] = n.split(", "); return `${c}, ${AB[st] || st}`; };
+  const V = {
+    counties: S.counties.toLocaleString(), bellwethers: S.bellwethers, bw_lead_abs: f1(Math.abs(S.bw_lead)),
+    bin_vearly: bins["very early"], bin_ontime: bins["on time"], nova_lead_abs: f1(Math.abs(S.nova.lead), 0), nova_prec: S.nova.prec, all_prec: S.all_prec,
+    gw_slower: 100 - S.gw_lead_pct, gw_prec_pct: S.gw_prec_pct, dc_prec: S.dc.prec, m2024: spMonLong(S.share_2024_month), share_2024_max: S.share_2024_max,
+    raw_janfeb: S.seasonal[0].raw_janfeb, adj_janfeb: S.seasonal[0].adj_janfeb, amp_ratio: f1(S.amp_ratio),
+    amp_top: S.amp_top.slice(0, 2).map(longName).join(" and "), range: `${spMonLong(S.data_from)} to ${spMonLong(S.data_to)}`, excluded: S.excluded
+  };
+  const elk = D.C.find(c => c.fips === "18039"); if (elk) { V.elk_lead = f1(elk.lead); V.elk_prec = Math.round(100 * elk.prec); }
+  document.querySelectorAll("#v-spatial [data-sp]").forEach(el => { const v = V[el.dataset.sp]; if (v !== undefined && v !== null && v !== "") el.textContent = v; });
+}
+function spCards(el, D) {
+  const S = D.SUM;
+  el.innerHTML = result("Counties", S.valid.toLocaleString(), "each with its own series", `of ${S.counties.toLocaleString()} · BLS LAUS, ${spMon(S.data_from)}–${spMon(S.data_to)}`)
+    + result("Bellwethers", S.bellwethers, "called each recession since 2001, and nothing else", "2001, 2007–09 and 2020 · signals since 1993")
+    + result("Real signals", S.precision + "%", "of county signals came near a national recession", "the rest were local downturns or noise")
+    + result("Greater Washington", f1(Math.abs(S.gw_lead)), `months ${S.gw_lead < 0 ? "after" : "before"} the peak, on average`, `${S.gw_prec}% of its signals real · ${S.all_prec}% for the typical county`);
+}
+function spBell(el, D) {
+  const B = D.C.filter(c => c.bellwether).sort((a, b) => b.lead - a.lead);
+  el.innerHTML = figure("Bellwether Counties: Every Recession Since 2001, and Nothing Else",
+    `Turning Point Indicator, Modified Sahm Rule, County Level Data (seasonally adjusted), counties whose indicator crossed the threshold in each of the 2001, 2007–09 and 2020 recessions and at no other time since 1993. Each row shows the average timing of the crossing relative to the NBER peak.`,
+    `${swatches([{ label: "Greater Washington", color: "--s-gw" }, { label: "Other bellwether counties", color: "--s-bw" }])}<div class="county-list">${B.map(c => `<div class="county-row"><span><span class="k" style="background:var(${c.gw ? "--s-gw" : "--s-bw"})"></span>${esc(spName(c))}</span><span class="n">${spLead(c.lead)}</span></div>`).join("")}</div>`,
+    "Source: BLS Local Area Unemployment Statistics via FRED, county unemployment rates, seasonally adjusted with STL; rule k = 6, m = 12, α = 0.5.");
+}
+function spFrontier(el, D) {
+  const S = D.SUM, hl = SPX.hl;
+  const pts = D.C.filter(c => c.valid && c.recall === 3 && isFinite(c.prec) && isFinite(c.lead));
+  const front = pts.filter(c => c.frontier).sort((a, b) => a.lead - b.lead);
+  el.innerHTML = figure("Speed Against Accuracy, by County",
+    `Turning Point Indicator, Modified Sahm Rule, County Level Data (seasonally adjusted, k = 6, m = 12, α = 0.5). Each dot is a county that crossed the threshold in all three recessions since 2001 (${pts.length.toLocaleString()} counties). Horizontal: average months between the county’s first crossing and the NBER peak, positive when the county turned before the peak. Vertical: share of all the county’s crossings since 1993 that fell between 18 months before and 12 months after a national peak. Small random offsets separate counties with identical values. ${S.excluded} counties whose source series could not be verified as their own are left out.`,
+    `${readme(`<p><b>What you are looking at.</b> Each dot is one county. Further right means its recession signal came earlier, relative to the official start of the national recession. Higher means a larger share of its signals were real recessions rather than false alarms.</p><p><b>The frontier.</b> The black line connects the counties that no other county beats on both counts at once. Moving along it to the right buys earlier warning at the price of more false alarms.</p><p><b>Greater Washington.</b> The dark dots sit high and to the left: late, but almost always right.</p>`)}
+     <div class="fig-ctl"><div class="segs" id="sp-hl">${[["gw", "Greater Washington"], ["bw", "Bellwethers"], ["none", "No highlight"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === hl}">${l}</button>`).join("")}</div></div>
+     <div class="val-canvas" id="sp-front-cv"><canvas></canvas><div class="tip" hidden></div></div>
+     <div class="val-key"><span><i style="background:rgba(106,167,230,.45)"></i>County</span><span><i style="background:#2a2a2a;border-radius:0;height:2px;width:16px;vertical-align:3px"></i>Frontier</span>${hl === "gw" ? `<span><i style="background:var(--s-gw)"></i>Greater Washington</span>` : ""}${hl === "bw" ? `<span><i style="background:#fff;box-shadow:0 0 0 2px var(--s-bw) inset"></i>Bellwether</span>` : ""}<span><i style="background:transparent;border-top:1px dashed #b5b5b5;border-radius:0;height:0;width:16px;vertical-align:3px"></i>Average county</span></div>`,
+    "Source: BLS Local Area Unemployment Statistics via FRED; NBER business-cycle dates. Concept: Michaillat (2025), the anticipation–precision frontier.");
+  el.querySelectorAll("#sp-hl button").forEach(b => b.onclick = () => { SPX.hl = b.dataset.v; spFrontier(el, D); });
+  const wrap = el.querySelector("#sp-front-cv"), cv = wrap.querySelector("canvas"), tip = wrap.querySelector(".tip");
+  const W = Math.max(320, wrap.clientWidth || 860), H = Math.round(Math.min(520, Math.max(340, W * 0.58))), dpr = window.devicePixelRatio || 1;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const css = getComputedStyle(document.documentElement), col = v => css.getPropertyValue(v).trim() || "#17397c";
+  const GW = col("--s-gw"), BWc = col("--s-bw");
+  const M = { l: 50, r: 16, t: 14, b: 46 };
+  const hash = s => { let x = 2166136261; for (const ch of s) x = Math.imul(x ^ ch.charCodeAt(0), 16777619) >>> 0; return x; };
+  const jit = (c, k) => (hash(c.fips + k) % 1000) / 1000 - 0.5;
+  const xs = pts.map(c => c.lead), x0 = Math.floor(Math.min(...xs)) - 1, x1 = Math.ceil(Math.max(...xs)) + 1;
+  const X = v => M.l + (v - x0) / (x1 - x0) * (W - M.l - M.r), Y = p => M.t + (1 - p) * (H - M.t - M.b);
+  pts.forEach(c => { c._x = X(c.lead + jit(c, "x") * 0.32); c._y = Y(Math.max(0, Math.min(1, c.prec + jit(c, "y") * 0.03))); });
+  const font = getComputedStyle(document.body).fontFamily;
+  g.font = "11px " + font; g.lineWidth = 1;
+  for (const p of [0, .25, .5, .75, 1]) { g.strokeStyle = "#eee"; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(M.l, Y(p)); g.lineTo(W - M.r, Y(p)); g.stroke(); g.setLineDash([]); g.fillStyle = "#a3a3a3"; g.textAlign = "right"; g.fillText(Math.round(p * 100) + "%", M.l - 6, Y(p) + 3.5); }
+  const xstep = (x1 - x0) > 24 ? 4 : 2; g.textAlign = "center";
+  for (let v = Math.ceil(x0 / xstep) * xstep; v <= x1; v += xstep) g.fillText(v > 0 ? "+" + v : v, X(v), H - M.b + 16);
+  g.strokeStyle = "#cfcfcf"; g.beginPath(); g.moveTo(X(0), M.t); g.lineTo(X(0), H - M.b); g.stroke();
+  g.fillStyle = "#8a8a8a"; g.textAlign = "left"; g.fillText("NBER peak", X(0) + 4, H - M.b - 6);
+  g.fillStyle = "#737373"; g.textAlign = "center";
+  const narrow = W < 560;
+  g.fillText(narrow ? "Months of warning before the peak · earlier →" : "Average warning before the national peak (months) · earlier →", (M.l + W - M.r) / 2, H - 8);
+  g.save(); g.translate(13, (M.t + H - M.b) / 2); g.rotate(-Math.PI / 2); g.fillText(narrow ? "Real signals · more accurate →" : "Signals that were real recessions · more accurate →", 0, 0); g.restore();
+  // average county
+  g.strokeStyle = "#b5b5b5"; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(S.all_lead), M.t); g.lineTo(X(S.all_lead), H - M.b); g.moveTo(M.l, Y(S.all_prec / 100)); g.lineTo(W - M.r, Y(S.all_prec / 100)); g.stroke(); g.setLineDash([]);
+  g.font = "italic 11px " + font; g.fillStyle = "#9a9a9a";
+  g.textAlign = "left"; g.fillText("Slow but sure", M.l + 8, M.t + 14);
+  g.textAlign = "right"; g.fillText("Early but noisy", W - M.r - 6, H - M.b - 8);
+  g.fillStyle = "rgba(106,167,230,.38)";
+  for (const c of pts) { g.beginPath(); g.arc(c._x, c._y, 2.5, 0, 7); g.fill(); }
+  g.strokeStyle = "#2a2a2a"; g.lineWidth = 1.6; g.beginPath(); front.forEach((c, i) => i ? g.lineTo(X(c.lead), Y(c.prec)) : g.moveTo(X(c.lead), Y(c.prec))); g.stroke();
+  g.fillStyle = "#2a2a2a"; for (const c of front) { g.beginPath(); g.arc(X(c.lead), Y(c.prec), 3, 0, 7); g.fill(); }
+  const HL = hl === "gw" ? pts.filter(c => c.gw) : hl === "bw" ? pts.filter(c => c.bellwether) : [];
+  for (const c of HL) {
+    g.beginPath(); g.arc(c._x, c._y, hl === "gw" ? 4.6 : 4.2, 0, 7);
+    if (hl === "gw") { g.fillStyle = GW; g.fill(); g.lineWidth = 1.5; g.strokeStyle = "#fff"; g.stroke(); }
+    else { g.fillStyle = "#fff"; g.fill(); g.lineWidth = 2; g.strokeStyle = BWc; g.stroke(); }
+  }
+  const label = (txt, x, y, right, bold) => { g.font = (bold ? "600 " : "") + "11px " + font; const tw = g.measureText(txt).width; const lx = right && x + 9 + tw < W - M.r ? x + 9 : x - 9 - tw; g.textAlign = "left"; g.lineWidth = 3; g.strokeStyle = "rgba(255,255,255,.92)"; g.strokeText(txt, lx, y + 4); g.fillStyle = "#3a3a3a"; g.fillText(txt, lx, y + 4); };
+  for (const c of front) label(spName(c), X(c.lead), Y(c.prec), c.lead < (x0 + x1) / 2);
+  if (hl === "gw") {
+    const ff = pts.find(c => c.fips === "51059"), dc = pts.find(c => c.fips === "11001");
+    if (ff) label("Fairfax, VA", ff._x, ff._y, false, true);
+    if (dc) label("Washington, D.C.", dc._x, dc._y, false, true);
+  }
+  const recTxt = c => [["2001", c.l01], ["2007–09", c.l07], ["2020", c.l20]].map(([n, v]) => `<div class="r"><span>${n} recession</span><span class="num">${spLead(v)}</span></div>`).join("");
+  wrap.onpointermove = ev => {
+    const rc = cv.getBoundingClientRect(), px = ev.clientX - rc.left, py = ev.clientY - rc.top;
+    let best = null, bd = 10;
+    for (const c of HL.concat(pts)) { const d = Math.hypot(c._x - px, c._y - py); if (d < bd) { bd = d; best = c; } }
+    if (!best) { tip.hidden = true; return; }
+    const tags = [best.gw && "Greater Washington", best.bellwether && "Bellwether", best.frontier && "On the frontier"].filter(Boolean).join(" · ");
+    tip.innerHTML = `<div class="h">${esc(spName(best))}${tags ? ` · ${tags}` : ""}</div>
+      <div class="r"><span>Average warning</span><span class="num">${spLead(best.lead)}</span></div>
+      ${recTxt(best)}
+      <div class="r"><span>Real signals</span><span class="num">${best.n_true} of ${best.n_sig} (${spPct(best.prec)})</span></div>
+      <div class="r"><span>False alarms</span><span>${best.fa.length ? best.fa.slice(-4).map(spMon).join(", ") + (best.fa.length > 4 ? ` and ${best.fa.length - 4} earlier` : "") : "none"}</span></div>`;
+    tip.hidden = false; let left = px + 14; if (left + tip.offsetWidth > rc.width) left = px - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.min(py + 10, H - tip.offsetHeight) + "px";
+  };
+  wrap.onpointerleave = () => tip.hidden = true;
+}
+function spSeries(D, fips) { const p = D.P[fips]; return p ? makeSeries("cty:" + fips, p.name, p.start, p.sa) : null; }
+function spGw(el, D) {
+  const C = new Map(D.C.map(c => [c.fips, c]));
+  const slowId = D.P["51059"] ? "51059" : (D.C.find(c => c.gw && c.valid && D.P[c.fips]) || {}).fips;
+  const fastId = D.P["18039"] ? "18039" : (D.C.filter(c => c.valid && c.recall === 3 && c.lead >= 6 && c.prec < 0.6 && D.P[c.fips]).sort((a, b) => b.lead - a.lead)[0] || {}).fips;
+  const F = spSeries(D, slowId), R = spSeries(D, fastId), cs = C.get(slowId), cf = C.get(fastId);
+  if (!F || !R || !cs || !cf) { el.innerHTML = ""; return; }
+  const fl = `${cs.county} County, ${cs.state}`, rl = `${cf.county} County, ${cf.state}`;
+  const U = BLS["U-3 (all)"], i0 = Math.max(0, Math.min(F.start, R.start) - U.start), u3 = { id: "bls:U-3 (all)|county", label: U.label, start: U.start + i0, v: U.v.slice(i0) };
+  groupFigure(el, "spGwRec", "Turning Point by County Data: Fast Versus Slow and Sure", TP("County Data (BLS LAUS, seasonally adjusted)", "Reference Lines and Recessions", "1990"),
+    [{ s: R, label: rl, color: "--s-fast", width: 2.4 }, { s: F, label: fl, color: "--s-gw", width: 2.4 }, { s: u3, label: "United States (U-3)", color: "--s-agg", dash: "4 4", width: 1.5 }],
+    `Source: BLS Local Area Unemployment Statistics via FRED (county rates, seasonally adjusted with STL) and BLS (U-3). ${esc(fl)} is in suburban Washington, D.C.; ${esc(rl)} builds most of the country’s recreational vehicles. Shaded: NBER recession. Dots mark each series’ first crossing of the threshold.`, 380);
+  const fa = c => c.fa.length ? `false alarm${c.fa.length > 1 ? "s" : ""}: ${c.fa.map(d => d.slice(0, 4)).join(", ")}` : "no false alarms";
+  document.getElementById("res-sp-gw").innerHTML =
+    result(`${cf.county} turns earlier`, f1(cf.lead - cs.lead), "months earlier than " + cs.county + ", on average", `${cf.county} ${spLead(cf.lead)} · ${cs.county} ${spLead(cs.lead)}`)
+    + result(`${cf.county}: real signals`, spPct(cf.prec), `${cf.n_true} of ${cf.n_sig} signals`, fa(cf))
+    + result(`${cs.county}: real signals`, spPct(cs.prec), `${cs.n_true} of ${cs.n_sig} signals`, fa(cs))
+    + result("The typical county", D.SUM.all_prec + "%", "of signals real", `average warning ${spLead(D.SUM.all_lead)}`);
+}
+function spHeat(el, D) {
+  const S = D.S, SUM = D.SUM;
+  const REG = [["Northeast", ["CT", "ME", "MA", "NH", "RI", "VT", "NJ", "NY", "PA"]], ["Midwest", ["IL", "IN", "MI", "OH", "WI", "IA", "KS", "MN", "MO", "NE", "ND", "SD"]],
+    ["South", ["DE", "DC", "FL", "GA", "MD", "NC", "SC", "VA", "WV", "AL", "KY", "MS", "TN", "AR", "LA", "OK", "TX"]], ["West", ["AZ", "CO", "ID", "MT", "NV", "NM", "UT", "WY", "AK", "CA", "HI", "OR", "WA"]]];
+  const idx = Object.fromEntries(S.states.map((s, i) => [s, i]));
+  const rows = []; for (const [reg, sts] of REG) { const r = sts.filter(s => idx[s] !== undefined); r.forEach((s, j) => rows.push({ s, reg: j === 0 ? reg : null, i: idx[s] })); }
+  const t0 = mIdx(S.start), n = S.n;
+  el.innerHTML = figure("Where Recessions Happened: Share of Each State’s Counties in Recession",
+    `Turning Point Indicator, Modified Sahm Rule, County Level Data (seasonally adjusted, k = 6, m = 12, α = 0.5). Each row is a state; each column a month from ${mLab(t0)} to ${mLab(t0 + n - 1)}. Darker cells mean a larger share of the state’s counties above the threshold. The strip on top is the share of all counties. Vertical lines mark national recessions.`,
+    `${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a state, grouped by region. A cell turns dark blue when most of that state’s counties are in recession by the turning-point rule.</p><p><b>What to look for.</b> National recessions show up as dark columns that run through almost every row. Dark patches between them are local recessions the national data never called: Louisiana after the 2014 oil collapse, Wyoming in 2016, and much of the country in 2024.</p>`)}
+     <div class="val-canvas" id="sp-heat-cv"><canvas></canvas><div class="tip" hidden></div></div>
+     <div class="sp-legend">0% ${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")} 100% <span class="lab">Share of the state’s counties above the threshold</span></div>`,
+    "Source: BLS Local Area Unemployment Statistics via FRED; NBER business-cycle dates. Counties whose source series could not be verified as their own are left out.");
+  const wrap = el.querySelector("#sp-heat-cv"), cv = wrap.querySelector("canvas"), tip = wrap.querySelector(".tip");
+  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = narrow ? 7 : 9, gap = 6, top = 92, labW = narrow ? 26 : 34, M = { r: 8, b: 26 };
+  const H = top + rows.length * rh + gap * 3 + M.b, dpr = window.devicePixelRatio || 1;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const font = getComputedStyle(document.body).fontFamily;
+  const cw = (W - labW - M.r) / n, X = i => labW + i * cw;
+  const ramp = d3.scaleLinear().domain([0, .2, .4, .6, .8, 1]).range(HEXCOL).clamp(true);
+  const rowY = []; { let y = top, prev = null; rows.forEach(r => { if (r.reg && prev !== null) y += gap; rowY.push(y); y += rh; prev = r.reg || prev; }); }
+  // national strip
+  const sh = S.nat_on.map((o, i) => S.nat_n[i] ? o / S.nat_n[i] : NaN), sTop = 18, sBot = top - 18, SY = v => sBot - v * (sBot - sTop);
+  const recs = NBER.filter(r => mIdx(r.trough) >= t0).map(r => [Math.max(0, mIdx(r.peak) - t0), Math.min(n - 1, mIdx(r.trough) - t0), r]);
+  g.fillStyle = "#f2f2f2"; for (const [a, b] of recs) g.fillRect(X(a), sTop - 6, Math.max(2, X(b + 1) - X(a)), sBot - sTop + 6);
+  g.beginPath(); g.moveTo(X(0), SY(0)); sh.forEach((v, i) => g.lineTo(X(i + .5), SY(isFinite(v) ? v : 0))); g.lineTo(X(n), SY(0)); g.closePath(); g.fillStyle = "rgba(106,167,230,.28)"; g.fill();
+  g.beginPath(); sh.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--s-gw").trim() || "#17397c"; g.lineWidth = 1.4; g.stroke();
+  g.font = "10px " + font; g.fillStyle = "#a3a3a3"; g.textAlign = "right"; g.fillText("100%", labW - 4, SY(1) + 3); g.fillText("0%", labW - 4, SY(0) + 3);
+  g.textAlign = "left"; g.fillStyle = "#737373"; g.fillText("All counties", labW + 2, sTop - 8);
+  { const i24 = mIdx(SUM.share_2024_month) - t0; if (i24 >= 0 && i24 < n) { const x = X(i24 + .5), y = SY(sh[i24]); g.beginPath(); g.arc(x, y, 3, 0, 7); g.fillStyle = "#17397c"; g.fill(); const txt = `${SUM.share_2024_max}% · ${spMon(SUM.share_2024_month)}`; g.font = "600 10.5px " + font; const tw = g.measureText(txt).width; g.textAlign = "left"; g.lineWidth = 3; g.strokeStyle = "rgba(255,255,255,.95)"; const lx = Math.min(x - tw - 6, W - M.r - tw); g.strokeText(txt, lx, y - 6); g.fillStyle = "#3a3a3a"; g.fillText(txt, lx, y - 6); } }
+  // heat cells
+  rows.forEach((r, k) => { const on = S.on[r.i], tot = S.tot[r.i], y = rowY[k]; for (let i = 0; i < n; i++) { if (!tot[i]) continue; g.fillStyle = ramp(on[i] / tot[i]); g.fillRect(X(i), y, Math.ceil(cw + .5), rh - 1); } });
+  g.font = (narrow ? "8px " : "9px ") + font; g.fillStyle = "#6b6b6b"; g.textAlign = "right";
+  rows.forEach((r, k) => g.fillText(r.s, labW - 4, rowY[k] + rh - 2));
+  // recession guides
+  g.strokeStyle = "rgba(38,38,38,.35)"; g.lineWidth = 1; g.setLineDash([2, 2]);
+  for (const [a, b] of recs) { for (const x of [X(a), X(b + 1)]) { g.beginPath(); g.moveTo(x, top - 4); g.lineTo(x, rowY[rowY.length - 1] + rh); g.stroke(); } }
+  g.setLineDash([]);
+  // years
+  g.font = "10px " + font; g.fillStyle = "#a3a3a3"; g.textAlign = "center";
+  const step = narrow ? 120 : 60; for (let t = Math.ceil(t0 / 12) * 12; t < t0 + n; t += 12) if ((t / 12) % (step / 12) === 0) g.fillText(Math.floor(t / 12), X(t - t0), H - 8);
+  // annotations: local recessions from the data
+  const EP = (SUM.episodes || []);
+  const notes = [["LA", 2014, 2015, "Oil price collapse"], ["WY", 2016, 2016, "Energy bust"], ["DC", 2025, 2025, "Federal cuts"]];
+  g.font = "600 10px " + font;
+  for (const [st, y0, y1, txt] of notes) {
+    const e = EP.find(e => e.state === st && +e.start.slice(0, 4) >= y0 && +e.start.slice(0, 4) <= y1); const k = rows.findIndex(r => r.s === st);
+    if (!e || k < 0) continue;
+    const a = mIdx(e.start) - t0, b = mIdx(e.end) - t0, y = rowY[k] + rh / 2;
+    g.strokeStyle = "#262626"; g.lineWidth = 1.2; g.strokeRect(X(a) - 1, rowY[k] - 1, X(b + 1) - X(a) + 2, rh + 1);
+    const tw = g.measureText(txt).width, right = X(b + 1) + 6 + tw < W - M.r, lx = right ? X(b + 1) + 6 : X(a) - 6 - tw;
+    g.lineWidth = 3; g.strokeStyle = "rgba(255,255,255,.95)"; g.textAlign = "left"; g.strokeText(txt, lx, y + 3.5); g.fillStyle = "#262626"; g.fillText(txt, lx, y + 3.5);
+  }
+  wrap.onpointermove = ev => {
+    const rc = cv.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, py = (ev.clientY - rc.top) * H / rc.height;
+    const i = Math.floor((px - labW) / cw); if (i < 0 || i >= n) { tip.hidden = true; return; }
+    let html;
+    if (py < top - 6) html = `<div class="h">${mLab(t0 + i)}</div><div class="r"><span>All counties above threshold</span><span class="num">${spPct(sh[i])}</span></div><div class="r"><span>Counties</span><span class="num">${S.nat_on[i].toLocaleString()} of ${S.nat_n[i].toLocaleString()}</span></div>`;
+    else { const k = rowY.findIndex(y => py >= y && py < y + rh); if (k < 0) { tip.hidden = true; return; } const r = rows[k], on = S.on[r.i][i], tot = S.tot[r.i][i];
+      html = `<div class="h">${r.s} · ${mLab(t0 + i)}</div><div class="r"><span>Counties above threshold</span><span class="num">${tot ? spPct(on / tot) : "–"}</span></div><div class="r"><span>Counties</span><span class="num">${on} of ${tot}</span></div><div class="r"><span>All counties</span><span class="num">${spPct(sh[i])}</span></div>`; }
+    tip.innerHTML = html; tip.hidden = false;
+    const left = (ev.clientX - rc.left); tip.style.left = Math.max(0, Math.min(rc.width - tip.offsetWidth, left + 14)) + "px"; tip.style.top = Math.min(ev.clientY - rc.top + 12, rc.height - tip.offsetHeight) + "px";
+  };
+  wrap.onpointerleave = () => tip.hidden = true;
+}
+function spSeas(el, D) {
+  const SE = D.SE, tr = d3.sum(SE, d => d.raw), ta = d3.sum(SE, d => d.adj);
+  const rows = SE.map(d => ({ m: d.month, raw: 100 * d.raw / tr, adj: 100 * d.adj / ta, nr: d.raw, na: d.adj }));
+  el.innerHTML = figure("When False Alarms Start: Before and After Seasonal Adjustment",
+    `Turning Point Indicator, Modified Sahm Rule, County Level Data (k = 6, m = 12, α = 0.5), applied to the same counties with and without seasonal adjustment. Bars show the share of each version’s false alarms (crossings since 1993 that were not near a national recession) that began in each calendar month. ${tr.toLocaleString()} false alarms unadjusted, ${ta.toLocaleString()} adjusted.`,
+    `${readme(`<p><b>What you are looking at.</b> Every time a county’s indicator crossed the threshold without a national recession nearby, we note the calendar month it happened. If false alarms had nothing to do with the seasons, each month would hold about one-twelfth of them (the dashed line).</p><p><b>What it shows.</b> On the published, unadjusted data, false alarms pile up in January through March, when holiday and outdoor work ends. Seasonal adjustment flattens the pile but does not remove it: the first months of the year still carry more than their share.</p>`)}
+     ${swatches([{ label: "Unadjusted county data", color: "--s-raw" }, { label: "Seasonally adjusted", color: "--s-adj" }])}<div class="vbody" id="sp-seas-b"></div>`,
+    "Source: BLS Local Area Unemployment Statistics via FRED; seasonal adjustment with STL as for every series on this site.");
+  const body = el.querySelector("#sp-seas-b"); body.classList.add("chart");
+  const W = Math.max(320, body.clientWidth || 800), H = 260, M = { l: 40, r: 10, t: 12, b: 28 };
+  const ymax = Math.ceil(Math.max(...rows.map(r => Math.max(r.raw, r.adj))) / 5) * 5;
+  const bw = (W - M.l - M.r) / 12, Y = v => M.t + (1 - v / ymax) * (H - M.t - M.b);
+  let s = "";
+  for (const v of niceTicks(0, ymax, 4)) s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}%</text>`;
+  rows.forEach((r, i) => { const x = M.l + i * bw, w = bw * .36;
+    s += `<rect class="sb" data-i="${i}" x="${x + bw * .12}" y="${Y(r.raw)}" width="${w}" height="${Y(0) - Y(r.raw)}" fill="var(--s-raw)"></rect><rect class="sb" data-i="${i}" x="${x + bw * .12 + w + 2}" y="${Y(r.adj)}" width="${w}" height="${Y(0) - Y(r.adj)}" fill="var(--s-adj)"></rect>`;
+    s += `<text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle">${MON[i]}</text>`; });
+  s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(100 / 12)}" y2="${Y(100 / 12)}" stroke="var(--ink-3)" stroke-dasharray="3 3"></line><text class="thr-t" x="${W - M.r}" y="${Y(100 / 12) - 5}" text-anchor="end">Even spread (8.3%)</text>`;
+  const svg = document.createElementNS(SVGNS, "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", "False alarms by calendar month"); svg.innerHTML = s; body.appendChild(svg);
+  const tip = h("div", { class: "tip", hidden: "" }); body.appendChild(tip);
+  svg.addEventListener("pointermove", ev => { const rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, i = Math.floor((px - M.l) / bw); if (i < 0 || i > 11) { tip.hidden = true; return; } const r = rows[i];
+    tip.innerHTML = `<div class="h">${MON[i]}</div><div class="r"><span><i class="k" style="background:var(--s-raw)"></i>Unadjusted</span><span class="num">${f1(r.raw)}% (${r.nr.toLocaleString()})</span></div><div class="r"><span><i class="k" style="background:var(--s-adj)"></i>Adjusted</span><span class="num">${f1(r.adj)}% (${r.na.toLocaleString()})</span></div>`;
+    tip.hidden = false; const left = (M.l + (i + 1) * bw) / W * rc.width; tip.style.left = Math.min(rc.width - tip.offsetWidth, left + 6) + "px"; tip.style.top = "8px"; });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+}
+function spSeasEx(el, D) {
+  const C = new Map(D.C.map(c => [c.fips, c]));
+  const opts = D.C.filter(c => c.valid && D.P[c.fips]).sort((a, b) => b.amp - a.amp).slice(0, 4);
+  if (!opts.length) { el.innerHTML = ""; return; }
+  if (!SPX.seasEx || !opts.find(c => c.fips === SPX.seasEx)) SPX.seasEx = opts[0].fips;
+  const c = C.get(SPX.seasEx), p = D.P[c.fips];
+  const raw = makeSeries("raw:" + c.fips, "Unadjusted", p.start, p.raw), sa = makeSeries("sa:" + c.fips, "Seasonally adjusted", p.start, p.sa);
+  el.innerHTML = figure(`Unemployment Rate in a Seasonal County: ${esc(spName(c))}`,
+    `Unemployment rate, ${esc(spName(c))}, as published (not seasonally adjusted) and after STL seasonal adjustment. The counties shown have the largest seasonal swings among counties with verified series. False alarms after adjustment since 1993: ${c.fa.length ? c.fa.map(spMon).join(", ") : "none"}.`,
+    `<div class="fig-ctl"><div class="segs" id="sp-sx">${opts.map(o => `<button data-v="${o.fips}" aria-pressed="${o.fips === c.fips}">${esc(spName(o))}</button>`).join("")}</div>${swatches([{ label: "As published", color: "--s-raw" }, { label: "Seasonally adjusted", color: "--s-adj" }])}</div><div class="vbody"></div>`,
+    "Source: BLS Local Area Unemployment Statistics via FRED.");
+  el.querySelectorAll("#sp-sx button").forEach(b => b.onclick = () => { SPX.seasEx = b.dataset.v; spSeasEx(el, D); });
+  const last = sa.start + sa.v.length - 1;
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [Math.max(sa.start, last - 12 * 12), last], yUnit: "%",
+    series: [{ label: "As published", color: "--s-raw", width: 1.6, at: t => valAt(raw, t) }, { label: "Seasonally adjusted", color: "--s-adj", width: 2.4, at: t => valAt(sa, t) }],
+    shade: SHADE(), height: 300 });
 }
 
 /* ---------- Income ---------- */
