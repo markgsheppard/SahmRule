@@ -12,20 +12,22 @@ params:
   window: 5          # years in the rolling reference window for occupational requirements
 ---
 
-This file builds the measures behind the two unlinked pages on the site, **The Case for U-7** (`#u7`) and **Building U-7 from Public Data** (`#u7-data`). It extends the Bureau of Labor Statistics' six measures of labor underutilization with four broader ones, each adding one more group of people whose labor is not fully used, and runs every measure through the same turning-point rule as the rest of the site.
+This file builds the measures behind the three unlinked pages on the site, **The Case for U-7** (`#u7`), **Building U-7 from Public Data** (`#u7-data`) and **Who Counts in the Labor Force?** (`#u7-lfp`). It extends the Bureau of Labor Statistics' six measures of labor underutilization with four broader ones and runs every measure through the same turning-point rule as the rest of the site. The ladder runs from the narrowest measure to the broadest, jobless people before people with jobs: from U-3 up, each rung counts everyone the rung below it counts plus one more group, and a person who fits two groups is counted once, in the lower rung.
 
-| Measure | Adds | Formula | Source |
+| Measure | Counts | Formula | Source |
 |---|---|---|---|
-| U-3 | Unemployed | U / LF | BLS (UNRATE) |
-| U-4 | Discouraged workers | (U + D) / (LF + D) | BLS (U4RATE) |
-| U-5 | Other marginally attached | (U + MA) / (LF + MA) | BLS (U5RATE) |
-| U-6 | Part time for economic reasons | (U + MA + PTER) / (LF + MA) | BLS (U6RATE) |
-| **U-7** | **Skills-mismatched workers** | (U + MA + PTER + SM) / (LF + MA) | U-6 plus CPS microdata |
-| U-8 | Everyone else outside the labor force who wants a job | (U + WJ + PTER + SM) / (LF + WJ) | U-6 plus CPS microdata |
-| U-9 | Own-account (unincorporated) self-employed | adds SEu to the U-8 numerator | U-6 plus CPS microdata |
-| U-10 | Incorporated self-employed | adds SEi to the U-9 numerator | U-6 plus CPS microdata |
+| U-1 | Unemployed 15 weeks or longer | U15 / LF | BLS (U1RATE) |
+| U-2 | Job losers and people who completed temporary jobs | UL / LF | BLS (U2RATE) |
+| U-3 | The unemployed | U / LF | BLS (UNRATE) |
+| U-4 | + discouraged workers | (U + D) / (LF + D) | BLS (U4RATE) |
+| U-5 | + other marginally attached | (U + MA) / (LF + MA) | BLS (U5RATE) |
+| U-6 | + part time for economic reasons | (U + MA + PTER) / (LF + MA) | BLS (U6RATE) |
+| **U-7** | **+ everyone else outside the labor force who wants a job** | (U + WJ + PTER) / (LF + WJ) | U-6 plus CPS microdata |
+| U-8 | + own-account (unincorporated) self-employed | adds SEu to the U-7 numerator | U-6 plus CPS microdata |
+| U-9 | + incorporated self-employed | adds SEi to the U-8 numerator | U-6 plus CPS microdata |
+| U-10 | + skills-mismatched workers | adds SM to the U-9 numerator | U-6 plus CPS microdata |
 
-U-7 is the measure in the RDC proposal: $U7 = (U + MA + PTER + SM)/(LF + MA)$. A worker is **skills-mismatched** (SM) when their highest degree is at least `theta` degree levels above the 75th percentile of degrees held by workers in the same occupation (a realized-matches definition). Degree levels: no high-school diploma, high-school diploma (including some college without a degree), associate, bachelor's, master's, professional or doctorate. Occupational requirements come from a rolling reference window, the previous `window` years of CPS data, phased in month by month so that no January jumps appear; workers counted as part time for economic reasons are not counted again. U-9 and U-10 follow `gig_work_rates_U7_U10.Rmd`: self-employment as the margin of independent and gig work, counting only self-employed workers not already counted. Multiple jobholding, the other gig margin in that file, needs the IPUMS variable `MULTJOB`, which this extract does not include.
+U-1 and U-2 are slices of U-3 rather than rungs: they overlap, and U-1 has at times been above U-2, as in several months between 2011 and 2014. WJ is everyone outside the labor force who says they want a job (`WNLOOK`), which includes the marginally attached. U-8 and U-9 follow `gig_work_rates_U7_U10.Rmd`: own-account and incorporated self-employment (`CLASSWKR` 13 and 14) as the margins of independent and gig work, counting the self-employed not part time for economic reasons. Multiple jobholding, the other gig margin in that file, needs the IPUMS variable `MULTJOB`, which this extract does not include; it is meant to replace incorporated self-employment as U-9 once an extract has it. U-10 adds the measure in the RDC proposal, skills mismatch, at the top of the ladder. A worker is **skills-mismatched** (SM) when their highest degree is at least `theta` degree levels above the 75th percentile of degrees held by workers in the same occupation (a realized-matches definition). Degree levels: no high-school diploma, high-school diploma (including some college without a degree), associate, bachelor's, master's, professional or doctorate. Occupational requirements come from a rolling reference window, the previous `window` years of CPS data, phased in month by month so that no January jumps appear; workers already counted as part time for economic reasons or as self-employed are not counted again.
 
 **Data.** U-3 to U-6 are the official seasonally adjusted BLS series (FRED, in `data-source/tool-data`). Everything beyond U-6 comes from the IPUMS CPS Basic Monthly files (`cps_00014`, January 1994 to September 2026, civilians 16 and older, final weights `WTFINL`), aggregated into the files in `data-source/u7/`:
 
@@ -38,7 +40,7 @@ U-7 is the measure in the RDC proposal: $U7 = (U + MA + PTER + SM)/(LF + MA)$. A
 
 These tabulations were first produced by a streaming reader run over the raw `cps_00014.dat.gz` on the Mac, which implements the same rules as the `rebuild-pass1`, `rebuild-pass2` and `rebuild-pass3` chunks below; on a 500,000-record test sample from 2016 to 2022 the two give identical counts, including the month-to-month flows. Set `rebuild: true` to recreate them in R from the extract.
 
-The marginally attached cannot be identified in this extract (it has the reason for not looking, `WNLOOK`, but not availability or past-year search), so U-7 takes them from the official U-5: with $u_3 = U/LF$ and $m = MA/LF$, $U5 = (u_3 + m)/(1 + m)$, so $m = (U5 - U3)/(1 - U5)$ and $U7 = U6 + SM/(LF \cdot (1+m))$. October 2025, when the federal shutdown cancelled the household survey, is interpolated, as everywhere on the site.
+U-7 to U-10 take the unemployed and the part time for economic reasons from the official series and the rest from the microdata. With $u_3 = U/LF$, $m = MA/LF$ and $p = PTER/LF$, the official $U5 = (u_3 + m)/(1 + m)$ gives $m = (U5 - U3)/(1 - U5)$, and $U6 = (u_3 + m + p)/(1 + m)$ gives $p$; then $U7 = (u_3 + wj + p)/(1 + wj)$ with $wj = WJ/LF$ from the microdata. The marginally attached themselves cannot be identified in this extract (it has the reason for not looking, `WNLOOK`, but not availability or past-year search), so $m$ is used only to split U-10 into its parts and for the prime-age measures. October 2025, when the federal shutdown cancelled the household survey, is interpolated, as everywhere on the site.
 
 **Turning points.** Every series is scored with the site's rule (the `k`-month average minus its minimum over the last `w` months, threshold `alpha`), matched to the 2001, 2007-09 and 2020 recessions between 18 months before and 12 months after each NBER peak, with thresholds also scaled to each measure's level or volatility as in the site's "Threshold scaling" control. Precision is the share of all crossings since 1995 that fall inside those windows. The JavaScript on the pages recomputes the same numbers from `data/u7_series.csv`, so the series are rounded to six decimals before they are scored here.
 
@@ -286,7 +288,11 @@ cat("Months without CPS microdata (interpolated):", D[is.na(lf), date], "\n")
 ```
 
 ```{r mismatch}
-# Monthly mismatch counts under a set of requirements (NULL = pooled, fixed), phased in month by month
+# Monthly counts for the rungs above U-7 under a set of mismatch requirements (NULL = pooled, fixed), phased in month by month.
+# Counting order follows the ladder: se and sei are the own-account and incorporated self-employed not part time for economic
+# reasons (U-8 and U-9), whatever their degree; sm is the skills-mismatched not already counted (U-10): not part time for
+# economic reasons and not self-employed. sm_np is every mismatched worker not part time for economic reasons, and sm_seu and
+# sm_sei the mismatched among the self-employed, for the checks and the prime-age split below.
 sm_counts <- function(TH = NULL, theta = params$theta) {
   x <- merge(CL, POOLED[, .(occ2010, pA = p75)], by = "occ2010")
   if (is.null(TH)) x[, f := as.numeric(lev >= pA + theta)] else {
@@ -295,7 +301,8 @@ sm_counts <- function(TH = NULL, theta = params$theta) {
     x[is.na(p0), p0 := pA]; x[is.na(p1), p1 := pA]
     x[, f := (1 - mo / 12) * (lev >= p0 + theta) + (mo / 12) * (lev >= p1 + theta)]
   }
-  x <- x[, .(sm = sum(w * f * (cls != 1L)), sm_all = sum(w * f), se = sum(w * (1 - f) * (cls == 2L)), sei = sum(w * (1 - f) * (cls == 3L))), by = date]
+  x <- x[, .(sm = sum(w * f * (cls == 0L)), sm_np = sum(w * f * (cls != 1L)), sm_all = sum(w * f), sm_seu = sum(w * f * (cls == 2L)),
+             sm_sei = sum(w * f * (cls == 3L)), se = sum(w * (cls == 2L)), sei = sum(w * (cls == 3L))), by = date]
   x[D[, .(date)], on = "date"]
 }
 # January 2003: the CPS moved to the 2000 Census occupation codes, which shifts every occupation-based count.
@@ -311,13 +318,15 @@ brk <- function(x, at = "2003-01") {
 }
 V <- list(main = sm_counts(TH), w3 = sm_counts(thr_table(3)), w10 = sm_counts(thr_table(10)), fixed = sm_counts(NULL),
           theta2 = sm_counts(TH, theta = 2))
-V$crosswalk <- CW[D[, .(date)], on = "date"][, .(date, sm = cw_np, sm_all = cw_all, se = NA_real_, sei = NA_real_)]
+# The crosswalk counts carry no class of worker, so the self-employed among them are removed in the main definition's
+# proportion; the self-employment rungs do not depend on the mismatch definition
+V$crosswalk <- CW[D[, .(date)], on = "date"][, .(date, sm = cw_np * V$main$sm / V$main$sm_np, sm_all = cw_all, se = V$main$se, sei = V$main$sei)]
 # check: the subgroup cells were built with the same main definition
-chk <- merge(V$main[, .(date, sm)], GC[, .(smP = sum(smP)), by = date], by = "date")
-stopifnot(max(abs(chk$sm / chk$smP - 1)) < 1e-4)
+chk <- merge(V$main[, .(date, sm_np)], GC[, .(smP = sum(smP)), by = date], by = "date")
+stopifnot(max(abs(chk$sm_np / chk$smP - 1)) < 1e-4)
 comp <- lapply(V, function(v) {
-  r <- list(sm = brk(v$sm / D$lf), se = if (all(is.na(v$se))) NULL else brk(v$se / D$lf), sei = if (all(is.na(v$sei))) NULL else brk(v$sei / D$lf))
-  list(sm = sa(r$sm), se = if (is.null(r$se)) NULL else sa(r$se), sei = if (is.null(r$sei)) NULL else sa(r$sei), break_sm = attr(r$sm, "break"))
+  r <- list(sm = brk(v$sm / D$lf), se = brk(v$se / D$lf), sei = brk(v$sei / D$lf))
+  list(sm = sa(r$sm), se = sa(r$se), sei = sa(r$sei), break_sm = attr(r$sm, "break"))
 })
 sapply(comp, function(z) round(100 * z$break_sm, 2))   # size of the 2003 coding break, percentage points of the labor force
 ```
@@ -327,21 +336,27 @@ L <- D[, .(date, t, U1 = U1RATE, U2 = U2RATE, U3 = UNRATE, U4 = U4RATE, U5 = U5R
 L[, m := (U5 - U3) / (100 - U5)]               # marginally attached per labor-force member, from the official U-5
 L[, p := (U6 - U5) / 100 * (1 + m)]            # part time for economic reasons per labor-force member, from the official U-6
 L[, wj := sa(D$wj / D$lf)]                     # everyone not in the labor force who wants a job (includes the marginally attached)
-rungs <- function(c) list(
-  U7  = L$U6 + 100 * c$sm / (1 + L$m),
-  U8  = 100 * (L$U3 / 100 + L$wj + L$p + c$sm) / (1 + L$wj),
-  U9  = if (is.null(c$se)) NULL else 100 * (L$U3 / 100 + L$wj + L$p + c$sm + c$se) / (1 + L$wj),
-  U10 = if (is.null(c$se)) NULL else 100 * (L$U3 / 100 + L$wj + L$p + c$sm + c$se + c$sei) / (1 + L$wj))
+stopifnot(all(L$wj > L$m))                     # the want-a-job pool contains the marginally attached, so U-7 is never below U-6
+# From U-7 up the denominator is LF + WJ, and each rung adds one group to the numerator: the rest of the want-a-job pool (U-7),
+# the own-account self-employed (U-8), the incorporated self-employed (U-9), and skills-mismatched workers not already counted (U-10)
+rungs <- function(c) {
+  b <- L$U3 / 100 + L$wj + L$p
+  list(U7 = 100 * b / (1 + L$wj), U8 = 100 * (b + c$se) / (1 + L$wj), U9 = 100 * (b + c$se + c$sei) / (1 + L$wj),
+       U10 = 100 * (b + c$se + c$sei + c$sm) / (1 + L$wj))
+}
 R <- rungs(comp$main)
 for (nm in names(R)) L[, (nm) := R[[nm]]]
-for (v in c("w3", "w10", "fixed", "theta2", "crosswalk")) L[, (paste0("U7_", v)) := rungs(comp[[v]])$U7]
-# U-7 split into its parts (they add up to U-7)
-L[, `:=`(c_u = U3 / (1 + m), c_ma = 100 * m / (1 + m), c_pt = U6 - U5, c_sm = U7 - U6)]
+for (v in c("w3", "w10", "fixed", "theta2", "crosswalk")) L[, (paste0("U10_", v)) := rungs(comp[[v]])$U10]
+# U-10 split into its parts, all over U-10's denominator, so they add up to U-10
+L[, `:=`(c_u = U3 / (1 + wj), c_ma = 100 * m / (1 + wj), c_pt = 100 * p / (1 + wj), c_wj = 100 * (wj - m) / (1 + wj),
+         c_seu = 100 * comp$main$se / (1 + wj), c_sei = 100 * comp$main$sei / (1 + wj), c_sm = 100 * comp$main$sm / (1 + wj))]
+stopifnot(max(abs(L[, c_u + c_ma + c_pt + c_wj + c_seu + c_sei + c_sm] - L$U10)) < 1e-9,
+          all(L$U7 >= L$U6), all(L$U8 >= L$U7), all(L$U9 >= L$U8), all(L$U10 >= L$U9))
 # Every series is rounded to six decimals here, as written to data/u7_series.csv, so the site's JavaScript and this file
 # score exactly the same numbers (a value that rounds to the threshold could otherwise fall on different sides of it)
-SER <- c("U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", paste0("U7_", c("w3", "w10", "fixed", "theta2", "crosswalk")), "c_u", "c_ma", "c_pt", "c_sm")
+LADDER <- paste0("U", 1:10)
+SER <- c(LADDER, paste0("U10_", c("w3", "w10", "fixed", "theta2", "crosswalk")), "c_u", "c_ma", "c_pt", "c_wj", "c_seu", "c_sei", "c_sm")
 L[, (SER) := lapply(.SD, round, 6), .SDcols = SER]
-LADDER <- c("U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10")
 L[date == max(date), c(list(date = date), lapply(.SD, round, 1)), .SDcols = LADDER]
 L[, lapply(.SD, function(x) round(mean(x), 1)), .SDcols = LADDER]
 ```
@@ -372,7 +387,7 @@ dcast(TP[scale == "fixed"], measure ~ rec, value.var = "lead")
 TP[scale == "fixed" & rec == "2001", .(measure, alpha, n_sig, n_true, precision = round(100 * n_true / n_sig), false)]
 dcast(TP, measure + scale ~ rec, value.var = "lead")
 # Robustness: the classic Sahm rule (three-month average against the minimum of the previous 12 months)
-classic <- rbindlist(lapply(c("U3", "U6", "U7", "U8"), function(nm) {
+classic <- rbindlist(lapply(LADDER, function(nm) {
   a <- frollmean(L[[nm]], 3); ind <- a - shift(frollapply(a, 12, min), 1)
   m <- lapply(NB$id, function(r) match_rec(ind, L$t, r, params$alpha)); s <- L$t[starts_of(ind, params$alpha)]
   data.table(measure = nm, rec = NB$id, lead = vapply(m, function(z) z$lead, 0), n_sig = length(s), n_true = sum(in_window(s)))
@@ -381,22 +396,25 @@ dcast(classic, measure + n_sig + n_true ~ rec, value.var = "lead")
 ```
 
 ```{r cycle}
-# The skills margin over the cycle: does it move with U-6, or against it?
+# The rungs over the cycle. Does each added group move with U-6, or against it? The want-a-job pool is jobless, like the
+# groups in U-4 to U-6; the self-employed and the mismatched are slices of employment.
 ch12 <- function(x) { a <- frollmean(x, params$k); a - shift(a, 12) }
-cyc <- list(cor_sm_u6 = cor(ch12(L$c_sm), ch12(L$U6), use = "complete.obs"),
-            sd12 = sapply(L[, .(U3, U6, U7, c_sm)], function(x) sd(ch12(x), na.rm = TRUE)))
-# change in U-6 and in the mismatch part of U-7 from the peak to a year after the trough, and over the next three years
+L[, c_se := c_seu + c_sei]                     # both self-employment rungs, in U-10 points
+cor6 <- function(x) cor(ch12(x), ch12(L$U6), use = "complete.obs")
+cyc <- list(cor_wj_u6 = cor6(L$c_wj), cor_se_u6 = cor6(L$c_se), cor_sm_u6 = cor6(L$c_sm),
+            sd12 = sapply(L[, c(LADDER, "c_wj", "c_se", "c_sm"), with = FALSE], function(x) sd(ch12(x), na.rm = TRUE)))
+# change in U-6 and in the parts above it from the peak to a year after the trough, and over the next three years
 at <- function(x, tt) x[match(tt, L$t)]
-L[, c_se := U10 - U8]                         # the self-employment rungs, in U-10 points
-cyc$recessions <- NB[, .(id, se_down = at(L$c_se, trough + 12L) - at(L$c_se, peak), u6_down = at(L$U6, trough + 12L) - at(L$U6, peak), sm_down = at(L$c_sm, trough + 12L) - at(L$c_sm, peak),
+cyc$recessions <- NB[, .(id, u6_down = at(L$U6, trough + 12L) - at(L$U6, peak), wj_down = at(L$c_wj, trough + 12L) - at(L$c_wj, peak),
+                         se_down = at(L$c_se, trough + 12L) - at(L$c_se, peak), sm_down = at(L$c_sm, trough + 12L) - at(L$c_sm, peak),
                          u6_up = at(L$U6, trough + 48L) - at(L$U6, trough + 12L), sm_up = at(L$c_sm, trough + 48L) - at(L$c_sm, trough + 12L))]
 # Recovery: share of each measure's recession rise (pre-recession low to recession high, six-month averages) still left 2 and 4 years after the trough
-recov <- rbindlist(lapply(c("U3", "U6", "U7", "U8"), function(nm) {
+recov <- rbindlist(lapply(LADDER, function(nm) {
   a <- frollmean(L[[nm]], params$k)
   NB[, { lo <- min(at(a, (peak - 12L):peak)); hi <- max(at(a, peak:(trough + 24L)))
          .(measure = nm, low = lo, high = hi, left24 = (at(a, trough + 24L) - lo) / (hi - lo), left48 = (at(a, trough + 48L) - lo) / (hi - lo)) }, by = id]
 }))
-cyc$recessions; recov
+cyc[c("cor_wj_u6", "cor_se_u6", "cor_sm_u6")]; cyc$recessions; recov
 ```
 
 ```{r groups}
@@ -443,14 +461,21 @@ occ <- merge(occ, OL, by = "occ2010", all.x = TRUE)[order(-mism)]
 occ[, `:=`(share = 100 * mism / emp, required = LEV[req + 1L], counted_from = LEV[pmin(req + params$theta, 5L) + 1L])]
 top_occ <- head(occ, 12)
 top_occ[, .(label, required, counted_from, emp = round(emp / 1e3), mism = round(mism / 1e3), share = round(share, 1))]
+# Who the self-employed are, the last 24 months: shares with a bachelor's degree or more and in management occupations
+# (OCC2010 10-430), against other workers not part time for economic reasons
+cls_mix <- CL[date %in% last24 & cls != 1L, .(share_emp = 100 * sum(w) / CL[date %in% last24, sum(w)], ba = 100 * sum(w * (lev >= 3L)) / sum(w),
+                                             mgmt = 100 * sum(w * (occ2010 >= 10 & occ2010 <= 430)) / sum(w)),
+              by = .(class = fcase(cls == 2L, "own_account", cls == 3L, "incorporated", default = "other"))]
+cls_mix
 ```
 
 ```{r sensitivity}
-VARS <- c(U7 = "Main: previous 5 years, one degree level", U7_w3 = "Previous 3 years", U7_w10 = "Previous 10 years",
-          U7_fixed = "Fixed requirements, 1994-2026", U7_theta2 = "Two degree levels above", U7_crosswalk = "Major-group crosswalk (The Case for U7.Rmd)")
+# The definition of mismatch only moves U-10, the rung that adds it
+VARS <- c(U10 = "Main: previous 5 years, one degree level", U10_w3 = "Previous 3 years", U10_w10 = "Previous 10 years",
+          U10_fixed = "Fixed requirements, 1994-2026", U10_theta2 = "Two degree levels above", U10_crosswalk = "Major-group crosswalk (The Case for U7.Rmd)")
 sens <- rbindlist(lapply(names(VARS), function(nm) {
   s <- score(L[[nm]], L$t, L$U3); sv <- score(L[[nm]], L$t, L$U3, "vol")
-  data.table(variant = nm, label = VARS[[nm]], mean = mean(L[[nm]]), latest = tail(L[[nm]], 1), sm_share = mean(L[[nm]] - L$U6),
+  data.table(variant = nm, label = VARS[[nm]], mean = mean(L[[nm]]), latest = tail(L[[nm]], 1), sm_share = mean(L[[nm]] - L$U9),
              lead_2001 = s$m[["2001"]]$lead, lead_2007 = s$m[["2007"]]$lead, lead_2020 = s$m[["2020"]]$lead,
              n_sig = length(s$sig), n_true = s$n_true, vol_alpha = sv$alpha,
              vlead_2001 = sv$m[["2001"]]$lead, vlead_2007 = sv$m[["2007"]]$lead, vlead_2020 = sv$m[["2020"]]$lead, vn_sig = length(sv$sig), vn_true = sv$n_true)
@@ -502,19 +527,22 @@ no_flows <- FW[is.na(tot), date]   # months the CPS cannot link (fully) to the m
 fx <- function(x, n, k = "U3") if (k %in% c("U1", "U2")) round(100 * x / (1 + n), 6) else round(100 * (x + n) / (1 + n), 6)
 d4 <- (L$U4 - L$U3) / (100 - L$U4)           # discouraged per labor-force member, from the official U-4
 cm <- comp$main; u3 <- L$U3 / 100
-X <- list(U1 = L$U1 / 100, U2 = L$U2 / 100, U3 = u3, U4 = u3, U5 = u3, U6 = u3 + L$p, U7 = u3 + L$p + cm$sm, U8 = u3 + L$p + cm$sm,
-          U9 = u3 + L$p + cm$sm + cm$se, U10 = u3 + L$p + cm$sm + cm$se + cm$sei)
-N <- list(U1 = 0, U2 = 0, U3 = 0, U4 = d4, U5 = L$m, U6 = L$m, U7 = L$m, U8 = L$wj, U9 = L$wj, U10 = L$wj)
+X <- list(U1 = L$U1 / 100, U2 = L$U2 / 100, U3 = u3, U4 = u3, U5 = u3, U6 = u3 + L$p, U7 = u3 + L$p, U8 = u3 + L$p + cm$se,
+          U9 = u3 + L$p + cm$se + cm$sei, U10 = u3 + L$p + cm$se + cm$sei + cm$sm)
+N <- list(U1 = 0, U2 = 0, U3 = 0, U4 = d4, U5 = L$m, U6 = L$m, U7 = L$wj, U8 = L$wj, U9 = L$wj, U10 = L$wj)
 e19 <- MW$m19 / lf_sa; e00 <- MW$m00 / lf_sa
 # prime-age versions; the discouraged and the marginally attached are shared out by age in proportion to the want-a-job pool
-# (job-market reasons, for the discouraged), because the microdata do not identify them
-f <- function(num, den) sa(num / den)
-xp <- list(u15 = f(P0$u15, P0$lf), ulos = f(P0$ulos, P0$lf), u = f(P0$une, P0$lf), pt = f(P0$pter, P0$lf), sm = f(P0$smP, P0$lf),
-           se = f(P0$seu, P0$lf), sei = f(P0$sei, P0$lf), wj = f(P0$wj, P0$lf), nilf = f(P0$nilf, P0$lf))
+# (job-market reasons, for the discouraged), because the microdata do not identify them. The prime-age file counts the
+# mismatched (not part time for economic reasons) and the self-employed who are not mismatched; the mismatched self-employed
+# are moved to the self-employment rungs in the national proportions, so prime-age U-10 is exact and U-8 and U-9 close.
+f <- function(num, den) sa(num / den); fb <- function(num, den) sa(brk(num / den))
+smu_p <- P0$smP * V$main$sm_seu / V$main$sm_np; smi_p <- P0$smP * V$main$sm_sei / V$main$sm_np
+xp <- list(u15 = f(P0$u15, P0$lf), ulos = f(P0$ulos, P0$lf), u = f(P0$une, P0$lf), pt = f(P0$pter, P0$lf), sm = fb(P0$smP - smu_p - smi_p, P0$lf),
+           se = fb(P0$seu + smu_p, P0$lf), sei = fb(P0$sei + smi_p, P0$lf), wj = f(P0$wj, P0$lf), nilf = f(P0$nilf, P0$lf))
 dp <- d4 * f(D$lf * P0$wjmk / D$wjmk, P0$lf); mp <- L$m * f(D$lf * P0$wj / D$wj, P0$lf)
-XP <- list(U1 = xp$u15, U2 = xp$ulos, U3 = xp$u, U4 = xp$u, U5 = xp$u, U6 = xp$u + xp$pt, U7 = xp$u + xp$pt + xp$sm, U8 = xp$u + xp$pt + xp$sm,
-           U9 = xp$u + xp$pt + xp$sm + xp$se, U10 = xp$u + xp$pt + xp$sm + xp$se + xp$sei)
-NP <- list(U1 = 0, U2 = 0, U3 = 0, U4 = dp, U5 = mp, U6 = mp, U7 = mp, U8 = xp$wj, U9 = xp$wj, U10 = xp$wj)
+XP <- list(U1 = xp$u15, U2 = xp$ulos, U3 = xp$u, U4 = xp$u, U5 = xp$u, U6 = xp$u + xp$pt, U7 = xp$u + xp$pt, U8 = xp$u + xp$pt + xp$se,
+           U9 = xp$u + xp$pt + xp$se + xp$sei, U10 = xp$u + xp$pt + xp$se + xp$sei + xp$sm)
+NP <- list(U1 = 0, U2 = 0, U3 = 0, U4 = dp, U5 = mp, U6 = mp, U7 = xp$wj, U8 = xp$wj, U9 = xp$wj, U10 = xp$wj)
 MS <- paste0("U", 1:10)
 SCEN <- list(
   measured = setNames(lapply(MS, function(k) fx(X[[k]], N[[k]], k)), MS),
@@ -523,7 +551,7 @@ SCEN <- list(
   p2000    = setNames(lapply(MS, function(k) fx(X[[k]], N[[k]] + e00, k)), MS),
   prime    = setNames(lapply(MS, function(k) fx(XP[[k]], NP[[k]], k)), MS),
   everyone = setNames(lapply(MS, function(k) fx(XP[[k]], xp$nilf, k)), MS))       # every prime-age adult: U-3 becomes 100 minus the employment rate
-stopifnot(max(abs(SCEN$measured$U6 - L$U6)) < 1e-3, max(abs(SCEN$measured$U8 - L$U8)) < 1e-3)
+stopifnot(max(abs(SCEN$measured$U6 - L$U6)) < 1e-3, max(abs(SCEN$measured$U7 - L$U7)) < 1e-3, max(abs(SCEN$measured$U10 - L$U10)) < 1e-3)
 for (sc in names(SCEN)) for (k in MS) LFP[, (paste0(sc, "_", k)) := SCEN[[sc]][[k]]]
 yrs <- function(v, y) mean(LFP[substr(date, 1, 4) == y, get(v)])
 lastm <- max(L$date); li <- nrow(LFP)
@@ -556,7 +584,7 @@ fwrite(out, "data/u7_series.csv")
 lastm <- max(L$date)
 summary <- list(
   updated = format(Sys.Date()), last = lastm, missing = D[is.na(lf), date], params = params[c("alpha", "k", "w", "theta", "window")],
-  latest = as.list(L[date == lastm, lapply(.SD, r2, 1), .SDcols = c(LADDER, "c_u", "c_ma", "c_pt", "c_sm")]),
+  latest = as.list(L[date == lastm, lapply(.SD, r2, 1), .SDcols = c(LADDER, "c_u", "c_ma", "c_pt", "c_wj", "c_seu", "c_sei", "c_sm")]),
   mean = as.list(L[, lapply(.SD, function(x) r2(mean(x), 1)), .SDcols = LADDER]),
   range = lapply(setNames(LADDER, LADDER), function(nm) r2(range(L[[nm]]), 1)),
   peak2020 = as.list(L[date == "2020-04", lapply(.SD, r2, 1), .SDcols = LADDER]),
@@ -565,7 +593,9 @@ summary <- list(
   break2003 = as.list(r2(100 * sapply(comp, function(z) z$break_sm), 2)),
   validation = lapply(validation, r2), wj_mean = r2(100 * mean(L$wj), 2), ma_mean = r2(100 * mean(L$m), 2),
   tp = TP[, .(measure, scale, alpha = r2(alpha, 2), rec, status, onset, lead, head_start, dur, after_trough, n_sig, n_true, false)],
-  cycle = list(cor_sm_u6 = r2(cyc$cor_sm_u6, 2), sd12 = as.list(r2(cyc$sd12, 2)), recessions = cyc$recessions[, lapply(.SD, function(x) if (is.numeric(x)) r2(x, 2) else x)]),
+  cycle = list(cor_wj_u6 = r2(cyc$cor_wj_u6, 2), cor_se_u6 = r2(cyc$cor_se_u6, 2), cor_sm_u6 = r2(cyc$cor_sm_u6, 2), sd12 = as.list(r2(cyc$sd12, 2)),
+               recessions = cyc$recessions[, lapply(.SD, function(x) if (is.numeric(x)) r2(x, 2) else x)]),
+  self_employed = cls_mix[, .(class, share_emp = r2(share_emp, 1), ba = r2(ba, 1), mgmt = r2(mgmt, 1))],
   recovery = recov[, .(id, measure, low = r2(low, 2), high = r2(high, 2), left24 = r2(left24, 2), left48 = r2(left48, 2))],
   groups_tp = gtp[, .(group, measure, lead = r2(lead, 2), caught, n_sig, n_true, precision)],
   mismatch = list(by_group = mis[, .(group, rate = r2(rate, 1), n = round(n))], ba = mis_ba[, .(group, rate = r2(rate, 1), n = round(n))],
