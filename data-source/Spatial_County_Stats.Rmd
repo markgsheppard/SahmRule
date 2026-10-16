@@ -16,7 +16,7 @@ Steps:
 2. **Seasonally adjust** each county with the same STL procedure the site uses for every other series.
 3. **Run the turning-point rule** (six-month average minus its 12-month low, threshold 0.5) and record every signal (upward crossing) from 1993 on.
 4. **Score each county** against the 2001, 2007–09 and 2020 recessions: a signal counts as a real recession if it falls between 18 months before and 12 months after an NBER peak, the same window the papers use to match onsets.
-5. **Write** the site files: `data/spatial_counties.csv`, `data/spatial_states.json`, `data/spatial_seasonal.csv`, `data/spatial_paths.json` and `data/spatial_summary.json`.
+5. **Write** the site files: `data/spatial_counties.csv`, `data/spatial_states.json`, `data/spatial_seasonal.csv`, `data/spatial_paths.json` and `data/spatial_summary.json`, plus `data/spatial_map_sahm.json` and `data/spatial_map_unemployment.json`, the seasonally adjusted layers behind the map's "Seasonally adjusted" button (every county, in the same compact format as `data-source/map-data/sahm.json`).
 
 ```{r setup}
 suppressMessages({ library(data.table); library(zoo); library(forecast); library(jsonlite) })
@@ -80,7 +80,7 @@ cat("County data", lab(T0), "to", lab(T1), "\n")
 GW <- c("11001", "51013", "51510", "51059", "51600", "51610", "51107", "51153", "51683", "51685", "51179", "51061",
         "51177", "51630", "51047", "51043", "51187", "51157", "24031", "24033", "24021", "24017", "24009", "54037")  # greater Washington (DC metro area)
 from <- mi(params$signals_from)
-res <- list(); ind_sa <- list(); paths <- list()
+res <- list(); ind_sa <- list(); paths <- list(); layer <- list()
 for (id in unique(d$county_id)) {
   g <- d[county_id == id]
   tt <- seq(min(g$t), max(g$t)); x <- g$unemployment_rate[match(tt, g$t)]
@@ -88,6 +88,7 @@ for (id in unique(d$county_id)) {
   st <- stl_sadj(x); raw <- zoo::na.approx(x, na.rm = FALSE, rule = 2)
   I  <- rule(st$sa); IR <- rule(raw)
   ind_sa[[id]] <- data.table(t = tt, on = !is.na(I) & I >= params$alpha, ok = !is.na(I))
+  layer[[id]] <- list(t = tt, sa = st$sa, ind = I)
   score <- function(ind) {
     s <- tt[starts_of(ind)]; s <- s[s >= from]
     lead <- vapply(names(PEAKS), function(r) { P <- PEAKS[[r]]; h <- s[s >= P - 18L & s <= P + 12L]; if (length(h)) as.integer(P - h[1]) else NA_integer_ }, integer(1))
@@ -115,6 +116,15 @@ best <- -1; front <- character(0)
 for (i in seq_len(nrow(V))) if (V$prec[i] > best + 1e-9) { front <- c(front, V$fips[i]); best <- V$prec[i] }
 C[, frontier := fips %in% front]
 cat(sprintf("valid %d · bellwethers %d · frontier %d\n", sum(C$valid), sum(C$bellwether), length(front)))
+```
+
+```{r map-layers}
+# Seasonally adjusted layers for the county map: every county, months T0..T1, integers (value x scale), null when missing
+ids <- sort(names(layer)); nn <- T1 - T0 + 1L
+lay <- function(field, scale) lapply(ids, function(id) { z <- layer[[id]]; v <- rep(NA_integer_, nn); k <- z$t - T0 + 1L; ok <- k >= 1L & k <= nn; v[k[ok]] <- as.integer(round(z[[field]][ok] * scale)); v })
+writeLines(toJSON(list(ids = ids, start = lab(T0), n = nn, scale = 100L, v = lay("ind", 100)), auto_unbox = TRUE, na = "null"), "data/spatial_map_sahm.json")
+writeLines(toJSON(list(ids = ids, start = lab(T0), n = nn, scale = 10L, v = lay("sa", 10)), auto_unbox = TRUE, na = "null"), "data/spatial_map_unemployment.json")
+cat("Map layers:", length(ids), "counties,", nn, "months\n")
 ```
 
 ```{r states}
