@@ -155,7 +155,14 @@ input[type="number"] { width: 72px; }
 
 table.udef td, table.udef th { white-space: normal; vertical-align: top; line-height: 1.45; }
 table.udef tr.hl td { background: #f4f8fd; }
-#v-u7 .tablewrap table, #v-u7-data .tablewrap table { min-width: 600px; }
+#v-u7 .tablewrap table, #v-u7-data .tablewrap table, #v-u7-lfp .tablewrap table { min-width: 600px; }
+.lfp-multi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 26px; margin-top: 6px; }
+@media (max-width: 700px) { .lfp-multi { grid-template-columns: minmax(0, 1fr); } }
+.lfp-panel { min-width: 0; }
+.lfp-ptitle { font-family: var(--f-nav); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #525252; margin-bottom: 2px; }
+.lfp-list { margin: 0; padding-left: 20px; color: var(--prose); font-size: 16px; line-height: 1.7; max-width: 70ch; display: grid; gap: 6px; }
+.lfp-list b { color: #000; font-weight: 600; }
+#v-u7-lfp .pbreak p a, #v-u7-lfp .lede a { color: inherit; text-decoration: underline; text-decoration-color: #b8b8b8; text-underline-offset: 3px; }
 #v-u7 .pbreak p a, #v-u7-data .pbreak p a, #v-u7-data .lede a { color: inherit; text-decoration: underline; text-decoration-color: #b8b8b8; text-underline-offset: 3px; }
 #v-u7 .pbreak p a:hover, #v-u7-data .pbreak p a:hover, #v-u7-data .lede a:hover { color: #111; text-decoration-color: #111; }
 table.u7occ td:first-child { min-width: 200px; }
@@ -1158,7 +1165,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <section class="pbreak"><span class="ov-kicker">Who</span><h2 class="ov-h">Degrees that go unused</h2><p>Mismatch is not spread evenly. Among college graduates, <span data-u7="ba_black">…</span> percent of Black workers and <span data-u7="ba_hisp">…</span> percent of Hispanic workers hold jobs that do not call for their degree, against <span data-u7="ba_white">…</span> percent of White graduates. For immigrants with a degree it is <span data-u7="ba_foreign">…</span> percent. Among recent graduates aged 22 to 27, <span data-u7="gr_black">…</span> percent of Black and <span data-u7="gr_hisp">…</span> percent of Hispanic graduates are mismatched, against <span data-u7="gr_white">…</span> percent of White graduates. U-1 through U-6 count every one of them as fully employed.</p></section>
   <div id="fig-u7-who"></div>
   <section class="pbreak"><span class="ov-kicker">Next</span><h2 class="ov-h">What the restricted data would add</h2><p>The public CPS can build U-7, but only coarsely. Occupations come in <span data-u7="occs">…</span> harmonized categories, education stops at the highest degree, there is no field of study, and subgroup samples are too small for monthly mismatch series by race or by place. The restricted American Community Survey and LEHD files in the proposal would sharpen the level and the distribution of mismatch: detailed occupations, field of degree, local labor markets, and earnings records to test whether mismatched workers are in fact paid less, and move on when they can.</p><p>They will not sharpen the timing. The ACS is annual and LEHD quarterly, so monthly turning points still have to come from the CPS. The public-data ladder on this page is the monthly companion to the restricted-data measure.</p></section>
-  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Case for U-7</h2><p>The paper builds U-7 from public data, sets out the ladder from U-3 to U-10, and asks what a seventh measure adds to the six the BLS publishes: a fuller count of wasted labor, a map of who bears it, and a recovery that runs longer than the headline rate shows.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="u7">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="#u7-data">How U-7 is built</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+  <section class="pbreak"><span class="ov-kicker">The working paper</span><h2 class="ov-h">The Case for U-7</h2><p>The paper builds U-7 from public data, sets out the ladder from U-3 to U-10, and asks what a seventh measure adds to the six the BLS publishes: a fuller count of wasted labor, a map of who bears it, and a recovery that runs longer than the headline rate shows.</p><div class="pb-btns"><a class="df-button" href="#" data-soon data-paper="u7">Read the working paper <span class="soon">Coming soon</span></a><a class="df-button ghost" href="#u7-data">How U-7 is built</a><a class="df-button ghost" href="#u7-lfp">Participation diagnostics</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
   <div class="full" data-chap="u7"></div>
 </div>
 </div>
@@ -1183,7 +1190,34 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <section class="pbreak"><span class="ov-kicker">Sensitivity</span><h2 class="ov-h">How much the definition matters</h2><p>The level depends heavily on how mismatch is defined. Requiring two degree levels instead of one cuts the mismatch part of U-7 from about <span data-u7="s_main">…</span> to about <span data-u7="s_t2">…</span> points; the major-group crosswalk in <span class="mono">The Case for U7.Rmd</span>, which lets every sales and office job require only high school, puts it near <span data-u7="s_cw">…</span>. Holding requirements fixed at their 1994–2026 levels lets rising education push U-7 up over time, from <span data-u7="s_fx0">…</span> percent in 1994 to <span data-u7="s_fx1">…</span> percent now.</p><p>Timing depends on the choices less, but enough to matter for the claim that mismatch gives earlier warning. Across the definitions below, U-7 crosses the threshold in 2007–09 anywhere from <span data-u7="s_rng">…</span>, with the main definition <span data-u7="s_m07">…</span>. With the classic Sahm rule (a three-month average against the previous twelve months’ low), U-7 flags 2007–09 <span data-u7="classic07b">…</span>.</p></section>
   <div id="fig-u7-sens"></div>
   <section class="pbreak"><span class="ov-kicker">Turning points</span><h2 class="ov-h">The rule and the scoring</h2><p><b>Seasonal adjustment.</b> U-3 to U-6 are the official seasonally adjusted series. Each microdata component (the mismatched, the want-a-job pool, the self-employed, and every subgroup series) is a monthly ratio to the labor force adjusted as everywhere else on the site: a three-month centered average, then STL with a fixed seasonal pattern. October 2025, when the shutdown cancelled the household survey, is interpolated.</p><p><b>The rule.</b> The site’s Modified Sahm Rule: a six-month average of the rate minus its lowest value over the past twelve months, with a threshold of 0.5 points. A recession is matched to the first crossing between 18 months before and 12 months after the NBER peak; a crossing outside every such window is a false alarm, and precision is the share of crossings since 1995 that were real. The full analysis on the U-7 page changes every one of these settings, including thresholds scaled to each measure’s level or volatility.</p></section>
-  <section class="pbreak"><span class="ov-kicker">Code and data</span><h2 class="ov-h">Files</h2><p>Everything on these two pages is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/U7_Ladder.Rmd</span></a> from monthly tabulations of the IPUMS CPS Basic Monthly files, January 1994 to <span data-u7="last">…</span>, in <a href="https://github.com/markgsheppard/SahmRule/tree/main/data-source/u7" target="_blank" rel="noopener"><span class="mono">data-source/u7/</span></a>. The Rmd writes <a href="data/u7_series.csv"><span class="mono">data/u7_series.csv</span></a>, every measure and component, seasonally adjusted, and <a href="data/u7_summary.json"><span class="mono">data/u7_summary.json</span></a>, the numbers quoted here. With <span class="mono">rebuild: true</span> it recreates the tabulations from an IPUMS extract. Microdata: IPUMS CPS, University of Minnesota, <a href="https://www.ipums.org" target="_blank" rel="noopener">ipums.org</a>.</p><div class="pb-btns"><a class="df-button ghost" href="#u7">Back to The Case for U-7</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+  <section class="pbreak"><span class="ov-kicker">Code and data</span><h2 class="ov-h">Files</h2><p>Everything on these two pages is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/U7_Ladder.Rmd</span></a> from monthly tabulations of the IPUMS CPS Basic Monthly files, January 1994 to <span data-u7="last">…</span>, in <a href="https://github.com/markgsheppard/SahmRule/tree/main/data-source/u7" target="_blank" rel="noopener"><span class="mono">data-source/u7/</span></a>. The Rmd writes <a href="data/u7_series.csv"><span class="mono">data/u7_series.csv</span></a>, every measure and component, seasonally adjusted, and <a href="data/u7_summary.json"><span class="mono">data/u7_summary.json</span></a>, the numbers quoted here. With <span class="mono">rebuild: true</span> it recreates the tabulations from an IPUMS extract. Microdata: IPUMS CPS, University of Minnesota, <a href="https://www.ipums.org" target="_blank" rel="noopener">ipums.org</a>.</p><div class="pb-btns"><a class="df-button ghost" href="#u7">Back to The Case for U-7</a><a class="df-button ghost" href="#u7-lfp">Participation diagnostics</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+</div>
+</div>
+
+<!-- ===== Who Counts in the Labor Force? (unlisted participation diagnostics for the U-7 pages) ===== -->
+<div class="view" id="v-u7-lfp" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#u7">← The Case for U-7</a>
+  <h1>Who Counts <span class="of">in the</span> Labor Force?</h1>
+  <p class="lede">Every U-measure divides by the labor force, and the labor force leaves out anyone who has stopped looking for work. This page asks two questions. Are adults in their prime working years, 25 to 54, leaving the workforce? And what do the ten measures on <a href="#u7">The Case for U-7</a> look like when the labor force is drawn more widely: around everyone who wants a job, around the participation rates of 2019 or 2000, or around every adult aged 25 to 54?</p>
+  <div class="byline"><div>Diagnostics <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="lastfetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <p class="needs-lfp loading">Loading the participation data…</p>
+  <div id="fig-lfp-main"></div>
+  <div class="results" id="res-lfp"></div>
+  <section class="pbreak"><span class="ov-kicker">Diagnostics</span><h2 class="ov-h">Are prime-age adults leaving the workforce?</h2><p><span data-lfp="headline">…</span></p><p><span data-lfp="flows">…</span></p></section>
+  <div id="fig-lfp-flows"></div>
+  <section class="pbreak"><span class="ov-kicker">Men and women</span><h2 class="ov-h">The long decline is among men</h2><p><span data-lfp="men">…</span></p><p>That makes the answer depend on the yardstick. Measured against 2019, almost no prime-age adults are missing from the labor force today; measured against 2000, about <span data-lfp="miss00">…</span> million are, all of them men. During the pandemic the count against 2019 reached <span data-lfp="peak19">…</span> million.</p></section>
+  <div id="fig-lfp-missing"></div>
+  <section class="pbreak"><span class="ov-kicker">Why they are out</span><h2 class="ov-h">Fewer out because of illness or disability</h2><p><span data-lfp="reasons">…</span></p></section>
+  <div id="fig-lfp-reasons"></div>
+  <section class="pbreak"><span class="ov-kicker">Six assumptions</span><h2 class="ov-h">Drawing the labor force more widely</h2><p>Each U-measure divides by the labor force, sometimes plus a group of people outside it. The panels below redraw that boundary six ways and recompute every measure:</p><ul class="lfp-list"><li><b>As measured.</b> The official labor force: people with a job, and people without one who looked for work in the past four weeks.</li><li><b>Everyone who wants a job.</b> Adds every person outside the labor force who says they want a job, whether or not they have looked recently.</li><li><b>Prime-age participation at its 2019 level</b>, and <b>at its 2000 level.</b> Adds the adults aged 25 to 54 who would be in the labor force if participation in each age group (25–34, 35–44, 45–54) and sex were back at that year’s rate, counting only groups below it.</li><li><b>Prime-age adults only.</b> Every measure for ages 25 to 54 alone, as measured, which takes retirement and schooling out of the picture.</li><li><b>Every prime-age adult.</b> Counts every adult aged 25 to 54 as in the labor force, so U-3 becomes the share of the age group without a job.</li></ul><p>People added to the labor force count as jobless from U-3 up. U-1 and U-2 count particular kinds of unemployment, the long-term unemployed and job losers, so the people added enter only their denominators.</p></section>
+  <div id="fig-lfp-u16"></div>
+  <section class="pbreak"><span class="ov-kicker">U-7 to U-10</span><h2 class="ov-h">The new rungs move less</h2><p><span data-lfp="scen">…</span></p></section>
+  <div id="fig-lfp-u710"></div>
+  <div class="tablewrap" id="tab-lfp-latest"></div>
+  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How these numbers are built</h2><p><b>Data.</b> Participation, employment, reasons for being out of the labor force and flows all come from the IPUMS CPS Basic Monthly files, January 1994 to <span data-lfp="last">…</span>: civilians aged 25 to 54, final weights, adjusted with the site’s STL procedure. Flows link the same people in consecutive months (the CPS person identifier, with the same sex, an age the same or one year older, and the next rotation month) and are weighted by the earlier month. The CPS cannot link June to September 1995 to the months before, when it changed its household identifiers, so those months are interpolated, as are October and November 2025 around the shutdown, which cancelled the October survey.</p><p><b>Reasons for being out.</b> The categories do not overlap: first everyone who wants a job; then, by the CPS labor-force status, people unable to work because of illness or disability, retirees, and everyone else (in school, caring for family, or another reason, which this extract does not separate).</p><p><b>Prime-age measures.</b> The microdata do not identify discouraged or marginally attached workers, so the official counts are shared out by age in proportion to the people who want a job (for the discouraged, those not looking because of the job market). U-7 to U-10 use the same mismatch and self-employment definitions as on The Case for U-7.</p><p>Everything here is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/U7_Ladder.Rmd</span></a>, which writes <a href="data/u7_lfp.csv"><span class="mono">data/u7_lfp.csv</span></a> and <a href="data/u7_lfp.json"><span class="mono">data/u7_lfp.json</span></a>.</p><div class="pb-btns"><a class="df-button ghost" href="#u7">The Case for U-7</a><a class="df-button ghost" href="#u7-data">How U-7 is built</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
 </div>
 </div>
 
@@ -3489,6 +3523,7 @@ function renderSite() {
   if (v === "umeas") renderUmeas();
   if (v === "u7") renderU7();
   if (v === "u7-data") renderU7Data();
+  if (v === "u7-lfp") renderLfp();
   if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
   if (!ok) return;
@@ -3580,7 +3615,7 @@ function renderVibe() {
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false, u7: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "u7", "u7-data", "method", "thanks"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "u7", "u7-data", "u7-lfp", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -4586,6 +4621,116 @@ async function renderU7Data() {
   run(() => u7Sens(document.getElementById("fig-u7-sens"), D));
 }
 
+/* ----- Who Counts in the Labor Force? (unlisted #u7-lfp) ----- */
+const LFPSC = [["measured", "As measured"], ["want", "Everyone who wants a job"], ["p2019", "Prime-age participation at 2019 rates"], ["p2000", "Prime-age participation at 2000 rates"], ["prime", "Prime-age adults only"], ["everyone", "Every prime-age adult"]];
+const LFP16 = [["U1", "U-1", "--d2"], ["U2", "U-2", "--d4"], ["U3", "U-3", "--d6"], ["U4", "U-4", "--d7"], ["U5", "U-5", "--d8"], ["U6", "U-6", "--d10"]];
+const LFP710 = [["U7", "U-7", "--d4"], ["U8", "U-8", "--d6"], ["U9", "U-9", "--d8"], ["U10", "U-10", "--d10"]];
+const LFPG = [["", "All prime-age adults", "--d10", 2.8, ""], ["_m", "Men", "--s-men", 1.8, ""], ["_w", "Women", "--s-women", 1.8, ""], ["_nb", "Native-born", "--d3", 1.4, "4 3"], ["_fb", "Foreign-born", "--d8", 1.4, "4 3"]];
+Object.assign(SITE, { lfpMet: "lfpr", lfpFlow: "EN", lfpScale: { u16: "same", u710: "same" } });
+let _lfp = null;
+async function loadLfp() {
+  if (_lfp) return _lfp;
+  const [rows, sum] = await Promise.all([d3.csv("data/u7_lfp.csv"), d3.json("data/u7_lfp.json")]);
+  const st = rows[0].date, S = {};
+  for (const k of rows.columns) if (k !== "date") S[k] = makeSeries("lfp:" + k, k, st, rows.map(r => r[k]));
+  return (_lfp = { S, sum, t0: mIdx(st), t1: mIdx(st) + rows.length - 1 });
+}
+const LFPMONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const lfpMon = d => { const t = mIdx(d); return LFPMONTHS[t % 12] + " " + Math.floor(t / 12); };
+const lfpCmp = (a, b, up, down, same) => Math.abs(a - b) < 0.05 ? same : a > b ? up : down;
+function lfpFacts(D) {
+  const s = D.sum, L = s.latest, B = s.bench, F = {}, p1 = v => f1(v, 1);
+  F.last = lfpMon(s.last);
+  const ch = L.lfpr - s.year12.lfpr, chTxt = Math.abs(ch) < 0.15 ? "about the same as a year earlier" : `${p1(Math.abs(ch))} points ${ch > 0 ? "higher" : "lower"} than a year earlier`;
+  const dip = L.lfpr - s.low_2026.lfpr, low = s.low_2026, pk = s.peak_since21, gap = s.record.lfpr - L.lfpr;
+  F.headline = `Not on net, at least not yet. In ${F.last}, ${p1(L.lfpr)} percent of adults aged 25 to 54 were in the labor force, ${chTxt}, and within ${p1(gap)} points of the highest rate in these data, ${p1(s.record.lfpr)} percent in ${lfpMon(s.record.date)}. ` +
+    (dip >= 0.2 && low.date < s.last && pk.date < low.date ? `Participation did slip this year, from ${p1(pk.lfpr)} percent in ${lfpMon(pk.date)} to ${p1(low.lfpr)} percent in ${lfpMon(low.date)}, but most of that dip had reversed by ${F.last}. ` : "") +
+    `The employment rate of the age group, ${p1(L.epop)} percent, is ${lfpCmp(L.epop, B.y2019.epop, "above", "below", "at")} its 2019 level (${p1(B.y2019.epop)} percent) and ${lfpCmp(L.epop, B.y2000.epop, "above", "a little below", "at")} the 2000 level (${p1(B.y2000.epop)}).`;
+  const e3 = s.last3;
+  F.flows = `The monthly flows point the same way. Over the past three months, ${f1(e3.f_EN, 2)} percent of employed prime-age adults left the labor force each month, against ${f1(B.y2019.f_EN, 2)} percent in 2019, and ${f1(e3.f_UN, 1)} percent of the unemployed stopped looking, against ${f1(B.y2019.f_UN, 1)} percent. Going the other way, ${f1(e3.f_NE, 1)} percent of those outside the labor force found a job each month, against ${f1(B.y2019.f_NE, 1)} percent in 2019. ` +
+    `${e3.f_EN <= B.y2019.f_EN + 0.05 ? "Exits are not rising" : "Exits are running above their 2019 rate"}; entries are ${e3.f_NE >= B.y2019.f_NE ? "at least as strong as" : "weaker than"} before the pandemic.`;
+  F.men = `The group well below its old level is prime-age men. ${p1(L.lfpr_m)} percent of men aged 25 to 54 are in the labor force, against ${p1(B.y2000.lfpr_m)} percent in 2000, a decline that began long before the pandemic. Women have ${L.lfpr >= B.y2000.lfpr ? "more than made up" : "nearly made up"} the difference for the age group as a whole: ${p1(L.lfpr_w)} percent of women participate, against ${p1(B.y2000.lfpr_w)} percent in 2000 and ${p1(B.y2019.lfpr_w)} in 2019. Foreign-born adults are ${lfpCmp(L.lfpr_fb, B.y2019.lfpr_fb, "more", "less", "about as")} likely to participate than in 2019 (${p1(L.lfpr_fb)} percent, against ${p1(B.y2019.lfpr_fb)}).`;
+  F.miss00 = f1(s.missing.latest.m00, 1); F.peak19 = f1(s.missing.peak19.m, 1);
+  F.reasons = `Out of every hundred prime-age adults, ${p1(L.nw_disab)} are out of the labor force because of illness or disability, ${lfpCmp(L.nw_disab, B.y2019.nw_disab, "up", "down", "unchanged")} from ${p1(B.y2019.nw_disab)} in 2019; ${p1(L.nw_want)} want a job but are not looking (${p1(B.y2019.nw_want)} in 2019); ${p1(L.nw_retired)} are retired (${p1(B.y2019.nw_retired)}); and ${p1(L.nw_other)} are out for another reason, mostly school or caring for family (${p1(B.y2019.nw_other)}).`;
+  const sc = s.scen_latest, m = sc.measured;
+  F.scen = `Counting everyone who wants a job lifts U-3 from ${p1(m.U3)} to ${p1(sc.want.U3)} percent and U-6 from ${p1(m.U6)} to ${p1(sc.want.U6)}, and leaves U-8 to U-10 where they are, because they already count those people; under that assumption U-3, U-4 and U-5 become the same measure. Holding prime-age participation at 2000 rates adds about ${f1(s.missing.share_lf.e00, 1)} percent of the labor force, lifting U-3 to ${p1(sc.p2000.U3)} and U-7 to ${p1(sc.p2000.U7)}; at 2019 rates almost nothing changes today. Counting every prime-age adult turns U-3 into the share of the age group without a job, ${p1(sc.everyone.U3)} percent, and U-7 into ${p1(sc.everyone.U7)}.`;
+  return F;
+}
+function lfpMain(el, D) {
+  const S = D.S, met = SITE.lfpMet, B = D.sum.bench;
+  const lines = LFPG.map(([suf, lab, col, w, dash]) => ({ label: lab, color: col, width: w, dash, at: t => valAt(S[met + suf], t) }));
+  el.innerHTML = figure(`Prime-Age ${met === "lfpr" ? "Labor Force Participation" : "Employment"}, Ages 25 to 54`, `${met === "lfpr" ? "Labor Force Participation Rate" : "Employment-to-Population Ratio"}, Percent of the Civilian Population Aged 25 to 54, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present`,
+    `${readme(`<p><b>What you are looking at.</b> The share of adults aged 25 to 54 who are in the labor force (working or looking for work), or, with the second button, who have a job. Prime age leaves out students and retirees, so changes mostly reflect the job market and family life.</p><p><b>How to read it.</b> The thick line is everyone aged 25 to 54; the others split it by sex and by place of birth. The dotted line marks the 2019 average for everyone. Hover for values.</p>`)}<div class="fig-ctl"><div class="segs" id="lfpmet">${[["lfpr", "Participation rate"], ["epop", "Employment rate"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === met}">${l}</button>`).join("")}</div></div>${swatches(LFPG.map(g => ({ label: g[1], color: g[2], dash: !!g[4] })))}<div class="vbody"></div>`,
+    "Source: IPUMS CPS Basic Monthly files, civilians aged 25 to 54, final weights, seasonally adjusted with the site’s STL procedure. Native-born and foreign-born by the CPS nativity question.");
+  el.querySelectorAll("#lfpmet button").forEach(b => b.onclick = () => { SITE.lfpMet = b.dataset.v; lfpMain(el, D); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [D.t0, D.t1], series: lines, shade: SHADE(), yUnit: "%", hlines: [{ y: B.y2019[met], label: "2019 average" }], height: 400 });
+}
+function lfpCards(el, D) {
+  const s = D.sum, L = s.latest, B = s.bench, ch = L.lfpr - s.year12.lfpr;
+  el.innerHTML =
+    result(`Prime-age participation, ${mLab(mIdx(s.last))}`, f1(L.lfpr), "percent", `${Math.abs(ch) < 0.05 ? "unchanged from" : sg(ch) + " points on"} a year earlier · 2019: ${f1(B.y2019.lfpr)}%`) +
+    result("Employment rate, ages 25–54", f1(L.epop), "percent", `2019: ${f1(B.y2019.epop)}% · 2000: ${f1(B.y2000.epop)}%`) +
+    result("Leaving the labor force", f1(s.last3.f_EN, 2), "% of workers a month", `average of the past three months · 2019: ${f1(B.y2019.f_EN, 2)}%`) +
+    result("Missing prime-age workers", f1(s.missing.latest.m00, 1), "million against 2000", `all of them men · against 2019: ${f1(s.missing.latest.m19, 1)} million`);
+}
+const LFPFL = { EN: ["Employed → out of the labor force", "Share of employed prime-age adults who are out of the labor force the next month"], UN: ["Unemployed → out of the labor force", "Share of unemployed prime-age adults who stop looking and leave the labor force the next month"],
+  NE: ["Out of the labor force → employed", "Share of prime-age adults outside the labor force who have a job the next month"], EU: ["Employed → unemployed", "Share of employed prime-age adults who are unemployed the next month"] };
+function lfpFlows(el, D) {
+  const S = D.S, k = SITE.lfpFlow, s = S["f_" + k], b19 = D.sum.bench.y2019["f_" + k], b00 = D.sum.bench.y2000["f_" + k];
+  el.innerHTML = figure("Leaving and Entering the Labor Force, Ages 25 to 54", `${LFPFL[k][1]}, Percent, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present`,
+    `${readme(`<p><b>What you are looking at.</b> Each month the CPS interviews most of the same people it interviewed the month before. Linking them shows how many prime-age adults move between work, unemployment and life outside the labor force.</p><p><b>How to read it.</b> Pick a flow. A rising line for the first two buttons would mean more people leaving the workforce; a rising line for the third, more people coming back. The dotted line marks the 2019 average.</p>`)}<div class="fig-ctl"><div class="segs" id="lfpflow">${Object.entries(LFPFL).map(([kk, v]) => `<button data-v="${kk}" aria-pressed="${kk === k}">${v[0]}</button>`).join("")}</div></div><div class="vbody"></div>`,
+    "Source: IPUMS CPS Basic Monthly files, adults aged 25 to 54 in the earlier month, linked to the next month with the CPS person identifier, the same sex, an age the same or one year older and the next rotation month; weighted by the earlier month’s final weight; seasonally adjusted with the site’s STL procedure. Gross flows from the CPS include some misclassification, so the levels matter less than the changes.");
+  el.querySelectorAll("#lfpflow button").forEach(b => b.onclick = () => { SITE.lfpFlow = b.dataset.v; lfpFlows(el, D); });
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [D.t0, D.t1], series: [{ label: LFPFL[k][0], color: "--d9", width: 2.2, at: t => valAt(s, t) }], shade: SHADE(), yUnit: "%", hlines: [{ y: b19, label: "2019 average" }], height: 340 });
+}
+function lfpMissing(el, D) {
+  const S = D.S, L = [["miss00", "Against 2000 participation", "--d10", 2.4], ["miss07", "Against 2007", "--d7", 1.6], ["miss19", "Against 2019", "--d4", 1.6]];
+  el.innerHTML = figure("Missing Prime-Age Workers", "Adults Aged 25 to 54 Who Would Be in the Labor Force at a Benchmark Year’s Participation Rates, by Age and Sex, Millions, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present",
+    `${readme(`<p><b>What you are looking at.</b> How many more adults aged 25 to 54 would be in the labor force if participation in each age group (25–34, 35–44, 45–54) and sex were back at a benchmark year’s rate. Only groups below that rate count, so women’s gains do not offset men’s losses.</p><p><b>How to read it.</b> The higher the line, the more people are missing relative to that year. Against 2019 the count rose in the pandemic and has since fallen to almost nothing; against 2000 it stays above a million, all of them men.</p>`)}${swatches(L.map(l => ({ label: l[1], color: l[2] })))}<div class="vbody"></div>`,
+    "Source: IPUMS CPS Basic Monthly files. For each of six age-sex groups, the shortfall of its seasonally adjusted participation rate below the benchmark year’s average, times the group’s population; groups at or above the benchmark count as zero.");
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [D.t0, D.t1], series: L.map(([id, l, c, w]) => ({ label: l, color: c, width: w, at: t => valAt(S[id], t) / 1000 })), shade: SHADE(), height: 320, zero: true });
+}
+function lfpReasons(el, D) {
+  const S = D.S, keys = [["nw_want", "Want a job, not looking", "--d10"], ["nw_disab", "Ill or disabled", "--d7"], ["nw_retired", "Retired", "--d5"], ["nw_other", "School, family or other", "--d3"]];
+  el.innerHTML = figure("Why Prime-Age Adults Are Out of the Labor Force", "Adults Aged 25 to 54 outside the Labor Force, by Main Reason, Percent of the Age Group, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present",
+    `${readme(`<p><b>What you are looking at.</b> The share of all adults aged 25 to 54 who are outside the labor force, split by reason and stacked. The top of the stack is 100 minus the participation rate.</p><p><b>How to read it.</b> The bottom band, people who want a job but are not looking, is the one that swells in recessions. The illness and disability band rose through the 2000s and early 2010s and has fallen since.</p>`)}${swatches(keys.map(k => ({ label: k[1], color: k[2] })))}<div class="vbody"></div>`,
+    "Source: IPUMS CPS Basic Monthly files. Categories do not overlap: first everyone who says they want a job; then, by labor-force status, people unable to work, retirees, and everyone else. The extract does not separate school from caring for family.");
+  stackChart(softBody(el.querySelector(".vbody")), { series: keys.map(([id, l, c]) => ({ label: l, color: c, s: S[id] })), shade: SHADE(), yUnit: "%", total: "Out of the labor force", aria: "Prime-age adults outside the labor force by reason" });
+}
+function lfpMulti(el, D, key, title, sub, set, note) {
+  const S = D.S, mode = SITE.lfpScale[key];
+  let lo = Infinity, hi = -Infinity;
+  for (const [sc] of LFPSC) for (const [m] of set) { const s = S[sc + "_" + m]; for (const v of s.v) if (isFinite(v)) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }
+  el.innerHTML = figure(title, sub,
+    `${readme(`<p><b>What you are looking at.</b> Six small charts, one for each way of drawing the labor force. Each shows the same measures, recomputed under that assumption.</p><p><b>How to read it.</b> Compare a line across panels to see how much the assumption moves it. With <b>Same scale</b> every panel shares one axis, so levels compare directly; <b>Own scale</b> fits each panel to its own lines.</p>`)}<div class="fig-ctl"><div class="segs lfpscale">${[["same", "Same scale"], ["own", "Own scale"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === mode}">${l}</button>`).join("")}</div></div>${swatches(set.map(u => ({ label: u[1], color: u[2], dash: u[0] === "U9" || u[0] === "U10" })))}<div class="lfp-multi">${LFPSC.map(([sc, lab]) => `<div class="lfp-panel"><div class="lfp-ptitle">${esc(lab)}</div><div class="lfp-pbody" data-sc="${sc}"></div></div>`).join("")}</div>`, note);
+  el.querySelectorAll(".lfpscale button").forEach(b => b.onclick = () => { SITE.lfpScale[key] = b.dataset.v; lfpMulti(el, D, key, title, sub, set, note); });
+  el.querySelectorAll(".lfp-pbody").forEach(body => {
+    const sc = body.dataset.sc;
+    lineChart(softBody(body), { ...SERIES_LINE, x: [D.t0, D.t1], series: set.map(([m, l, c]) => ({ label: l, color: c, width: m === "U7" || m === "U3" ? 2 : 1.4, dash: m === "U9" || m === "U10" ? "4 3" : "", at: t => valAt(S[sc + "_" + m], t) })), shade: SHADE(), yUnit: "%", height: 230, zero: key === "u16", yRange: mode === "same" ? [key === "u16" ? Math.min(0, lo) : lo, hi] : null });
+  });
+}
+function lfpTable(el, D) {
+  const sc = D.sum.scen_latest, ms = LFP16.concat(LFP710);
+  el.innerHTML = `<table class="udef lfp-tab"><thead><tr><th class="l">${esc(mLab(mIdx(D.sum.last)))}</th>${ms.map(m => `<th>${m[1]}</th>`).join("")}</tr></thead><tbody>${LFPSC.map(([k, lab]) => `<tr${k === "measured" ? ' class="hl"' : ""}><td class="l">${esc(lab)}</td>${ms.map(m => `<td class="num">${f1(sc[k][m[0]], 1)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+async function renderLfp() {
+  if (!window.d3) return;
+  let D; try { D = await loadLfp(); } catch (e) { return; }
+  document.querySelectorAll(".needs-lfp").forEach(x => x.remove());
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  run(() => { const F = lfpFacts(D); document.querySelectorAll("#v-u7-lfp [data-lfp]").forEach(e => { const k = e.dataset.lfp; if (F[k] !== undefined) e.textContent = F[k]; }); });
+  run(() => lfpMain(document.getElementById("fig-lfp-main"), D));
+  run(() => lfpCards(document.getElementById("res-lfp"), D));
+  run(() => lfpFlows(document.getElementById("fig-lfp-flows"), D));
+  run(() => lfpMissing(document.getElementById("fig-lfp-missing"), D));
+  run(() => lfpReasons(document.getElementById("fig-lfp-reasons"), D));
+  run(() => lfpMulti(document.getElementById("fig-lfp-u16"), D, "u16", "U-1 to U-6 under Six Assumptions about the Labor Force", "Labor Underutilization Rates, Percent, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present", LFP16,
+    "Sources: BLS via FRED (U1RATE, U2RATE, UNRATE, U4RATE, U5RATE, U6RATE) and IPUMS CPS Basic Monthly files. Missing prime-age workers and the want-a-job pool come from the microdata; prime-age measures share the official discouraged and marginally attached counts out by age in proportion to people who want a job."));
+  run(() => lfpMulti(document.getElementById("fig-lfp-u710"), D, "u710", "U-7 to U-10 under the Same Assumptions", "Labor Underutilization Rates, Percent, Seasonally Adjusted, Shown with Recessions, Data from 1994 to Present", LFP710,
+    "U-7 adds skills-mismatched workers, U-8 everyone outside the labor force who wants a job, U-9 and U-10 the self-employed; definitions on The Case for U-7. Under the 2019 and 2000 assumptions the missing workers are added on top of the people a measure already counts outside the labor force; some may already be among the marginally attached or those who want a job, so those panels are upper bounds."));
+  run(() => lfpTable(document.getElementById("tab-lfp-latest"), D));
+}
+
 /* ---------- Race ---------- */
 function renderRaceFigs() {
   const S = CPS.series;
@@ -4778,7 +4923,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas", "u7", "u7-data"].includes(v); const meth = ["method", "thanks"].includes(v);
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas", "u7", "u7-data", "u7-lfp"].includes(v); const meth = ["method", "thanks"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources") || (meth && a.dataset.v === "methodgrp")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });
@@ -5315,6 +5460,7 @@ function lineChart(el, cfg) {
   if (!isFinite(lo)) { lo = 0; hi = 1; }
   if (cfg.zero) lo = Math.min(lo, 0);
   if (isFinite(cfg.yMax)) hi = Math.min(hi, cfg.yMax);
+  if (cfg.yRange) { lo = cfg.yRange[0]; hi = cfg.yRange[1]; }
   const pad = (hi - lo) * 0.06 || 0.5; lo -= pad; hi += pad;
   const X = t => M.l + (t - x0) / (x1 - x0 || 1) * (W - M.l - M.r), Y = v => M.t + (hi - v) / (hi - lo) * (H - M.t - M.b);
   const svg = document.createElementNS(SVGNS, "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", cfg.aria || "line chart");

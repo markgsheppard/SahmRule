@@ -33,15 +33,18 @@ U-7 is the measure in the RDC proposal: $U7 = (U + MA + PTER + SM)/(LF + MA)$. A
 * `u7_cells.csv.gz`: employed workers by month, occupation (`OCC2010`), degree level and class (part time for economic reasons, own-account self-employed, incorporated self-employed, other), 1994 on;
 * `u7_groupcells.csv.gz`: labor force, unemployment, part-time and skills-mismatch counts by month, race, sex, age, nativity and education, with mismatch measured with the main definition;
 * `u7_crosswalk.csv`: monthly mismatch counts under the major-group requirement crosswalk in `The Case for U7.Rmd`, for comparison;
-* `occ2010_labels.csv`: the IPUMS titles of the `OCC2010` codes.
+* `occ2010_labels.csv`: the IPUMS titles of the `OCC2010` codes;
+* `u7_agesex.csv`, `u7_prime.csv`, `u7_flows.csv`: for the participation page (`#u7-lfp`), population, labor force and employment by month, age group, sex and nativity; the pieces of every measure for ages 25 to 54, with reasons for being out of the labor force; and prime-age flows between labor-force states from one month to the next.
 
-These tabulations were first produced by a streaming reader run over the raw `cps_00014.dat.gz` on the Mac, which implements the same rules as the `rebuild-pass1` and `rebuild-pass2` chunks below; on a 500,000-record test sample from 2016 to 2022 the two give identical counts. Set `rebuild: true` to recreate them in R from the extract.
+These tabulations were first produced by a streaming reader run over the raw `cps_00014.dat.gz` on the Mac, which implements the same rules as the `rebuild-pass1`, `rebuild-pass2` and `rebuild-pass3` chunks below; on a 500,000-record test sample from 2016 to 2022 the two give identical counts, including the month-to-month flows. Set `rebuild: true` to recreate them in R from the extract.
 
 The marginally attached cannot be identified in this extract (it has the reason for not looking, `WNLOOK`, but not availability or past-year search), so U-7 takes them from the official U-5: with $u_3 = U/LF$ and $m = MA/LF$, $U5 = (u_3 + m)/(1 + m)$, so $m = (U5 - U3)/(1 - U5)$ and $U7 = U6 + SM/(LF \cdot (1+m))$. October 2025, when the federal shutdown cancelled the household survey, is interpolated, as everywhere on the site.
 
 **Turning points.** Every series is scored with the site's rule (the `k`-month average minus its minimum over the last `w` months, threshold `alpha`), matched to the 2001, 2007-09 and 2020 recessions between 18 months before and 12 months after each NBER peak, with thresholds also scaled to each measure's level or volatility as in the site's "Threshold scaling" control. Precision is the share of all crossings since 1995 that fall inside those windows. The JavaScript on the pages recomputes the same numbers from `data/u7_series.csv`, so the series are rounded to six decimals before they are scored here.
 
-**Outputs.** `data/u7_series.csv` (every measure, its components and the subgroup series, seasonally adjusted) and `data/u7_summary.json` (the numbers quoted on the pages).
+**Participation.** The `participation` chunk measures prime-age (25-54) participation, employment, reasons for being out of the labor force and month-to-month flows, counts the prime-age adults missing relative to 2000, 2007 and 2019 participation rates by age and sex, and recomputes U-1 to U-10 under six assumptions about who is in the labor force: as measured; everyone who wants a job; prime-age participation at 2019 or at 2000 rates; prime-age adults only; and every prime-age adult.
+
+**Outputs.** `data/u7_series.csv` (every measure, its components and the subgroup series, seasonally adjusted), `data/u7_summary.json` (the numbers quoted on the U-7 pages), and `data/u7_lfp.csv` and `data/u7_lfp.json` for the participation page.
 
 ```{r setup}
 suppressMessages({ library(data.table); library(zoo); library(forecast); library(jsonlite) })
@@ -215,6 +218,56 @@ gcols <- c("date", "race", "sex", "age", "fborn", "educ")
 fwrite(rbindlist(lapply(acc, `[[`, "gc"))[, lapply(.SD, sum), by = gcols][lf + emp + wj > 0][order(date, race, sex, age, fborn, educ)], "data-source/u7/u7_groupcells.csv.gz")
 fwrite(rbindlist(lapply(acc, `[[`, "cw"))[, lapply(.SD, sum), by = date][order(date)], "data-source/u7/u7_crosswalk.csv")
 rm(acc); gc()
+```
+
+```{r rebuild-pass3, eval = params$rebuild}
+# Pass 3: participation diagnostics. Age x sex x nativity cells (16+); prime-age (25-54) pieces by sex and nativity;
+# prime-age flows between consecutive months, linking people with CPSIDP (same sex, age the same or one year older,
+# rotation group one higher), weighted with the earlier month's final weight
+vars3 <- c(vars, "MISH", "CPSIDP", "ASECFLAG")
+AGEB <- c(16, 20, 25, 35, 45, 55, 60, 65, 70); AGEL <- c("16-19", "20-24", "25-34", "35-44", "45-54", "55-59", "60-64", "65-69", "70+")
+pass3 <- function(d) {
+  d <- d[year >= 1994 & (is.na(asecflag) | asecflag != 1L)]   # ASECFLAG is blank outside March
+  d[, ri := .I]
+  d[, `:=`(yr = as.integer(year), mo = as.integer(month), sx = fifelse(sex == 2L, "F", "M"), fb = as.integer(nativity == 5L), ab = AGEL[findInterval(age, AGEB)])]
+  d <- merge(d, TH[, .(yr = year + 1L, occ2010, p0 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+  d <- merge(d, TH[, .(yr = year, occ2010, p1 = p75)], by = c("yr", "occ2010"), all.x = TRUE)
+  d <- merge(d, POOLED[, .(occ2010, pA = p75)], by = "occ2010", all.x = TRUE)
+  setorder(d, ri)
+  d[is.na(p0), p0 := pA]; d[is.na(p1), p1 := pA]
+  d[, smf := fifelse(emp & occ2010 > 0 & occ2010 < 9800 & lev >= 0L & !is.na(pA), (1 - mo / 12) * (lev >= p0 + params$theta) + (mo / 12) * (lev >= p1 + params$theta), 0)]
+  p <- d[age >= 25 & age <= 54]
+  list(cells = d[, .(pop = sum(w), lf = sum(w * (labforce == 2L)), emp = sum(w * emp)), by = .(date, age = ab, sex = sx, fborn = fb)],
+       pr = p[, .(pop = sum(w), lf = sum(w * (labforce == 2L)), emp = sum(w * emp), une = sum(w * une),
+                  u15 = sum(w * (une & durunemp >= 15L & durunemp < 999L)), ulos = sum(w * (une & whyunemp %in% 1:3)), pter = sum(w * pter),
+                  nilf = sum(w * nilf), wj = sum(w * wj), wjmk = sum(w * (nilf & wnlook >= 1L & wnlook <= 5L)), n_want = sum(w * wj),
+                  n_disab = sum(w * (nilf & !wj & empstat == 32L)), n_school = sum(w * (nilf & !wj & empstat == 33L)),
+                  n_retired = sum(w * (nilf & !wj & empstat == 36L)), n_other = sum(w * (nilf & !wj & !empstat %in% c(32L, 33L, 36L))),
+                  w_mkt = sum(w * (wj & wnlook >= 1L & wnlook <= 5L)), w_family = sum(w * (wj & wnlook %in% 6:7)), w_school = sum(w * (wj & wnlook == 8L)),
+                  w_health = sum(w * (wj & wnlook == 9L)), w_other = sum(w * (wj & wnlook %in% c(10L, 11L, 997L))),
+                  smP = sum(w * smf * !pter), seu = sum(w * (1 - smf) * (emp & !pter & classwkr == 13L)),
+                  sei = sum(w * (1 - smf) * (emp & !pter & classwkr == 14L)), n_pop = .N, n_lf = sum(labforce == 2L)), by = .(date, sex = sx, fborn = fb)],
+       link = d[cpsidp > 0, .(ym = yr * 12L + mo - 1L, date, pid = cpsidp, mish, age, sex = sx, st = fcase(emp, "E", une, "U", default = "N"), w)])
+}
+flows_add <- function(prev, cur) {
+  if (is.null(prev) || cur$ym[1] != prev$ym[1] + 1L) return(NULL)
+  j <- merge(unique(prev, by = "pid")[, .(pid, mish0 = mish, age0 = age, sex0 = sex, st0 = st, w0 = w)],
+             unique(cur, by = "pid")[, .(pid, date, mish, age, sex, st)], by = "pid")
+  j[sex0 == sex & age - age0 >= 0 & age - age0 <= 1 & mish == mish0 + 1L & age0 >= 25 & age0 <= 54, .(w = sum(w0)), by = .(date, sex = sex0, from = st0, to = st)]
+}
+acc3 <- list(); fl3 <- list(); prev <- NULL; pend <- NULL
+step <- function(link) {                       # months can straddle chunks: finish every month but the last one seen
+  Lk <- rbind(pend, link); ms <- sort(unique(Lk$ym))
+  for (m in head(ms, -1)) { cur <- Lk[ym == m]; fl3[[length(fl3) + 1]] <<- flows_add(prev, cur); prev <<- cur }
+  pend <<- Lk[ym == tail(ms, 1)]
+}
+read_ipums_micro_chunked(ddi, IpumsSideEffectCallback$new(function(x, pos) { r <- pass3(prep(x)); acc3[[length(acc3) + 1]] <<- r[c("cells", "pr")]; if (nrow(r$link)) step(r$link) }),
+                         chunk_size = 2e6, vars = vars3, verbose = FALSE)
+fl3[[length(fl3) + 1]] <- flows_add(prev, pend)
+fwrite(rbindlist(lapply(acc3, `[[`, "cells"))[, lapply(.SD, sum), by = .(date, age, sex, fborn)][order(date, age, sex, fborn)], "data-source/u7/u7_agesex.csv")
+fwrite(rbindlist(lapply(acc3, `[[`, "pr"))[, lapply(.SD, sum), by = .(date, sex, fborn)][order(date, sex, fborn)], "data-source/u7/u7_prime.csv")
+fwrite(rbindlist(fl3)[, .(w = sum(w)), by = .(date, sex, from, to)][order(date, sex, from, to)], "data-source/u7/u7_flows.csv")
+rm(acc3, fl3, prev, pend); gc()
 ```
 
 ```{r load}
@@ -405,6 +458,97 @@ sens <- rbindlist(lapply(names(VARS), function(nm) {
 sens
 ```
 
+```{r participation}
+# Participation diagnostics and the measures under other assumptions about who is in the labor force
+AG <- fread("data-source/u7/u7_agesex.csv"); PR <- fread("data-source/u7/u7_prime.csv"); FL <- fread("data-source/u7/u7_flows.csv")
+pcols <- setdiff(names(PR), c("date", "sex", "fborn"))
+prs <- function(e = TRUE) PR[eval(e), lapply(.SD, sum), by = date, .SDcols = pcols][D[, .(date)], on = "date"]
+P0 <- prs(); PM <- prs(quote(sex == "M")); PW <- prs(quote(sex == "F")); PF <- prs(quote(fborn == 1L)); PN <- prs(quote(fborn == 0L))
+pct <- function(x, num, den = "pop") round(100 * sa(x[[num]] / x[[den]]), 6)
+LFP <- data.table(date = L$date,
+  lfpr = pct(P0, "lf"), epop = pct(P0, "emp"), lfpr_m = pct(PM, "lf"), lfpr_w = pct(PW, "lf"), epop_m = pct(PM, "emp"), epop_w = pct(PW, "emp"),
+  lfpr_fb = pct(PF, "lf"), lfpr_nb = pct(PN, "lf"), epop_fb = pct(PF, "emp"), epop_nb = pct(PN, "emp"),
+  # why prime-age adults are out of the labor force, percent of the prime-age population (mutually exclusive)
+  nw_want = pct(P0, "n_want"), nw_disab = pct(P0, "n_disab"), nw_retired = pct(P0, "n_retired"),
+  nw_other = round(100 * sa((P0$n_other + P0$n_school) / P0$pop), 6))
+
+# Missing prime-age workers: people aged 25-54 who would be in the labor force if participation in each age (25-34, 35-44,
+# 45-54) and sex group were at its level in a benchmark year; shortfalls only, so groups above the benchmark do not offset
+CELL <- AG[age %in% c("25-34", "35-44", "45-54"), .(pop = sum(pop), lf = sum(lf)), by = .(date, age, sex)]
+CELL <- CELL[CJ(date = D$date, age = c("25-34", "35-44", "45-54"), sex = c("M", "F")), on = c("date", "age", "sex")]
+setorder(CELL, age, sex, date)
+CELL[, `:=`(lfpr = sa(lf / pop), pop = zoo::na.approx(pop, rule = 2)), by = .(age, sex)]
+for (b in c("2000", "2007", "2019")) {
+  CELL[, bm := mean(lfpr[substr(date, 1, 4) == b]), by = .(age, sex)]
+  CELL[, (paste0("miss", b)) := pmax(0, bm - lfpr) * pop]
+}
+MW <- CELL[, .(m00 = sum(miss2000), m07 = sum(miss2007), m19 = sum(miss2019), m00_men = sum(miss2000[sex == "M"]), m00_women = sum(miss2000[sex == "F"]),
+               m19_men = sum(miss2019[sex == "M"]), m19_women = sum(miss2019[sex == "F"])), by = date][D[, .(date)], on = "date"]
+LFP[, `:=`(miss00 = round(MW$m00 / 1e3, 3), miss07 = round(MW$m07 / 1e3, 3), miss19 = round(MW$m19 / 1e3, 3))]   # thousands
+lf_sa <- sa(D$lf)
+
+# Prime-age flows: the share of each month's employed (E), unemployed (U) and non-participants (N) found in each state the next month
+FW <- dcast(FL[, .(w = sum(w)), by = .(date, from, to)], date ~ from + to, value.var = "w", fill = 0)[D[, .(date)], on = "date"]
+# months the CPS links only partly (household identifiers changed in mid-1995) are treated as missing and interpolated
+FW[, tot := E_E + E_U + E_N + U_E + U_U + U_N + N_E + N_U + N_N]
+FW[is.na(tot) | tot < 0.5 * median(tot, na.rm = TRUE), setdiff(names(FW), "date") := NA]
+fr <- function(a, b) { o <- FW[[paste0(a, "_", b)]] / (FW[[paste0(a, "_E")]] + FW[[paste0(a, "_U")]] + FW[[paste0(a, "_N")]]); round(100 * sa(o), 6) }
+LFP[, `:=`(f_EN = fr("E", "N"), f_UN = fr("U", "N"), f_NE = fr("N", "E"), f_NU = fr("N", "U"), f_EU = fr("E", "U"), f_UE = fr("U", "E"))]
+no_flows <- FW[is.na(tot), date]   # months the CPS cannot link (fully) to the month before
+
+# U-1 to U-10 under six assumptions. From U-3 up, every measure is (x + n) / (1 + n), with x what it counts inside the
+# labor force and n what it counts outside it, both per labor-force member. U-1 and U-2 count particular kinds of
+# unemployed people (the long-term unemployed, job losers), so people added to the labor force enter only their denominators.
+fx <- function(x, n, k = "U3") if (k %in% c("U1", "U2")) round(100 * x / (1 + n), 6) else round(100 * (x + n) / (1 + n), 6)
+d4 <- (L$U4 - L$U3) / (100 - L$U4)           # discouraged per labor-force member, from the official U-4
+cm <- comp$main; u3 <- L$U3 / 100
+X <- list(U1 = L$U1 / 100, U2 = L$U2 / 100, U3 = u3, U4 = u3, U5 = u3, U6 = u3 + L$p, U7 = u3 + L$p + cm$sm, U8 = u3 + L$p + cm$sm,
+          U9 = u3 + L$p + cm$sm + cm$se, U10 = u3 + L$p + cm$sm + cm$se + cm$sei)
+N <- list(U1 = 0, U2 = 0, U3 = 0, U4 = d4, U5 = L$m, U6 = L$m, U7 = L$m, U8 = L$wj, U9 = L$wj, U10 = L$wj)
+e19 <- MW$m19 / lf_sa; e00 <- MW$m00 / lf_sa
+# prime-age versions; the discouraged and the marginally attached are shared out by age in proportion to the want-a-job pool
+# (job-market reasons, for the discouraged), because the microdata do not identify them
+f <- function(num, den) sa(num / den)
+xp <- list(u15 = f(P0$u15, P0$lf), ulos = f(P0$ulos, P0$lf), u = f(P0$une, P0$lf), pt = f(P0$pter, P0$lf), sm = f(P0$smP, P0$lf),
+           se = f(P0$seu, P0$lf), sei = f(P0$sei, P0$lf), wj = f(P0$wj, P0$lf), nilf = f(P0$nilf, P0$lf))
+dp <- d4 * f(D$lf * P0$wjmk / D$wjmk, P0$lf); mp <- L$m * f(D$lf * P0$wj / D$wj, P0$lf)
+XP <- list(U1 = xp$u15, U2 = xp$ulos, U3 = xp$u, U4 = xp$u, U5 = xp$u, U6 = xp$u + xp$pt, U7 = xp$u + xp$pt + xp$sm, U8 = xp$u + xp$pt + xp$sm,
+           U9 = xp$u + xp$pt + xp$sm + xp$se, U10 = xp$u + xp$pt + xp$sm + xp$se + xp$sei)
+NP <- list(U1 = 0, U2 = 0, U3 = 0, U4 = dp, U5 = mp, U6 = mp, U7 = mp, U8 = xp$wj, U9 = xp$wj, U10 = xp$wj)
+MS <- paste0("U", 1:10)
+SCEN <- list(
+  measured = setNames(lapply(MS, function(k) fx(X[[k]], N[[k]], k)), MS),
+  want     = setNames(lapply(MS, function(k) fx(X[[k]], pmax(N[[k]], L$wj), k)), MS),   # the want-a-job pool contains the discouraged and the marginally attached
+  p2019    = setNames(lapply(MS, function(k) fx(X[[k]], N[[k]] + e19, k)), MS),
+  p2000    = setNames(lapply(MS, function(k) fx(X[[k]], N[[k]] + e00, k)), MS),
+  prime    = setNames(lapply(MS, function(k) fx(XP[[k]], NP[[k]], k)), MS),
+  everyone = setNames(lapply(MS, function(k) fx(XP[[k]], xp$nilf, k)), MS))       # every prime-age adult: U-3 becomes 100 minus the employment rate
+stopifnot(max(abs(SCEN$measured$U6 - L$U6)) < 1e-3, max(abs(SCEN$measured$U8 - L$U8)) < 1e-3)
+for (sc in names(SCEN)) for (k in MS) LFP[, (paste0(sc, "_", k)) := SCEN[[sc]][[k]]]
+yrs <- function(v, y) mean(LFP[substr(date, 1, 4) == y, get(v)])
+lastm <- max(L$date); li <- nrow(LFP)
+since21 <- LFP[date >= "2021-01"]
+LFPS <- list(
+  last = lastm, no_flows = no_flows,
+  latest = as.list(LFP[li, lapply(.SD, round, 2), .SDcols = c("lfpr", "epop", "lfpr_m", "lfpr_w", "epop_m", "epop_w", "lfpr_fb", "lfpr_nb", "nw_want", "nw_disab", "nw_retired", "nw_other", "f_EN", "f_UN", "f_NE", "f_EU")]),
+  last3 = as.list(LFP[(li - 2):li, lapply(.SD, function(x) round(mean(x), 2)), .SDcols = c("f_EN", "f_UN", "f_NE", "f_EU", "f_UE", "f_NU")]),
+  year12 = as.list(LFP[li - 12, lapply(.SD, round, 2), .SDcols = c("lfpr", "epop", "lfpr_m", "lfpr_w")]),
+  bench = lapply(c(y2000 = "2000", y2007 = "2007", y2019 = "2019", y2023 = "2023", y2024 = "2024", y2025 = "2025"), function(y)
+    sapply(c("lfpr", "epop", "lfpr_m", "lfpr_w", "epop_m", "epop_w", "lfpr_fb", "lfpr_nb", "nw_want", "nw_disab", "nw_retired", "nw_other", "f_EN", "f_UN", "f_NE", "f_EU"), function(v) round(yrs(v, y), 2), simplify = FALSE)),
+  peak_since21 = list(lfpr = round(max(since21$lfpr), 2), date = since21[which.max(lfpr), date], epop = round(max(since21$epop), 2), epop_date = since21[which.max(epop), date]),
+  low_2026 = list(lfpr = round(min(LFP[date >= "2026-01", lfpr]), 2), date = LFP[date >= "2026-01"][which.min(lfpr), date]),
+  record = list(lfpr = round(max(LFP$lfpr), 2), date = LFP[which.max(lfpr), date]),
+  missing = list(latest = as.list(round(MW[nrow(MW), .(m00, m07, m19, m00_men, m00_women, m19_men, m19_women)] / 1e6, 2)),
+                 peak19 = list(m = round(max(MW$m19) / 1e6, 2), date = MW[which.max(m19), date]), peak00 = list(m = round(max(MW$m00) / 1e6, 2), date = MW[which.max(m00), date]),
+                 share_lf = list(e19 = round(100 * tail(e19, 1), 2), e00 = round(100 * tail(e00, 1), 2))),
+  scen_latest = lapply(SCEN, function(z) sapply(z, function(v) round(tail(v, 1), 1), simplify = FALSE)),
+  scen_2019 = lapply(SCEN, function(z) sapply(z, function(v) round(mean(v[substr(L$date, 1, 4) == "2019"]), 1), simplify = FALSE)),
+  scen_2010 = lapply(SCEN, function(z) sapply(z, function(v) round(v[L$date == "2009-10"], 1), simplify = FALSE)))
+str(LFPS[c("latest", "peak_since21", "low_2026", "record")])
+str(LFPS$missing)
+rbindlist(lapply(names(SCEN), function(sc) data.table(scenario = sc, t(round(sapply(SCEN[[sc]], function(v) tail(v, 1)), 1)))))
+```
+
 ```{r export}
 r2 <- function(x, d = 3) round(x, d)
 out <- cbind(L[, c("date", SER), with = FALSE], GSER[, !"date"])
@@ -432,5 +576,7 @@ summary <- list(
   top_occupations = top_occ[, .(occ2010, label, required, counted_from, emp_k = round(emp / 1e3), mism_k = round(mism / 1e3), share = r2(share, 1))],
   validation_series = list(dates = V3$date, u3_micro = r2(V3$micro, 2), pter_micro = r2(VP$micro, 2), pter_official = r2(VP$official, 2)))
 writeLines(toJSON(summary, auto_unbox = TRUE, na = "null", digits = NA, pretty = FALSE), "data/u7_summary.json")
-cat("Wrote data/u7_series.csv and data/u7_summary.json\n")
+fwrite(LFP, "data/u7_lfp.csv")
+writeLines(toJSON(LFPS, auto_unbox = TRUE, na = "null", digits = NA, pretty = FALSE), "data/u7_lfp.json")
+cat("Wrote data/u7_series.csv, data/u7_summary.json, data/u7_lfp.csv and data/u7_lfp.json\n")
 ```
