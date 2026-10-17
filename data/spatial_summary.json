@@ -3,19 +3,19 @@
   "data_to": "2026-08",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2816,
+  "valid": 2822,
   "excluded": 313,
-  "signals": 27789,
-  "real": 9956,
+  "signals": 27845,
+  "real": 9981,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2439,
+  "caught_all": 2445,
   "bellwethers": 22,
   "bw_lead": -2.5,
   "gw_counties": 21,
   "gw_lead": -2.7,
   "gw_prec": 61,
-  "gw_lead_pct": 27,
+  "gw_lead_pct": 26,
   "gw_prec_pct": 91,
   "all_lead": 0.8,
   "all_prec": 40,
@@ -95,22 +95,22 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 793,
+      "counties": 792,
       "prec": 42
     },
     {
       "bin": "on time",
-      "counties": 781,
+      "counties": 784,
       "prec": 44
     },
     {
       "bin": "early",
-      "counties": 525,
+      "counties": 527,
       "prec": 42
     },
     {
       "bin": "very early",
-      "counties": 340,
+      "counties": 342,
       "prec": 39
     }
   ],
@@ -160,8 +160,8 @@
       "start": "2024-02",
       "end": "2024-08",
       "months": 7,
-      "peak": 0.74,
-      "counties": 61
+      "peak": 0.73,
+      "counties": 62
     },
     {
       "state": "AR",
@@ -368,8 +368,8 @@
       "start": "2003-12",
       "end": "2004-05",
       "months": 6,
-      "peak": 0.63,
-      "counties": 101
+      "peak": 0.64,
+      "counties": 100
     },
     {
       "state": "KS",
@@ -377,7 +377,7 @@
       "end": "2025-03",
       "months": 9,
       "peak": 0.97,
-      "counties": 101
+      "counties": 100
     },
     {
       "state": "KY",
@@ -472,8 +472,8 @@
       "start": "2004-10",
       "end": "2005-11",
       "months": 14,
-      "peak": 0.94,
-      "counties": 63
+      "peak": 0.92,
+      "counties": 65
     },
     {
       "state": "MS",
@@ -481,7 +481,7 @@
       "end": "2025-09",
       "months": 11,
       "peak": 1,
-      "counties": 63
+      "counties": 65
     },
     {
       "state": "MT",
@@ -576,8 +576,8 @@
       "start": "1995-11",
       "end": "1996-08",
       "months": 10,
-      "peak": 0.71,
-      "counties": 84
+      "peak": 0.72,
+      "counties": 85
     },
     {
       "state": "OH",
@@ -585,7 +585,7 @@
       "end": "2025-06",
       "months": 14,
       "peak": 0.94,
-      "counties": 84
+      "counties": 85
     },
     {
       "state": "OK",
@@ -688,8 +688,8 @@
       "start": "2024-10",
       "end": "2025-03",
       "months": 6,
-      "peak": 0.77,
-      "counties": 13
+      "peak": 0.71,
+      "counties": 14
     },
     {
       "state": "WA",
