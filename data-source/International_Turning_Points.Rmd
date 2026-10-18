@@ -1,0 +1,369 @@
+---
+title: "Where Recessions Reach the Labor Market: turning points across peer economies"
+author: "Mark G. Sheppard"
+output: html_document
+params:
+  fetch: false       # TRUE downloads fresh data from Eurostat, the OECD and the ONS into data-source/intl/raw
+  start: "1995-01"   # scoring window starts here, as in Appendix B of the paper
+  k: 5               # months in the moving average
+  lag: 5             # the rolling minimum looks at the 12 months ending this many months before the current one
+  w: 12              # months in the rolling minimum
+  alpha: 0.6         # trigger threshold, percentage points
+  tol_before: 9      # a trigger up to this many months before a recession starts still counts as detecting it
+  tol_after: 9       # and up to this many months after it ends
+  bbq_window: 2      # Harding-Pagan: quarters on each side of a turning point
+  bbq_minphase: 2    # shortest phase, quarters
+  bbq_mincycle: 5    # shortest cycle, quarters
+---
+
+This file builds the data behind the unlinked page **Where Recessions Reach the Labor Market** (`#intl`). It extends Appendix B of *The Inequality of Recessions* ("The Sahm Rule in the Euro Area: Cross-Country Accuracy and the Okun Mechanism") from the euro area to the peer economies of the United States, and keeps the appendix's design throughout:
+
+* **Unemployment.** Monthly harmonized unemployment rates, seasonally adjusted, all ages, percent of the labor force: Eurostat `une_rt_m` for the European Union, Norway, Iceland and Switzerland; the OECD's harmonised unemployment rates for the United States, Canada, Japan, Korea, Australia and Israel; and the ONS series MGSX (aged 16 and over) for the United Kingdom, whose Eurostat series ends in 2020. ONS monthly figures are rolling three-month averages labelled by their middle month.
+* **Recessions.** Each country is dated the same way, with the Harding and Pagan (2002) quarterly Bry-Boschan algorithm (BBQ) on the log of real GDP (Eurostat `namq_10_gdp`, chain-linked volumes, seasonally and calendar adjusted; OECD Quarterly National Accounts outside Europe; ONS ABMI for the United Kingdom). The United States keeps the NBER chronology. One check is added to the appendix's code, from the canonical Bry-Boschan rules: a phase counts as a contraction only if real GDP is lower at its trough than at its peak (lower in the latest quarter, for a phase with no trough yet). Without it the code dates Finland 1995-2005 and Ireland 2015-2020 as recessions while GDP grew, and turns any final peak into a recession still under way.
+* **The rule.** The appendix's configuration: a `k`-month moving average of the unemployment rate, less its minimum over the `w` months ending `lag` months earlier, so the comparison window does not overlap the average; a trigger at `alpha` points. A recession counts as detected if a trigger falls between `tol_before` months before it starts and `tol_after` months after it ends. Accuracy is scored month by month against recession months from `start`, once the indicator can be computed from data after `start`, as in the appendix. Two departures from the appendix's code: a recession counts only if it reaches the months that can be scored (the appendix also counts recessions that ended before a country's unemployment series begins, as misses), and the indicator is rounded to four decimals so that a value exactly at the threshold triggers. A detection whose first alarm was left over from an earlier episode, on before the recession's detection window opened, is flagged as carried over; `med_lag` is the appendix's median lag over all detections and `med_onset` leaves those out.
+* **Pass-through.** The Okun coefficient: the four-quarter change in the unemployment rate regressed on four-quarter real GDP growth (log differences, percent), from `start`, as in Ball, Leigh and Loungani (2017).
+* **Institutions.** The OECD employment protection indicators (version 4, sample means): regular contracts, temporary contracts and collective dismissals.
+
+With `fetch: true` the file downloads every source again (no keys are needed); otherwise it reads the copies in `data-source/intl/raw/`. It writes `data/intl_series.csv` (each country's unemployment rate and indicator by month) and `data/intl_summary.json` (recession dates, accuracy, pass-through, institutions and the 2008-09 and 2020 episodes). The page recomputes triggers in the browser for other thresholds; at the default threshold its numbers match this file's.
+
+```{r setup}
+suppressMessages({ library(data.table); library(jsonlite) })
+knitr::opts_knit$set(root.dir = normalizePath(".."))   # repository root
+RAW <- "data-source/intl/raw"
+```
+
+```{r countries}
+# Peer economies: code (Eurostat style), name, ISO3, region, sources, and euro adoption year
+CTRY <- fread(text = "
+code,name,iso3,region,u_src,gdp_src,euro
+US,United States,USA,North America,OECD,OECD,
+CA,Canada,CAN,North America,OECD,OECD,
+UK,United Kingdom,GBR,Western Europe,ONS,ONS,
+IE,Ireland,IRL,Western Europe,Eurostat,Eurostat,1999
+FR,France,FRA,Western Europe,Eurostat,Eurostat,1999
+BE,Belgium,BEL,Western Europe,Eurostat,Eurostat,1999
+NL,Netherlands,NLD,Western Europe,Eurostat,Eurostat,1999
+LU,Luxembourg,LUX,Western Europe,Eurostat,Eurostat,1999
+DE,Germany,DEU,Western Europe,Eurostat,Eurostat,1999
+AT,Austria,AUT,Western Europe,Eurostat,Eurostat,1999
+CH,Switzerland,CHE,Western Europe,Eurostat,Eurostat,
+DK,Denmark,DNK,Nordic countries,Eurostat,Eurostat,
+SE,Sweden,SWE,Nordic countries,Eurostat,Eurostat,
+NO,Norway,NOR,Nordic countries,Eurostat,Eurostat,
+FI,Finland,FIN,Nordic countries,Eurostat,Eurostat,1999
+IS,Iceland,ISL,Nordic countries,Eurostat,Eurostat,
+PT,Portugal,PRT,Southern Europe,Eurostat,Eurostat,1999
+ES,Spain,ESP,Southern Europe,Eurostat,Eurostat,1999
+IT,Italy,ITA,Southern Europe,Eurostat,Eurostat,1999
+EL,Greece,GRC,Southern Europe,Eurostat,Eurostat,2001
+MT,Malta,MLT,Southern Europe,Eurostat,Eurostat,2008
+CY,Cyprus,CYP,Southern Europe,Eurostat,Eurostat,2008
+PL,Poland,POL,Central and Eastern Europe,Eurostat,Eurostat,
+CZ,Czechia,CZE,Central and Eastern Europe,Eurostat,Eurostat,
+SK,Slovakia,SVK,Central and Eastern Europe,Eurostat,Eurostat,2009
+HU,Hungary,HUN,Central and Eastern Europe,Eurostat,Eurostat,
+SI,Slovenia,SVN,Central and Eastern Europe,Eurostat,Eurostat,2007
+HR,Croatia,HRV,Central and Eastern Europe,Eurostat,Eurostat,2023
+RO,Romania,ROU,Central and Eastern Europe,Eurostat,Eurostat,
+BG,Bulgaria,BGR,Central and Eastern Europe,Eurostat,Eurostat,2026
+EE,Estonia,EST,Baltic states,Eurostat,Eurostat,2011
+LV,Latvia,LVA,Baltic states,Eurostat,Eurostat,2014
+LT,Lithuania,LTU,Baltic states,Eurostat,Eurostat,2015
+JP,Japan,JPN,Asia-Pacific and Israel,OECD,OECD,
+KR,Korea,KOR,Asia-Pacific and Israel,OECD,OECD,
+AU,Australia,AUS,Asia-Pacific and Israel,OECD,OECD,
+IL,Israel,ISR,Asia-Pacific and Israel,OECD,OECD,
+EA,Euro area,EA,Aggregate,Eurostat,Eurostat,
+", colClasses = list(character = "euro"))
+CTRY[, euro := as.integer(euro)]
+# Appendix B's twenty euro area members (Bulgaria joined in January 2026, after the appendix)
+EA20 <- c("AT", "BE", "CY", "DE", "EE", "EL", "ES", "FI", "FR", "HR", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "PT", "SI", "SK")
+CTRY[, `:=`(appendix = code %in% EA20, ea = !is.na(euro))]
+CTRY[, .N, by = region]
+```
+
+```{r fetch, eval = params$fetch}
+# Downloads every source to data-source/intl/raw. The URLs need no keys.
+ua <- "Mozilla/5.0 (inequalityofrecession.com data pipeline)"
+fetch1 <- function(url, dest, gz = TRUE) {
+  tmp <- tempfile(); ok <- FALSE
+  for (i in 1:4) {
+    ok <- tryCatch({ download.file(url, tmp, mode = "wb", quiet = TRUE, method = "libcurl", headers = c(`User-Agent` = ua)); file.size(tmp) > 200 },
+                   error = function(e) FALSE, warning = function(w) FALSE)
+    if (ok) break
+    Sys.sleep(15 * i)
+  }
+  if (!ok) stop("could not download ", url)
+  if (gz) { con <- gzfile(file.path(RAW, dest), "wb"); writeBin(readBin(tmp, "raw", file.size(tmp)), con); close(con) }
+  else file.copy(tmp, file.path(RAW, dest), overwrite = TRUE)
+  invisible(dest)
+}
+dir.create(RAW, showWarnings = FALSE, recursive = TRUE)
+ES <- "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
+fetch1(paste0(ES, "une_rt_m?format=JSON&lang=EN&s_adj=SA&age=TOTAL&unit=PC_ACT&sex=T"), "eurostat_une_rt_m.json.gz")
+fetch1(paste0(ES, "namq_10_gdp?format=JSON&lang=EN&na_item=B1GQ&s_adj=SCA&unit=CLV20_MEUR&unit=CLV15_MEUR&unit=CLV10_MEUR"), "eurostat_namq_10_gdp.json.gz")
+OE <- "https://sdmx.oecd.org/public/rest/data/"
+fetch1(paste0(OE, "OECD.SDD.TPS,DSD_LFS@DF_IALFS_UNE_M,1.0/.UNE_LF_M...Y._T.Y_GE15..M?startPeriod=1955-01&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"), "oecd_une_m.csv.gz")
+fetch1(paste0(OE, "OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA,1.1/Q.Y..S1.S1.B1GQ....XDC.LR..?startPeriod=1947-Q1&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"), "oecd_qna_gdp.csv.gz")
+fetch1(paste0(OE, "OECD.ELS.JAI,DSD_EPL@DF_EPL,/A..EPL_R+EPL_CD+EPL_T+EPL_OV..?format=csvfilewithlabels"), "oecd_epl.csv.gz")
+fetch1("https://www.ons.gov.uk/generator?format=csv&uri=/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms", "ons_mgsx.csv", gz = FALSE)
+fetch1("https://www.ons.gov.uk/generator?format=csv&uri=/economy/grossdomesticproductgdp/timeseries/abmi/qna", "ons_abmi.csv", gz = FALSE)
+writeLines(format(Sys.time(), "%Y-%m-%d %H:%M %Z"), file.path(RAW, "fetched.txt"))
+```
+
+```{r read}
+mi  <- function(s) as.integer(substr(s, 1, 4)) * 12L + as.integer(substr(s, 6, 7)) - 1L      # "YYYY-MM" -> month index
+lab <- function(t) sprintf("%d-%02d", t %/% 12L, t %% 12L + 1L)
+qi  <- function(s) as.integer(substr(s, 1, 4)) * 4L + as.integer(substr(s, nchar(s), nchar(s))) - 1L   # "YYYY-Qn" / "YYYY Qn" -> quarter index
+qlab <- function(q) sprintf("%d-Q%d", q %/% 4L, q %% 4L + 1L)
+# JSON-stat 2.0 (Eurostat statistics API) to a long table
+jstat <- function(path) {
+  j <- fromJSON(gzfile(path), simplifyVector = FALSE)
+  ids <- unlist(j$id); size <- unlist(j$size)
+  codes <- lapply(ids, function(k) { ix <- unlist(j$dimension[[k]]$category$index); names(ix)[order(ix)] })
+  flat <- as.integer(names(j$value)); out <- data.table(v = as.numeric(unlist(j$value)))
+  rem <- flat
+  for (d in rev(seq_along(ids))) { set(out, j = ids[d], value = codes[[d]][rem %% size[d] + 1L]); rem <- rem %/% size[d] }
+  out[]
+}
+oecd <- function(path) fread(cmd = paste("gzip -dc", shQuote(path)), encoding = "UTF-8")
+ons  <- function(path) { x <- fread(path, header = FALSE, col.names = c("period", "v"), fill = TRUE); x[grepl("^\\d{4} ", period)] }
+MON <- toupper(month.abb)
+
+# Unemployment, monthly
+u_es <- jstat(file.path(RAW, "eurostat_une_rt_m.json.gz"))[, .(code = geo, t = mi(time), u = v)]
+u_es <- u_es[code != "EA"][code == "EA21", code := "EA"]   # the euro area as it stands today (21 members since 2026)
+u_oe <- oecd(file.path(RAW, "oecd_une_m.csv.gz"))[, .(iso3 = REF_AREA, t = mi(TIME_PERIOD), u = as.numeric(OBS_VALUE))]
+u_oe <- merge(u_oe, CTRY[u_src == "OECD", .(iso3, code)], by = "iso3")[, !"iso3"]
+u_uk <- ons(file.path(RAW, "ons_mgsx.csv"))[grepl("^\\d{4} [A-Z]{3}$", period),
+          .(code = "UK", t = as.integer(substr(period, 1, 4)) * 12L + match(substr(period, 6, 8), MON) - 1L, u = as.numeric(v))]
+U <- rbind(u_es[code %in% CTRY[u_src == "Eurostat", code]], u_oe, u_uk)[!is.na(u)]
+# months missing inside a series (the United States has no October 2025: the federal shutdown cancelled that survey)
+# are interpolated, as everywhere on the site
+U <- U[, { tt <- seq(min(t), max(t)); .(t = tt, u = approx(t, u, xout = tt)$y, filled = !tt %in% t) }, by = code]
+FILLED <- U[filled == TRUE, .(code, month = lab(t))]
+U[, filled := NULL]
+setkey(U, code, t)
+FILLED
+
+# Real GDP, quarterly
+g_es <- jstat(file.path(RAW, "eurostat_namq_10_gdp.json.gz"))
+unit_used <- intersect(c("CLV20_MEUR", "CLV15_MEUR", "CLV10_MEUR"), unique(g_es$unit))[1]
+g_es <- g_es[unit == unit_used, .(code = geo, q = qi(time), gdp = v)]
+g_es <- g_es[code != "EA"][code == "EA21", code := "EA"]
+g_oe <- oecd(file.path(RAW, "oecd_qna_gdp.csv.gz"))[TABLE_IDENTIFIER == "T0102", .(iso3 = REF_AREA, q = qi(TIME_PERIOD), gdp = as.numeric(OBS_VALUE))]
+g_oe <- merge(g_oe, CTRY[gdp_src == "OECD", .(iso3, code)], by = "iso3")[, !"iso3"]
+g_uk <- ons(file.path(RAW, "ons_abmi.csv"))[grepl("^\\d{4} Q[1-4]$", period), .(code = "UK", q = qi(period), gdp = as.numeric(v))]
+G <- rbind(g_es[code %in% CTRY[gdp_src == "Eurostat", code]], g_oe, g_uk)[!is.na(gdp) & gdp > 0]
+setkey(G, code, q)
+stopifnot(setequal(unique(U$code), CTRY$code), setequal(unique(G$code), CTRY$code))
+cov <- merge(U[, .(u_from = lab(min(t)), u_to = lab(max(t)), u_n = .N, u_gaps = max(t) - min(t) + 1L - .N), by = code],
+             G[, .(g_from = qlab(min(q)), g_to = qlab(max(q)), g_gaps = max(q) - min(q) + 1L - .N), by = code], by = "code")
+stopifnot(all(cov$u_gaps == 0), all(cov$g_gaps == 0))
+cov
+```
+
+```{r bbq}
+# Harding-Pagan (BBQ) on log real GDP, the same function as Appendix B
+bbq_turning_points <- function(y, minphase = params$bbq_minphase, mincycle = params$bbq_mincycle, window = params$bbq_window) {
+  n <- length(y)
+  if (n < mincycle + 2 * window) return(NULL)
+  idx <- integer(0); type <- character(0)
+  for (t in (window + 1):(n - window)) {
+    nb <- y[(t - window):(t + window)]
+    if (y[t] == max(nb) && sum(nb == max(nb)) == 1) { idx <- c(idx, t); type <- c(type, "P") }
+    else if (y[t] == min(nb) && sum(nb == min(nb)) == 1) { idx <- c(idx, t); type <- c(type, "T") }
+  }
+  if (length(idx) == 0) return(NULL)
+  tp <- data.frame(idx = idx, type = type)[order(idx), ]
+  alternate <- function(tp) {
+    while (nrow(tp) >= 2) {
+      dup <- which(tp$type[-nrow(tp)] == tp$type[-1])
+      if (length(dup) == 0) break
+      d <- dup[1]
+      keep_first <- if (tp$type[d] == "P") y[tp$idx[d]] >= y[tp$idx[d + 1]] else y[tp$idx[d]] <= y[tp$idx[d + 1]]
+      tp <- tp[-(if (keep_first) d + 1 else d), ]
+    }
+    tp
+  }
+  tp <- alternate(tp)
+  repeat {
+    changed <- FALSE
+    if (nrow(tp) >= 2) { short <- which(diff(tp$idx) < minphase); if (length(short) > 0) { s <- short[1]; tp <- tp[-c(s, s + 1), ]; changed <- TRUE } }
+    if (!changed && nrow(tp) >= 3) {
+      cyc <- tp$idx[3:nrow(tp)] - tp$idx[1:(nrow(tp) - 2)]; shortc <- which(cyc < mincycle)
+      if (length(shortc) > 0) { s <- shortc[1]; tp <- tp[-c(s + 1, min(s + 2, nrow(tp))), ]; changed <- TRUE }
+    }
+    if (!changed) break
+    tp <- alternate(tp)
+  }
+  if (nrow(tp) == 0) NULL else tp
+}
+# A recession runs from the first month of the quarter after the peak quarter through the last month of the trough quarter.
+# One check is added to Appendix B's code, as in the canonical Bry-Boschan rules: a phase is a contraction only if real GDP
+# is lower at the trough than at the peak (for a phase with no trough yet, lower in the latest quarter). Without it the code
+# dates Finland 1995-2005 and Ireland 2015-2020 as recessions while GDP grew by a quarter or more, and treats any final peak
+# as a recession that is still going on.
+date_recessions <- function(g) {
+  tp <- bbq_turning_points(log(g$gdp)); if (is.null(tp)) return(NULL)
+  pk <- tp$idx[tp$type == "P"]; tr <- tp$idx[tp$type == "T"]
+  rbindlist(lapply(pk, function(p) { t2 <- tr[tr > p]; open <- length(t2) == 0; t2 <- if (open) nrow(g) else min(t2)
+    data.table(peak_q = g$q[p], trough_q = g$q[t2], open = open, depth = 100 * (g$gdp[t2] / g$gdp[p] - 1)) }))
+}
+REC_ALL <- G[code != "US", date_recessions(.SD), by = code]
+DROPPED <- REC_ALL[depth >= 0]
+REC <- REC_ALL[depth < 0]
+DROPPED[, .(code, peak = qlab(peak_q), trough = qlab(trough_q), open, depth = round(depth, 1))]
+REC[, `:=`(start = (peak_q + 1L) * 3L, end = trough_q * 3L + 2L, source = "BBQ")]
+# United States: NBER monthly peaks and troughs (a recession starts the month after the peak)
+NBER <- data.table(peak = c("1948-11", "1953-07", "1957-08", "1960-04", "1969-12", "1973-11", "1980-01", "1981-07", "1990-07", "2001-03", "2007-12", "2020-02"),
+                   trough = c("1949-10", "1954-05", "1958-04", "1961-02", "1970-11", "1975-03", "1980-07", "1982-11", "1991-03", "2001-11", "2009-06", "2020-04"))
+gus <- G[code == "US"]
+REC <- rbind(REC, NBER[, .(code = "US", peak_q = mi(peak) %/% 3L, trough_q = mi(trough) %/% 3L, open = FALSE,
+                           depth = vapply(seq_len(.N), function(i) { a <- gus[q == mi(peak[i]) %/% 3L, gdp]; b <- gus[q >= mi(peak[i]) %/% 3L & q <= mi(trough[i]) %/% 3L, min(gdp)]; if (length(a)) 100 * (b / a - 1) else NA_real_ }, 0),
+                           start = mi(peak) + 1L, end = mi(trough), source = "NBER")], fill = TRUE)
+setorder(REC, code, start)
+# check: BBQ on US GDP against the NBER chronology
+us_bbq <- date_recessions(gus); us_bbq[, `:=`(peak = qlab(peak_q), trough = qlab(trough_q))]
+us_bbq[peak_q >= qi("1960-Q1")]
+```
+
+```{r indicator}
+t0 <- mi(params$start)
+U[, ma := frollmean(u, params$k, align = "right", algo = "exact"), by = code]
+U[, mn := frollapply(shift(ma, params$lag), params$w, min, align = "right"), by = code]
+# Rounded to four decimals, the precision of data/intl_series.csv, so that the page and this file see the same triggers.
+# Rates are published to one decimal, so the indicator is a multiple of 0.02 and a value exactly at the threshold counts
+# as a trigger (without the rounding, floating point puts some of those values a hair below it).
+U[, ind := round(ma - mn, 4)]
+# months scored as in Appendix B: the indicator computed from data after the start of the window only
+U[, first_t := pmax(min(t), t0), by = code]
+U[, scored := !is.na(ind) & t >= first_t + (params$k - 1L) + params$lag + (params$w - 1L)]
+U[, trig := !is.na(ind) & ind >= params$alpha - 1e-9]
+inrec <- function(cc, tt) { r <- REC[code == cc & end >= t0]; if (!nrow(r)) return(rep(FALSE, length(tt))); vapply(tt, function(x) any(x >= pmax(r$start, t0) & x <= r$end), TRUE) }
+U[, rec := inrec(.BY$code, t), by = code]
+```
+
+```{r accuracy}
+auc_of <- function(pos, neg) { if (!length(pos) || !length(neg)) return(NA_real_); r <- rank(c(pos, neg)); (sum(r[seq_along(pos)]) - length(pos) * (length(pos) + 1) / 2) / (length(pos) * length(neg)) }
+score <- function(cc, alpha = params$alpha) {
+  d <- U[code == cc & scored]; tr <- d$ind >= alpha - 1e-9; rc <- d$rec
+  from <- if (nrow(d)) min(d$t) else NA_integer_
+  # Recessions since `start` that reach the scored months. (The appendix also counts recessions that ended before a
+  # country's unemployment series begins, as misses; that would charge Switzerland, Israel and others for years with no data.)
+  rall <- REC[code == cc & end >= t0][, start := pmax(start, t0)]; r <- rall[end >= from]
+  TP <- sum(tr & rc); FP <- sum(tr & !rc); FN <- sum(!tr & rc); TN <- sum(!tr & !rc)
+  sens <- if (TP + FN > 0) TP / (TP + FN) else NA_real_; spec <- if (TN + FP > 0) TN / (TN + FP) else NA_real_
+  on_t <- d$t[tr]
+  ep <- if (nrow(r)) rbindlist(lapply(seq_len(nrow(r)), function(i) {
+    w0 <- r$start[i] - params$tol_before; w1 <- r$end[i] + params$tol_after; f <- d$t[tr & d$t >= w0 & d$t <= w1]
+    first <- if (length(f)) min(f) else NA_integer_
+    # carried over: the alarm was already on when the detection window opened, left over from an earlier episode,
+    # so the "lag" is just the width of the window and says nothing about this recession's timing
+    carry <- length(f) > 0 && first == max(w0, from) && (first - 1L) %in% on_t
+    data.table(start = r$start[i], detected = length(f) > 0, lag = if (length(f)) first - r$start[i] else NA_integer_, first = first, carry = carry)
+  })) else data.table(start = integer(0), detected = logical(0), lag = integer(0), first = integer(0), carry = logical(0))
+  on <- which(tr & !c(FALSE, head(tr, -1))); off <- which(tr & !c(tail(tr, -1), FALSE))
+  eps <- data.table(s = d$t[on], e = d$t[off])
+  fe <- if (!nrow(eps)) 0L else sum(vapply(seq_len(nrow(eps)), function(i) !nrow(rall) || !any(eps$s[i] <= rall$end + params$tol_after & eps$e[i] >= rall$start - params$tol_before), TRUE))
+  list(stats = data.table(code = cc, months = nrow(d), from = if (nrow(d)) lab(min(d$t)) else NA_character_, rec_months = TP + FN, recessions = nrow(r), detected = sum(ep$detected),
+                          med_lag = if (any(!is.na(ep$lag))) median(ep$lag, na.rm = TRUE) else NA_real_,
+                          med_onset = if (any(!is.na(ep$lag) & !ep$carry)) median(ep$lag[!ep$carry], na.rm = TRUE) else NA_real_, carried = sum(ep$carry),
+                          sensitivity = sens, specificity = spec,
+                          bal_acc = (sens + spec) / 2, auc = auc_of(d$ind[rc], d$ind[!rc]), false_eps = fe, trigger_eps = nrow(eps)),
+       episodes = ep[, code := cc])
+}
+SC <- lapply(CTRY$code, score)
+ACC <- rbindlist(lapply(SC, `[[`, "stats")); EPS <- rbindlist(lapply(SC, `[[`, "episodes"))
+ACC <- merge(CTRY[, .(code, name, region, appendix)], ACC, by = "code")
+ACC[order(-bal_acc), .(name, months, rec_months, det = paste0(detected, "/", recessions), med_lag, sens = round(100 * sensitivity, 1),
+                       spec = round(100 * specificity, 1), bal = round(100 * bal_acc, 1), auc = round(100 * auc, 1), false_eps)]
+```
+
+```{r okun}
+# Okun coefficients: four-quarter change in unemployment on four-quarter log GDP growth, from the start of the window
+uq <- U[t >= t0, .(u = mean(u)), by = .(code, q = t %/% 3L)]
+OK <- merge(uq, G, by = c("code", "q"))[order(code, q)]
+OK[, `:=`(du = u - shift(u, 4), g = 100 * (log(gdp) - shift(log(gdp), 4)), qq = q - shift(q, 4)), by = code]
+OK <- OK[!is.na(du) & qq == 4L]
+OKUN <- OK[, { f <- lm(du ~ g); s <- summary(f)$coefficients; .(okun_beta = s["g", 1], okun_se = s["g", 2], okun_r2 = summary(f)$r.squared, quarters = .N) }, by = code]
+OKUN[, okun_abs := abs(okun_beta)]
+merge(CTRY[, .(code, name)], OKUN, by = "code")[order(okun_beta), .(name, beta = round(okun_beta, 3), se = round(okun_se, 3), r2 = round(okun_r2, 3), quarters)]
+```
+
+```{r epl}
+EPLraw <- oecd(file.path(RAW, "oecd_epl.csv.gz"))
+EPL <- EPLraw[VERSION == "VERSION4" & as.integer(TIME_PERIOD) >= as.integer(substr(params$start, 1, 4)) & MEASURE %in% c("EPL_R", "EPL_T", "EPL_CD"),
+              .(epl = mean(as.numeric(OBS_VALUE), na.rm = TRUE)), by = .(iso3 = REF_AREA, MEASURE)]
+EPL <- dcast(EPL, iso3 ~ MEASURE, value.var = "epl")
+EPL <- merge(CTRY[, .(code, iso3)], EPL, by = "iso3")[, !"iso3"]
+EPL
+```
+
+```{r mechanism}
+# Does accuracy follow pass-through, or dismissal law? Appendix B's tests, on the appendix countries and on every peer
+M <- Reduce(function(a, b) merge(a, b, by = "code", all.x = TRUE), list(ACC[code != "EA"], OKUN, EPL))
+fitp <- function(f, d, w = NULL) { d <- as.data.frame(d); d$.w <- if (is.null(w)) 1 else w; m <- lm(f, data = d, weights = .w); s <- summary(m)$coefficients
+  list(slope = unname(s[2, 1]), p = unname(s[2, 4]), r2 = summary(m)$r.squared, n = nrow(m$model)) }
+ct <- function(x, y) { ok <- !is.na(x) & !is.na(y); t <- cor.test(x[ok], y[ok]); list(r = unname(t$estimate), p = t$p.value, n = sum(ok)) }
+mech <- function(d) list(
+  n = nrow(d),
+  # unweighted correlations with AUC, as drawn in the page's scatter
+  auc_okun = ct(d$okun_abs, d$auc), auc_epl_r = ct(d$EPL_R, d$auc), auc_epl_t = ct(d$EPL_T, d$auc),
+  cor_okun = list(bal_acc = cor(d$okun_abs, d$bal_acc), auc = cor(d$okun_abs, d$auc), sensitivity = cor(d$okun_abs, d$sensitivity)),
+  fit_okun_auc = fitp(auc ~ okun_abs, d), fit_okun_bal = fitp(bal_acc ~ okun_abs, d),
+  cor_epl_r = cor(d$EPL_R, d$bal_acc, use = "complete.obs"), cor_epl_t = cor(d$EPL_T, d$bal_acc, use = "complete.obs"),
+  fit_epl_r_bal = fitp(bal_acc ~ EPL_R, d[!is.na(EPL_R)], d[!is.na(EPL_R), rec_months]), fit_epl_r_auc = fitp(auc ~ EPL_R, d[!is.na(EPL_R)], d[!is.na(EPL_R), rec_months]),
+  n_epl = sum(!is.na(d$EPL_R)))
+MECH <- list(appendix = mech(M[appendix == TRUE & rec_months > 0 & !is.na(auc)]), peers = mech(M[rec_months > 0 & !is.na(auc)]))
+str(MECH, max.level = 2)
+```
+
+```{r episodes}
+# How much of a recession reached unemployment: the Great Recession and the 2020 pandemic, country by country
+uat <- function(cc, a, b, f) { x <- U[code == cc & t >= mi(a) & t <= mi(b), u]; if (length(x)) f(x) else NA_real_ }
+gat <- function(cc, a, b, f) { x <- G[code == cc & q >= qi(a) & q <= qi(b), gdp]; if (length(x)) f(x) else NA_real_ }
+EPI <- rbindlist(lapply(CTRY$code, function(cc) data.table(code = cc,
+  # 2008-09: GDP from its 2007-08 high to its 2008-10 low; unemployment from its low before mid-2008 to its high through 2011
+  gfc_gdp = 100 * (gat(cc, "2008-Q1", "2010-Q4", min) / gat(cc, "2007-Q1", "2008-Q4", max) - 1),
+  gfc_u = uat(cc, "2008-01", "2011-12", max) - uat(cc, "2007-01", "2008-06", min),
+  # 2020: GDP from 2019 Q4 to its 2020 low; unemployment from February 2020 to its high by June 2021
+  c20_gdp = 100 * (gat(cc, "2020-Q1", "2020-Q4", min) / gat(cc, "2019-Q4", "2019-Q4", max) - 1),
+  c20_u = uat(cc, "2020-03", "2021-06", max) - uat(cc, "2020-02", "2020-02", max),
+  c20_ind = U[code == cc & t >= mi("2020-03") & t <= mi("2021-06"), suppressWarnings(max(ind, na.rm = TRUE))])))
+EPI[!is.finite(c20_ind), c20_ind := NA_real_]
+EPI[, `:=`(gfc_ratio = gfc_u / -gfc_gdp, c20_ratio = c20_u / -c20_gdp)]
+merge(CTRY[, .(code, name)], EPI, by = "code")[order(-c20_ratio), .(name, c20_gdp = round(c20_gdp, 1), c20_u = round(c20_u, 1), c20_ratio = round(c20_ratio, 2), gfc_gdp = round(gfc_gdp, 1), gfc_u = round(gfc_u, 1))]
+```
+
+```{r export}
+r <- function(x, d = 3) round(x, d)
+# monthly series from 1970: unemployment rate and indicator by country, wide
+t_from <- mi("1970-01"); t_to <- max(U$t)
+W <- data.table(date = lab(t_from:t_to))
+for (cc in CTRY$code) {
+  x <- U[code == cc][match(t_from:t_to, t)]
+  set(W, j = paste0("u_", cc), value = r(x$u, 2)); set(W, j = paste0("i_", cc), value = r(x$ind, 4))
+}
+fwrite(W, "data/intl_series.csv", na = "")
+fetched <- if (file.exists(file.path(RAW, "fetched.txt"))) readLines(file.path(RAW, "fetched.txt"))[1] else NA_character_
+nz <- function(x) if (length(x) == 0 || is.na(x)) NA else x   # missing values are written as null
+summary <- list(
+  updated = format(Sys.Date()), fetched = fetched, last = lab(t_to), interpolated = FILLED, params =params[c("start", "k", "lag", "w", "alpha", "tol_before", "tol_after", "bbq_window", "bbq_minphase", "bbq_mincycle")],
+  countries = lapply(seq_len(nrow(CTRY)), function(i) { c0 <- CTRY[i]; a <- ACC[code == c0$code]; o <- OKUN[code == c0$code]; e <- EPL[code == c0$code]; p <- EPI[code == c0$code]; v <- cov[code == c0$code]
+    c(as.list(c0[, .(code, name, iso3, region, u_src, gdp_src, appendix, ea)]), list(euro = nz(c0$euro),
+      u_from = v$u_from, u_to = v$u_to, g_from = v$g_from, g_to = v$g_to,
+      scored_from = a$from, months = a$months, rec_months = a$rec_months, recessions = a$recessions, detected = a$detected, med_lag = nz(a$med_lag),
+      med_onset = nz(a$med_onset), carried = a$carried,
+      sensitivity = nz(r(a$sensitivity, 4)), specificity = nz(r(a$specificity, 4)), bal_acc = nz(r(a$bal_acc, 4)), auc = nz(r(a$auc, 4)), false_eps = a$false_eps,
+      okun_beta = nz(r(o$okun_beta, 4)), okun_se = nz(r(o$okun_se, 4)), okun_r2 = nz(r(o$okun_r2, 3)), okun_quarters = nz(o$quarters),
+      epl_r = if (nrow(e)) nz(r(e$EPL_R, 3)) else NA, epl_t = if (nrow(e)) nz(r(e$EPL_T, 3)) else NA, epl_cd = if (nrow(e)) nz(r(e$EPL_CD, 3)) else NA,
+      gfc_gdp = nz(r(p$gfc_gdp, 2)), gfc_u = nz(r(p$gfc_u, 2)), c20_gdp = nz(r(p$c20_gdp, 2)), c20_u = nz(r(p$c20_u, 2)), c20_ind = nz(r(p$c20_ind, 2)))) }),
+  recessions = REC[, .(code, peak = qlab(peak_q), trough = qlab(trough_q), start = lab(start), end = lab(end), open, depth = r(depth, 2), source)],
+  episodes = EPS[, .(code, start = lab(start), detected, lag, first = ifelse(is.na(first), NA_character_, lab(first)), carry)],
+  mechanism = rapply(MECH, function(x) r(x, 4), how = "replace"),
+  dropped = DROPPED[, .(code, peak = qlab(peak_q), trough = qlab(trough_q), open, depth = r(depth, 2))],
+  us_bbq_check = us_bbq[peak_q >= qi("1960-Q1"), .(peak, trough, open, depth = r(depth, 2))])
+writeLines(toJSON(summary, auto_unbox = TRUE, na = "null", digits = NA, pretty = FALSE), "data/intl_summary.json")
+cat("Wrote data/intl_series.csv and data/intl_summary.json:", nrow(CTRY), "economies,", nrow(REC), "recessions\n")
+```
