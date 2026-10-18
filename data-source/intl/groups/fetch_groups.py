@@ -31,10 +31,10 @@ def save(name, url):
         with gzip.open(f"{OUT}/{name}.gz", "wb") as f: f.write(b)
 
 ES = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
-save("eurostat_une_rt_m_age.json", ES + "une_rt_m?format=JSON&lang=EN&s_adj=SA&unit=PC_ACT&sex=T&age=Y_LT25&age=Y25-74")
-save("eurostat_une_rt_m_sex.json", ES + "une_rt_m?format=JSON&lang=EN&s_adj=SA&unit=PC_ACT&age=TOTAL&sex=M&sex=F")
 OE = "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_LFS@DF_IALFS_UNE_M,1.0/"
-save("oecd_une_m_groups.csv", OE + "USA+GBR+DEU+FRA+CAN+JPN+ITA+ESP+AUS+KOR.UNE_LF_M...Y...M?startPeriod=1955-01&dimensionAtObservation=AllDimensions&format=csvfilewithlabels")
+save("oecd_une_m_age.csv", OE + ".UNE_LF_M...Y._T.Y15T24+Y25T74+Y_GE25..M?startPeriod=1955-01&dimensionAtObservation=AllDimensions&format=csvfilewithlabels")
+time.sleep(20)
+save("oecd_une_m_sex.csv", OE + ".UNE_LF_M...Y.M+F.Y_GE15..M?startPeriod=1955-01&dimensionAtObservation=AllDimensions&format=csvfilewithlabels")
 
-with open(f"{OUT}/log.tsv", "w") as f: f.write("\n".join(LOG) + "\n")
+with open(f"{OUT}/log2.tsv", "w") as f: f.write("\n".join(LOG) + "\n")
 print("\n".join(LOG))
