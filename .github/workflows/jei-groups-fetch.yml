@@ -1,0 +1,27 @@
+name: Group unemployment by age and sex, peer economies (temporary)
+
+# Downloads monthly unemployment rates by age and by sex from Eurostat and the OECD for the replication package of
+# The Inequality of Recessions, and commits them to this branch only. Runs once when this branch is pushed.
+on:
+  push:
+    branches: [jei-groups-data]
+    paths: [".github/workflows/jei-groups-fetch.yml", "data-source/intl/groups/fetch_groups.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download unemployment by age and sex
+        run: python3 data-source/intl/groups/fetch_groups.py
+      - name: Commit what came back
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data-source/intl/groups
+          git commit -m "Group unemployment data by age and sex [skip ci]" || echo "nothing to commit"
+          git push
