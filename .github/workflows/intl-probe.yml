@@ -1,0 +1,25 @@
+name: International data probe (temporary)
+
+on:
+  push:
+    branches: [intl-data]
+    paths: [".github/workflows/intl-probe.yml", "data-source/intl/probe.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe the international sources
+        run: python3 data-source/intl/probe.py
+      - name: Commit what came back
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data-source/intl/raw
+          git commit -m "International data probe results [skip ci]" || echo "nothing to commit"
+          git push
