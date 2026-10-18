@@ -11,9 +11,6 @@ on:
     # within the following weeks; GDP is quarterly. Check on the 3rd and the 18th at 13:40 UTC.
     - cron: "40 13 3,18 * *"
   workflow_dispatch:
-  push:   # TEMPORARY: one test run on this branch; removed before merging
-    branches: [intl-data]
-    paths: [".github/workflows/intl-data.yml"]
 
 concurrency:
   group: intl-data-update
