@@ -158,6 +158,29 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-u7 .tablewrap table, #v-u7-data .tablewrap table, #v-u7-lfp .tablewrap table { min-width: 600px; }
 #v-u7 .chart .gl, #v-u7-data .chart .gl, #v-u7-lfp .chart .gl { stroke: #ececec !important; stroke-dasharray: none; }
 #v-u7 .chart .thr, #v-u7-data .chart .thr, #v-u7-lfp .chart .thr { stroke: #a3a3a3 !important; }
+/* Where Recessions Reach the Labor Market (#intl): solid lines only, in the site's blues */
+#v-intl .chart .gl { stroke: #ececec !important; stroke-dasharray: none; }
+#v-intl .chart .thr { stroke: #a3a3a3 !important; }
+#v-intl .intl-map { margin-top: 6px; }
+#v-intl .intl-map svg { overflow: hidden; }
+#v-intl .pbreak .mono { overflow-wrap: anywhere; }
+#v-intl .intl-map .ic { cursor: pointer; }
+#v-intl .intl-map .ic:hover { filter: brightness(.93); }
+#v-intl .intl-scrub { margin: -8px 0 -4px; }
+#v-intl .intl-thwrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#v-intl .intl-thlab { font-size: 12px; color: #737373; }
+#v-intl .sp-legend i.intl-recbox { width: 14px; height: 10px; border: 1.5px solid #111; background: transparent; box-sizing: border-box; margin-right: 2px; }
+#v-intl .sp-legend i.intl-recline { width: 18px; height: 2px; background: #1a1a1a; margin-right: 2px; vertical-align: middle; }
+#v-intl .intl-mapsum { font-size: 13px; color: #525252; margin: 8px 0 0; max-width: none; }
+#v-intl .intl-cres { margin-top: 12px; }
+#v-intl .tablewrap .intl-rtab { min-width: 460px; }
+#v-intl .tablewrap .intl-tab { min-width: 760px; }
+#v-intl table.intl-tab td { white-space: nowrap; }
+#v-intl table.intl-tab th { vertical-align: bottom; }
+#v-intl table.udef tr.intl-ea td { color: var(--ink-3); }
+#v-intl table.udef tbody tr[data-k]:not(.intl-ea):hover td { background: #f4f8fd; }
+#v-intl .fig-ctl select { font: inherit; font-size: 13px; padding: 4px 8px; border: 1px solid #d4d4d4; border-radius: 4px; background: #fff; color: #333; }
+#v-intl .vfig .fig-ctl .swatches { margin: 0; }
 .lfp-multi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 26px; margin-top: 6px; }
 @media (max-width: 700px) { .lfp-multi { grid-template-columns: minmax(0, 1fr); } }
 .lfp-panel { min-width: 0; }
@@ -1220,6 +1243,35 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div id="fig-lfp-u710"></div>
   <div class="tablewrap" id="tab-lfp-latest"></div>
   <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How these numbers are built</h2><p><b>Data.</b> Participation, employment, reasons for being out of the labor force and flows all come from the IPUMS CPS Basic Monthly files, January 1994 to <span data-lfp="last">…</span>: civilians aged 25 to 54, final weights, adjusted with the site’s STL procedure. Flows link the same people in consecutive months (the CPS person identifier, with the same sex, an age the same or one year older, and the next rotation month) and are weighted by the earlier month. The CPS cannot link June to September 1995 to the months before, when it changed its household identifiers, so those months are interpolated, as are October and November 2025 around the shutdown, which cancelled the October survey.</p><p><b>Reasons for being out.</b> The categories do not overlap: first everyone who wants a job; then, by the CPS labor-force status, people unable to work because of illness or disability, retirees, and everyone else (in school, caring for family, or another reason, which this extract does not separate).</p><p><b>Prime-age measures.</b> The microdata do not identify discouraged or marginally attached workers, so the official counts are shared out by age in proportion to the people who want a job (for the discouraged, those not looking because of the job market). U-7 to U-10 use the same want-a-job, self-employment and mismatch definitions as on The Case for U-7; for ages 25 to 54, the mismatched self-employed are separated from other mismatched workers in the national proportions.</p><p>Everything here is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/U7_Ladder.Rmd</span></a>, which writes <a href="data/u7_lfp.csv"><span class="mono">data/u7_lfp.csv</span></a> and <a href="data/u7_lfp.json"><span class="mono">data/u7_lfp.json</span></a>.</p><div class="pb-btns"><a class="df-button ghost" href="#u7">The Case for U-7</a><a class="df-button ghost" href="#u7-data">How U-7 is built</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/U7_Ladder.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+</div>
+</div>
+
+<!-- ===== Where Recessions Reach the Labor Market (unlisted international comparisons: reached only by its link) ===== -->
+<div class="view" id="v-intl" hidden>
+<section class="hero"><div class="in">
+  <a class="chap-back" href="#series">← The Inequality of Recession</a>
+  <h1>Where Recessions Reach<br><span class="of">the</span> Labor Market</h1>
+  <p class="lede">The Sahm Rule watches unemployment, so it can see a recession only when the recession reaches the unemployment count. In the United States most do: output falls, firms lay workers off, and the unemployment rate rises within months. In much of Europe and in Japan a downturn is absorbed first in shorter hours, short-time work schemes and workers kept on the payroll, and unemployment rises late, a little, or not at all. This page runs the turning-point rule from Appendix B of the paper on the unemployment rates of <span data-intl="n">37</span> peer economies of the United States and scores it against each country’s own recessions, dated from its GDP. The rule works where recessions convert into unemployment, and that depends on how each labor market adjusts more than on how strictly its law protects jobs.</p>
+  <div class="byline"><div>Appendix and interactive <span class="draft-tag">Draft for review</span></div><div><b>By <a class="name-link" href="https://www.markgsheppard.com/" target="_blank" rel="noopener">Mark G. Sheppard</a></b> &nbsp;Fall 2026</div><div class="fetched">Data last fetched: <span class="intl-fetched">…</span></div></div>
+</div></section>
+<div class="article">
+  <p class="needs-intl loading">Loading the international data…</p>
+  <div id="fig-intl-map"></div>
+  <div class="results" id="res-intl"></div>
+  <section class="pbreak"><span class="ov-kicker">One rule, many labor markets</span><h2 class="ov-h">Does a rule built on American data travel?</h2><p>Claudia Sahm built her rule on the United States, where unemployment responds to output quickly and reliably. The version here is the one in Appendix B of the paper: a five-month average of the unemployment rate, less its lowest value over the twelve months ending five months earlier, so that the comparison window never overlaps the average, with an alarm at 0.6 points. Every country is scored against recessions dated the same way, from its own quarterly real GDP; the United States keeps the NBER’s dates. Applied unchanged, the rule’s accuracy varies as much as the labor markets do. <span data-intl="best">…</span> <span data-intl="worst">…</span></p><p>Accuracy here is the AUC, which needs no threshold: the chance that a month inside a recession has a higher indicator than a month outside one, so that a perfect signal scores 100 and a coin flip 50. The threshold matters for everything else, how many recessions are caught, how early and with how many false alarms, and the charts below let you change it.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Across the peers</span><h2 class="ov-h">The alarm arrives after the recession has spread</h2><p><span data-intl="waves">…</span> Unemployment lags output everywhere. What differs from country to country is how far it lags, and whether it moves at all.</p></section>
+  <div id="fig-intl-heat"></div>
+  <section class="pbreak"><span class="ov-kicker">Against their own recessions</span><h2 class="ov-h">On time in some countries, late or never in others</h2><p><span data-intl="timing">…</span></p><p>As in the appendix, a recession counts as caught if the alarm sounds within nine months of its start or its end. Some of those alarms were already on when the window opened, left over from an earlier downturn: in a double dip, the alarm from the first recession is often still sounding when the second begins. They count as caught, but their timing says nothing about the second recession, so the medians on this page leave them out.</p></section>
+  <div id="fig-intl-country"></div>
+  <div id="fig-intl-dots"></div>
+  <section class="pbreak"><span class="ov-kicker">The mechanism</span><h2 class="ov-h">The rule works where Okun’s law bites</h2><p>How much of a recession reaches the unemployment count is measured by pass-through, the Okun coefficient: how much the unemployment rate rises over a year for each point of GDP growth lost. <span data-intl="mech">…</span> <span data-intl="us">…</span></p><p><span data-intl="epl">…</span> The OECD’s indices score the law on the books, and the way firms actually adjust can differ from it. Short-time work schemes such as Germany’s Kurzarbeit let firms cut hours rather than jobs, whatever the dismissal rules. Dual labor markets such as Spain’s concentrate the adjustment on temporary contracts that are simply not renewed, even where permanent jobs are well protected. Both change how much of a recession reaches unemployment, and neither shows up in an index of dismissal law.</p><p><span data-intl="ea">…</span> The appendix reports a stronger gradient for these twenty countries; the difference comes from revisions to the data since it was written and from one correction to the recession dating, described in the notes below.</p></section>
+  <div id="fig-intl-scatter"></div>
+  <section class="pbreak"><span class="ov-kicker">2008–09 and 2020</span><h2 class="ov-h">The same collapse, very different unemployment</h2><p><span data-intl="c20">…</span> <span data-intl="c20b">…</span></p><p><span data-intl="gfc">…</span></p></section>
+  <div id="fig-intl-conv"></div>
+  <section class="pbreak"><span class="ov-kicker">What it means</span><h2 class="ov-h">Calibrate to pass-through</h2><p>An unemployment-based recession rule does not travel across borders by default. Where pass-through is weak the alarm is late and noisy, and moving the threshold only trades misses for false alarms: <span data-intl="thr">…</span></p><p>The same logic runs through the rest of the paper. Groups of workers whose unemployment responds strongly to output signal recessions early, and groups whose unemployment barely moves signal them late or not at all. For comparisons across countries, the useful grouping is by how much of a recession reaches unemployment, not by income level or by legal tradition.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
+  <section class="pbreak"><span class="ov-kicker">Every peer</span><h2 class="ov-h">Country by country</h2><p>Sorted by accuracy, at a threshold of <span class="intl-thnow">0.6</span> points. Timing is the median number of months from the start of each recession to its first alarm, leaving out alarms left over from an earlier episode. Click a row to see that country above. The euro area, 21 members since Bulgaria joined in January 2026, is shown for reference and is not counted among the peers.</p></section>
+  <div class="tablewrap" id="intl-table"></div>
+  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">Data and methods</h2><p><b>Unemployment.</b> Monthly unemployment rates, seasonally adjusted, as a percent of the labor force: Eurostat’s <span class="mono">une_rt_m</span> for the members of the European Union, Norway, Iceland and Switzerland; the OECD’s harmonised unemployment rates for the United States, Canada, Japan, Korea, Australia and Israel; and, for the United Kingdom, whose Eurostat series ends in 2020, the Office for National Statistics series <span class="mono">MGSX</span>, for people aged 16 and over. The ONS publishes rolling three-month averages, labelled here by their middle month, so the British indicator is smoother and a little later than the others. <span data-intl="interp"></span></p><p><b>Recessions.</b> For every country but the United States, dated with the Harding and Pagan (2002) version of the Bry–Boschan algorithm on the log of quarterly real GDP: Eurostat’s <span class="mono">namq_10_gdp</span> in chain-linked volumes, the OECD’s Quarterly National Accounts outside Europe, and the ONS series <span class="mono">ABMI</span> for the United Kingdom. A peak or trough must be the highest or lowest point within two quarters on either side, each phase must last at least two quarters and each full cycle at least five. A recession runs from the first month of the quarter after the peak to the last month of the trough quarter. One check is added to the appendix’s code, from the canonical Bry–Boschan rules: a phase counts as a recession only if GDP is lower at its trough than at its peak. <span data-intl="dropped"></span> <span data-intl="usbbq"></span> <span data-intl="open"></span></p><p><b>The rule and the scoring.</b> Appendix B’s configuration: a five-month average, a twelve-month low lagged five months, and a threshold of 0.6 points. Months are scored from January 1995, once the indicator can be computed from data after that date, which puts the first scored month in September 1996 wherever the data go back that far. A recession counts as caught if the alarm sounds between nine months before it starts and nine months after it ends; an alarm episode that touches no such window is a false alarm. Two departures from the appendix’s code: a recession counts only if it reaches the months that can be scored (the appendix also counts recessions that ended before a country’s unemployment data begin, as misses), and a value exactly at the threshold sounds the alarm. Switzerland’s monthly series begins in 2010, Israel’s in 2012 and Iceland’s in 2003, so each is scored on fewer recessions than the rest.</p><p><b>Pass-through and institutions.</b> The Okun coefficient is estimated for each country from 1995 on, by regressing the four-quarter change in its quarterly average unemployment rate on four-quarter growth in real GDP, in log points (Ball, Leigh and Loungani 2017). Employment protection is measured by the OECD’s indicators, version 4, for regular contracts, temporary contracts and collective dismissals, averaged over the years since 1995; the OECD does not cover Bulgaria, Croatia, Cyprus, Malta or Romania. Ireland’s GDP is swollen by the accounts of multinational firms, which weakens its Okun relationship.</p><p><b>Code and data.</b> Everything on this page is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/International_Turning_Points.Rmd</span></a>, which reads the source files in <a href="https://github.com/markgsheppard/SahmRule/tree/main/data-source/intl/raw" target="_blank" rel="noopener"><span class="mono">data-source/intl/raw/</span></a> and writes <a href="data/intl_series.csv"><span class="mono">data/intl_series.csv</span></a>, each country’s unemployment rate and indicator by month, and <a href="data/intl_summary.json"><span class="mono">data/intl_summary.json</span></a>, the recession dates, scores, pass-through, institutions and the 2008–09 and 2020 episodes. A scheduled workflow downloads fresh data from Eurostat, the OECD and the ONS twice a month and rebuilds both files. When you change the threshold, the page recomputes the alarms in your browser; at 0.6 points its numbers match the file’s.</p><div class="pb-btns"><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener">View the code</a><a class="df-button ghost" href="#series">The Inequality of Recession</a></div></section>
 </div>
 </div>
 
@@ -3526,6 +3578,7 @@ function renderSite() {
   if (v === "u7") renderU7();
   if (v === "u7-data") renderU7Data();
   if (v === "u7-lfp") renderLfp();
+  if (v === "intl") renderIntl();
   if (v === "validate") renderValidate();
   if (v === "tool" && !window.toolApp && window.SahmTool) window.toolApp = new SahmTool.SahmRuleDashboard({ lineConfigs: [], chartElementId: "sahm_chart", components: new Set(["legend", "footer"]), dataBaseUrl: "data-source" });
   if (!ok) return;
@@ -3617,7 +3670,7 @@ function renderVibe() {
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false, u7: false } };
-const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "u7", "u7-data", "u7-lfp", "method", "thanks"];
+const VIEWS = ["overview", "series", "race", "income", "education", "spatial", "vibe", "map", "tool", "compare", "validate", "replicate", "umeas", "u7", "u7-data", "u7-lfp", "intl", "method", "thanks"];
 function route() {
   let v = (location.hash || "").slice(1);
   if (v === "subgroups-sec") v = "race";
@@ -4779,6 +4832,485 @@ async function renderLfp() {
   run(() => lfpTable(document.getElementById("tab-lfp-latest"), D));
 }
 
+/* ---------- Where Recessions Reach the Labor Market (unlisted #intl; data from data-source/International_Turning_Points.Rmd) ---------- */
+// The rule is Appendix B's: a k-month average of the unemployment rate against its low over the w months ending `lag` months
+// earlier, an alarm at α, and a recession caught if the alarm sounds between tol_before months before it starts and tol_after
+// months after it ends. intlScore() repeats the Rmd's scoring so the page can move the threshold; at α = 0.6 the two agree.
+const INTL = { th: null, mode: "stats", metric: "auc", sel: "DE", month: null, view: "ind", dotsBy: "auc", sc: "okun", ep: "c20", heat: "country" };
+const INTL_TH = [0.3, 0.4, 0.5, 0.6, 0.8, 1.0];
+const INTL_REG = ["North America", "Western Europe", "Nordic countries", "Southern Europe", "Central and Eastern Europe", "Baltic states", "Asia-Pacific and Israel"];
+const INTL_RAMP = ["#e3eefb", "#b9d6f4", "#86b6ea", "#4f8ad7", "#2357b0", "#17397c"];
+const iN = x => typeof x === "number" && isFinite(x);
+const iF = (x, d = 1) => !iN(x) ? "–" : (x < 0 && Math.abs(x) >= 0.5 * 10 ** -d ? "−" : "") + Math.abs(x).toFixed(d);
+const iS = (x, d = 1) => !iN(x) ? "–" : sg(x, d);
+const iP = x => iN(x) ? String(Math.round(100 * x)) : "–";
+const INTL_MET = {
+  auc: { label: "Accuracy", long: "Accuracy (AUC, 0 to 100): the chance that a month in a recession has a higher indicator than a month outside one; 50 is a coin flip", dom: [0.4, 0.95], fmt: v => String(Math.round(100 * v)), get: c => c.auc },
+  okun: { label: "Pass-through", long: "Pass-through: the rise in the unemployment rate over a year for each point of GDP growth lost (Okun coefficient, absolute value)", dom: [0, 0.65], fmt: v => v.toFixed(2), get: c => iN(c.okun_beta) ? Math.abs(c.okun_beta) : NaN },
+  timing: { label: "Timing", long: "Timing: median months from the start of a recession to the first alarm, at the chosen threshold; darker is earlier", dom: [15, -3], fmt: v => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v), get: (c, s) => s.med_onset, th: true },
+  caught: { label: "Recessions caught", long: "Share of the country’s recessions since 1995 that the alarm caught, at the chosen threshold", dom: [0, 1], fmt: v => Math.round(100 * v) + "%", get: (c, s) => s.recessions ? s.detected / s.recessions : NaN, th: true },
+  conv: { label: "2020", long: "2020: points of unemployment added for each percent of GDP lost", dom: [0, 1.2], fmt: v => v.toFixed(1), get: c => iN(c.c20_u) && iN(c.c20_gdp) && c.c20_gdp < 0 ? c.c20_u / -c.c20_gdp : NaN }
+};
+let _intl = null;
+async function loadIntl() {
+  if (_intl) return _intl;
+  const [rows, sum, topo] = await Promise.all([d3.csv("data/intl_series.csv"), d3.json("data/intl_summary.json"), d3.json("data/intl_map.json")]);
+  const t0 = mIdx(rows[0].date), C = {}, S = {}, R = {}, num = v => v === "" || v == null ? NaN : +v;
+  for (const c of sum.countries) {
+    C[c.code] = c;
+    const u = rows.map(r => num(r["u_" + c.code])), ind = rows.map(r => num(r["i_" + c.code]));
+    const a = u.findIndex(isFinite); let b = u.length - 1; while (b > a && !isFinite(u[b])) b--;
+    S[c.code] = { start: t0 + a, u: u.slice(a, b + 1), ind: ind.slice(a, b + 1) };
+  }
+  for (const r of sum.recessions) (R[r.code] = R[r.code] || []).push({ ...r, s: mIdx(r.start), e: mIdx(r.end) });
+  if (INTL.th === null) INTL.th = sum.params.alpha;
+  const feats = topojson.feature(topo, topo.objects.countries).features;
+  const peers = sum.countries.filter(c => c.code !== "EA").map(c => c.code), t1 = t0 + rows.length - 1;
+  // the latest month for which nearly every peer has a figure: where the month-by-month map opens
+  let tLast = t1; while (tLast > t0 && peers.filter(k => isFinite(intlAt(S[k], tLast))).length < peers.length - 2) tLast--;
+  return (_intl = { sum, C, S, R, feats, t0, t1, tLast, peers, memo: {} });
+}
+const intlName = (D, k) => (D.C[k] || {}).name || k;
+const intlThe = (D, k) => (["US", "UK", "NL"].includes(k) ? "the " : "") + intlName(D, k);   // as it reads mid-sentence
+const intlAt = (s, t) => { const i = t - s.start; return i >= 0 && i < s.ind.length ? s.ind[i] : NaN; };
+const intlU = (s, t) => { const i = t - s.start; return i >= 0 && i < s.u.length ? s.u[i] : NaN; };
+const intlInRec = (D, k, t) => (D.R[k] || []).some(r => t >= r.s && t <= r.e);
+const intlMed = a => { const L = a.slice().sort((x, y) => x - y), n = L.length; return n ? (n % 2 ? L[(n - 1) / 2] : (L[n / 2 - 1] + L[n / 2]) / 2) : NaN; };
+// Score one economy at threshold `alpha`, as the Rmd does
+function intlScore(D, k, alpha) {
+  const key = k + "|" + alpha; if (D.memo[key]) return D.memo[key];
+  const s = D.S[k], p = D.sum.params, T0 = mIdx(p.start), from0 = Math.max(s.start, T0) + (p.k - 1) + p.lag + (p.w - 1);
+  const all = (D.R[k] || []).filter(r => r.e >= T0).map(r => ({ ...r, s: Math.max(r.s, T0) }));
+  const M = [], onSet = new Set();
+  for (let i = 0; i < s.ind.length; i++) { const t = s.start + i, v = s.ind[i]; if (t < from0 || !isFinite(v)) continue; const on = v >= alpha - 1e-9; if (on) onSet.add(t); M.push({ t, v, on, rec: all.some(r => t >= r.s && t <= r.e) }); }
+  const from = M.length ? M[0].t : from0, recs = all.filter(r => r.e >= from);
+  let TP = 0, FP = 0, FN = 0, TN = 0; for (const m of M) { if (m.on && m.rec) TP++; else if (m.on) FP++; else if (m.rec) FN++; else TN++; }
+  const eps = recs.map(r => { const w0 = r.s - p.tol_before, w1 = r.e + p.tol_after, f = M.find(m => m.on && m.t >= w0 && m.t <= w1);
+    return { r, detected: !!f, first: f ? f.t : null, lag: f ? f.t - r.s : null, carry: !!f && f.t === Math.max(w0, from) && onSet.has(f.t - 1) }; });
+  const te = []; let cur = null;
+  for (const m of M) { if (m.on) { if (cur) cur.e = m.t; else cur = { s: m.t, e: m.t }; } else if (cur) { te.push(cur); cur = null; } }
+  if (cur) te.push(cur);
+  const fa = te.filter(e => !all.some(r => e.s <= r.e + p.tol_after && e.e >= r.s - p.tol_before));
+  const det = eps.filter(e => e.detected), sens = TP + FN ? TP / (TP + FN) : NaN, spec = TN + FP ? TN / (TN + FP) : NaN;
+  return (D.memo[key] = { months: M.length, rec_months: TP + FN, recessions: recs.length, detected: det.length, med_lag: intlMed(det.map(e => e.lag)), med_onset: intlMed(det.filter(e => !e.carry).map(e => e.lag)),
+    carried: det.filter(e => e.carry).length, sensitivity: sens, specificity: spec, bal_acc: (sens + spec) / 2, false_eps: fa.length, fa, eps, from });
+}
+const intlMo = v => { const a = Math.abs(v); return (Number.isInteger(a) ? a : a.toFixed(1)) + (a === 1 ? " month" : " months"); };
+const intlLag = v => !iN(v) ? "–" : v === 0 ? "at the start" : v < 0 ? `${intlMo(v)} before the start` : `${intlMo(v)} after the start`;
+const intlLagS = v => !iN(v) ? "–" : v === 0 ? "0" : (v > 0 ? "+" : "−") + (Number.isInteger(Math.abs(v)) ? Math.abs(v) : Math.abs(v).toFixed(1));
+const intlMon = t => LFPMONTHS[((t % 12) + 12) % 12] + " " + Math.floor(t / 12);
+const intlQ = q => { const [y, n] = q.split("-Q"); return `${["first", "second", "third", "fourth"][+n - 1]} quarter of ${y}`; };
+const intlQs = q => q.replace("-Q", " Q");
+const intlRecLab = r => r.source === "NBER" ? `${MON[(r.s - 1) % 12]} ${Math.floor((r.s - 1) / 12)} to ${MON[r.e % 12]} ${Math.floor(r.e / 12)}` : `${intlQs(r.peak)} to ${intlQs(r.trough)}`;
+const intlList = arr => arr.length < 2 ? arr.join("") : arr.length === 2 ? arr.join(" and ") : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
+const intlWord = n => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"][n] || String(n);
+const intlCor = (xs, ys) => { const n = xs.length, mx = d3.mean(xs), my = d3.mean(ys); let sxy = 0, sxx = 0, syy = 0; for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; syy += (ys[i] - my) ** 2; } return { r: sxy / Math.sqrt(sxx * syy), b: sxy / sxx, a: my - sxy / sxx * mx, n }; };
+// peers with an EPL index and an AUC: the correlations quoted with the scatter
+function intlEplCor(D, key) { const P = D.peers.filter(k => iN(D.C[k][key]) && iN(D.C[k].auc) && D.C[k].rec_months > 0); return { ...intlCor(P.map(k => D.C[k][key]), P.map(k => D.C[k].auc)), P }; }
+
+// ----- facts for the prose, all from the data -----
+function intlFacts(D) {
+  const F = {}, P = D.peers, C = D.C, th = D.sum.params.alpha, nm = k => intlThe(D, k), sc = k => intlScore(D, k, th);
+  F.n = String(P.length);
+  // accuracy
+  const big = P.filter(k => C[k].rec_months >= 24 && iN(C[k].auc)).sort((a, b) => C[b].auc - C[a].auc), pc = k => iP(C[k].auc);
+  const top = big.slice(0, 3), bot = big.slice(-3).reverse();
+  F.best = `At the top, in ${intlList(top.map(nm))}, the indicator ranks a month in a recession above a month outside one ${intlList(top.map(pc))} percent of the time.`;
+  F.worst = `At the bottom, in ${intlList(bot.map(nm))}, it does so ${intlList(bot.map(pc))} percent of the time${Math.max(...bot.map(k => C[k].auc)) <= 0.56 ? ", little better than a coin flip" : ""}.`;
+  // timing against each country's own recessions (first alarms carried over from an earlier episode left out)
+  const ok = k => C[k].rec_months >= 24 && iN(sc(k).med_onset);
+  const prompt = P.filter(k => ok(k) && Math.abs(sc(k).med_onset) <= 1), late = P.filter(k => ok(k) && sc(k).med_onset >= 10).sort((a, b) => sc(b).med_onset - sc(a).med_onset);
+  const worst = late.slice().sort((a, b) => sc(a).detected / sc(a).recessions - sc(b).detected / sc(b).recessions)[0];
+  const allMed = intlMed(P.filter(ok).map(k => sc(k).med_onset)), us = sc("US");
+  F.timing = `Across the peers, the first alarm typically comes ${intlMo(allMed)} after a recession begins. In the United States, the rule’s home, it comes after ${intlMo(us.med_onset)}, and it caught ${us.detected === us.recessions ? "all " : ""}${intlWord(us.detected)}${us.detected === us.recessions ? "" : " of " + intlWord(us.recessions)} recessions since 1995. ${prompt.length ? `In ${intlList(prompt.map(nm))} it typically sounds within a month of the start.` : ""} ${late.length ? `In ${intlList(late.map(nm))} it typically comes ten months or more after the recession began${worst && sc(worst).detected < sc(worst).recessions ? `, and ${nm(worst)}’s alarm caught only ${intlWord(sc(worst).detected)} of its ${intlWord(sc(worst).recessions)} recessions` : ""}.` : ""}`.replace(/\s+/g, " ").trim();
+  // the mechanism
+  const M = D.sum.mechanism, pe = M.peers, ap = M.appendix;
+  F.mech = `Across all ${pe.n} peers, accuracy rises with pass-through: the correlation between the two is ${iF(pe.cor_okun.auc, 2)}, and each 0.1 of pass-through comes with about ${iF(10 * pe.fit_okun_auc.slope, 1)} more points of accuracy (p = ${iF(pe.fit_okun_auc.p, 3)}).`;
+  const okr = P.filter(k => iN(C[k].okun_beta)).sort((a, b) => Math.abs(C[b].okun_beta) - Math.abs(C[a].okun_beta)), oa = k => iF(Math.abs(C[k].okun_beta), 2);
+  F.us = `${okr[0] === "US" ? "The United States has the largest pass-through of any peer" : `The United States has ${okr.indexOf("US") < 3 ? "one of the largest" : "a large"} pass-through`}: its unemployment rate rises about ${oa("US")} points within a year for each point of growth lost, against ${oa("DE")} in Germany, ${oa("JP")} in Japan and ${oa("FR")} in France. A rule calibrated on American data carries the American pass-through with it.`;
+  const er = pe.auc_epl_r, et = pe.auc_epl_t;
+  F.epl = `Dismissal law explains much less. Across the ${er.n} peers the OECD covers, the correlation between accuracy and its index of protection for regular contracts is ${iF(er.r, 2)} (p = ${iF(er.p, 2)}), and with its index for temporary contracts ${iF(et.r, 2)} (p = ${iF(et.p, 2)})${er.p >= 0.05 && et.p >= 0.05 ? "; neither is statistically significant" : ""}.`;
+  F.ea = `Within the twenty euro area members of the paper’s appendix, the gradient points the same way but is weaker in the current vintage of the data: a correlation of ${iF(ap.cor_okun.auc, 2)}, with a slope that is not statistically significant on its own (p = ${iF(ap.fit_okun_auc.p, 2)}).`;
+  // 2020 and 2008-09
+  const ep = (k, a, b) => `${iF(-C[k][a], 1)} percent and unemployment rose ${iF(C[k][b], 1)} points`;
+  F.c20 = `Between the end of 2019 and its low in 2020, GDP fell ${ep("US", "c20_gdp", "c20_u")} in the United States, and in Canada GDP fell ${ep("CA", "c20_gdp", "c20_u")}. In Germany GDP fell ${ep("DE", "c20_gdp", "c20_u")}; in Italy ${iF(-C.IT.c20_gdp, 1)} percent and ${iF(C.IT.c20_u, 1)} points; in the United Kingdom ${iF(-C.UK.c20_gdp, 1)} percent and ${iF(C.UK.c20_u, 1)} points.`;
+  const rang = P.filter(k => iN(C[k].c20_ind) && C[k].c20_ind >= th - 1e-9), pk = k => iF(C[k].c20_ind, 1);
+  F.c20b = `${rang.length === P.length ? "Every peer’s alarm sounded" : `The alarm sounded in ${rang.length} of the ${P.length} peers`} between March 2020 and June 2021, because even a modest rise in unemployment crosses a threshold of ${f1(th, 1)} points. What differed was the size: the indicator peaked at ${pk("US")} points in the United States and ${pk("CA")} in Canada, against ${pk("DE")} in Germany, ${pk("JP")} in Japan and ${pk("FR")} in France.`;
+  const gf = k => `${iF(-C[k].gfc_gdp, 1)} percent and unemployment rose ${iF(C[k].gfc_u, 1)} points`;
+  F.gfc = `In 2008–09 the contrast ran through Europe itself. In Germany GDP fell ${gf("DE")}. In Latvia GDP fell ${gf("LV")}, and in Spain, where unemployment kept rising into the euro crisis, GDP fell ${gf("ES")}. In the United States GDP fell ${gf("US")}.`;
+  // waves across the peers (the heat map's strip)
+  const W = intlShare(D, th), at = (arr, t) => arr[t - W.t0];
+  const fmax = (a, b, arr) => { let best = -1, bt = null; for (let t = mIdx(a); t <= mIdx(b); t++) { const v = at(arr, t); if (v > best) { best = v; bt = t; } } return bt; };
+  const r09 = fmax("2008-01", "2010-12", W.nrec), a09 = fmax("2008-01", "2011-12", W.non), r20 = fmax("2020-01", "2020-12", W.nrec), a20 = fmax("2020-01", "2021-12", W.non);
+  const still = n => n === 0 ? "none was" : n === 1 ? "one was" : `${n} were`;
+  F.waves = `At the widest point of the Great Recession, in ${intlMon(r09)}, ${at(W.nrec, r09)} of the ${at(W.cnt, r09)} peers with data were in a recession by their own GDP, but the alarm was on in only ${at(W.non, r09)}. It reached ${at(W.non, a09)} of them in ${intlMon(a09)}, when ${at(W.nrec, a09) ? "only " : ""}${still(at(W.nrec, a09))} still in recession. In 2020 the same thing happened faster: ${at(W.nrec, r20)} of the ${at(W.cnt, r20)} peers were in recession by ${intlMon(r20)}, with the alarm on in ${at(W.non, r20)}; by ${intlMon(a20)} it was on in ${at(W.non, a20)}, and ${still(at(W.nrec, a20))} still in recession.`;
+  // moving the threshold trades misses for false alarms
+  const tot = a => { let d = 0, t = 0, fa = 0; for (const k of P) { const q = intlScore(D, k, a); d += q.detected; t += q.recessions; fa += q.false_eps; } return { d, t, fa }; };
+  const T3 = tot(0.3), T6 = tot(th), T10 = tot(1.0);
+  F.thr = `at ${f1(th, 1)} points the alarm catches ${T6.d} of the ${T6.t} recessions across the peers since 1995 and sounds ${T6.fa} false alarms; lowering the threshold to 0.3 catches ${T3.d}, with ${T3.fa} false alarms, and raising it to 1.0 cuts the false alarms to ${T10.fa} but catches only ${T10.d}.`;
+  // notes
+  const semi = a => a.length < 2 ? a.join("") : a.slice(0, -1).join("; ") + "; and " + a[a.length - 1];
+  F.dropped = D.sum.dropped.length ? `Phases removed by that check: ${semi(D.sum.dropped.map(d => `${intlName(D, d.code)}, ${intlQs(d.peak)} to ${d.open ? "the latest quarter" : intlQs(d.trough)}`))}.` : "";
+  const open = D.sum.recessions.filter(r => r.open);
+  F.open = open.length ? `Recessions with no trough yet, which later data may revise away: ${intlList(open.map(r => `${intlName(D, r.code)} since the ${intlQ(r.peak)}`))}.` : "";
+  F.interp = D.sum.interpolated.length ? `Months interpolated because the survey is missing: ${intlList(D.sum.interpolated.map(x => `${intlName(D, x.code)}, ${intlMon(mIdx(x.month))}`))}.` : "";
+  // the algorithm on US GDP against the NBER chronology since 1960
+  const NB = [["1960-04", "1961-02"], ["1969-12", "1970-11"], ["1973-11", "1975-03"], ["1980-01", "1980-07"], ["1981-07", "1982-11"], ["1990-07", "1991-03"], ["2001-03", "2001-11"], ["2007-12", "2009-06"], ["2020-02", "2020-04"]];
+  const bq = (D.sum.us_bbq_check || []).map(b => ({ ...b, q: +b.peak.slice(0, 4) * 4 + +b.peak.slice(-1) - 1 }));
+  const hit = NB.map(([pk]) => bq.some(b => b.depth < 0 && Math.abs(b.q - Math.floor(mIdx(pk) / 3)) <= 2)), miss = NB.filter((_, i) => !hit[i]).map(([pk]) => pk.slice(0, 4));
+  const extra = bq.filter(b => b.depth >= 0);
+  F.usbbq = bq.length ? `Run on US GDP, the algorithm finds ${intlWord(hit.filter(Boolean).length)} of the ${intlWord(NB.length)} NBER recessions since 1960${miss.length ? `, all but ${intlList(miss)}, ${miss.length > 1 ? "recessions" : "a recession"} too shallow in GDP for it to date` : ""}${extra.length ? `; without the check it would also date a recession running from the ${intlQ(extra[0].peak)} to today, while GDP rose ${iF(extra[0].depth, 0)} percent` : ""}.` : "";
+  return F;
+}
+// share of peers with the alarm on, and in a recession by their own GDP, month by month (within a region when `reg` is given)
+function intlShare(D, alpha, reg) {
+  const key = "share|" + alpha + "|" + (reg || ""); if (D.memo[key]) return D.memo[key];
+  const ks = reg ? D.peers.filter(k => D.C[k].region === reg) : D.peers;
+  const t0 = mIdx("1995-01"), n = D.t1 - t0 + 1, on = new Array(n).fill(NaN), rec = new Array(n).fill(NaN), cnt = new Array(n).fill(0), non = new Array(n).fill(0), nrec = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) { const t = t0 + i; let a = 0, r = 0, m = 0; for (const k of ks) { const v = intlAt(D.S[k], t); if (!isFinite(v)) continue; m++; if (v >= alpha - 1e-9) a++; if (intlInRec(D, k, t)) r++; } if (m) { on[i] = a / m; rec[i] = r / m; } cnt[i] = m; non[i] = a; nrec[i] = r; }
+  return (D.memo[key] = { t0, n, on, rec, cnt, non, nrec, ks });
+}
+
+// ----- the map -----
+function intlColor(dom, v) { if (!iN(v)) return "#eeeeee"; const x = Math.max(0, Math.min(0.9999, (v - dom[0]) / (dom[1] - dom[0]))); return INTL_RAMP[Math.floor(x * INTL_RAMP.length)]; }
+function intlIndColor(v, alpha) { if (!isFinite(v)) return "#eeeeee"; if (v >= alpha - 1e-9) return INTL_RAMP[5]; return INTL_RAMP[Math.min(4, Math.max(0, Math.floor(Math.max(0, v) / alpha * 5)))]; }
+const INTL_INSETS = ["US", "CA", "JP", "KR", "AU", "IL"];
+function intlMap(el, D) {
+  if (!el) return;
+  const mode = INTL.mode, met = INTL_MET[INTL.metric], th = INTL.th;
+  if (INTL.month === null) INTL.month = D.tLast;
+  const ctl = `<div class="fig-ctl"><div class="segs" id="intl-mode">${[["stats", "Country results"], ["month", "Month by month"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === mode}">${l}</button>`).join("")}</div>${mode === "stats" ? `<div class="segs" id="intl-met">${Object.entries(INTL_MET).map(([k, m]) => `<button data-v="${k}" aria-pressed="${k === INTL.metric}">${m.label}</button>`).join("")}</div>` : `<span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span>`}</div>`;
+  const leg = mode === "stats"
+    ? `<div class="sp-legend">${esc(met.label)}${INTL.metric === "timing" ? ", months" : ""}: ${met.fmt(met.dom[0])} ${INTL_RAMP.map(c => `<i style="background:${c}"></i>`).join("")} ${met.fmt(met.dom[1])}${met.th ? ` <span class="lab">at a threshold of ${f1(th, 1)} points</span>` : ""}<span class="lab"><i style="background:#eeeeee;width:12px"></i> no data</span></div>`
+    : `<div class="sp-legend">Indicator: 0 ${INTL_RAMP.slice(0, 5).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_RAMP[5]}"></i> alarm on <span class="lab"><i class="intl-recbox"></i> in a recession by its own GDP</span></div>`;
+  el.innerHTML = figure(mode === "stats" ? "Where the Rule Works: Peer Economies of the United States" : "Where the Alarm Is On",
+    mode === "stats" ? `${met.long}. Turning-point indicator from Appendix B of the paper on monthly unemployment rates (a five-month average less its low over the twelve months ending five months earlier, threshold ${f1(th, 1)} points), scored against each country’s own recessions, dated from its GDP, since 1995.` : `Each country’s turning-point indicator in the month chosen with the slider: its five-month average unemployment rate less its low over the twelve months ending five months earlier. Darkest: at or above the threshold of ${f1(th, 1)} points, the alarm on. Outlined: in a recession dated from the country’s own GDP.`,
+    `${readme(`<p><b>What you are looking at.</b> Europe, with the other peers of the United States beside it. ${mode === "stats" ? "Darker countries score higher on the measure chosen above." : "Each country is shaded by its turning-point indicator in the chosen month; the darkest shade means the alarm is on. A black outline means the country was in a recession dated from its own GDP."}</p><p><b>How to use it.</b> ${mode === "stats" ? "Switch the measure above, or choose <b>Month by month</b> to move through time. " : "Drag the slider to move through time. "}Hover over a country for its numbers; click it to see its turning points below.</p>`)}${ctl}${mode === "month" ? `<div class="counties-viz-main intl-scrub"><div class="slider-content" id="intl-slider"></div></div>` : ""}<div class="intl-map" id="intl-mapbox"></div>${leg}${mode === "month" ? `<p class="intl-mapsum" id="intl-mapsum"></p>` : ""}`,
+    "Sources: Eurostat (une_rt_m, namq_10_gdp); OECD (harmonised unemployment rates, Quarterly National Accounts, Employment Protection Legislation indicators); Office for National Statistics (MGSX, ABMI); NBER for the United States. Map: Natural Earth, via world-atlas. Malta and Luxembourg are marked with dots; the euro area aggregate is in the table below.");
+  el.querySelectorAll("#intl-mode button").forEach(b => b.onclick = () => { INTL.mode = b.dataset.v; intlMap(el, D); });
+  el.querySelectorAll("#intl-met button").forEach(b => b.onclick = () => { INTL.metric = b.dataset.v; intlMap(el, D); });
+  intlWireTh(el, D);
+  if (mode === "month") intlScrubber(el.querySelector("#intl-slider"), D, INTL.month, t => { INTL.month = t; intlMapDraw(el, D); });
+  intlMapDraw(el, D);
+}
+function intlMapDraw(el, D) {
+  const box = el && el.querySelector("#intl-mapbox"); if (!box) return;
+  box.classList.add("chart");
+  const mode = INTL.mode, met = INTL_MET[INTL.metric], th = INTL.th, t = INTL.month;
+  if (mode === "month") { const tt = el.querySelector(".vtitle"); if (tt) tt.textContent = `Where the Alarm Was On: Peer Economies in ${intlMon(t)}`;
+    const sm = el.querySelector("#intl-mapsum"); if (sm) { const W = intlShare(D, th), i = t - W.t0; sm.innerHTML = i >= 0 && i < W.n ? `In ${intlMon(t)} the alarm was on in <b>${W.non[i]}</b> of the ${W.cnt[i]} peers with data, and <b>${W.nrec[i]}</b> were in a recession by their own GDP.` : ""; } }
+  const W = Math.max(320, box.clientWidth || 860), wide = W >= 720;
+  const EW = wide ? W - 222 : W, EH = Math.round(Math.min(560, Math.max(330, EW * 0.86)));
+  const tg = 8, tw = wide ? 100 : Math.floor((W - 12 - 2 * tg) / 3), th2 = wide ? 76 : 66;
+  const H = wide ? Math.max(EH, 3 * (th2 + 24) + 10) : EH + 2 * (th2 + 24) + 14;
+  const val = k => mode === "stats" ? met.get(D.C[k], intlScore(D, k, th)) : intlAt(D.S[k], t);
+  const fill = k => mode === "stats" ? intlColor(met.dom, val(k)) : intlIndColor(val(k), th);
+  const rec = k => mode === "month" && intlInRec(D, k, t), sel = k => mode === "stats" && k === INTL.sel, hi = k => rec(k) || sel(k);
+  const stroke = k => hi(k) ? "#111111" : "#ffffff", sw = k => sel(k) ? 2 : rec(k) ? 1.5 : 0.7;
+  const proj = d3.geoConicConformal().parallels([35, 65]).rotate([-14, 0]);
+  proj.fitExtent([[6, 6], [EW - 6, EH - 6]], { type: "Feature", geometry: { type: "MultiPoint", coordinates: [[-24, 35], [35, 35], [-12, 70.5], [32, 71], [10, 34], [-10, 63]] } });
+  const path = d3.geoPath(proj);
+  let s = `<defs><clipPath id="intl-eclip"><rect x="0" y="0" width="${EW}" height="${EH}"></rect></clipPath></defs><rect x="0" y="0" width="${EW}" height="${EH}" rx="3" fill="#fbfcfe"></rect><g clip-path="url(#intl-eclip)">`;
+  const Eur = D.feats.filter(f => !INTL_INSETS.includes(f.properties.c)), last = [];
+  for (const f of Eur) {
+    const k = f.properties.c, d = path(f); if (!d) continue;
+    if (!k || !D.C[k]) s += `<path d="${d}" fill="#f1f1f1" stroke="#ffffff" stroke-width=".6"></path>`;
+    else if (hi(k)) last.push([k, d]);   // outlined countries are drawn last, so their borders sit on top
+    else s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="#ffffff" stroke-width=".7"></path>`;
+  }
+  for (const [k, d] of last) s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="${stroke(k)}" stroke-width="${sw(k)}"></path>`;
+  for (const f of Eur) { const k = f.properties.c; if (!["MT", "LU"].includes(k)) continue; const xy = proj([f.properties.lon, f.properties.lat]); if (!xy) continue;
+    s += `<circle class="ic" data-k="${k}" cx="${xy[0].toFixed(1)}" cy="${xy[1].toFixed(1)}" r="5" fill="${fill(k)}" stroke="${hi(k) ? "#111111" : "#8a8a8a"}" stroke-width="${hi(k) ? 1.6 : 1}"></circle>`; }
+  s += `</g>`;
+  INTL_INSETS.forEach((k, i) => {
+    const f = D.feats.find(z => z.properties.c === k); if (!f) return;
+    const col = wide ? i % 2 : i % 3, row = wide ? Math.floor(i / 2) : Math.floor(i / 3);
+    const x0 = wide ? EW + 14 + col * (tw + tg) : 6 + col * (tw + tg), y0 = wide ? 6 + row * (th2 + 24) : EH + 12 + row * (th2 + 24);
+    const pj = k === "US" ? d3.geoAlbersUsa() : k === "CA" ? d3.geoConicConformal().parallels([49, 77]).rotate([96, 0]) : k === "AU" ? d3.geoConicEqualArea().parallels([-18, -36]).rotate([-134, 0]) : d3.geoMercator();
+    pj.fitExtent([[x0 + 6, y0 + 6], [x0 + tw - 6, y0 + th2 - 6]], f);
+    const d = d3.geoPath(pj)(f);
+    s += `<rect x="${x0}" y="${y0}" width="${tw}" height="${th2}" rx="3" fill="#fbfcfe" stroke="${sel(k) ? "#111111" : "#ececec"}"></rect>`;
+    if (d) s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="${stroke(k)}" stroke-width="${sw(k)}"></path>`;
+    s += `<text x="${x0 + tw / 2}" y="${y0 + th2 + 14}" text-anchor="middle" style="font-size:11px;fill:#525252">${esc(intlName(D, k))}</text>`;
+  });
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Map of the peer economies">${s}</svg><div class="tip" hidden></div>`;
+  const svg = box.querySelector("svg"), tip = box.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => {
+    const g = ev.target.closest && ev.target.closest(".ic"); if (!g) { tip.hidden = true; return; }
+    const k = g.dataset.k, c = D.C[k], sc = intlScore(D, k, th), tt = INTL.month, v = intlAt(D.S[k], tt);
+    tip.innerHTML = mode === "stats"
+      ? `<div class="h">${esc(c.name)}</div><div class="r"><span>Accuracy (AUC)</span><span class="num">${iP(c.auc)}</span></div><div class="r"><span>Recessions caught</span><span class="num">${sc.detected} of ${sc.recessions}</span></div><div class="r"><span>Median timing</span><span class="num">${iN(sc.med_onset) ? intlLagS(sc.med_onset) + " mo" : "–"}</span></div><div class="r"><span>False alarms</span><span class="num">${sc.false_eps}</span></div><div class="r"><span>Pass-through</span><span class="num">${iN(c.okun_beta) ? iF(Math.abs(c.okun_beta), 2) : "–"}</span></div><div class="r"><span>2020: GDP · jobless rate</span><span class="num">${iF(c.c20_gdp, 1)}% · ${iS(c.c20_u, 1)}</span></div>`
+      : `<div class="h">${esc(c.name)} · ${intlMon(tt)}</div><div class="r"><span>Unemployment rate</span><span class="num">${iF(intlU(D.S[k], tt), 1)}%</span></div><div class="r"><span>Indicator</span><span class="num">${iF(v, 2)}</span></div><div class="r"><span>Alarm</span><span class="num">${!isFinite(v) ? "–" : v >= th - 1e-9 ? "on" : "off"}</span></div><div class="r"><span>Recession by its own GDP</span><span class="num">${intlInRec(D, k, tt) ? "yes" : "no"}</span></div>`;
+    tip.hidden = false; const rc = box.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.max(0, Math.min(rc.height - tip.offsetHeight, ev.clientY - rc.top - 10)) + "px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+  svg.addEventListener("click", ev => { const g = ev.target.closest && ev.target.closest(".ic"); if (g) intlSelect(D, g.dataset.k, true); });
+}
+function intlScrubber(el, D, t, onChange) {
+  if (!el) return;
+  const T0 = mIdx("1995-01"), n = D.t1 - T0 + 1, i0 = Math.max(0, Math.min(n - 1, t - T0));
+  el.innerHTML = `<form class="scrubber"><div class="scrubber__slider"><div class="scrubber__slider__container"><input class="scrubber__slider__input" aria-label="Month" type="range" min="0" max="${n - 1}" value="${i0}"><output class="scrubber__slider__output"></output></div></div></form>`;
+  const form = el.querySelector("form"), input = el.querySelector("input"), out = el.querySelector("output");
+  form.addEventListener("submit", e => e.preventDefault());
+  const upd = () => { const i = input.valueAsNumber, pct = i / Math.max(1, n - 1); input.style.setProperty("--fill", (pct * 100) + "%"); out.innerHTML = MON[(T0 + i) % 12] + "<br/>" + Math.floor((T0 + i) / 12); out.style.left = `calc(${pct * 100}% + ${(0.5 - pct) * 14}px)`; };
+  let raf = null; input.addEventListener("input", () => { upd(); cancelAnimationFrame(raf); raf = requestAnimationFrame(() => onChange(T0 + input.valueAsNumber)); });
+  let hideT = null; const show = () => { clearTimeout(hideT); form.classList.add("sliding"); }, hide = () => { clearTimeout(hideT); hideT = setTimeout(() => form.classList.remove("sliding"), 700); };
+  input.addEventListener("pointerdown", show); input.addEventListener("input", show); input.addEventListener("pointerup", hide); input.addEventListener("change", hide); input.addEventListener("blur", hide); input.addEventListener("keyup", hide);
+  upd();
+}
+function intlSelect(D, k, scroll) {
+  if (!D.C[k] || k === "EA") return;
+  INTL.sel = k;
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  if (INTL.mode === "stats") run(() => intlMapDraw(document.getElementById("fig-intl-map"), D));
+  run(() => intlHeat(document.getElementById("fig-intl-heat"), D));
+  run(() => intlCountry(document.getElementById("fig-intl-country"), D));
+  run(() => intlDots(document.getElementById("fig-intl-dots"), D));
+  if (scroll) { const c = document.getElementById("fig-intl-country"); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); }
+}
+function intlCards(el, D) {
+  if (!el) return;
+  const pe = D.sum.mechanism.peers, th = INTL.th, P = D.peers, C = D.C, er = intlEplCor(D, "epl_r");
+  let det = 0, tot = 0; for (const k of P) { const s = intlScore(D, k, th); det += s.detected; tot += s.recessions; }
+  el.innerHTML =
+    result("Pass-through and accuracy", iF(pe.cor_okun.auc, 2), "correlation", `across ${pe.n} peers · with dismissal law: ${iF(er.r, 2)}`) +
+    result("Recessions caught", `${det} of ${tot}`, `at ${f1(th, 1)} points`, `by the alarm, across all ${P.length} peers since 1995`) +
+    result("United States", iP(C.US.auc), "accuracy (AUC)", `pass-through ${iF(Math.abs(C.US.okun_beta), 2)} · Germany: ${iP(C.DE.auc)} and ${iF(Math.abs(C.DE.okun_beta), 2)}`) +
+    result("2020: jobless rate", iS(C.US.c20_u, 1), "points, United States", `GDP ${iF(C.US.c20_gdp, 1)}% · Germany: ${iS(C.DE.c20_u, 1)} points, GDP ${iF(C.DE.c20_gdp, 1)}%`);
+}
+function intlThCtl() { return `<div class="segs intl-th">${INTL_TH.map(v => `<button data-v="${v}" aria-pressed="${Math.abs(v - INTL.th) < 1e-9}">${f1(v, 1)}</button>`).join("")}</div>`; }
+function intlWireTh(el, D) { el.querySelectorAll(".intl-th button").forEach(b => b.onclick = () => { INTL.th = +b.dataset.v; renderIntlFigs(D); }); }
+
+// ----- where recessions happened: by country or by region, month by month -----
+function intlHeat(el, D) {
+  if (!el) return;
+  const th = INTL.th, P = D.peers, byReg = INTL.heat === "region", rows = [];
+  if (byReg) INTL_REG.forEach(reg => rows.push({ reg, label: reg, sh: intlShare(D, th, reg) }));
+  else for (const reg of INTL_REG) P.filter(k => D.C[k].region === reg).forEach((k, j) => rows.push({ k, grp: j === 0 ? reg : null, label: intlName(D, k) }));
+  const SH = intlShare(D, th), t0 = SH.t0, n = SH.n;
+  el.innerHTML = figure(byReg ? "Where Recessions Happened: Share of Each Region’s Peers in Recession" : "Where Recessions Happened: Peer Economies, Month by Month",
+    byReg ? `Share of each region’s peer economies whose turning-point indicator is at or above the threshold of ${f1(th, 1)} points, by month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. A black line under a row marks months when at least half the region’s peers were in a recession dated from their own GDP. The strip on top is the share of all ${P.length} peers.` : `Turning-point indicator by country and month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. Darker cells are closer to the threshold of ${f1(th, 1)} points; the darkest, at or above it, mean the alarm is on. A black line under a row marks the country’s own recessions, dated from its GDP. The strip on top is the share of all ${P.length} peers with the alarm on, and the share in a recession.`,
+    `${readme((byReg ? `<p><b>What you are looking at.</b> Each thin column is a month and each row a region. A cell turns dark blue when most of the region’s peer economies have their alarm on.</p><p><b>What to look for.</b> The Great Recession and 2020 run through almost every row; the euro crisis of 2011–13 is concentrated in Southern Europe.</p>` : `<p><b>What you are looking at.</b> Each thin column is a month and each row an economy, grouped by region. A cell turns dark blue when that country’s alarm is on; the black line under a row marks the months its own GDP says it was in recession.</p><p><b>What to look for.</b> A dark band sitting on a black line is a recession the labor market saw. A black line under pale cells is a recession that never reached unemployment. Dark cells with no line nearby are false alarms.</p>`) + `<p>Hover for the numbers; click a row to see that ${byReg ? "region’s first country" : "country"} below.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-heatby">${[["country", "By country"], ["region", "By region"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === INTL.heat}">${l}</button>`).join("")}</div><span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span></div>
+     <div class="val-canvas" id="intl-heat-cv"><canvas></canvas><div class="tip" hidden></div></div>
+     <div class="sp-legend">${byReg ? `0% ${INTL_RAMP.map(c => `<i style="background:${c}"></i>`).join("")} 100% <span class="lab">of the region’s peers with the alarm on</span><span class="lab"><i class="intl-recline"></i> most in a recession by their own GDP</span>` : `0 ${INTL_RAMP.slice(0, 5).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_RAMP[5]}"></i> alarm on <span class="lab"><i class="intl-recline"></i> recession by its own GDP</span>`}</div>`,
+    "Sources: Eurostat, OECD, ONS and NBER. Recessions are dated from each country’s quarterly real GDP with the Harding–Pagan algorithm; the United States keeps the NBER chronology. Light gray: no data.");
+  el.querySelectorAll("#intl-heatby button").forEach(b => b.onclick = () => { INTL.heat = b.dataset.v; intlHeat(el, D); });
+  intlWireTh(el, D);
+  const wrap = el.querySelector("#intl-heat-cv"), cv = wrap.querySelector("canvas"), tip = wrap.querySelector(".tip");
+  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = byReg ? (narrow ? 18 : 22) : (narrow ? 11 : 13), gap = byReg ? 3 : 7, top = 96, labW = byReg ? (narrow ? 92 : 168) : (narrow ? 30 : 118), M = { r: 8, b: 26 };
+  const rowY = []; { let y = top, first = true; rows.forEach(r => { if (!first && (byReg || r.grp)) y += gap; rowY.push(y); y += rh; first = false; }); }
+  const H = rowY[rowY.length - 1] + rh + M.b + 4, dpr = window.devicePixelRatio || 1;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const font = getComputedStyle(document.body).fontFamily, cw = (W - labW - M.r) / n, X = i => labW + i * cw;
+  // strip: share of all peers with the alarm on, and in a recession
+  const sTop = 22, sBot = top - 18, SY = v => sBot - v * (sBot - sTop);
+  g.strokeStyle = "#ececec"; g.lineWidth = 1; for (const v of [0, 0.5, 1]) { g.beginPath(); g.moveTo(labW, Math.round(SY(v)) + .5); g.lineTo(W - M.r, Math.round(SY(v)) + .5); g.stroke(); }
+  g.beginPath(); g.moveTo(X(0), SY(0)); SH.on.forEach((v, i) => g.lineTo(X(i + .5), SY(isFinite(v) ? v : 0))); g.lineTo(X(n), SY(0)); g.closePath(); g.fillStyle = "rgba(79,138,215,.28)"; g.fill();
+  g.beginPath(); SH.on.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = "#2357b0"; g.lineWidth = 1.4; g.stroke();
+  g.beginPath(); SH.rec.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = "#262626"; g.lineWidth = 1.2; g.stroke();
+  g.font = "10px " + font; g.fillStyle = "#a3a3a3"; g.textAlign = "right"; g.fillText("100%", labW - 4, SY(1) + 3); g.fillText("0%", labW - 4, SY(0) + 3);
+  g.textAlign = "left"; g.fillStyle = "#2357b0"; g.fillText("Peers with the alarm on", labW + 2, sTop - 9); const aw = g.measureText("Peers with the alarm on").width; g.fillStyle = "#262626"; g.fillText("·  In a recession by their own GDP", labW + 10 + aw, sTop - 9);
+  // cells
+  const regRamp = v => INTL_RAMP[Math.max(0, Math.min(5, Math.ceil(v * 6) - 1))];
+  rows.forEach((r, j) => { const y = rowY[j];
+    if (byReg) { for (let i = 0; i < n; i++) { const v = r.sh.on[i]; g.fillStyle = isFinite(v) ? regRamp(v) : "#f3f3f3"; g.fillRect(X(i), y, Math.ceil(cw + .5), rh - 3); }
+      g.fillStyle = "#1a1a1a"; for (let i = 0; i < n; i++) if (r.sh.rec[i] >= 0.5) g.fillRect(X(i), y + rh - 2.5, Math.ceil(cw + .5), 2); }
+    else { const s = D.S[r.k];
+      for (let i = 0; i < n; i++) { const v = intlAt(s, t0 + i); g.fillStyle = isFinite(v) ? intlIndColor(v, th) : "#f3f3f3"; g.fillRect(X(i), y, Math.ceil(cw + .5), rh - 4); }
+      g.fillStyle = "#1a1a1a"; for (const rc of (D.R[r.k] || [])) { const a = Math.max(0, rc.s - t0), b = Math.min(n - 1, rc.e - t0); if (b >= a) g.fillRect(X(a), y + rh - 3, Math.max(1.5, X(b + 1) - X(a)), 2); }
+      if (r.k === INTL.sel) { g.strokeStyle = "#111111"; g.lineWidth = 1; g.strokeRect(labW - .5, y - 1, W - labW - M.r + 1, rh + 1); } } });
+  g.font = (narrow ? "9px " : "10.5px ") + font; g.textAlign = "right";
+  rows.forEach((r, j) => { g.fillStyle = r.k && r.k === INTL.sel ? "#111111" : "#6b6b6b"; g.fillText(byReg ? (narrow ? r.label.replace("Central and Eastern Europe", "Central & East").replace("Asia-Pacific and Israel", "Asia-Pacific").replace("Nordic countries", "Nordic") : r.label) : (narrow ? r.k : r.label), labW - 6, rowY[j] + rh - (byReg ? 8 : 5)); });
+  g.font = "10px " + font; g.fillStyle = "#a3a3a3"; g.textAlign = "center";
+  const step = narrow ? 10 : 5; for (let t = Math.ceil(t0 / 12) * 12; t < t0 + n; t += 12) if (Math.floor(t / 12) % step === 0) g.fillText(Math.floor(t / 12), X(t - t0), H - 8);
+  wrap.onpointermove = ev => {
+    const rc = cv.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, py = (ev.clientY - rc.top) * H / rc.height, i = Math.floor((px - labW) / cw);
+    if (i < 0 || i >= n) { tip.hidden = true; return; }
+    const t = t0 + i; let html;
+    if (py < top - 6) html = `<div class="h">${intlMon(t)}</div><div class="r"><span>Peers with the alarm on</span><span class="num">${SH.non[i]} of ${SH.cnt[i]}</span></div><div class="r"><span>In a recession by their own GDP</span><span class="num">${SH.nrec[i]} of ${SH.cnt[i]}</span></div>`;
+    else { const j = rowY.findIndex(y => py >= y - gap / 2 && py < y + rh); if (j < 0) { tip.hidden = true; return; } const r = rows[j];
+      if (byReg) html = `<div class="h">${esc(r.label)} · ${intlMon(t)}</div><div class="r"><span>Alarm on</span><span class="num">${r.sh.non[i]} of ${r.sh.cnt[i]}</span></div><div class="r"><span>Recession by own GDP</span><span class="num">${r.sh.nrec[i]} of ${r.sh.cnt[i]}</span></div><div class="sb-help">${esc(intlList(r.sh.ks.map(k => intlName(D, k))))}</div>`;
+      else { const s = D.S[r.k], v = intlAt(s, t);
+        html = `<div class="h">${esc(r.label)} · ${intlMon(t)}</div><div class="r"><span>Unemployment rate</span><span class="num">${iF(intlU(s, t), 1)}%</span></div><div class="r"><span>Indicator</span><span class="num">${iF(v, 2)}</span></div><div class="r"><span>Alarm</span><span class="num">${!isFinite(v) ? "–" : v >= th - 1e-9 ? "on" : "off"}</span></div><div class="r"><span>Recession by own GDP</span><span class="num">${intlInRec(D, r.k, t) ? "yes" : "no"}</span></div>`; } }
+    tip.innerHTML = html; tip.hidden = false;
+    const left = ev.clientX - rc.left; tip.style.left = Math.max(0, Math.min(rc.width - tip.offsetWidth, left + 14 + tip.offsetWidth > rc.width ? left - tip.offsetWidth - 14 : left + 14)) + "px"; tip.style.top = Math.max(0, Math.min(ev.clientY - rc.top + 12, rc.height - tip.offsetHeight)) + "px";
+  };
+  wrap.onpointerleave = () => tip.hidden = true;
+  wrap.onclick = ev => { const rc = cv.getBoundingClientRect(), py = (ev.clientY - rc.top) * H / rc.height, j = rowY.findIndex(y => py >= y - gap / 2 && py < y + rh); if (j < 0) return; const r = rows[j]; intlSelect(D, r.k || (r.sh.ks.includes(INTL.sel) ? INTL.sel : r.sh.ks[0]), true); };
+}
+
+// ----- one country against its own recessions -----
+function intlCountry(el, D) {
+  if (!el) return;
+  const k = INTL.sel, c = D.C[k], s = D.S[k], th = INTL.th, sc = intlScore(D, k, th), view = INTL.view;
+  const x0 = Math.max(s.start, mIdx("1985-01")), x1 = s.start + s.u.length - 1;
+  const opts = INTL_REG.map(reg => `<optgroup label="${esc(reg)}">${D.peers.filter(q => D.C[q].region === reg).map(q => `<option value="${q}" ${q === k ? "selected" : ""}>${esc(D.C[q].name)}</option>`).join("")}</optgroup>`).join("");
+  const recs = D.R[k] || [], nber = recs.length && recs[0].source === "NBER";
+  const src = nber ? "the NBER business-cycle chronology" : `its quarterly real GDP (${c.gdp_src}), with the Harding–Pagan algorithm`;
+  const usrc = c.u_src === "ONS" ? "Office for National Statistics, MGSX (aged 16 and over; rolling three-month averages, labelled by their middle month)" : c.u_src === "OECD" ? "OECD harmonised unemployment rates" : "Eurostat, une_rt_m";
+  const rowsT = recs.slice().reverse().filter(r => r.e >= x0).map(r => { const e = sc.eps.find(z => z.r.start === r.start);
+    const first = !e ? `<span class="muted">${r.e < mIdx(D.sum.params.start) ? "before 1995" : "before the data"}</span>` : !e.detected ? "<b>missed</b>" : e.carry ? `${intlMon(e.first)} <span class="muted">(already on)</span>` : intlMon(e.first);
+    return `<tr><td class="l">${intlRecLab(r)}${r.open ? ' <span class="muted">(no trough yet)</span>' : ""}</td><td class="num">${iN(r.depth) ? iF(r.depth, 1) + "%" : "–"}</td><td class="l">${first}</td><td class="num">${e && e.detected && !e.carry ? intlLagS(e.lag) : "–"}</td></tr>`; }).join("");
+  el.innerHTML = figure(`Turning Points in ${esc(c.name)}`, `${view === "ind" ? "Turning-point indicator (Appendix B rule: a five-month average of the unemployment rate less its low over the twelve months ending five months earlier)" : "Unemployment rate, percent of the labor force, seasonally adjusted"}, ${esc(c.name)}, ${intlMon(x0)} to ${intlMon(x1)}. Shaded: recessions dated from ${src}. Dots: the first alarm for each recession since 1995 that the rule caught; lighter dots, alarms already on when the recession’s window opened.`,
+    `${readme(`<p><b>What you are looking at.</b> ${view === "ind" ? "The country’s turning-point indicator. The alarm sounds when the line crosses the threshold." : "The country’s unemployment rate."} The gray bands are its own recessions, dated from its GDP${nber ? " (for the United States, the NBER’s dates)" : ""}.</p><p><b>How to read it.</b> A dot near the left edge of a band is an alarm that came on time. A band with no dot is a recession the rule missed. Pick another country from the list, or click one on the map or the heat map above.</p>`)}<div class="fig-ctl"><select id="intl-sel" aria-label="Country">${opts}</select><div class="segs" id="intl-view">${[["ind", "Indicator"], ["u", "Unemployment rate"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === view}">${l}</button>`).join("")}</div><span class="intl-thwrap"><span class="intl-thlab">Threshold</span>${intlThCtl()}</span></div><div class="vbody"></div>
+     <div class="results intl-cres">${result("Recessions caught", `${sc.detected} of ${sc.recessions}`, "since 1995", iN(sc.med_onset) ? `first alarm typically ${intlLag(sc.med_onset)}` : sc.carried ? "each alarm left over from an earlier one" : "")}${result("Accuracy (AUC)", iP(c.auc), "out of 100", `balanced accuracy at ${f1(th, 1)} points: ${iP(sc.bal_acc)}`)}${result("False alarms", String(sc.false_eps), sc.false_eps === 1 ? "episode" : "episodes", sc.fa.length ? "starting " + intlList(sc.fa.map(e => intlMon(e.s))) : `none since ${intlMon(sc.from)}`)}${result("Pass-through", iN(c.okun_beta) ? iF(Math.abs(c.okun_beta), 2) : "–", "points per point of GDP", `R² ${iF(c.okun_r2, 2)} · ${c.okun_quarters || "–"} quarters since 1995`)}</div>
+     <div class="tablewrap"><table class="udef intl-rtab"><thead><tr><th class="l">Recession</th><th>GDP fall</th><th class="l">First alarm</th><th>Months from start</th></tr></thead><tbody>${rowsT}</tbody></table></div>`,
+    `Sources: ${usrc}; recessions from ${src}. A recession counts as caught if the alarm sounds between ${D.sum.params.tol_before} months before it starts and ${D.sum.params.tol_after} months after it ends. “Already on”: the alarm was on before that window opened, left over from an earlier episode, so its timing says nothing about this recession. Scored from ${intlMon(sc.from)}.`);
+  el.querySelector("#intl-sel").onchange = e => intlSelect(D, e.target.value, false);
+  el.querySelectorAll("#intl-view button").forEach(b => b.onclick = () => { INTL.view = b.dataset.v; intlCountry(el, D); });
+  intlWireTh(el, D);
+  const at = t => view === "ind" ? intlAt(s, t) : intlU(s, t);
+  const mk = sc.eps.filter(e => e.detected).map(e => ({ t: e.first, v: at(e.first), color: e.carry ? "--d4" : "--d10" }));
+  lineChart(softBody(el.querySelector(".vbody")), { ...SERIES_LINE, x: [x0, x1], series: [{ label: view === "ind" ? "Indicator" : "Unemployment rate", color: "--d8", width: 2.1, at }],
+    shade: recs.map(r => ({ from: r.s, to: r.e })), hlines: view === "ind" ? [{ y: th, label: `Threshold, ${f1(th, 1)}` }] : [], markers: mk, yUnit: view === "ind" ? "" : "%", height: 330, zero: view === "ind", aria: `Turning points in ${c.name}` });
+}
+
+// ----- every peer against its own recessions -----
+const INTL_ERA = [["gfc", "Great Recession, 2007–10", "--d10"], ["euro", "Euro crisis, 2011–14", "--d7"], ["c20", "Pandemic, 2019–20", "--d3"], ["oth", "Other recessions", "--s-agg"]];
+const intlEra = r => { const y = Math.floor(r.s / 12); return y >= 2007 && y <= 2010 ? "gfc" : y >= 2011 && y <= 2014 ? "euro" : y >= 2019 && y <= 2020 ? "c20" : "oth"; };
+function intlDots(el, D) {
+  if (!el) return;
+  const th = INTL.th, by = INTL.dotsBy, P = D.peers.slice(), p = D.sum.params;
+  if (by === "auc") P.sort((a, b) => (D.C[b].auc || 0) - (D.C[a].auc || 0)); else if (by === "okun") P.sort((a, b) => Math.abs(D.C[b].okun_beta || 0) - Math.abs(D.C[a].okun_beta || 0)); else P.sort((a, b) => INTL_REG.indexOf(D.C[a].region) - INTL_REG.indexOf(D.C[b].region));
+  el.innerHTML = figure("Every Peer Against Its Own Recessions", `First alarm for each recession since 1995, in months from the first month of the recession (Appendix B rule, threshold ${f1(th, 1)} points). Hollow circles at the right: recessions the alarm missed. Squares at the left edge: the alarm was already on when the recession’s window opened, left over from an earlier episode. Rows sorted ${by === "auc" ? "by accuracy (AUC), highest first" : by === "okun" ? "by pass-through, highest first" : "by region"}.`,
+    `${readme(`<p><b>What you are looking at.</b> Each row is an economy and each dot one of its recessions, dated from its own GDP. A dot left of the line means the alarm sounded before the recession began; right of it, after.</p><p><b>How to read it.</b> Near the top, where the rule is most accurate, the dots cluster within a few months of zero. Further down they drift right and turn hollow: alarms that came late, or never.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-dby">${[["auc", "By accuracy"], ["okun", "By pass-through"], ["region", "By region"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === by}">${l}</button>`).join("")}</div><span class="intl-thwrap"><span class="intl-thlab">Threshold</span>${intlThCtl()}</span></div>${swatches(INTL_ERA.map(e => ({ label: e[1], color: e[2] })))}<div class="vbody" id="intl-dotb"></div>`,
+    `Timing is measured from the first month of the quarter after the GDP peak (for the United States, the month after the NBER peak). A recession counts as caught if the alarm sounds between ${p.tol_before} months before it starts and ${p.tol_after} months after it ends, so the axis begins at −${p.tol_before}. Recessions before a country’s unemployment data begin are left out.`);
+  el.querySelectorAll("#intl-dby button").forEach(b => b.onclick = () => { INTL.dotsBy = b.dataset.v; intlDots(el, D); });
+  intlWireTh(el, D);
+  const body = el.querySelector("#intl-dotb"); body.classList.add("chart");
+  const W = Math.max(320, body.clientWidth || 860), narrow = W < 560, rh = 16, M = { l: narrow ? 34 : 122, r: 52, t: 22, b: 36 }, H = M.t + M.b + rh * P.length;
+  const lo = -p.tol_before, hi = Math.max(24, Math.ceil(Math.max(0, ...P.flatMap(k => intlScore(D, k, th).eps.filter(e => e.detected).map(e => e.lag))) / 6) * 6), X = v => M.l + (v - lo) / (hi - lo) * (W - M.l - M.r - 30);
+  const xMiss = W - M.r + 8;
+  let s = "";
+  for (let v = -6; v <= hi; v += 6) s += `<line x1="${X(v)}" x2="${X(v)}" y1="${M.t - 4}" y2="${H - M.b}" stroke="#ececec"></line><text x="${X(v)}" y="${H - M.b + 15}" text-anchor="middle">${v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : 0}</text>`;
+  s += `<line x1="${X(0)}" x2="${X(0)}" y1="${M.t - 8}" y2="${H - M.b}" stroke="var(--ink-2)" stroke-width="1.5"></line><text x="${X(0)}" y="${M.t - 11}" text-anchor="middle" style="font-weight:600;fill:var(--ink-2)">Recession begins</text>`;
+  s += `<text x="${xMiss}" y="${M.t - 11}" text-anchor="middle" style="fill:#737373">Missed</text>${narrow ? "" : `<text x="${X(lo) - 4}" y="${M.t - 11}" text-anchor="start" style="fill:#737373">Already on</text>`}`;
+  s += `<text x="${(M.l + W - M.r) / 2}" y="${H - 6}" text-anchor="middle" style="fill:#737373">Months from the start of the recession to the first alarm</text>`;
+  const pts = [];
+  P.forEach((k, i) => {
+    const y = M.t + i * rh + rh / 2, sc = intlScore(D, k, th);
+    s += `<line x1="${M.l}" x2="${W - M.r + 16}" y1="${y}" y2="${y}" stroke="#f3f3f3"></line><text class="dl" data-k="${k}" x="${M.l - 8}" y="${y + 4}" text-anchor="end" style="cursor:pointer;fill:${k === INTL.sel ? "#111" : "#525252"};font-weight:${k === INTL.sel ? 600 : 400}">${esc(narrow ? k : intlName(D, k))}</text>`;
+    const placed = {};
+    for (const e of sc.eps) { const era = INTL_ERA.find(z => z[0] === intlEra(e.r)), x = !e.detected ? xMiss : X(e.carry ? lo : Math.min(hi, e.lag)), key = Math.round(x / 4);
+      placed[key] = (placed[key] || 0) + 1; const m = placed[key] - 1, yy = y + (m === 0 ? 0 : (m % 2 ? -1 : 1) * Math.ceil(m / 2) * 3);
+      s += !e.detected ? `<circle cx="${x}" cy="${yy}" r="4.3" fill="#fff" stroke="var(${era[2]})" stroke-width="1.7"></circle>` : e.carry ? `<rect x="${x - 3.8}" y="${yy - 3.8}" width="7.6" height="7.6" fill="var(${era[2]})" stroke="#fff" stroke-width="1"></rect>` : `<circle cx="${x}" cy="${yy}" r="4.7" fill="var(${era[2]})" stroke="#fff" stroke-width="1"></circle>`;
+      pts.push({ x, y: yy, k, e }); }
+  });
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="First alarms against each country's own recessions">${s}</svg><div class="tip" hidden></div>`;
+  const svg = body.querySelector("svg"), tip = body.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => {
+    const rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width, py = (ev.clientY - rc.top) * H / rc.height;
+    let best = null, bd = 10; for (const q of pts) { const d = Math.hypot(q.x - px, q.y - py); if (d < bd) { bd = d; best = q; } }
+    if (!best) { tip.hidden = true; return; }
+    const r = best.e.r, e = best.e;
+    tip.innerHTML = `<div class="h">${esc(intlName(D, best.k))}</div><div class="r"><span>Recession</span><span class="num">${intlRecLab(r)}</span></div><div class="r"><span>GDP fall</span><span class="num">${iF(r.depth, 1)}%</span></div><div class="r"><span>First alarm</span><span class="num">${e.detected ? intlMon(e.first) : "missed"}</span></div><div class="r"><span>Timing</span><span class="num">${!e.detected ? "–" : e.carry ? "already on" : intlLagS(e.lag) + " mo"}</span></div>`;
+    tip.hidden = false; let left = best.x / W * rc.width + 12; if (left + tip.offsetWidth > rc.width) left -= tip.offsetWidth + 24; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.max(0, best.y / H * rc.height - 20) + "px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+  svg.addEventListener("click", ev => { const t = ev.target.closest && ev.target.closest(".dl"); if (t) intlSelect(D, t.dataset.k, true); });
+}
+
+// ----- pass-through, institutions and accuracy -----
+const INTL_X = { okun: ["Pass-through (Okun coefficient, absolute value)", c => iN(c.okun_beta) ? Math.abs(c.okun_beta) : NaN, 2], epl_r: ["Protection of regular contracts (OECD EPL index, 0 to 6)", c => iN(c.epl_r) ? c.epl_r : NaN, 1], epl_t: ["Regulation of temporary contracts (OECD EPL index, 0 to 6)", c => iN(c.epl_t) ? c.epl_t : NaN, 1] };
+function intlScatter(el, D) {
+  if (!el) return;
+  const xk = INTL.sc, [xl, xf, xd] = INTL_X[xk], P = D.peers.filter(k => isFinite(xf(D.C[k])) && iN(D.C[k].auc) && D.C[k].rec_months > 0);
+  const xs = P.map(k => xf(D.C[k])), ys = P.map(k => 100 * D.C[k].auc), fit = intlCor(xs, ys), n = P.length;
+  el.innerHTML = figure(xk === "okun" ? "The Rule Works Where Okun’s Law Bites" : "Dismissal Law Does Not Predict Where the Rule Works", `Accuracy (AUC) of the Appendix B rule against ${xl.charAt(0).toLowerCase() + xl.slice(1)}, by economy, since 1995. Dot size: recession months scored. Line: least-squares fit across the ${n} economies shown; correlation ${iF(fit.r, 2)}.`,
+    `${readme(`<p><b>What you are looking at.</b> Each dot is an economy. Higher dots are economies where the unemployment-based alarm separates recessions from expansions well; 50 is a coin flip.</p><p><b>How to read it.</b> With pass-through on the horizontal axis the dots rise to the right: the rule works where recessions show up in unemployment. With either index of employment protection they do not.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-scx">${[["okun", "Pass-through"], ["epl_r", "Regular contracts"], ["epl_t", "Temporary contracts"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === xk}">${l}</button>`).join("")}</div>${swatches([{ label: "Euro area members in Appendix B", color: "--d9" }, { label: "Other peers", color: "--d4" }])}</div><div class="vbody" id="intl-scb"></div>`,
+    "Pass-through: the four-quarter change in the unemployment rate regressed on four-quarter real GDP growth (log points), from 1995 to the latest quarter, as in Ball, Leigh and Loungani (2017). Employment protection: OECD indicators, version 4, averaged over the years since 1995 the OECD reports; Bulgaria, Croatia, Cyprus, Malta and Romania are not covered. AUC: the chance that a month in a recession has a higher indicator than a month outside one.");
+  el.querySelectorAll("#intl-scx button").forEach(bt => bt.onclick = () => { INTL.sc = bt.dataset.v; intlScatter(el, D); });
+  const body = el.querySelector("#intl-scb"); body.classList.add("chart");
+  const W = Math.max(320, body.clientWidth || 860), H = Math.round(Math.min(480, Math.max(330, W * 0.55))), M = { l: 50, r: 16, t: 14, b: 44 };
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), pad = (x1 - x0) * 0.06, X0 = xk === "okun" ? 0 : Math.max(0, Math.floor((x0 - pad) * 2) / 2), X1 = x1 + pad, Y0 = 30, Y1 = 100;
+  const X = v => M.l + (v - X0) / (X1 - X0) * (W - M.l - M.r), Y = v => M.t + (Y1 - v) / (Y1 - Y0) * (H - M.t - M.b);
+  let s = `<defs><clipPath id="intl-scclip"><rect x="${M.l}" y="${M.t}" width="${W - M.l - M.r}" height="${H - M.t - M.b}"></rect></clipPath></defs>`;
+  for (const v of [30, 40, 50, 60, 70, 80, 90, 100]) s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 50 ? "#cfcfcf" : "#ececec"}"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}</text>`;
+  s += `<text x="${W - M.r}" y="${Y(50) - 5}" text-anchor="end" style="fill:#8a8a8a">coin flip</text>`;
+  for (const v of niceTicks(X0, X1, 6)) s += `<text x="${X(v)}" y="${H - M.b + 16}" text-anchor="middle">${v.toFixed(xd)}</text>`;
+  s += `<text x="${(M.l + W - M.r) / 2}" y="${H - 6}" text-anchor="middle" style="fill:#737373">${esc(xl)}</text><text transform="translate(13 ${(M.t + H - M.b) / 2}) rotate(-90)" text-anchor="middle" style="fill:#737373">Accuracy (AUC)</text>`;
+  s += `<path d="M${X(X0)},${Y(fit.a + fit.b * X0)}L${X(X1)},${Y(fit.a + fit.b * X1)}" stroke="#5a9be0" stroke-width="1.8" fill="none" clip-path="url(#intl-scclip)"></path>`;
+  const rm = d3.max(P, k => D.C[k].rec_months), rad = k => 3.2 + 6 * Math.sqrt(D.C[k].rec_months / rm);
+  const order = P.slice().sort((p, q) => D.C[q].rec_months - D.C[p].rec_months), boxes = [];
+  for (const k of order) { const c = D.C[k]; s += `<circle class="sd" data-k="${k}" cx="${X(xf(c))}" cy="${Y(100 * c.auc)}" r="${rad(k)}" fill="var(${c.appendix ? "--d9" : "--d4"})" fill-opacity=".85" stroke="${k === INTL.sel ? "#111" : "#fff"}" stroke-width="${k === INTL.sel ? 1.8 : 1.2}" style="cursor:pointer"></circle>`; }
+  const fs = W < 560 ? 9.5 : 10.5;
+  for (const k of order.slice().sort((a, b) => (b === "US") - (a === "US"))) { const c = D.C[k], x = X(xf(c)), y = Y(100 * c.auc), txt = W < 560 ? k : c.name, w = txt.length * fs * 0.56;
+    for (const [lx, ly] of [[x + rad(k) + 3, y + 3.5], [x - rad(k) - 3 - w, y + 3.5], [x - w / 2, y - rad(k) - 3], [x - w / 2, y + rad(k) + 11]]) { const bb = [lx, ly - fs, lx + w, ly + 2];
+      if (lx < M.l || lx + w > W - 2 || ly > H - M.b || ly - fs < M.t) continue;
+      if (!boxes.some(o => !(bb[2] < o[0] || bb[0] > o[2] || bb[3] < o[1] || bb[1] > o[3])) && !P.some(q => q !== k && Math.hypot(X(xf(D.C[q])) - Math.max(bb[0], Math.min(bb[2], X(xf(D.C[q])))), Y(100 * D.C[q].auc) - Math.max(bb[1], Math.min(bb[3], Y(100 * D.C[q].auc)))) < rad(q) - 1)) { boxes.push(bb); s += `<text x="${lx}" y="${ly}" style="font-size:${fs}px;fill:#525252;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none">${esc(txt)}</text>`; break; } } }
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Accuracy against ${esc(xl)}">${s}</svg><div class="tip" hidden></div>`;
+  const svg = body.querySelector("svg"), tip = body.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => { const g = ev.target.closest && ev.target.closest(".sd"); if (!g) { tip.hidden = true; return; } const c = D.C[g.dataset.k];
+    tip.innerHTML = `<div class="h">${esc(c.name)}</div><div class="r"><span>Accuracy (AUC)</span><span class="num">${iP(c.auc)}</span></div><div class="r"><span>${xk === "okun" ? "Pass-through" : "EPL index"}</span><span class="num">${iF(xf(c), 2)}</span></div><div class="r"><span>Recession months</span><span class="num">${c.rec_months}</span></div>`;
+    tip.hidden = false; const rc = body.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.max(0, ev.clientY - rc.top - 10) + "px"; });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+  svg.addEventListener("click", ev => { const g = ev.target.closest && ev.target.closest(".sd"); if (g) intlSelect(D, g.dataset.k, true); });
+}
+
+// ----- how much of a recession reached unemployment: 2020 and 2008-09 -----
+function intlConv(el, D) {
+  if (!el) return;
+  const ep = INTL.ep, gk = ep + "_gdp", uk = ep + "_u", P = D.peers.filter(k => iN(D.C[k][gk]) && iN(D.C[k][uk]) && D.C[k][gk] < 0);
+  el.innerHTML = figure(ep === "c20" ? "2020: The Same Collapse, Very Different Unemployment" : "2008–09: How Much of the Great Recession Reached Unemployment",
+    ep === "c20" ? "Fall in real GDP from the fourth quarter of 2019 to its 2020 low (percent), against the rise in the unemployment rate from February 2020 to its high through June 2021 (percentage points), by economy." : "Fall in real GDP from its 2007–08 high to its 2008–10 low (percent), against the rise in the unemployment rate from its low between January 2007 and June 2008 to its high through 2011 (percentage points), by economy.",
+    `${readme(`<p><b>What you are looking at.</b> Each dot is an economy: how far its GDP fell, and how far its unemployment rate rose.</p><p><b>How to read it.</b> Dots high on the chart turned the downturn into unemployment. Dots near the bottom absorbed it in hours, short-time work and workers kept on the payroll, where an unemployment-based rule sees little of it.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-ep">${[["c20", "2020"], ["gfc", "2008–09"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === ep}">${l}</button>`).join("")}</div>${swatches([{ label: "North America", color: "--d10" }, { label: "Europe", color: "--d6" }, { label: "Asia-Pacific and Israel", color: "--d2" }])}</div><div class="vbody" id="intl-convb"></div>`,
+    `Sources: Eurostat, OECD and ONS. The windows are the same for every economy, so the figures are comparable across countries but are not each country’s own recession dates; for the euro crisis countries the 2008–09 window runs into the start of 2011–13. Ireland’s GDP is swollen by the accounts of multinational firms, which makes its output swings a poor guide to its labor market. ${D.peers.length - P.length ? `Not shown: ${intlList(D.peers.filter(k => !P.includes(k)).map(k => intlName(D, k)))} (no fall in GDP, or no data, in the window).` : ""}`);
+  el.querySelectorAll("#intl-ep button").forEach(bt => bt.onclick = () => { INTL.ep = bt.dataset.v; intlConv(el, D); });
+  const body = el.querySelector("#intl-convb"); body.classList.add("chart");
+  const W = Math.max(320, body.clientWidth || 860), H = Math.round(Math.min(460, Math.max(330, W * 0.52))), M = { l: 50, r: 16, t: 14, b: 44 };
+  const xs = P.map(k => -D.C[k][gk]), ys = P.map(k => D.C[k][uk]), X1 = Math.ceil(d3.max(xs) / 5) * 5, Y0 = Math.min(0, Math.floor(d3.min(ys))), Y1 = Math.ceil(d3.max(ys) / 2) * 2;
+  const X = v => M.l + v / X1 * (W - M.l - M.r), Y = v => M.t + (Y1 - v) / (Y1 - Y0) * (H - M.t - M.b);
+  let s = "";
+  for (const v of niceTicks(Y0, Y1, 6)) s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 0 ? "#cfcfcf" : "#ececec"}"></line><text x="${M.l - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : 0}</text>`;
+  for (const v of niceTicks(0, X1, 6)) s += `<text x="${X(v)}" y="${H - M.b + 16}" text-anchor="middle">${v}%</text>`;
+  s += `<text x="${(M.l + W - M.r) / 2}" y="${H - 6}" text-anchor="middle" style="fill:#737373">Fall in real GDP, percent</text><text transform="translate(13 ${(M.t + H - M.b) / 2}) rotate(-90)" text-anchor="middle" style="fill:#737373">Rise in the unemployment rate, points</text>`;
+  const col = k => D.C[k].region === "North America" ? "--d10" : D.C[k].region === "Asia-Pacific and Israel" ? "--d2" : "--d6", boxes = [], fs = W < 560 ? 9.5 : 10.5;
+  for (const k of P) s += `<circle class="cd" data-k="${k}" cx="${X(-D.C[k][gk])}" cy="${Y(D.C[k][uk])}" r="5.2" fill="var(${col(k)})" stroke="${k === INTL.sel ? "#111" : "#fff"}" stroke-width="${k === INTL.sel ? 1.8 : 1.2}" style="cursor:pointer"></circle>`;
+  for (const k of P.slice().sort((a, b) => D.C[b][uk] - D.C[a][uk])) { const x = X(-D.C[k][gk]), y = Y(D.C[k][uk]), txt = W < 560 ? k : D.C[k].name, w = txt.length * fs * 0.56;
+    for (const [lx, ly] of [[x + 8, y + 3.5], [x - 8 - w, y + 3.5], [x - w / 2, y - 8], [x - w / 2, y + 15]]) { const bb = [lx, ly - fs, lx + w, ly + 2];
+      if (lx < M.l || lx + w > W - 2 || ly > H - M.b || ly - fs < M.t) continue;
+      if (!boxes.some(o => !(bb[2] < o[0] || bb[0] > o[2] || bb[3] < o[1] || bb[1] > o[3])) && !P.some(q => q !== k && Math.hypot(X(-D.C[q][gk]) - Math.max(bb[0], Math.min(bb[2], X(-D.C[q][gk]))), Y(D.C[q][uk]) - Math.max(bb[1], Math.min(bb[3], Y(D.C[q][uk])))) < 4.5)) { boxes.push(bb); s += `<text x="${lx}" y="${ly}" style="font-size:${fs}px;fill:#525252;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none">${esc(txt)}</text>`; break; } } }
+  body.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fall in GDP against the rise in unemployment">${s}</svg><div class="tip" hidden></div>`;
+  const svg = body.querySelector("svg"), tip = body.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => { const g = ev.target.closest && ev.target.closest(".cd"); if (!g) { tip.hidden = true; return; } const c = D.C[g.dataset.k];
+    tip.innerHTML = `<div class="h">${esc(c.name)}</div><div class="r"><span>GDP</span><span class="num">${iF(c[gk], 1)}%</span></div><div class="r"><span>Unemployment rate</span><span class="num">${iS(c[uk], 1)} points</span></div><div class="r"><span>Points per percent of GDP lost</span><span class="num">${iF(c[uk] / -c[gk], 2)}</span></div>`;
+    tip.hidden = false; const rc = body.getBoundingClientRect(); let left = ev.clientX - rc.left + 14; if (left + tip.offsetWidth > rc.width) left = ev.clientX - rc.left - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.max(0, ev.clientY - rc.top - 10) + "px"; });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+  svg.addEventListener("click", ev => { const g = ev.target.closest && ev.target.closest(".cd"); if (g) intlSelect(D, g.dataset.k, true); });
+}
+
+function intlTable(el, D) {
+  if (!el) return;
+  const th = INTL.th, P = D.peers.slice().sort((a, b) => (D.C[b].auc || 0) - (D.C[a].auc || 0)).concat(["EA"]);
+  el.innerHTML = `<table class="udef intl-tab"><thead><tr><th class="l">Economy</th><th>Recessions caught</th><th>Timing, months</th><th>Accuracy (AUC)</th><th>False alarms</th><th>Pass-through</th><th>EPL, regular contracts</th><th>2020: GDP</th><th>2020: jobless rate</th><th>Scored from</th></tr></thead><tbody>${P.map(k => { const c = D.C[k], sc = intlScore(D, k, th);
+    return `<tr class="${k === "US" ? "hl" : ""}${k === "EA" ? " intl-ea" : ""}" data-k="${k}"><td class="l">${esc(c.name)}${k === "EA" ? ' <span class="muted">(aggregate)</span>' : ""}</td><td class="num">${sc.detected} of ${sc.recessions}</td><td class="num">${intlLagS(sc.med_onset)}</td><td class="num">${iP(c.auc)}</td><td class="num">${sc.false_eps}</td><td class="num">${iN(c.okun_beta) ? iF(Math.abs(c.okun_beta), 2) : "–"}</td><td class="num">${iF(c.epl_r, 2)}</td><td class="num">${iF(c.c20_gdp, 1)}%</td><td class="num">${iS(c.c20_u, 1)}</td><td class="num">${MON[sc.from % 12]} ${Math.floor(sc.from / 12)}</td></tr>`; }).join("")}</tbody></table>`;
+  el.querySelectorAll("tr[data-k]").forEach(tr => { if (tr.dataset.k !== "EA") { tr.style.cursor = "pointer"; tr.onclick = () => intlSelect(D, tr.dataset.k, true); } });
+}
+
+function renderIntlFigs(D) {
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  run(() => intlMap(document.getElementById("fig-intl-map"), D));
+  run(() => intlCards(document.getElementById("res-intl"), D));
+  run(() => intlHeat(document.getElementById("fig-intl-heat"), D));
+  run(() => intlCountry(document.getElementById("fig-intl-country"), D));
+  run(() => intlDots(document.getElementById("fig-intl-dots"), D));
+  run(() => intlTable(document.getElementById("intl-table"), D));
+  run(() => document.querySelectorAll("#v-intl .intl-thnow").forEach(e => e.textContent = f1(INTL.th, 1)));
+}
+async function renderIntl() {
+  if (!window.d3 || !window.topojson) return;
+  let D; try { D = await loadIntl(); } catch (e) { console.error(e); const l = document.querySelector("#v-intl .needs-intl"); if (l) l.textContent = "The international data could not be loaded."; return; }
+  document.querySelectorAll(".needs-intl").forEach(x => x.remove());
+  const run = f => { try { f(); } catch (e) { console.error(e); } };
+  run(() => { const F = intlFacts(D); document.querySelectorAll("#v-intl [data-intl]").forEach(e => { const k = e.dataset.intl; if (F[k] !== undefined) e.textContent = F[k]; }); });
+  run(() => { const el = document.querySelector("#v-intl .intl-fetched"); if (!el) return; const f = D.sum.fetched || D.sum.updated, d = /^\d{4}-\d{2}-\d{2}/.test(f || "") ? new Date(f.slice(0, 10) + "T12:00:00Z") : null;
+    el.textContent = `${d ? `${LFPMONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ` : ""}Eurostat, OECD and ONS Data Through ${mLab(mIdx(D.sum.last))}`; });
+  renderIntlFigs(D);
+  run(() => intlScatter(document.getElementById("fig-intl-scatter"), D));
+  run(() => intlConv(document.getElementById("fig-intl-conv"), D));
+}
+
 /* ---------- Race ---------- */
 function renderRaceFigs() {
   const S = CPS.series;
@@ -4971,7 +5503,7 @@ async function renderPresets() {
 }
 
 function setNavCurrent(v) {
-  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas", "u7", "u7-data", "u7-lfp"].includes(v); const meth = ["method", "thanks"].includes(v);
+  const chap = ["race", "income", "education", "spatial"].includes(v), inter = ["map", "tool", "compare"].includes(v), res = ["validate", "replicate", "vibe", "umeas", "u7", "u7-data", "u7-lfp", "intl"].includes(v); const meth = ["method", "thanks"].includes(v);
   document.querySelectorAll(".site-nav a[data-v]").forEach(a => (a.dataset.v === v || (chap && a.dataset.v === "series") || (inter && a.dataset.v === "interactive") || (res && a.dataset.v === "resources") || (meth && a.dataset.v === "methodgrp")) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a.nav-contact"); if (!a) return; e.preventDefault(); const f = document.getElementById("contact"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); });

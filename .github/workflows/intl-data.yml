@@ -1,0 +1,96 @@
+name: International data update (Eurostat, OECD, ONS)
+
+# Rebuilds the data behind the unlinked page "Where Recessions Reach the Labor Market" (#intl):
+# downloads unemployment and GDP for the peer economies from Eurostat, the OECD and the ONS (no keys needed),
+# renders data-source/International_Turning_Points.Rmd, and commits data/intl_series.csv and data/intl_summary.json
+# when anything other than the run date changed.
+
+on:
+  schedule:
+    # Times are UTC. Eurostat publishes monthly unemployment at the start of each month and the OECD and ONS
+    # within the following weeks; GDP is quarterly. Check on the 3rd and the 18th at 13:40 UTC.
+    - cron: "40 13 3,18 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: intl-data-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install R packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::data.table
+            any::jsonlite
+            any::rmarkdown
+            any::knitr
+
+      - name: Download the data and rebuild the page files
+        shell: bash
+        run: |
+          set +e
+          Rscript -e 'rmarkdown::render("data-source/International_Turning_Points.Rmd", params = list(fetch = TRUE), output_dir = tempdir())' > render.log 2>&1
+          status=$?
+          tail -40 render.log
+          if [ $status -ne 0 ]; then
+            msg=$(grep -E -A4 "^(Error|Quitting)" render.log | head -c 1500 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')
+            echo "::error title=International update failed in R::${msg:-see the log of this step}"
+            { echo "### The international update stopped with an R error"; echo; echo '```'; tail -40 render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          rm -f render.log
+          exit $status
+
+      - name: Commit the new data if anything changed
+        id: commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The summary records the run date and the download time on every run, so only other changes count
+          changed=$(python3 -c '
+          import json, subprocess
+          def load(txt):
+              d = json.loads(txt) if txt else None
+              if d: d.pop("updated", None); d.pop("fetched", None)
+              return d
+          old = subprocess.run(["git", "show", "HEAD:data/intl_summary.json"], capture_output=True, text=True).stdout
+          new = open("data/intl_summary.json").read()
+          series = subprocess.run(["git", "diff", "--quiet", "--", "data/intl_series.csv"]).returncode != 0
+          print("true" if series or load(old) != load(new) else "false")
+          ')
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          if [ "$changed" = "true" ]; then
+            git add data/intl_series.csv data/intl_summary.json data-source/intl/raw
+            git commit -m "chore: refresh international unemployment and GDP data"
+            git pull --rebase
+            git push
+          else
+            echo "No new international data."
+          fi
+
+      - name: Trigger webpage deployment
+        if: steps.commit.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: webpage-deployment.yaml
+          ref: ${{ github.ref }}
