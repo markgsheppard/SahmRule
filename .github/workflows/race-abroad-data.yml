@@ -1,0 +1,44 @@
+name: Race and ethnicity abroad (Statistics Canada, ONS, Israel CBS)
+
+# Downloads unemployment by racial or ethnic group for Canada, the United Kingdom and Israel, renders
+# data-source/Race_Abroad.Rmd, and commits what changed.
+
+on:
+  push:
+    branches: [race-abroad]
+    paths: [".github/workflows/race-abroad-data.yml", "data-source/Race_Abroad.Rmd"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::data.table
+            any::jsonlite
+            any::readxl
+            any::rmarkdown
+            any::knitr
+      - name: Download and build
+        shell: bash
+        run: |
+          Rscript -e 'rmarkdown::render("data-source/Race_Abroad.Rmd", output_dir = tempdir())' > render.log 2>&1 || true
+          mkdir -p data-source/race_abroad && tail -60 render.log > data-source/race_abroad/render_log.txt
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data-source/race_abroad data/race_abroad.json 2>/dev/null || git add -A data-source/race_abroad
+          git diff --cached --quiet || { git commit -m "chore: race and ethnicity abroad data"; git pull --rebase origin "${GITHUB_REF_NAME}"; git push origin "HEAD:${GITHUB_REF_NAME}"; }

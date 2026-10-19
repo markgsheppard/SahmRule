@@ -1,0 +1,94 @@
+---
+title: "Racial and Ethnic Groups in Recessions Abroad: Canada, the United Kingdom and Israel"
+output: html_document
+params:
+  fetch: true
+  explore: true
+---
+
+```{r setup, include = FALSE}
+# Downloads unemployment by racial or ethnic group from the three peer economies that publish it:
+#   Canada: Statistics Canada, Labour Force Survey, table 14-10-0373-01 (racialized groups; three-month moving
+#           averages, not seasonally adjusted).
+#   United Kingdom: Office for National Statistics, Labour Force Survey, dataset A09 (ethnic group; quarterly,
+#           not seasonally adjusted).
+#   Israel: Central Bureau of Statistics, Labour Force Survey, by population group (Jews and others; Arabs).
+# No keys are needed. Writes data/race_abroad.json for the international page (#intl).
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(data.table); library(jsonlite); library(readxl)
+options(timeout = 600, HTTPUserAgent = "Mozilla/5.0 (X11; Linux x86_64) inequalityofrecession.com data update")
+root <- normalizePath(file.path(dirname(knitr::current_input(dir = TRUE)), ".."))
+out <- file.path(root, "data-source", "race_abroad"); raw <- file.path(out, "raw")
+dir.create(raw, recursive = TRUE, showWarnings = FALSE)
+diag <- function(name, ...) cat(..., file = file.path(out, paste0("diag_", name, ".txt")), sep = "\n", append = TRUE)
+for (f in list.files(out, "^diag_", full.names = TRUE)) unlink(f)
+try1 <- function(name, expr) tryCatch(expr, error = function(e) { diag(name, paste("ERROR:", conditionMessage(e))); NULL })
+```
+
+## Canada
+
+```{r canada}
+ca <- try1("ca", {
+  zipf <- file.path(tempdir(), "14100373-eng.zip")
+  download.file("https://www150.statcan.gc.ca/n1/tbl/csv/14100373-eng.zip", zipf, mode = "wb", quiet = TRUE)
+  files <- unzip(zipf, exdir = tempdir())
+  d <- fread(grep("14100373\\.csv$", files, value = TRUE), encoding = "UTF-8")
+  if (params$explore) {
+    diag("ca", paste("columns:", paste(names(d), collapse = " | ")), paste("rows:", nrow(d)), paste("dates:", min(d$REF_DATE), "to", max(d$REF_DATE)))
+    for (v in setdiff(names(d), c("REF_DATE", "DGUID", "UOM_ID", "SCALAR_ID", "VECTOR", "COORDINATE", "VALUE", "DECIMALS", "TERMINATED", "SYMBOL")))
+      diag("ca", paste0("-- ", v, ": ", paste(head(unique(d[[v]]), 60), collapse = " | ")))
+  }
+  lfc <- grep("characteristic", names(d), ignore.case = TRUE, value = TRUE)[1]
+  d <- d[GEO == "Canada" & get(lfc) == "Unemployment rate"]
+  fwrite(d[, !c("DGUID", "UOM_ID", "SCALAR_ID", "COORDINATE", "DECIMALS", "TERMINATED", "SYMBOL")], file.path(raw, "ca_unemployment_rate.csv"))
+  d
+})
+```
+
+## United Kingdom
+
+```{r uk}
+uk <- try1("uk", {
+  base <- "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourmarketstatusbyethnicgroupa09"
+  page <- paste(readLines(base, warn = FALSE), collapse = "\n")
+  link <- regmatches(page, regexpr("/file\\?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourmarketstatusbyethnicgroupa09/current/[A-Za-z0-9_]+\\.xlsx?", page))
+  if (!length(link)) stop("no A09 file link on the dataset page")
+  ext <- sub(".*\\.", "", link); dest <- file.path(raw, paste0("a09.", ext))
+  download.file(paste0("https://www.ons.gov.uk", link), dest, mode = "wb", quiet = TRUE)
+  diag("uk", paste("file:", link))
+  if (params$explore) for (s in excel_sheets(dest)) {
+    x <- suppressMessages(read_excel(dest, sheet = s, col_names = FALSE, n_max = 14))
+    diag("uk", paste("== sheet:", s, "dims:", paste(dim(suppressMessages(read_excel(dest, sheet = s, col_names = FALSE))), collapse = "x")))
+    diag("uk", apply(as.matrix(x[, seq_len(min(14, ncol(x)))]), 1, function(r) paste(ifelse(is.na(r), "", r), collapse = " | ")))
+  }
+  dest
+})
+```
+
+## Israel
+
+```{r israel}
+cbs <- function(path, q) fromJSON(paste0("https://apis.cbs.gov.il/series/", path, "?", q, "&format=json&download=false&lang=en"), simplifyVector = FALSE)
+il <- try1("il", {
+  l1 <- cbs("catalog/level", "id=1&pagesize=1000")
+  write_json(l1, file.path(raw, "cbs_level1.json"), auto_unbox = TRUE, pretty = TRUE)
+  txt <- toJSON(l1, auto_unbox = TRUE)
+  diag("il", substr(txt, 1, 4000))
+  l1
+})
+if (!is.null(il)) try1("il", {
+  # every subject at level 1 whose name mentions labour; dump the lower levels under it
+  items <- il$catalogs$catalog
+  if (is.null(items)) items <- il[[1]]
+  labour <- Filter(function(z) grepl("labo", tolower(paste(unlist(z), collapse = " "))), items)
+  diag("il", paste("labour subjects:", length(labour)))
+  for (z in labour) {
+    code <- z$path[[1]]; if (is.null(code)) code <- z$code
+    diag("il", paste("subject code:", paste(unlist(code), collapse = ",")))
+    for (k in 2:5) {
+      lk <- try1("il", cbs("catalog/level", sprintf("id=%d&subject=%s&pagesize=1000", k, paste(unlist(code), collapse = ","))))
+      if (!is.null(lk)) write_json(lk, file.path(raw, sprintf("cbs_subject%s_level%d.json", paste(unlist(code), collapse = "-"), k)), auto_unbox = TRUE, pretty = TRUE)
+    }
+  }
+})
+```
