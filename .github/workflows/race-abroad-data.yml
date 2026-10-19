@@ -1,16 +1,25 @@
 name: Race and ethnicity abroad (Statistics Canada, ONS, Israel CBS)
 
-# Downloads unemployment by racial or ethnic group for Canada, the United Kingdom and Israel, renders
-# data-source/Race_Abroad.Rmd, and commits what changed.
+# Rebuilds data/race_abroad.json, the panel on racial and ethnic groups at the foot of the unlinked international
+# page (#intl): unemployment by racialized group (Canada), ethnic group (United Kingdom) and population group (Israel).
+# Renders data-source/Race_Abroad.Rmd and commits the file when it changed. No keys are needed.
 
 on:
+  schedule:
+    # Times are UTC. Canada publishes monthly, the ONS quarterly and Israel monthly; check on the 20th at 14:10 UTC.
+    - cron: "10 14 20 * *"
+  workflow_dispatch:
   push:
     branches: [race-abroad]
     paths: [".github/workflows/race-abroad-data.yml", "data-source/Race_Abroad.Rmd"]
-  workflow_dispatch:
+
+concurrency:
+  group: race-abroad-update
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   update:
@@ -30,15 +39,43 @@ jobs:
             any::readxl
             any::rmarkdown
             any::knitr
-      - name: Download and build
+      - name: Download the data and rebuild the file
         shell: bash
         run: |
-          Rscript -e 'rmarkdown::render("data-source/Race_Abroad.Rmd", output_dir = tempdir())' > render.log 2>&1 || true
-          mkdir -p data-source/race_abroad && tail -60 render.log > data-source/race_abroad/render_log.txt
-      - name: Commit
+          set +e
+          Rscript -e 'rmarkdown::render("data-source/Race_Abroad.Rmd", output_dir = tempdir())' > render.log 2>&1
+          status=$?
+          tail -40 render.log
+          if [ $status -ne 0 ]; then { echo "### The update stopped with an R error"; echo; echo '```'; tail -40 render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"; fi
+          rm -f render.log
+          exit $status
+      - name: Commit the new data if anything changed
+        id: commit
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data-source/race_abroad data/race_abroad.json 2>/dev/null || git add -A data-source/race_abroad
-          git diff --cached --quiet || { git commit -m "chore: race and ethnicity abroad data"; git pull --rebase origin "${GITHUB_REF_NAME}"; git push origin "HEAD:${GITHUB_REF_NAME}"; }
+          changed=$(python3 -c '
+          import json, subprocess
+          def load(t):
+              d = json.loads(t) if t else None
+              if d: d.pop("updated", None)
+              return d
+          old = subprocess.run(["git", "show", "HEAD:data/race_abroad.json"], capture_output=True, text=True).stdout
+          print("true" if load(old) != load(open("data/race_abroad.json").read()) else "false")
+          ')
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          if [ "$changed" = "true" ]; then
+            git add data/race_abroad.json
+            git commit -m "chore: refresh race and ethnicity data abroad"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "No new data."
+          fi
+      - name: Trigger webpage deployment
+        if: steps.commit.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: webpage-deployment.yaml
+          ref: ${{ github.ref }}

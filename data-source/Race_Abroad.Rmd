@@ -1,90 +1,98 @@
 ---
 title: "Racial and Ethnic Groups in Recessions Abroad: Canada, the United Kingdom and Israel"
 output: html_document
-params:
-  fetch: true
-  explore: true
 ---
 
 ```{r setup, include = FALSE}
-# Downloads unemployment by racial or ethnic group from the three peer economies that publish it:
-#   Canada: Statistics Canada, Labour Force Survey, table 14-10-0373-01 (racialized groups; three-month moving
-#           averages, not seasonally adjusted).
-#   United Kingdom: Office for National Statistics, Labour Force Survey, dataset A09 (ethnic group; quarterly,
-#           not seasonally adjusted).
-#   Israel: Central Bureau of Statistics, Labour Force Survey, by population group (Jews and others; Arabs).
-# No keys are needed. Writes data/race_abroad.json for the international page (#intl).
+# Unemployment by racial or ethnic group from the three peer economies whose labour force surveys publish it, for the
+# panel at the foot of the international page (#intl). No keys are needed. Writes data/race_abroad.json; a source that
+# cannot be reached keeps its previous values.
+#   Canada: Statistics Canada, Labour Force Survey, table 14-10-0373-01: racialized ("visible minority") groups, aged 15
+#           and over, three-month moving averages, not seasonally adjusted. The table begins in 2022.
+#   United Kingdom: Office for National Statistics, Labour Force Survey, dataset A09: ethnic group, aged 16 and over,
+#           quarterly, not seasonally adjusted, from July to September 2001.
+#   Israel: Central Bureau of Statistics, monthly Labour Force Survey (time-series API, subject 11): the labour force and
+#           the unemployed aged 15 and over, for the whole population and for Jews. The rest of the population (Arab
+#           citizens and others) is the difference. The 2012-2025 series is joined to the current one where it begins.
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(data.table); library(jsonlite); library(readxl)
 options(timeout = 600, HTTPUserAgent = "Mozilla/5.0 (X11; Linux x86_64) inequalityofrecession.com data update")
 root <- normalizePath(file.path(dirname(knitr::current_input(dir = TRUE)), ".."))
-out <- file.path(root, "data-source", "race_abroad"); raw <- file.path(out, "raw")
-dir.create(raw, recursive = TRUE, showWarnings = FALSE)
-diag <- function(name, ...) cat(..., file = file.path(out, paste0("diag_", name, ".txt")), sep = "\n", append = TRUE)
-for (f in list.files(out, "^diag_", full.names = TRUE)) unlink(f)
-try1 <- function(name, expr) tryCatch(expr, error = function(e) { diag(name, paste("ERROR:", conditionMessage(e))); NULL })
+dest <- file.path(root, "data", "race_abroad.json")
+old <- if (file.exists(dest)) fromJSON(dest, simplifyVector = FALSE) else list()
+mi <- function(y, m) as.integer(y) * 12L + as.integer(m) - 1L                  # month index
+ym <- function(t) sprintf("%04d-%02d", t %/% 12L, t %% 12L + 1L)
+grab <- function(name, expr) tryCatch(expr, error = function(e) { message(name, ": ", conditionMessage(e)); old[[name]] })
 ```
 
 ## Canada
 
 ```{r canada}
-ca <- try1("ca", {
+ca <- grab("ca", {
   zipf <- file.path(tempdir(), "14100373-eng.zip")
   download.file("https://www150.statcan.gc.ca/n1/tbl/csv/14100373-eng.zip", zipf, mode = "wb", quiet = TRUE)
-  files <- unzip(zipf, exdir = tempdir())
-  d <- fread(grep("14100373\\.csv$", files, value = TRUE), encoding = "UTF-8")
-  if (params$explore) {
-    diag("ca", paste("columns:", paste(names(d), collapse = " | ")), paste("rows:", nrow(d)), paste("dates:", min(d$REF_DATE), "to", max(d$REF_DATE)))
-    for (v in setdiff(names(d), c("REF_DATE", "DGUID", "UOM_ID", "SCALAR_ID", "VECTOR", "COORDINATE", "VALUE", "DECIMALS", "TERMINATED", "SYMBOL")))
-      diag("ca", paste0("-- ", v, ": ", paste(head(unique(d[[v]]), 60), collapse = " | ")))
-  }
-  lfc <- grep("characteristic", names(d), ignore.case = TRUE, value = TRUE)[1]
-  d <- d[GEO == "Canada" & get(lfc) == "Unemployment rate"]
-  fwrite(d[, !c("DGUID", "UOM_ID", "SCALAR_ID", "COORDINATE", "DECIMALS", "TERMINATED", "SYMBOL")], file.path(raw, "ca_unemployment_rate.csv"))
-  d
+  d <- fread(grep("14100373\\.csv$", unzip(zipf, exdir = tempdir()), value = TRUE), encoding = "UTF-8",
+             select = c("REF_DATE", "GEO", "Labour force characteristics", "Age group", "Gender", "Population group", "VALUE"))
+  d <- d[GEO == "Canada" & get("Labour force characteristics") == "Unemployment rate" & get("Age group") == "15 years and over" & Gender == "Total - Gender"]
+  d[, t := mi(substr(REF_DATE, 1, 4), substr(REF_DATE, 6, 7))]
+  t0 <- min(d$t); t1 <- max(d$t)
+  keep <- c("Total population", "Not a visible minority", "Visible minority population", "Black", "South Asian", "Chinese", "Filipino", "Arab", "Latin American", "Southeast Asian", "West Asian")
+  g <- lapply(setNames(keep, keep), function(k) { x <- d[get("Population group") == k]; v <- rep(NA_real_, t1 - t0 + 1L); v[x$t - t0 + 1L] <- x$VALUE; v })
+  list(start = ym(t0), step = 1L, groups = g, source = "Statistics Canada, Labour Force Survey, table 14-10-0373-01")
 })
 ```
 
 ## United Kingdom
 
 ```{r uk}
-uk <- try1("uk", {
-  base <- "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourmarketstatusbyethnicgroupa09"
-  page <- paste(readLines(base, warn = FALSE), collapse = "\n")
+uk <- grab("uk", {
+  page <- paste(readLines("https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourmarketstatusbyethnicgroupa09", warn = FALSE), collapse = "\n")
   link <- regmatches(page, regexpr("/file\\?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourmarketstatusbyethnicgroupa09/current/[A-Za-z0-9_]+\\.xlsx?", page))
-  if (!length(link)) stop("no A09 file link on the dataset page")
-  ext <- sub(".*\\.", "", link); dest <- file.path(raw, paste0("a09.", ext))
-  download.file(paste0("https://www.ons.gov.uk", link), dest, mode = "wb", quiet = TRUE)
-  diag("uk", paste("file:", link))
-  if (params$explore) for (s in excel_sheets(dest)) {
-    x <- suppressMessages(read_excel(dest, sheet = s, col_names = FALSE, n_max = 14))
-    diag("uk", paste("== sheet:", s, "dims:", paste(dim(suppressMessages(read_excel(dest, sheet = s, col_names = FALSE))), collapse = "x")))
-    diag("uk", apply(as.matrix(x[, seq_len(min(14, ncol(x)))]), 1, function(r) paste(ifelse(is.na(r), "", r), collapse = " | ")))
-  }
-  dest
+  if (!length(link)) stop("no A09 file on the dataset page")
+  f <- file.path(tempdir(), sub(".*/", "", link))
+  download.file(paste0("https://www.ons.gov.uk", link), f, mode = "wb", quiet = TRUE)
+  x <- as.data.frame(read_excel(f, sheet = grep("People-Unemployment", excel_sheets(f), value = TRUE)[1], col_names = FALSE, col_types = "text"))
+  lab <- trimws(x[[1]]); rows <- grep("^(Jan|Apr|Jul|Oct)-(Mar|Jun|Sep|Dec) [0-9]{4}$", lab)
+  rc <- which(vapply(x, function(col) any(trimws(col) == "Rates", na.rm = TRUE), logical(1)))[1]   # the rates block (aged 16+)
+  hdr <- which(grepl("^Total", trimws(x[[rc]])))[1]
+  cols <- rc:(rc + 9L); nm <- sub("[0-9]+$", "", trimws(unlist(x[hdr, cols])))
+  t <- mi(substr(lab[rows], 9, 12), c(Jan = 2, Apr = 5, Jul = 8, Oct = 11)[substr(lab[rows], 1, 3)])   # middle month of each quarter
+  v <- lapply(cols, function(cc) suppressWarnings(as.numeric(x[rows, cc])))
+  first <- min(which(!is.na(v[[1]])))
+  g <- setNames(lapply(v, function(z) round(z[first:length(z)], 3)), nm)
+  list(start = ym(t[first]), step = 3L, groups = g, file = sub(".*/", "", link), source = "Office for National Statistics, Labour Force Survey, A09")
 })
 ```
 
 ## Israel
 
 ```{r israel}
-cbs <- function(path, q) fromJSON(paste0("https://apis.cbs.gov.il/series/", path, "?", q, "&format=json&download=false&lang=en"), simplifyVector = FALSE)
-il <- try1("il", {
-  # the full level-5 catalog of the labour-force subject (11), page by page
-  all5 <- list()
-  for (pg in 1:10) {
-    x <- cbs("catalog/level", sprintf("id=5&subject=11&pagesize=1000&page=%d", pg))
-    items <- x$catalogs$catalog; if (!length(items)) break
-    all5 <- c(all5, items); diag("il", sprintf("level 5, page %d: %d items", pg, length(items)))
-    if (length(items) < 1000) break
+il <- grab("il", {
+  series <- function(p) {
+    r <- fromJSON(paste0("https://apis.cbs.gov.il/series/data/path?id=", p, "&format=json&download=false&lang=en&pagesize=1000"), simplifyVector = FALSE)
+    o <- r$DataSet$Series[[1]]$obs
+    data.table(t = vapply(o, function(z) mi(substr(z$TimePeriod, 1, 4), substr(z$TimePeriod, 6, 7)), integer(1)),
+               v = vapply(o, function(z) if (is.null(z$Value)) NA_real_ else as.numeric(z$Value), numeric(1)))
   }
-  write_json(all5, file.path(raw, "cbs_subject11_level5_all.json"), auto_unbox = TRUE, pretty = TRUE)
-  # monthly LFS, old definition (January 2012 to December 2025) and new definition (from January 2025):
-  # labour force (4th level 2) and unemployed persons (4th level 5), for all people and for Jews, aged 15 and over
-  for (p in c("11,6,1,2,2226", "11,6,1,2,2238", "11,6,1,5,2226", "11,6,1,5,2238", "11,5,1,2,2226", "11,5,1,2,2238", "11,5,1,5,2226", "11,5,1,5,2238")) {
-    r <- try1("il", cbs("data/path", paste0("id=", p, "&startPeriod=01-2010&endPeriod=12-2030&pagesize=1000")))
-    if (!is.null(r)) write_json(r, file.path(raw, paste0("cbs_data_", gsub(",", "-", p), ".json")), auto_unbox = TRUE, pretty = TRUE)
+  rates <- function(l2) {   # unemployment rates from the labour force (4th level 2) and the unemployed (4th level 5)
+    s <- lapply(c(UA = "5,2226", UJ = "5,2238", LA = "2,2226", LJ = "2,2238"), function(z) series(paste0("11,", l2, ",1,", z)))
+    m <- Reduce(function(a, b) merge(a, b, by = "t"), lapply(names(s), function(k) setnames(copy(s[[k]]), "v", k)))
+    m[, .(t, Jews = 100 * UJ / LJ, Others = 100 * (UA - UJ) / (LA - LJ), All = 100 * UA / LA)]
   }
-  TRUE
+  a <- rates(5); b <- rates(6)
+  h <- if (min(a$t) <= min(b$t)) a else b; cur <- if (identical(h, a)) b else a      # the long history, then the current series
+  m <- rbind(h[t < min(cur$t)], cur)[order(t)]
+  t0 <- min(m$t); full <- data.table(t = t0:max(m$t)); m <- m[full, on = "t"]
+  list(start = ym(t0), step = 1L, splice = ym(min(cur$t)),
+       groups = list(Jews = round(m$Jews, 3), `Arab citizens and others` = round(m$Others, 3), All = round(m$All, 3)),
+       source = "Central Bureau of Statistics, Labour Force Survey (time-series API, subject 11)")
 })
+```
+
+## Write
+
+```{r write}
+res <- list(updated = format(Sys.Date()), ca = ca, uk = uk, il = il)
+write_json(res, dest, auto_unbox = TRUE, digits = NA, na = "null")
+str(lapply(res[c("ca", "uk", "il")], function(z) list(start = z$start, step = z$step, n = length(z$groups[[1]]), groups = names(z$groups))))
 ```

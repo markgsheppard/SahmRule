@@ -1,3 +1,0 @@
-level 5, page 1: 1000 items
-level 5, page 2: 1000 items
-level 5, page 3: 32 items
