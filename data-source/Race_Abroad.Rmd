@@ -52,15 +52,18 @@ uk <- grab("uk", {
   f <- file.path(tempdir(), sub(".*/", "", link))
   download.file(paste0("https://www.ons.gov.uk", link), f, mode = "wb", quiet = TRUE)
   x <- as.data.frame(read_excel(f, sheet = grep("People-Unemployment", excel_sheets(f), value = TRUE)[1], col_names = FALSE, col_types = "text"))
-  lab <- trimws(x[[1]]); rows <- grep("^(Jan|Apr|Jul|Oct)-(Mar|Jun|Sep|Dec) [0-9]{4}$", lab)
+  # each row is dated by its own label; footnote markers can follow the year ("Jan-Mar 20195")
+  lab <- trimws(x[[1]]); m <- regmatches(lab, regexec("^(Jan|Apr|Jul|Oct)-(Mar|Jun|Sep|Dec) ([0-9]{4})", lab))
+  rows <- which(lengths(m) == 4L)
+  t <- mi(vapply(m[rows], `[`, "", 4L), c(Jan = 2, Apr = 5, Jul = 8, Oct = 11)[vapply(m[rows], `[`, "", 2L)])   # middle month of each quarter
   rc <- which(vapply(x, function(col) any(trimws(col) == "Rates", na.rm = TRUE), logical(1)))[1]   # the rates block (aged 16+)
   hdr <- which(grepl("^Total", trimws(x[[rc]])))[1]
   cols <- rc:(rc + 9L); nm <- sub("[0-9]+$", "", trimws(unlist(x[hdr, cols])))
-  t <- mi(substr(lab[rows], 9, 12), c(Jan = 2, Apr = 5, Jul = 8, Oct = 11)[substr(lab[rows], 1, 3)])   # middle month of each quarter
   v <- lapply(cols, function(cc) suppressWarnings(as.numeric(x[rows, cc])))
-  first <- min(which(!is.na(v[[1]])))
-  g <- setNames(lapply(v, function(z) round(z[first:length(z)], 3)), nm)
-  list(start = ym(t[first]), step = 3L, groups = g, file = sub(".*/", "", link), source = "Office for National Statistics, Labour Force Survey, A09")
+  t0 <- min(t[!is.na(v[[1]])]); grid <- seq(t0, max(t), by = 3L)
+  if (anyDuplicated(t)) stop("a quarter appears twice in A09")
+  g <- setNames(lapply(v, function(z) round(z[match(grid, t)], 3)), nm)
+  list(start = ym(t0), step = 3L, groups = g, file = sub(".*/", "", link), source = "Office for National Statistics, Labour Force Survey, A09")
 })
 ```
 
