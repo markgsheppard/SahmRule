@@ -1,0 +1,11019 @@
+{
+  "catalogs": {
+    "catalog": [
+      {
+        "path": [
+          11,
+          1,
+          1,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          1,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          2,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          2,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          2,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          4,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          4,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          5,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          5,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          5,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          5,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          6,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          6,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          6,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          6,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          7,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          7,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          7,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          7,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          8,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          8,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          8,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          1,
+          8,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          1,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          2,
+          2,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          1,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          2,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          3,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          3,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          3,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          4,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          4,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          3,
+          4,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          1,
+          4,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          1,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          2,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          2,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          5,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          5,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          6,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          6,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          7,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          7,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          8,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          1,
+          8,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          1,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          2,
+          2,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          1,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          2,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          3,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          3,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          3,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          4,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          4,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          3,
+          4,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          2,
+          4,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          1,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          1,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          1,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          2,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          2,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          2,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          3,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          4,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          4,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          5,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          5,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          5,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          5,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          6,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          6,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          6,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          6,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          7,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          7,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          7,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          7,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          8,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          8,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          8,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          1,
+          8,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          1,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          2,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          3,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          4,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          5,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1309
+        ],
+        "name": "Agriculture, Forestry and Fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1310
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1311
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1312
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1313
+        ],
+        "name": "Wholesale and Retail Trade, and Restaurant",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1315
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1316
+        ],
+        "name": "Finance and Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1317
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1318
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1319
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1320
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1321
+        ],
+        "name": "Health  Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          3,
+          2,
+          6,
+          1322
+        ],
+        "name": "Personal Services and Other Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          1,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          2,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          2,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          2,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          4,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          4,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          5,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          5,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          5,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          5,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          6,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          6,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          6,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          6,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          7,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          7,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          7,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          7,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          8,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          8,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          8,
+          1189
+        ],
+        "name": "All Populations, Males",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          1,
+          8,
+          1190
+        ],
+        "name": "All Populations, Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          1,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          611
+        ],
+        "name": "Manufacturing + Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          2,
+          2,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          1,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          2,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          3,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          3,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          3,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          4,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          4,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          3,
+          4,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          3,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          4,
+          4,
+          4,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2229
+        ],
+        "name": "All Population Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2230
+        ],
+        "name": "All Population - Males Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2231
+        ],
+        "name": "All Population - Females Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          1,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2229
+        ],
+        "name": "All Population Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2230
+        ],
+        "name": "All Population - Males Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2231
+        ],
+        "name": "All Population - Females Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          2,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2229
+        ],
+        "name": "All Population Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2230
+        ],
+        "name": "All Population - Males Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2231
+        ],
+        "name": "All Population - Females Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          3,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2229
+        ],
+        "name": "All Population Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2230
+        ],
+        "name": "All Population - Males Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2231
+        ],
+        "name": "All Population - Females Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          4,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2229
+        ],
+        "name": "All Population Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2230
+        ],
+        "name": "All Population - Males Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2231
+        ],
+        "name": "All Population - Females Age 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          5,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          6,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          6,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          6,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          6,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          7,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          7,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          7,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          7,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          8,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          8,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          8,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          8,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          9,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          9,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          9,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          10,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          10,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          1,
+          10,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          1,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          1,
+          2224
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          1,
+          2225
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          2,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          2,
+          2224
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          3,
+          2,
+          2225
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          1,
+          1
+        ],
+        "name": "Grand Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          1,
+          2224
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          1,
+          2225
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          2,
+          1
+        ],
+        "name": "Grand Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          2,
+          2224
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          2,
+          2225
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          3,
+          1
+        ],
+        "name": "Grand Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          3,
+          2224
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          4,
+          3,
+          2225
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          1,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          1,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          1,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          1,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          2,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          2,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          2,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          2,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          3,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          3,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          3,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          3,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          4,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          4,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          4,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          4,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          5,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          5,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          5,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          5,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          6,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          6,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          6,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          6,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          7,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          7,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          7,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          7,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          8,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          8,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          8,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          8,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          9,
+          2226
+        ],
+        "name": "All Population Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          9,
+          2227
+        ],
+        "name": "All Population - Males Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          9,
+          2228
+        ],
+        "name": "All Population - Females Age 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          5,
+          9,
+          2238
+        ],
+        "name": "Jews aged 15 and other",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1325
+        ],
+        "name": "Jerusalem District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1328
+        ],
+        "name": "Northern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1336
+        ],
+        "name": "Haifa District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1339
+        ],
+        "name": "Central District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1341
+        ],
+        "name": "Tel Aviv District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          1,
+          1346
+        ],
+        "name": "Southern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1325
+        ],
+        "name": "Jerusalem District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1328
+        ],
+        "name": "Northern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1336
+        ],
+        "name": "Haifa District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1339
+        ],
+        "name": "Central District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1341
+        ],
+        "name": "Tel Aviv District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          2,
+          1346
+        ],
+        "name": "Southern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1325
+        ],
+        "name": "Jerusalem District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1328
+        ],
+        "name": "Northern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1336
+        ],
+        "name": "Haifa District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1339
+        ],
+        "name": "Central District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1341
+        ],
+        "name": "Tel Aviv District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          3,
+          1346
+        ],
+        "name": "Southern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1325
+        ],
+        "name": "Jerusalem District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1328
+        ],
+        "name": "Northern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1336
+        ],
+        "name": "Haifa District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1339
+        ],
+        "name": "Central District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1341
+        ],
+        "name": "Tel Aviv District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          4,
+          1346
+        ],
+        "name": "Southern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1325
+        ],
+        "name": "Jerusalem District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1328
+        ],
+        "name": "Northern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1336
+        ],
+        "name": "Haifa District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1339
+        ],
+        "name": "Central District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1341
+        ],
+        "name": "Tel Aviv District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          6,
+          5,
+          1346
+        ],
+        "name": "Southern District",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          1,
+          2241
+        ],
+        "name": "Young persons aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          1,
+          2242
+        ],
+        "name": "Young males aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          1,
+          2243
+        ],
+        "name": "Young femails aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          2,
+          2241
+        ],
+        "name": "Young persons aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          2,
+          2242
+        ],
+        "name": "Young males aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          2,
+          2243
+        ],
+        "name": "Young femails aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          3,
+          2241
+        ],
+        "name": "Young persons aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          3,
+          2242
+        ],
+        "name": "Young males aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          3,
+          2243
+        ],
+        "name": "Young femails aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          4,
+          2241
+        ],
+        "name": "Young persons aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          4,
+          2242
+        ],
+        "name": "Young males aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          4,
+          2243
+        ],
+        "name": "Young femails aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          5,
+          2241
+        ],
+        "name": "Young persons aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          5,
+          2242
+        ],
+        "name": "Young males aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          7,
+          5,
+          2243
+        ],
+        "name": "Young femails aged 15-17",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          1,
+          2244
+        ],
+        "name": "Persons aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          1,
+          2245
+        ],
+        "name": "Males aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          1,
+          2246
+        ],
+        "name": "Females aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          2,
+          2244
+        ],
+        "name": "Persons aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          2,
+          2245
+        ],
+        "name": "Males aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          2,
+          2246
+        ],
+        "name": "Females aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          3,
+          2244
+        ],
+        "name": "Persons aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          3,
+          2245
+        ],
+        "name": "Males aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          3,
+          2246
+        ],
+        "name": "Females aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          4,
+          2244
+        ],
+        "name": "Persons aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          4,
+          2245
+        ],
+        "name": "Males aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          4,
+          2246
+        ],
+        "name": "Females aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          5,
+          2244
+        ],
+        "name": "Persons aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          5,
+          2245
+        ],
+        "name": "Males aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          8,
+          5,
+          2246
+        ],
+        "name": "Females aged 25-64",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          1,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          2,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          3,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          4,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          5,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          6,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          7,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          8,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          9,
+          625
+        ],
+        "name": "Not Known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          10
+        ],
+        "name": "Manufacturing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          609
+        ],
+        "name": "All Industries",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          610
+        ],
+        "name": "Agriculture",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          612
+        ],
+        "name": "Electricity and Water Supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          613
+        ],
+        "name": "Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          614
+        ],
+        "name": "Wholesale and Retail Trade, and Repairs",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          615
+        ],
+        "name": "Accommodation Services and Restaurants",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          616
+        ],
+        "name": "Transport, Storage and Communication",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          617
+        ],
+        "name": "Banking, Insurance and Finance",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          618
+        ],
+        "name": "Business Activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          619
+        ],
+        "name": "Public Administration",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          620
+        ],
+        "name": "Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          621
+        ],
+        "name": "Health, Welfare and Social Work Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          622
+        ],
+        "name": "Community, Social and Personal Services",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          623
+        ],
+        "name": "Services for Households by Domestic Personnel",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          9,
+          10,
+          624
+        ],
+        "name": "Extrateritorial Organizations and Bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          1,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          1,
+          380
+        ],
+        "name": "Jews",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          1,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          1,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          2,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          2,
+          380
+        ],
+        "name": "Jews",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          2,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          2,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          3,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          3,
+          380
+        ],
+        "name": "Jews",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          3,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          3,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          4,
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          4,
+          380
+        ],
+        "name": "Jews",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          4,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          10,
+          4,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          11,
+          {},
+          2
+        ],
+        "name": "Total",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          11,
+          {},
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          11,
+          {},
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          1,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          2,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          3,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          4,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          5,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          6,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          7,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          8,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          9,
+          2255
+        ],
+        "name": "Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2247
+        ],
+        "name": "Academic professionals",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2248
+        ],
+        "name": "Assciate profeshionals and technicians",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2249
+        ],
+        "name": "Managers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2250
+        ],
+        "name": "Clerical workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2251
+        ],
+        "name": "Agent, sales workers and service workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2252
+        ],
+        "name": "Skilled agricultural workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2253
+        ],
+        "name": "Manufacturing, Construction and other skilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          12,
+          10,
+          2254
+        ],
+        "name": "Unscilled workers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          1,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          1,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          2,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          2,
+          606
+        ],
+        "name": "Jews Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          3,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          3,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          3,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          4,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          4,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          4,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          5,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          5,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          5,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          6,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          6,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          6,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          7,
+          605
+        ],
+        "name": "All Populations",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          7,
+          607
+        ],
+        "name": "Men",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          13,
+          7,
+          608
+        ],
+        "name": "Females",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          1,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          2,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          3,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2441
+        ],
+        "name": "Total economy (Excl. Diamonds)",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          4,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          5,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          6,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2441
+        ],
+        "name": "Total economy (Excl. Diamonds)",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          7,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2441
+        ],
+        "name": "Total economy (Excl. Diamonds)",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          8,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2441
+        ],
+        "name": "Total economy (Excl. Diamonds)",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2450
+        ],
+        "name": "Section J - Information and communications",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2451
+        ],
+        "name": "Section K - Financial and insurance activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2452
+        ],
+        "name": "Section L - Real estate activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2453
+        ],
+        "name": "Section M - Proffesional, scientific and technical activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2454
+        ],
+        "name": "Section N - Administrative and support service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2455
+        ],
+        "name": "Section O - Local administration, public administration and defence; compulsory social security",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2456
+        ],
+        "name": "Section P - Education",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2457
+        ],
+        "name": "Section Q - Human health and social work activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2458
+        ],
+        "name": "Section R - Arts, entertainment and recreation",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2459
+        ],
+        "name": "Section S - Other service activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2460
+        ],
+        "name": "Section T - Households as employers",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2461
+        ],
+        "name": "Section U - Activities of extraterritorial organizations and bodies",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          9,
+          2462
+        ],
+        "name": "Section X - Not known",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2441
+        ],
+        "name": "Total economy (Excl. Diamonds)",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2442
+        ],
+        "name": "Section A - Agriculture, forestry and fishing",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2443
+        ],
+        "name": "Section B,C - Manufacturing; mining and quarrying",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2444
+        ],
+        "name": "Section D - Electricity, gas, steam and air conditioning supply",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2445
+        ],
+        "name": "Section E - Water supply; sewerage, waste management and remediation activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2446
+        ],
+        "name": "Section F - Construction",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2447
+        ],
+        "name": "Section G - Wholesale (Excl. Diamonds) and retail trade; repair of motor vehicles and motorcycles",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2448
+        ],
+        "name": "Section H - Transportation, storage, postal and courier activities",
+        "pathDesc": {}
+      },
+      {
+        "path": [
+          11,
+          5,
+          14,
+          10,
+          2449
+        ],
+        "name": "Section I - Accomodation and food service activities",
+        "pathDesc": {}
+      }
+    ],
+    "level": 5,
+    "paging": {
+      "total_items": 2032,
+      "page_size": 1000,
+      "current_page": 1,
+      "last_page": 3,
+      "first_url": "https://apis.cbs.gov.il//series/catalog/level?Page=1&PageSize=1000&id=5&subject=11&format=json&download=false&lang=en",
+      "previous_url": {},
+      "current_url": "https://apis.cbs.gov.il//series/catalog/level?Page=1&PageSize=1000&id=5&subject=11&format=json&download=false&lang=en",
+      "next_url": "https://apis.cbs.gov.il//series/catalog/level?Page=2&PageSize=1000&id=5&subject=11&format=json&download=false&lang=en",
+      "last_url": "https://apis.cbs.gov.il//series/catalog/level?Page=3&PageSize=1000&id=5&subject=11&format=json&download=false&lang=en",
+      "base_url": {}
+    }
+  }
+}
