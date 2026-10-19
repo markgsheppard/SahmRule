@@ -169,6 +169,7 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-intl .intl-scrub { margin: -8px 0 -4px; }
 #v-intl .intl-thwrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 #v-intl .intl-thlab { font-size: 12px; color: #737373; }
+#v-intl .intl-map .intl-boxlab { font-family: var(--f-nav); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; fill: #8a8a8a; paint-order: stroke; stroke: #fbfcfe; stroke-width: 3px; pointer-events: none; }
 #v-intl .sp-legend i.intl-recbox { width: 14px; height: 10px; border: 1px solid #1e3a8a; background: transparent; box-sizing: border-box; margin-right: 2px; }
 #v-intl .sp-legend i.intl-recline { width: 18px; height: 2px; background: #1e3a8a; margin-right: 2px; vertical-align: middle; }
 #v-intl .intl-mapsum { font-size: 13px; color: #525252; margin: 8px 0 0; max-width: none; }
@@ -5046,12 +5047,12 @@ async function renderLfp() {
 // The rule is Appendix B's: a k-month average of the unemployment rate against its low over the w months ending `lag` months
 // earlier, an alarm at α, and a recession caught if the alarm sounds between tol_before months before it starts and tol_after
 // months after it ends. intlScore() repeats the Rmd's scoring so the page can move the threshold; at α = 0.6 the two agree.
-const INTL = { th: null, mode: "stats", metric: "auc", sel: "DE", month: null, view: "ind", dotsBy: "auc", sc: "okun", ep: "c20", heat: "country", zoom: "world" };
+const INTL = { th: null, mode: "month", metric: "auc", sel: "DE", month: null, view: "ind", dotsBy: "auc", sc: "okun", ep: "c20", heat: "country" };
 const INTL_TH = [0.3, 0.4, 0.5, 0.6, 0.8, 1.0];
 const INTL_REG = ["North America", "Western Europe", "Nordic countries", "Southern Europe", "Central and Eastern Europe", "Baltic states", "Asia-Pacific and Israel"];
 const INTL_RAMP = ["#e3eefb", "#b9d6f4", "#86b6ea", "#4f8ad7", "#2357b0", "#17397c"];
-// the turning-point indicator month by month (four steps up to the threshold, then the alarm), and recessions dated from GDP
-const INTL_ALARM = ["#eac9b7", "#e0a582", "#d2824e", "#be621e", "#a54500"], INTL_REC = "#1e3a8a";
+// the turning-point indicator month by month (light blue up to the threshold, then the alarm), and recessions dated from GDP
+const INTL_IND = ["#e5effe", "#c7dbf5", "#aac6ed", "#8bb0e4", "#6a9adb", "#4381d2"], INTL_REC = "#1e3a8a";
 const iN = x => typeof x === "number" && isFinite(x);
 const iF = (x, d = 1) => !iN(x) ? "–" : (x < 0 && Math.abs(x) >= 0.5 * 10 ** -d ? "−" : "") + Math.abs(x).toFixed(d);
 const iS = (x, d = 1) => !iN(x) ? "–" : sg(x, d);
@@ -5185,84 +5186,78 @@ function intlShare(D, alpha, reg) {
 
 // ----- the map -----
 function intlColor(dom, v) { if (!iN(v)) return "#eeeeee"; const x = Math.max(0, Math.min(0.9999, (v - dom[0]) / (dom[1] - dom[0]))); return INTL_RAMP[Math.floor(x * INTL_RAMP.length)]; }
-function intlIndColor(v, alpha) { if (!isFinite(v)) return "#eeeeee"; if (v >= alpha - 1e-9) return INTL_ALARM[4]; return INTL_ALARM[Math.min(3, Math.max(0, Math.floor(Math.max(0, v) / alpha * 4)))]; }
-const INTL_INSETS = ["US", "CA", "JP", "KR", "AU", "IL"];
+function intlIndColor(v, alpha) { if (!isFinite(v)) return "#eeeeee"; if (v >= alpha - 1e-9) return INTL_IND[5]; return INTL_IND[Math.min(4, Math.max(0, Math.floor(Math.max(0, v) / alpha * 5)))]; }
 function intlMap(el, D) {
   if (!el) return;
   const mode = INTL.mode, met = INTL_MET[INTL.metric], th = INTL.th;
   if (INTL.month === null) INTL.month = D.tLast;
-  const ctl = `<div class="fig-ctl"><div class="segs" id="intl-mode">${[["stats", "Country results"], ["month", "Month by month"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === mode}">${l}</button>`).join("")}</div>${mode === "stats" ? `<div class="segs" id="intl-met">${Object.entries(INTL_MET).map(([k, m]) => `<button data-v="${k}" aria-pressed="${k === INTL.metric}">${m.label}</button>`).join("")}</div>` : `<span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span>`}<div class="segs" id="intl-zoom" role="group" aria-label="Map view">${[["world", "World"], ["europe", "Europe"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === (INTL.zoom === "europe" ? "europe" : "world")}">${l}</button>`).join("")}</div></div>`;
+  const ctl = `<div class="fig-ctl"><div class="segs" id="intl-mode">${[["month", "Month by month"], ["stats", "Country results"]].map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === mode}">${l}</button>`).join("")}</div>${mode === "stats" ? `<div class="segs" id="intl-met">${Object.entries(INTL_MET).map(([k, m]) => `<button data-v="${k}" aria-pressed="${k === INTL.metric}">${m.label}</button>`).join("")}</div>` : `<span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span>`}</div>`;
   const leg = mode === "stats"
     ? `<div class="sp-legend">${esc(met.label)}${INTL.metric === "timing" ? ", months" : ""}: ${met.fmt(met.dom[0])} ${INTL_RAMP.map(c => `<i style="background:${c}"></i>`).join("")} ${met.fmt(met.dom[1])}${met.th ? ` <span class="lab">at a threshold of ${f1(th, 1)} points</span>` : ""}<span class="lab"><i style="background:#eeeeee;width:12px"></i> no data</span></div>`
-    : `<div class="sp-legend">Indicator: 0 ${INTL_ALARM.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_ALARM[4]}"></i> alarm on <span class="lab"><i class="intl-recbox"></i> in a recession by its own GDP</span></div>`;
-  el.innerHTML = figure(mode === "stats" ? "Where the Rule Works: Peer Economies of the United States" : "Where the Alarm Is On",
-    mode === "stats" ? `${met.long}. Turning-point indicator from Appendix B of the paper on monthly unemployment rates (a five-month average less its low over the twelve months ending five months earlier, threshold ${f1(th, 1)} points), scored against each country’s own recessions, dated from its GDP, since 1995.` : `Each country’s turning-point indicator in the month chosen with the slider: its five-month average unemployment rate less its low over the twelve months ending five months earlier. Darkest orange: at or above the threshold of ${f1(th, 1)} points, the alarm on. Outlined in dark blue: in a recession dated from the country’s own GDP.`,
-    `${readme(`<p><b>What you are looking at.</b> The world, with the United States and its peer economies shaded and other countries in gray; choose <b>Europe</b> for a closer view of its smaller economies. ${mode === "stats" ? "Darker countries score higher on the measure chosen above." : "Each country is shaded by its turning-point indicator in the chosen month; the darkest orange means the alarm is on. A dark blue outline means the country was in a recession dated from its own GDP."}</p><p><b>How to use it.</b> ${mode === "stats" ? "Switch the measure above, or choose <b>Month by month</b> to move through time. " : "Drag the slider to move through time. "}Hover over a country for its numbers; click it to see its turning points below.</p>`)}${ctl}${mode === "month" ? `<div class="counties-viz-main intl-scrub"><div class="slider-content" id="intl-slider"></div></div>` : ""}<div class="intl-map" id="intl-mapbox"></div>${leg}${mode === "month" ? `<p class="intl-mapsum" id="intl-mapsum"></p>` : ""}`,
+    : `<div class="sp-legend">Indicator: 0 ${INTL_IND.slice(0, 5).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_IND[5]}"></i> alarm on <span class="lab"><i class="intl-recbox"></i> in a recession by its own GDP</span></div>`;
+  el.innerHTML = figure(mode === "stats" ? "Where the Rule Works: Peer Economies of the United States" : "Where the Rule Works: Peer Economies, Month by Month",
+    mode === "stats" ? `${met.long}. Turning-point indicator from Appendix B of the paper on monthly unemployment rates (a five-month average less its low over the twelve months ending five months earlier, threshold ${f1(th, 1)} points), scored against each country’s own recessions, dated from its GDP, since 1995.` : `Each country’s turning-point indicator in the month chosen with the slider: its five-month average unemployment rate less its low over the twelve months ending five months earlier. Deepest blue: at or above the threshold of ${f1(th, 1)} points, the alarm on. Outlined in dark blue: in a recession dated from the country’s own GDP.`,
+    `${readme(`<p><b>What you are looking at.</b> The United States and its peer economies, in four boxes by region: Europe and the Mediterranean (with Israel), North America, East Asia and Oceania. Other countries are shown in gray for context. ${mode === "stats" ? "Darker countries score higher on the measure chosen above." : "Each country is shaded by its turning-point indicator in the chosen month, from light blue to the deepest blue when the alarm is on. A dark blue outline means the country was in a recession dated from its own GDP."}</p><p><b>How to use it.</b> ${mode === "stats" ? "Switch the measure above, or choose <b>Month by month</b> to move through time. " : "Drag the slider to move through time, or choose <b>Country results</b> for each country’s record. "}Hover over a country for its numbers; click it to see its turning points below.</p>`)}${ctl}${mode === "month" ? `<div class="counties-viz-main intl-scrub"><div class="slider-content" id="intl-slider"></div></div>` : ""}<div class="intl-map" id="intl-mapbox"></div>${leg}${mode === "month" ? `<p class="intl-mapsum" id="intl-mapsum"></p>` : ""}`,
     "Sources: Eurostat (une_rt_m, namq_10_gdp); OECD (harmonised unemployment rates, Quarterly National Accounts, Employment Protection Legislation indicators); Office for National Statistics (MGSX, ABMI); NBER for the United States. Map: Natural Earth, via world-atlas. Malta and Luxembourg are marked with dots; the euro area aggregate is in the table below.");
   el.querySelectorAll("#intl-mode button").forEach(b => b.onclick = () => { INTL.mode = b.dataset.v; intlMap(el, D); });
   el.querySelectorAll("#intl-met button").forEach(b => b.onclick = () => { INTL.metric = b.dataset.v; intlMap(el, D); });
-  el.querySelectorAll("#intl-zoom button").forEach(b => b.onclick = () => { INTL.zoom = b.dataset.v; el.querySelectorAll("#intl-zoom button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); intlMapDraw(el, D); });
   intlWireTh(el, D);
   if (mode === "month") intlScrubber(el.querySelector("#intl-slider"), D, INTL.month, t => { INTL.month = t; intlMapDraw(el, D); });
   intlMapDraw(el, D);
 }
+// The peers in four regional boxes, each on its own projection: Europe and the Mediterranean (with Israel), North America,
+// East Asia and Oceania. Countries without data are drawn only as gray context inside a box.
+const INTL_BOXES = [
+  { lab: "Europe and the Mediterranean", peers: null, pj: () => d3.geoConicConformal().parallels([35, 65]).rotate([-14, 0]), ext: [[-24, 35], [36, 35], [-12, 70.5], [32, 71], [10, 34], [-10, 63], [38.8, 29.0], [37.6, 33.6]] },
+  { lab: "North America", peers: ["US", "CA"], pj: () => d3.geoConicConformal().parallels([30, 62]).rotate([100, 0]), ext: [[-160, 56], [-160.5, 18.6], [-124, 25], [-81, 25], [-56, 47], [-142, 69], [-64, 70], [-100, 79]] },
+  { lab: "East Asia", peers: ["JP", "KR"], pj: () => d3.geoConicConformal().parallels([30, 45]).rotate([-134, 0]), ext: [[125, 30.6], [145.5, 30.6], [124.5, 45.6], [146, 45.6]] },
+  { lab: "Oceania", peers: ["AU"], pj: () => d3.geoConicEqualArea().parallels([-18, -36]).rotate([-134, 0]), ext: [[113, -11], [154, -11], [114, -44], [153, -44]] }
+];
 function intlMapDraw(el, D) {
   const box = el && el.querySelector("#intl-mapbox"); if (!box) return;
   box.classList.add("chart");
-  const mode = INTL.mode, met = INTL_MET[INTL.metric], th = INTL.th, t = INTL.month, world = INTL.zoom !== "europe";
-  if (mode === "month") { const tt = el.querySelector(".vtitle"); if (tt) tt.textContent = `Where the Alarm Was On: Peer Economies in ${intlMon(t)}`;
+  const mode = INTL.mode, met = INTL_MET[INTL.metric], th = INTL.th, t = INTL.month;
+  if (mode === "month") { const tt = el.querySelector(".vtitle"); if (tt) tt.textContent = `Where the Rule Works: Peer Economies in ${intlMon(t)}`;
     const sm = el.querySelector("#intl-mapsum"); if (sm) { const W = intlShare(D, th), i = t - W.t0; sm.innerHTML = i >= 0 && i < W.n ? `In ${intlMon(t)} the alarm was on in <b>${W.non[i]}</b> of the ${W.cnt[i]} peers with data, and <b>${W.nrec[i]}</b> were in a recession by their own GDP.` : ""; } }
-  const W = Math.max(320, box.clientWidth || 860), wide = W >= 720;
+  const W = Math.max(320, box.clientWidth || 860), wide = W >= 720, g = 12;
   const val = k => mode === "stats" ? met.get(D.C[k], intlScore(D, k, th)) : intlAt(D.S[k], t);
   const fill = k => mode === "stats" ? intlColor(met.dom, val(k)) : intlIndColor(val(k), th);
   const rec = k => mode === "month" && intlInRec(D, k, t), sel = k => mode === "stats" && k === INTL.sel, hi = k => rec(k) || sel(k);
-  // recessions by GDP: a thin dark-blue outline; the country selected in "Country results": black
-  const stroke = k => sel(k) ? "#111111" : rec(k) ? INTL_REC : "#ffffff";
-  const sw = k => sel(k) ? (world ? 1.5 : 2) : rec(k) ? (world ? 0.85 : 1) : (world ? 0.45 : 0.7);
-  const dot = (proj, f, r) => { const k = f.properties.c, xy = proj([f.properties.lon, f.properties.lat]); if (!xy) return "";
-    return `<circle class="ic" data-k="${k}" cx="${xy[0].toFixed(1)}" cy="${xy[1].toFixed(1)}" r="${r}" fill="${fill(k)}" stroke="${sel(k) ? "#111111" : rec(k) ? INTL_REC : "#8a8a8a"}" stroke-width="${hi(k) ? 1.1 : 0.8}"></circle>`; };
-  const countries = (path, list, ctx) => { let s = ""; const last = [];
-    for (const f of list) {
-      const k = f.properties.c, d = path(f); if (!d) continue;
-      if (!k || !D.C[k]) s += `<path d="${d}" fill="${ctx}" stroke="#ffffff" stroke-width="${world ? 0.4 : 0.6}"></path>`;
-      else if (hi(k)) last.push([k, d]);   // outlined countries are drawn last, so their borders sit on top
-      else s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="#ffffff" stroke-width="${sw(k)}"></path>`;
-    }
-    for (const [k, d] of last) s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="${stroke(k)}" stroke-width="${sw(k)}"></path>`;
-    return s; };
-  let s, H;
-  if (world) {
-    // the whole world (Antarctica left out), on an equal-area projection centred near Europe
-    const fc = { type: "FeatureCollection", features: D.feats };
-    const proj = d3.geoEqualEarth().rotate([-10, 0]).fitWidth(W - 8, fc), b = d3.geoPath(proj).bounds(fc);
-    H = Math.ceil(b[1][1] - b[0][1]) + 12; proj.fitExtent([[4, 6], [W - 4, H - 6]], fc);
-    s = `<rect x="0" y="0" width="${W}" height="${H}" rx="3" fill="#fbfcfe"></rect>` + countries(d3.geoPath(proj), D.feats, "#e9e9e9");
-    for (const f of D.feats) if (["MT", "LU"].includes(f.properties.c)) s += dot(proj, f, 2.8);
+  // a recession dated from GDP: a thin dark-blue outline; the country selected under "Country results": black
+  const stroke = k => sel(k) ? "#111111" : rec(k) ? INTL_REC : "#ffffff", sw = k => sel(k) ? 1.6 : rec(k) ? 1 : 0.6;
+  // where each box sits
+  let H; const R = [];
+  if (wide) {
+    const EW = Math.round(W * 0.6), RW = W - EW - g, EH = Math.round(Math.min(600, Math.max(430, EW * 0.92)));
+    const h1 = Math.round(EH * 0.4), h2 = Math.round((EH - h1 - 2 * g) / 2), h3 = EH - h1 - h2 - 2 * g;
+    R.push([0, 0, EW, EH], [EW + g, 0, RW, h1], [EW + g, h1 + g, RW, h2], [EW + g, h1 + h2 + 2 * g, RW, h3]); H = EH;
   } else {
-    // Europe, with the other peers in insets
-    const EW = wide ? W - 222 : W, EH = Math.round(Math.min(560, Math.max(330, EW * 0.86)));
-    const tg = 8, tw = wide ? 100 : Math.floor((W - 12 - 2 * tg) / 3), th2 = wide ? 76 : 66;
-    H = wide ? Math.max(EH, 3 * (th2 + 24) + 10) : EH + 2 * (th2 + 24) + 14;
-    const proj = d3.geoConicConformal().parallels([35, 65]).rotate([-14, 0]);
-    proj.fitExtent([[6, 6], [EW - 6, EH - 6]], { type: "Feature", geometry: { type: "MultiPoint", coordinates: [[-24, 35], [35, 35], [-12, 70.5], [32, 71], [10, 34], [-10, 63]] } });
-    const Eur = D.feats.filter(f => !INTL_INSETS.includes(f.properties.c));
-    s = `<defs><clipPath id="intl-eclip"><rect x="0" y="0" width="${EW}" height="${EH}"></rect></clipPath></defs><rect x="0" y="0" width="${EW}" height="${EH}" rx="3" fill="#fbfcfe"></rect><g clip-path="url(#intl-eclip)">`
-      + countries(d3.geoPath(proj), Eur, "#f1f1f1");
-    for (const f of Eur) if (["MT", "LU"].includes(f.properties.c)) s += dot(proj, f, 5);
-    s += `</g>`;
-    INTL_INSETS.forEach((k, i) => {
-      const f = D.feats.find(z => z.properties.c === k); if (!f) return;
-      const col = wide ? i % 2 : i % 3, row = wide ? Math.floor(i / 2) : Math.floor(i / 3);
-      const x0 = wide ? EW + 14 + col * (tw + tg) : 6 + col * (tw + tg), y0 = wide ? 6 + row * (th2 + 24) : EH + 12 + row * (th2 + 24);
-      const pj = k === "US" ? d3.geoAlbersUsa() : k === "CA" ? d3.geoConicConformal().parallels([49, 77]).rotate([96, 0]) : k === "AU" ? d3.geoConicEqualArea().parallels([-18, -36]).rotate([-134, 0]) : d3.geoMercator();
-      pj.fitExtent([[x0 + 6, y0 + 6], [x0 + tw - 6, y0 + th2 - 6]], f);
-      const d = d3.geoPath(pj)(f);
-      s += `<rect x="${x0}" y="${y0}" width="${tw}" height="${th2}" rx="3" fill="#fbfcfe" stroke="${sel(k) ? "#111111" : "#ececec"}"></rect>`;
-      if (d) s += `<path class="ic" data-k="${k}" d="${d}" fill="${fill(k)}" stroke="${stroke(k)}" stroke-width="${sw(k)}"></path>`;
-      s += `<text x="${x0 + tw / 2}" y="${y0 + th2 + 14}" text-anchor="middle" style="font-size:11px;fill:#525252">${esc(intlName(D, k))}</text>`;
-    });
+    const EH = Math.round(W * 0.95), NH = Math.round(W * 0.6), SW = Math.floor((W - g) / 2), SH = Math.round(SW * 0.95);
+    R.push([0, 0, W, EH], [0, EH + g, W, NH], [0, EH + NH + 2 * g, SW, SH], [SW + g, EH + NH + 2 * g, W - SW - g, SH]); H = EH + NH + SH + 2 * g;
   }
-  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${world ? "World map of the United States and its peer economies" : "Map of the peer economies in Europe, with the others in insets"}">${s}</svg><div class="tip" hidden></div>`;
+  if (!D.fb) D.fb = D.feats.map(f => d3.geoBounds(f));
+  const elsewhere = new Set(INTL_BOXES.flatMap(b => b.peers || []));   // each peer is colored in its own box only
+  let s = "";
+  INTL_BOXES.forEach((bx, i) => {
+    const [x, y, w, h] = R[i], pj = bx.pj();
+    pj.fitExtent([[x + 8, y + 24], [x + w - 8, y + h - 8]], { type: "Feature", geometry: { type: "MultiPoint", coordinates: bx.ext } });
+    const path = d3.geoPath(pj), xs = bx.ext.map(p => p[0]), ys = bx.ext.map(p => p[1]);
+    const lo0 = Math.min(...xs) - 25, lo1 = Math.max(...xs) + 25, la0 = Math.min(...ys) - 15, la1 = Math.max(...ys) + 15;
+    s += `<clipPath id="intl-bx${i}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"></rect></clipPath><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="#fbfcfe" stroke="#ececec"></rect><g clip-path="url(#intl-bx${i})">`;
+    const last = [], own = k => bx.peers ? bx.peers.includes(k) : !elsewhere.has(k);
+    D.feats.forEach((f, j) => {
+      const [[a, b], [c, d]] = D.fb[j]; if (a <= c && (c < lo0 || a > lo1 || d < la0 || b > la1)) return;
+      const k = f.properties.c, p = path(f); if (!p) return;
+      if (!k || !D.C[k] || !own(k)) s += `<path d="${p}" fill="#efefef" stroke="#ffffff" stroke-width=".6"></path>`;
+      else if (hi(k)) last.push([k, p]);   // outlined countries are drawn last, so their borders sit on top
+      else s += `<path class="ic" data-k="${k}" d="${p}" fill="${fill(k)}" stroke="#ffffff" stroke-width="${sw(k)}"></path>`;
+    });
+    for (const [k, p] of last) s += `<path class="ic" data-k="${k}" d="${p}" fill="${fill(k)}" stroke="${stroke(k)}" stroke-width="${sw(k)}"></path>`;
+    if (i === 0) for (const f of D.feats) { const k = f.properties.c; if (!["MT", "LU"].includes(k)) continue; const xy = pj([f.properties.lon, f.properties.lat]); if (!xy) continue;
+      s += `<circle class="ic" data-k="${k}" cx="${xy[0].toFixed(1)}" cy="${xy[1].toFixed(1)}" r="5" fill="${fill(k)}" stroke="${sel(k) ? "#111111" : rec(k) ? INTL_REC : "#8a8a8a"}" stroke-width="${hi(k) ? 1.2 : 0.8}"></circle>`; }
+    s += `</g><text x="${x + 10}" y="${y + 17}" class="intl-boxlab">${esc(bx.lab)}</text>`;
+  });
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Map of the United States and its peer economies, in four regional boxes">${s}</svg><div class="tip" hidden></div>`;
   const svg = box.querySelector("svg"), tip = box.querySelector(".tip");
   svg.addEventListener("pointermove", ev => {
     const g = ev.target.closest && ev.target.closest(".ic"); if (!g) { tip.hidden = true; return; }
@@ -5318,10 +5313,10 @@ function intlHeat(el, D) {
   else for (const reg of INTL_REG) P.filter(k => D.C[k].region === reg).forEach((k, j) => rows.push({ k, grp: j === 0 ? reg : null, label: intlName(D, k) }));
   const SH = intlShare(D, th), t0 = SH.t0, n = SH.n;
   el.innerHTML = figure(byReg ? "Where Recessions Happened: Share of Each Region’s Peers in Recession" : "Where Recessions Happened: Peer Economies, Month by Month",
-    byReg ? `Share of each region’s peer economies whose turning-point indicator is at or above the threshold of ${f1(th, 1)} points, by month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. A dark blue line under a row marks months when at least half the region’s peers were in a recession dated from their own GDP. The strip on top is the share of all ${P.length} peers.` : `Turning-point indicator by country and month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. Darker cells are closer to the threshold of ${f1(th, 1)} points; the darkest orange, at or above it, mean the alarm is on. A dark blue line under a row marks the country’s own recessions, dated from its GDP. The strip on top is the share of all ${P.length} peers with the alarm on, and the share in a recession.`,
-    `${readme((byReg ? `<p><b>What you are looking at.</b> Each thin column is a month and each row a region. A cell turns dark orange when most of the region’s peer economies have their alarm on.</p><p><b>What to look for.</b> The Great Recession and 2020 run through almost every row; the euro crisis of 2011–13 is concentrated in Southern Europe.</p>` : `<p><b>What you are looking at.</b> Each thin column is a month and each row an economy, grouped by region. A cell turns dark orange when that country’s alarm is on; the dark blue line under a row marks the months its own GDP says it was in recession.</p><p><b>What to look for.</b> A dark orange band sitting on a dark blue line is a recession the labor market saw. A dark blue line under pale cells is a recession that never reached unemployment. Dark cells with no line nearby are false alarms.</p>`) + `<p>Hover for the numbers; click a row to see that ${byReg ? "region’s first country" : "country"} below.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-heatby">${[["country", "By country"], ["region", "By region"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === INTL.heat}">${l}</button>`).join("")}</div><span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span></div>
+    byReg ? `Share of each region’s peer economies whose turning-point indicator is at or above the threshold of ${f1(th, 1)} points, by month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. A dark blue line under a row marks months when at least half the region’s peers were in a recession dated from their own GDP. The strip on top is the share of all ${P.length} peers.` : `Turning-point indicator by country and month, ${intlMon(t0)} to ${intlMon(t0 + n - 1)}. Darker cells are closer to the threshold of ${f1(th, 1)} points; the deepest blue, at or above it, mean the alarm is on. A dark blue line under a row marks the country’s own recessions, dated from its GDP. The strip on top is the share of all ${P.length} peers with the alarm on, and the share in a recession.`,
+    `${readme((byReg ? `<p><b>What you are looking at.</b> Each thin column is a month and each row a region. A cell turns the deepest blue when most of the region’s peer economies have their alarm on.</p><p><b>What to look for.</b> The Great Recession and 2020 run through almost every row; the euro crisis of 2011–13 is concentrated in Southern Europe.</p>` : `<p><b>What you are looking at.</b> Each thin column is a month and each row an economy, grouped by region. A cell turns the deepest blue when that country’s alarm is on; the dark blue line under a row marks the months its own GDP says it was in recession.</p><p><b>What to look for.</b> A deep blue band sitting on a dark blue line is a recession the labor market saw. A dark blue line under pale cells is a recession that never reached unemployment. Dark cells with no line nearby are false alarms.</p>`) + `<p>Hover for the numbers; click a row to see that ${byReg ? "region’s first country" : "country"} below.</p>`)}<div class="fig-ctl"><div class="segs" id="intl-heatby">${[["country", "By country"], ["region", "By region"]].map(([q, l]) => `<button data-v="${q}" aria-pressed="${q === INTL.heat}">${l}</button>`).join("")}</div><span class="intl-thwrap"><span class="intl-thlab">Threshold, points</span>${intlThCtl()}</span></div>
      <div class="val-canvas" id="intl-heat-cv"><canvas></canvas><div class="tip" hidden></div></div>
-     <div class="sp-legend">${byReg ? `0% ${INTL_ALARM.map(c => `<i style="background:${c}"></i>`).join("")} 100% <span class="lab">of the region’s peers with the alarm on</span><span class="lab"><i class="intl-recline"></i> most in a recession by their own GDP</span>` : `0 ${INTL_ALARM.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_ALARM[4]}"></i> alarm on <span class="lab"><i class="intl-recline"></i> recession by its own GDP</span>`}</div>`,
+     <div class="sp-legend">${byReg ? `0% ${INTL_IND.map(c => `<i style="background:${c}"></i>`).join("")} 100% <span class="lab">of the region’s peers with the alarm on</span><span class="lab"><i class="intl-recline"></i> most in a recession by their own GDP</span>` : `0 ${INTL_IND.slice(0, 5).map(c => `<i style="background:${c}"></i>`).join("")} ${f1(th, 1)} <i style="background:${INTL_IND[5]}"></i> alarm on <span class="lab"><i class="intl-recline"></i> recession by its own GDP</span>`}</div>`,
     "Sources: Eurostat, OECD, ONS and NBER. Recessions are dated from each country’s quarterly real GDP with the Harding–Pagan algorithm; the United States keeps the NBER chronology. Light gray: no data.");
   el.querySelectorAll("#intl-heatby button").forEach(b => b.onclick = () => { INTL.heat = b.dataset.v; intlHeat(el, D); });
   intlWireTh(el, D);
@@ -5335,13 +5330,13 @@ function intlHeat(el, D) {
   // strip: share of all peers with the alarm on, and in a recession
   const sTop = 22, sBot = top - 18, SY = v => sBot - v * (sBot - sTop);
   g.strokeStyle = "#ececec"; g.lineWidth = 1; for (const v of [0, 0.5, 1]) { g.beginPath(); g.moveTo(labW, Math.round(SY(v)) + .5); g.lineTo(W - M.r, Math.round(SY(v)) + .5); g.stroke(); }
-  g.beginPath(); g.moveTo(X(0), SY(0)); SH.on.forEach((v, i) => g.lineTo(X(i + .5), SY(isFinite(v) ? v : 0))); g.lineTo(X(n), SY(0)); g.closePath(); g.fillStyle = "rgba(190,98,30,.18)"; g.fill();
-  g.beginPath(); SH.on.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = "#be621e"; g.lineWidth = 1.4; g.stroke();
+  g.beginPath(); g.moveTo(X(0), SY(0)); SH.on.forEach((v, i) => g.lineTo(X(i + .5), SY(isFinite(v) ? v : 0))); g.lineTo(X(n), SY(0)); g.closePath(); g.fillStyle = "rgba(67,129,210,.2)"; g.fill();
+  g.beginPath(); SH.on.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = "#4381d2"; g.lineWidth = 1.4; g.stroke();
   g.beginPath(); SH.rec.forEach((v, i) => i ? g.lineTo(X(i + .5), SY(v)) : g.moveTo(X(i + .5), SY(v))); g.strokeStyle = INTL_REC; g.lineWidth = 1.2; g.stroke();
   g.font = "10px " + font; g.fillStyle = "#a3a3a3"; g.textAlign = "right"; g.fillText("100%", labW - 4, SY(1) + 3); g.fillText("0%", labW - 4, SY(0) + 3);
-  g.textAlign = "left"; g.fillStyle = "#a54500"; g.fillText("Peers with the alarm on", labW + 2, sTop - 9); const aw = g.measureText("Peers with the alarm on").width; g.fillStyle = INTL_REC; g.fillText("·  In a recession by their own GDP", labW + 10 + aw, sTop - 9);
+  g.textAlign = "left"; g.fillStyle = "#2f6cc0"; g.fillText("Peers with the alarm on", labW + 2, sTop - 9); const aw = g.measureText("Peers with the alarm on").width; g.fillStyle = INTL_REC; g.fillText("·  In a recession by their own GDP", labW + 10 + aw, sTop - 9);
   // cells
-  const regRamp = v => INTL_ALARM[Math.max(0, Math.min(4, Math.ceil(v * 5) - 1))];
+  const regRamp = v => INTL_IND[Math.max(0, Math.min(5, Math.ceil(v * 6) - 1))];
   rows.forEach((r, j) => { const y = rowY[j];
     if (byReg) { for (let i = 0; i < n; i++) { const v = r.sh.on[i]; g.fillStyle = isFinite(v) ? regRamp(v) : "#f3f3f3"; g.fillRect(X(i), y, Math.ceil(cw + .5), rh - 3); }
       g.fillStyle = INTL_REC; for (let i = 0; i < n; i++) if (r.sh.rec[i] >= 0.5) g.fillRect(X(i), y + rh - 2.5, Math.ceil(cw + .5), 2); }
