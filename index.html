@@ -170,6 +170,17 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-intl .intl-thwrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 #v-intl .intl-thlab { font-size: 12px; color: #737373; }
 #v-intl .intl-map .intl-boxlab { font-family: var(--f-nav); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; fill: #8a8a8a; paint-order: stroke; stroke: #fbfcfe; stroke-width: 3px; pointer-events: none; }
+#v-intl .intl-race { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 18px 26px; }
+#v-intl .race-p { display: grid; gap: 6px; align-content: start; min-width: 0; }
+#v-intl .race-h { display: grid; gap: 1px; } #v-intl .race-h b { font-size: 14px; color: #262626; } #v-intl .race-h span { font-size: 11.5px; color: #8a8a8a; line-height: 1.4; }
+#v-intl .race-c { position: relative; } #v-intl .race-c svg { display: block; width: 100%; height: auto; cursor: default; }
+#v-intl .race-ax { font-size: 10px; fill: #8a8a8a; }
+#v-intl .race-tab { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+#v-intl .race-tab th.l, #v-intl .race-tab td.l { width: 22%; }
+#v-intl .race-tab th { font-weight: 600; color: #525252; text-align: right; vertical-align: bottom; line-height: 1.25; padding: 3px 0 4px 8px; border-bottom: 1px solid #e5e5e5; white-space: normal; overflow-wrap: anywhere; }
+#v-intl .race-tab th i { display: block; width: 14px; height: 3px; border-radius: 2px; margin: 0 0 4px auto; }
+#v-intl .race-tab td { text-align: right; padding: 3px 0 3px 6px; color: #262626; border-bottom: 1px solid #f2f2f2; }
+#v-intl .race-tab .l { text-align: left; padding-left: 0; color: #737373; font-weight: 400; }
 #v-intl .sp-legend i.intl-recbox { width: 14px; height: 10px; border: 1px solid #1e3a8a; background: transparent; box-sizing: border-box; margin-right: 2px; }
 #v-intl .sp-legend i.intl-recline { width: 18px; height: 2px; background: #1e3a8a; margin-right: 2px; vertical-align: middle; }
 #v-intl .intl-mapsum { font-size: 13px; color: #525252; margin: 8px 0 0; max-width: none; }
@@ -1304,6 +1315,8 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <section class="pbreak"><span class="ov-kicker">What it means</span><h2 class="ov-h">Calibrate to pass-through</h2><p>An unemployment-based recession rule does not travel across borders by default. Where pass-through is weak the alarm is late and noisy, and moving the threshold only trades misses for false alarms: <span data-intl="thr">…</span></p><p>The same logic runs through the rest of the paper. Groups of workers whose unemployment responds strongly to output signal recessions early, and groups whose unemployment barely moves signal them late or not at all. For comparisons across countries, the useful grouping is by how much of a recession reaches unemployment, not by income level or by legal tradition.</p><div class="pb-btns"><a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the working paper</a><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener">View the code</a></div></section>
   <section class="pbreak"><span class="ov-kicker">Every peer</span><h2 class="ov-h">Country by country</h2><p>Sorted by accuracy, at a threshold of <span class="intl-thnow">0.6</span> points. Timing is the median number of months from the start of each recession to its first alarm, leaving out alarms left over from an earlier episode. Click a row to see that country above. The euro area, 21 members since Bulgaria joined in January 2026, is shown for reference and is not counted among the peers.</p></section>
   <div class="tablewrap" id="intl-table"></div>
+  <section class="pbreak"><span class="ov-kicker">Race and ethnicity abroad</span><h2 class="ov-h">Three peers that count it</h2><p>Only three of the peers publish unemployment by race, ethnicity or population group in their labour force surveys: the United Kingdom, by ethnic group, every quarter since 2001; Israel, for Jews and the rest of the population, every month since 2012; and Canada, by racialized group, every month since 2022. The panels show how far unemployment rose for each group in the recessions those series cover, and in Canada’s slowdown since 2023.</p></section>
+  <div id="fig-intl-race"></div>
   <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">Data and methods</h2><p><b>Unemployment.</b> Monthly unemployment rates, seasonally adjusted, as a percent of the labor force: Eurostat’s <span class="mono">une_rt_m</span> for the members of the European Union, Norway, Iceland and Switzerland; the OECD’s harmonised unemployment rates for the United States, Canada, Japan, Korea, Australia and Israel; and, for the United Kingdom, whose Eurostat series ends in 2020, the Office for National Statistics series <span class="mono">MGSX</span>, for people aged 16 and over. The ONS publishes rolling three-month averages, labelled here by their middle month, so the British indicator is smoother and a little later than the others. <span data-intl="interp"></span></p><p><b>Recessions.</b> For every country but the United States, dated with the Harding and Pagan (2002) version of the Bry–Boschan algorithm on the log of quarterly real GDP: Eurostat’s <span class="mono">namq_10_gdp</span> in chain-linked volumes, the OECD’s Quarterly National Accounts outside Europe, and the ONS series <span class="mono">ABMI</span> for the United Kingdom. A peak or trough must be the highest or lowest point within two quarters on either side, each phase must last at least two quarters and each full cycle at least five. A recession runs from the first month of the quarter after the peak to the last month of the trough quarter. One check is added to the appendix’s code, from the canonical Bry–Boschan rules: a phase counts as a recession only if GDP is lower at its trough than at its peak. <span data-intl="dropped"></span> <span data-intl="usbbq"></span> <span data-intl="open"></span></p><p><b>The rule and the scoring.</b> Appendix B’s configuration: a five-month average, a twelve-month low lagged five months, and a threshold of 0.6 points. Months are scored from January 1995, once the indicator can be computed from data after that date, which puts the first scored month in September 1996 wherever the data go back that far. A recession counts as caught if the alarm sounds between nine months before it starts and nine months after it ends; an alarm episode that touches no such window is a false alarm. Two departures from the appendix’s code: a recession counts only if it reaches the months that can be scored (the appendix also counts recessions that ended before a country’s unemployment data begin, as misses), and a value exactly at the threshold sounds the alarm. Switzerland’s monthly series begins in 2010, Israel’s in 2012 and Iceland’s in 2003, so each is scored on fewer recessions than the rest.</p><p><b>Pass-through and institutions.</b> The Okun coefficient is estimated for each country from 1995 on, by regressing the four-quarter change in its quarterly average unemployment rate on four-quarter growth in real GDP, in log points (Ball, Leigh and Loungani 2017). Employment protection is measured by the OECD’s indicators, version 4, for regular contracts, temporary contracts and collective dismissals, averaged over the years since 1995; the OECD does not cover Bulgaria, Croatia, Cyprus, Malta or Romania. Ireland’s GDP is swollen by the accounts of multinational firms, which weakens its Okun relationship.</p><p><b>Code and data.</b> Everything on this page is built by <a href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener"><span class="mono">data-source/International_Turning_Points.Rmd</span></a>, which reads the source files in <a href="https://github.com/markgsheppard/SahmRule/tree/main/data-source/intl/raw" target="_blank" rel="noopener"><span class="mono">data-source/intl/raw/</span></a> and writes <a href="data/intl_series.csv"><span class="mono">data/intl_series.csv</span></a>, each country’s unemployment rate and indicator by month, and <a href="data/intl_summary.json"><span class="mono">data/intl_summary.json</span></a>, the recession dates, scores, pass-through, institutions and the 2008–09 and 2020 episodes. A scheduled workflow downloads fresh data from Eurostat, the OECD and the ONS twice a month and rebuilds both files. When you change the threshold, the page recomputes the alarms in your browser; at 0.6 points its numbers match the file’s.</p><div class="pb-btns"><a class="df-button ghost" href="https://github.com/markgsheppard/SahmRule/blob/main/data-source/International_Turning_Points.Rmd" target="_blank" rel="noopener">View the code</a><a class="df-button ghost" href="#series">The Inequality of Recession</a></div></section>
 </div>
 </div>
@@ -5512,6 +5525,69 @@ function intlTable(el, D) {
   el.querySelectorAll("tr[data-k]").forEach(tr => { if (tr.dataset.k !== "EA") { tr.style.cursor = "pointer"; tr.onclick = () => intlSelect(D, tr.dataset.k, true); } });
 }
 
+// ----- racial and ethnic groups abroad: the three peers whose labour force surveys publish them -----
+const INTL_RACE = [
+  { k: "uk", code: "UK", name: "United Kingdom", what: "Ethnic group, aged 16 and over, four-quarter averages", avg: 4, q: true,
+    groups: [["White", "White", "var(--s-white)"], ["All other ethnic groups combined", "All other groups", "#4a86d4"], ["Black/ African/ Caribbean/ Black British", "Black", "var(--s-black)"]] },
+  { k: "il", code: "IL", name: "Israel", what: "Population group, aged 15 and over, three-month averages", avg: 3,
+    groups: [["Jews", "Jews", "var(--s-white)"], ["Arab citizens and others", "Arab citizens and others", "#4a86d4"]] },
+  { k: "ca", code: "CA", name: "Canada", what: "Racialized group, aged 15 and over, three-month averages", avg: 1,
+    groups: [["Not a visible minority", "Not racialized", "var(--s-white)"], ["Visible minority population", "Racialized", "#4a86d4"], ["Black", "Black", "var(--s-black)"]],
+    slow: { lo: ["2022-03", "2023-12"], hi: "2024-01", lab: "Since 2023" } }
+];
+let _race = null;
+function intlRace(el, D) {
+  if (!el) return;
+  if (!_race) _race = d3.json("data/race_abroad.json");
+  _race.then(R => intlRaceDraw(el, D, R)).catch(e => { console.error(e); el.innerHTML = `<p class="note">The data on race and ethnicity abroad could not be loaded.</p>`; });
+}
+function intlRaceDraw(el, D, R) {
+  const QL = ["Jan–Mar", "Apr–Jun", "Jul–Sep", "Oct–Dec"], per = (p, t) => p.q ? `${QL[Math.floor((t % 12) / 3)]} ${Math.floor(t / 12)}` : mLab(t);
+  const P = INTL_RACE.filter(p => R[p.k]).map(p => {
+    const z = R[p.k], t0 = mIdx(z.start), st = z.step;
+    const lines = p.groups.filter(g => z.groups[g[0]]).map(([key, lab, col]) => {
+      const v = z.groups[key], pts = v.map((x, i) => { const w = v.slice(Math.max(0, i - p.avg + 1), i + 1).filter(y => y !== null && isFinite(y)); return { t: t0 + i * st, v: i >= p.avg - 1 && w.length === p.avg ? w.reduce((a, b) => a + b, 0) / p.avg : NaN }; });
+      return { lab, col, pts };
+    });
+    const ok = lines[0].pts.filter(d => isFinite(d.v)), a = ok[0].t, b = ok[ok.length - 1].t;
+    const range = (L, x0, x1) => L.pts.filter(d => isFinite(d.v) && d.t >= x0 && d.t <= x1).map(d => d.v);
+    const rise = (L, lo0, lo1, hi0, hi1) => { const l = range(L, lo0, lo1), h = range(L, hi0, hi1); return l.length && h.length ? Math.max(...h) - Math.min(...l) : NaN; };
+    const recs = (D.R[p.code] || []).filter(r => r.s - 12 >= a && r.s <= b);
+    const rows = recs.map(r => ({ lab: Math.floor(r.s / 12) === Math.floor(r.e / 12) ? String(Math.floor(r.s / 12)) : `${Math.floor(r.s / 12)}–${String(Math.floor(r.e / 12)).slice(2)}`, v: lines.map(L => rise(L, r.s - 12, r.s, r.s, r.e + 12)) }));
+    if (!rows.length && p.slow) rows.push({ lab: p.slow.lab, v: lines.map(L => rise(L, mIdx(p.slow.lo[0]), mIdx(p.slow.lo[1]), mIdx(p.slow.hi), b)) });
+    return { ...p, lines, a, b, recs, rows, z };
+  });
+  const tab = p => `<table class="race-tab"><thead><tr><th class="l">Rise, points</th>${p.lines.map(L => `<th><i style="background:${L.col}"></i>${esc(L.lab)}</th>`).join("")}</tr></thead><tbody>${p.rows.map(r => `<tr><td class="l">${esc(r.lab)}</td>${r.v.map(x => `<td>${isFinite(x) ? (x >= 0 ? "+" : "−") + f1(Math.abs(x)) : "–"}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  el.innerHTML = figure("How Racial and Ethnic Groups Fared in Recessions Abroad",
+    "Unemployment rate by group, percent. Rise: the highest average during a recession and the year after it, less the lowest average in the year before it began. Canada has had no recession since its series began in 2022, so its row is the rise from the 2022–23 low to the high since 2024. Shaded: recessions dated from each country’s GDP, as above. The series are not seasonally adjusted and rest on small samples, so the panels use averages and compare how far unemployment rose, not when.",
+    `<div class="intl-race">${P.map((p, i) => `<div class="race-p"><div class="race-h"><b>${esc(p.name)}</b><span>${esc(p.what)}, ${per(p, p.a)} to ${per(p, p.b)}</span></div><div class="race-c" data-i="${i}"></div>${tab(p)}</div>`).join("")}</div>`,
+    `Sources: Office for National Statistics, Labour Force Survey, dataset A09 (quarterly, not seasonally adjusted). Central Bureau of Statistics, Israel, monthly Labour Force Survey: the whole population and Jews, with Arab citizens and others as the difference${R.il && R.il.splice ? `; from ${mLab(mIdx(R.il.splice))} the current series, on the new definition` : ""}. Statistics Canada, Labour Force Survey, table 14-10-0373-01 (three-month moving averages, not seasonally adjusted; “not racialized” is the survey’s “not a visible minority”).`);
+  el.querySelectorAll(".race-c").forEach(box => {
+    const p = P[+box.dataset.i], W = Math.max(240, Math.round(box.clientWidth) || 300), H = 150, M = { l: 30, r: 6, t: 8, b: 20 };
+    const top = Math.max(5, Math.ceil(Math.max(...p.lines.flatMap(L => L.pts.map(d => d.v)).filter(isFinite)) / 5) * 5);
+    const X = t => M.l + (t - p.a) / Math.max(1, p.b - p.a) * (W - M.l - M.r), Y = v => M.t + (1 - v / top) * (H - M.t - M.b);
+    let s = "";
+    for (const r of p.recs) s += `<rect x="${X(Math.max(p.a, r.s))}" y="${M.t}" width="${Math.max(2, X(Math.min(p.b, r.e + 1)) - X(Math.max(p.a, r.s)))}" height="${H - M.t - M.b}" fill="#efefef"></rect>`;
+    for (let v = 0; v <= top; v += top > 10 ? 5 : top > 5 ? 2 : 1) s += `<line x1="${M.l}" x2="${W - M.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v ? "#f2f2f2" : "#d4d4d4"}"></line><text x="${M.l - 5}" y="${Y(v) + 3.5}" text-anchor="end" class="race-ax">${v}%</text>`;
+    const y0 = Math.floor(p.a / 12) + 1, y1 = Math.floor(p.b / 12), span = y1 - y0, step = span > 16 ? 5 : span > 8 ? 4 : span > 4 ? 2 : 1;
+    for (let y = y0; y <= y1; y++) if ((y % step === 0 || step === 1) && X(y * 12) > M.l + 8 && X(y * 12) < W - M.r - 8) s += `<text x="${X(y * 12)}" y="${H - 5}" text-anchor="middle" class="race-ax">${y}</text>`;
+    for (const L of p.lines) { let d = "", pen = false; for (const q of L.pts) { if (!isFinite(q.v)) { pen = false; continue; } d += `${pen ? "L" : "M"}${X(q.t).toFixed(1)},${Y(q.v).toFixed(1)}`; pen = true; }
+      s += `<path d="${d}" fill="none" stroke="${L.col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>`; }
+    s += `<line class="race-x" x1="0" x2="0" y1="${M.t}" y2="${H - M.b}" stroke="#737373" stroke-width="1" visibility="hidden"></line>`;
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Unemployment rate by group, ${esc(p.name)}">${s}</svg><div class="tip" hidden></div>`;
+    const svg = box.querySelector("svg"), tip = box.querySelector(".tip"), xl = svg.querySelector(".race-x"), T = p.lines[0].pts.map(d => d.t);
+    svg.addEventListener("pointermove", ev => {
+      const rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * W / rc.width;
+      let i = 0; for (let j = 1; j < T.length; j++) if (Math.abs(X(T[j]) - px) < Math.abs(X(T[i]) - px)) i = j;
+      if (!p.lines.some(L => isFinite(L.pts[i].v))) { tip.hidden = true; xl.setAttribute("visibility", "hidden"); return; }
+      xl.setAttribute("x1", X(T[i])); xl.setAttribute("x2", X(T[i])); xl.setAttribute("visibility", "visible");
+      tip.innerHTML = `<div class="h">${per(p, T[i])}</div>${p.lines.map(L => `<div class="r"><span><i class="k" style="background:${L.col}"></i>${esc(L.lab)}</span><span class="num">${isFinite(L.pts[i].v) ? f1(L.pts[i].v) + "%" : "–"}</span></div>`).join("")}`;
+      tip.hidden = false; const bc = box.getBoundingClientRect(); let left = ev.clientX - bc.left + 12; if (left + tip.offsetWidth > bc.width) left = ev.clientX - bc.left - tip.offsetWidth - 12;
+      tip.style.left = Math.max(0, left) + "px"; tip.style.top = Math.max(0, ev.clientY - bc.top - tip.offsetHeight - 10) + "px";
+    });
+    svg.addEventListener("pointerleave", () => { tip.hidden = true; xl.setAttribute("visibility", "hidden"); });
+  });
+}
 function renderIntlFigs(D) {
   const run = f => { try { f(); } catch (e) { console.error(e); } };
   run(() => intlMap(document.getElementById("fig-intl-map"), D));
@@ -5533,6 +5609,7 @@ async function renderIntl() {
   renderIntlFigs(D);
   run(() => intlScatter(document.getElementById("fig-intl-scatter"), D));
   run(() => intlConv(document.getElementById("fig-intl-conv"), D));
+  run(() => intlRace(document.getElementById("fig-intl-race"), D));
 }
 
 /* ---------- Race ---------- */
