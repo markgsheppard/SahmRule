@@ -12,16 +12,18 @@ const fs = require("fs"), path = require("path");
 const d3 = require("d3-geo"), topojson = require("topojson-client"), server = require("topojson-server"), simp = require("topojson-simplify");
 const w50 = require("world-atlas/countries-50m.json"), w110 = require("world-atlas/countries-110m.json");
 const PEERS = { "United States of America": "US", "Canada": "CA", "United Kingdom": "UK", "Ireland": "IE", "France": "FR", "Belgium": "BE", "Netherlands": "NL", "Luxembourg": "LU", "Germany": "DE", "Austria": "AT", "Switzerland": "CH", "Denmark": "DK", "Sweden": "SE", "Norway": "NO", "Finland": "FI", "Åland": "FI", "Iceland": "IS", "Portugal": "PT", "Spain": "ES", "Italy": "IT", "Greece": "EL", "Malta": "MT", "Cyprus": "CY", "Poland": "PL", "Czechia": "CZ", "Slovakia": "SK", "Hungary": "HU", "Slovenia": "SI", "Croatia": "HR", "Romania": "RO", "Bulgaria": "BG", "Estonia": "EE", "Latvia": "LV", "Lithuania": "LT", "Japan": "JP", "South Korea": "KR", "Australia": "AU", "Israel": "IL" };
-// detailed outlines (1:50m) for Europe's peers and their small neighbours; coarse ones (1:110m) for large or distant countries
+// detailed outlines (1:50m) for Europe's peers and their small neighbours; coarse ones (1:110m) for the large peers and for
+// every other country in the world, so the page can draw the whole world (Antarctica is left out)
 const FINE_CTX = ["Andorra", "Monaco", "San Marino", "Liechtenstein", "Vatican", "Jersey", "Guernsey", "Isle of Man", "Faeroe Is.", "N. Cyprus", "Kosovo", "Montenegro", "Macedonia", "Albania", "Bosnia and Herz.", "Serbia", "Moldova", "Lebanon", "Palestine"];
-const COARSE = ["United States of America", "Canada", "Australia", "Russia", "Ukraine", "Belarus", "Turkey", "Georgia", "Armenia", "Azerbaijan", "Morocco", "Algeria", "Tunisia", "Libya", "Egypt", "Syria", "Jordan", "Iraq", "Iran", "Saudi Arabia", "Kazakhstan", "Greenland", "W. Sahara", "North Korea", "China", "Mexico"];
+const COARSE_PEERS = ["United States of America", "Canada", "Australia"];
 const pick = (w, keep) => topojson.feature(w, w.objects.countries).features.filter(f => keep(f.properties.name));
-const feats = pick(w50, n => (PEERS[n] && !COARSE.includes(n)) || FINE_CTX.includes(n)).concat(pick(w110, n => COARSE.includes(n)))
+const fine = pick(w50, n => (PEERS[n] && !COARSE_PEERS.includes(n)) || FINE_CTX.includes(n)), fineN = new Set(fine.map(f => f.properties.name));
+const feats = fine.concat(pick(w110, n => !fineN.has(n) && n !== "Antarctica"))
   .map(f => { const c = PEERS[f.properties.name] || "", pr = { c, n: f.properties.name };
     if (["MT", "LU", "CY", "IL", "SI"].includes(c)) { const ct = d3.geoCentroid(f); pr.lon = +ct[0].toFixed(3); pr.lat = +ct[1].toFixed(3); }
     return { type: "Feature", properties: pr, geometry: f.geometry }; });
 const got = new Set(feats.map(f => f.properties.n));
-console.log("features", feats.length, "missing", Object.keys(PEERS).concat(FINE_CTX, COARSE).filter(n => !got.has(n)));
+console.log("features", feats.length, "missing", Object.keys(PEERS).filter(n => n !== "Åland").concat(FINE_CTX).filter(n => !got.has(n)));
 let topo = server.topology({ countries: { type: "FeatureCollection", features: feats } }, 2e4);
 topo = simp.simplify(simp.presimplify(topo), 0.02);
 const out = JSON.stringify(topo), dest = path.join(__dirname, "..", "..", "data", "intl_map.json");
