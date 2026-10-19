@@ -70,25 +70,21 @@ uk <- try1("uk", {
 ```{r israel}
 cbs <- function(path, q) fromJSON(paste0("https://apis.cbs.gov.il/series/", path, "?", q, "&format=json&download=false&lang=en"), simplifyVector = FALSE)
 il <- try1("il", {
-  l1 <- cbs("catalog/level", "id=1&pagesize=1000")
-  write_json(l1, file.path(raw, "cbs_level1.json"), auto_unbox = TRUE, pretty = TRUE)
-  txt <- toJSON(l1, auto_unbox = TRUE)
-  diag("il", substr(txt, 1, 4000))
-  l1
-})
-if (!is.null(il)) try1("il", {
-  # every subject at level 1 whose name mentions labour; dump the lower levels under it
-  items <- il$catalogs$catalog
-  if (is.null(items)) items <- il[[1]]
-  labour <- Filter(function(z) grepl("labo", tolower(paste(unlist(z), collapse = " "))), items)
-  diag("il", paste("labour subjects:", length(labour)))
-  for (z in labour) {
-    code <- z$path[[1]]; if (is.null(code)) code <- z$code
-    diag("il", paste("subject code:", paste(unlist(code), collapse = ",")))
-    for (k in 2:5) {
-      lk <- try1("il", cbs("catalog/level", sprintf("id=%d&subject=%s&pagesize=1000", k, paste(unlist(code), collapse = ","))))
-      if (!is.null(lk)) write_json(lk, file.path(raw, sprintf("cbs_subject%s_level%d.json", paste(unlist(code), collapse = "-"), k)), auto_unbox = TRUE, pretty = TRUE)
-    }
+  # the full level-5 catalog of the labour-force subject (11), page by page
+  all5 <- list()
+  for (pg in 1:10) {
+    x <- cbs("catalog/level", sprintf("id=5&subject=11&pagesize=1000&page=%d", pg))
+    items <- x$catalogs$catalog; if (!length(items)) break
+    all5 <- c(all5, items); diag("il", sprintf("level 5, page %d: %d items", pg, length(items)))
+    if (length(items) < 1000) break
   }
+  write_json(all5, file.path(raw, "cbs_subject11_level5_all.json"), auto_unbox = TRUE, pretty = TRUE)
+  # monthly LFS, old definition (January 2012 to December 2025) and new definition (from January 2025):
+  # labour force (4th level 2) and unemployed persons (4th level 5), for all people and for Jews, aged 15 and over
+  for (p in c("11,6,1,2,2226", "11,6,1,2,2238", "11,6,1,5,2226", "11,6,1,5,2238", "11,5,1,2,2226", "11,5,1,2,2238", "11,5,1,5,2226", "11,5,1,5,2238")) {
+    r <- try1("il", cbs("data/path", paste0("id=", p, "&startPeriod=01-2010&endPeriod=12-2030&pagesize=1000")))
+    if (!is.null(r)) write_json(r, file.path(raw, paste0("cbs_data_", gsub(",", "-", p), ".json")), auto_unbox = TRUE, pretty = TRUE)
+  }
+  TRUE
 })
 ```
