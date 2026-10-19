@@ -14,6 +14,7 @@ output: html_document
 #   Israel: Central Bureau of Statistics, monthly Labour Force Survey (time-series API, subject 11): the labour force and
 #           the unemployed aged 15 and over, for the whole population and for Jews. The rest of the population (Arab
 #           citizens and others) is the difference. The 2012-2025 series is joined to the current one where it begins.
+# Each group also gets a seasonally adjusted series ("sa"), from which the page computes its turning-point indicator.
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(data.table); library(jsonlite); library(readxl)
 options(timeout = 600, HTTPUserAgent = "Mozilla/5.0 (X11; Linux x86_64) inequalityofrecession.com data update")
@@ -23,6 +24,17 @@ old <- if (file.exists(dest)) fromJSON(dest, simplifyVector = FALSE) else list()
 mi <- function(y, m) as.integer(y) * 12L + as.integer(m) - 1L                  # month index
 ym <- function(t) sprintf("%04d-%02d", t %/% 12L, t %% 12L + 1L)
 grab <- function(name, expr) tryCatch(expr, error = function(e) { message(name, ": ", conditionMessage(e)); old[[name]] })
+# Seasonally adjusted with the site's STL procedure (as in U7_Ladder.Rmd): a periodic seasonal, robust, trend window of
+# 13 months (5 quarters). Gaps inside a series are bridged for the fit and left empty in the result.
+sa <- function(x, freq) {
+  ok <- which(!is.na(x)); out <- rep(NA_real_, length(x))
+  if (length(ok) < 2L * freq + 1L) return(out)
+  a <- min(ok); b <- max(ok); y <- x[a:b]
+  if (anyNA(y)) y <- approx(seq_along(y), y, seq_along(y))$y
+  fit <- stl(ts(y, frequency = freq), s.window = "periodic", robust = TRUE, t.window = if (freq == 12L) 13L else 5L)
+  out[a:b] <- round(as.numeric(y - fit$time.series[, "seasonal"]), 3); out[is.na(x)] <- NA_real_
+  out
+}
 ```
 
 ## Canada
@@ -38,7 +50,7 @@ ca <- grab("ca", {
   t0 <- min(d$t); t1 <- max(d$t)
   keep <- c("Total population", "Not a visible minority", "Visible minority population", "Black", "South Asian", "Chinese", "Filipino", "Arab", "Latin American", "Southeast Asian", "West Asian")
   g <- lapply(setNames(keep, keep), function(k) { x <- d[get("Population group") == k]; v <- rep(NA_real_, t1 - t0 + 1L); v[x$t - t0 + 1L] <- x$VALUE; v })
-  list(start = ym(t0), step = 1L, groups = g, source = "Statistics Canada, Labour Force Survey, table 14-10-0373-01")
+  list(start = ym(t0), step = 1L, groups = g, sa = lapply(g, sa, freq = 12L), source = "Statistics Canada, Labour Force Survey, table 14-10-0373-01")
 })
 ```
 
@@ -63,7 +75,7 @@ uk <- grab("uk", {
   t0 <- min(t[!is.na(v[[1]])]); grid <- seq(t0, max(t), by = 3L)
   if (anyDuplicated(t)) stop("a quarter appears twice in A09")
   g <- setNames(lapply(v, function(z) round(z[match(grid, t)], 3)), nm)
-  list(start = ym(t0), step = 3L, groups = g, file = sub(".*/", "", link), source = "Office for National Statistics, Labour Force Survey, A09")
+  list(start = ym(t0), step = 3L, groups = g, sa = lapply(g, sa, freq = 4L), file = sub(".*/", "", link), source = "Office for National Statistics, Labour Force Survey, A09")
 })
 ```
 
@@ -86,8 +98,8 @@ il <- grab("il", {
   h <- if (min(a$t) <= min(b$t)) a else b; cur <- if (identical(h, a)) b else a      # the long history, then the current series
   m <- rbind(h[t < min(cur$t)], cur)[order(t)]
   t0 <- min(m$t); full <- data.table(t = t0:max(m$t)); m <- m[full, on = "t"]
-  list(start = ym(t0), step = 1L, splice = ym(min(cur$t)),
-       groups = list(Jews = round(m$Jews, 3), `Arab citizens and others` = round(m$Others, 3), All = round(m$All, 3)),
+  g <- list(Jews = round(m$Jews, 3), `Arab citizens and others` = round(m$Others, 3), All = round(m$All, 3))
+  list(start = ym(t0), step = 1L, splice = ym(min(cur$t)), groups = g, sa = lapply(g, sa, freq = 12L),
        source = "Central Bureau of Statistics, Labour Force Survey (time-series API, subject 11)")
 })
 ```
