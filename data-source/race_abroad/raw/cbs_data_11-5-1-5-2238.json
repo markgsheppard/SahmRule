@@ -1,0 +1,7770 @@
+{
+  "DataSet": {
+    "Series": [
+      {
+        "id": 490092,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 109.95
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 109.54
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 105.39
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 101.89
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 96.42
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 103.85
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 88.01
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 109.1
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 94.31
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 92.85
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 96.32
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 102.39
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 100.25
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 101.92
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 102.78
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 99.77
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 101.72
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 101.61
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 108.13
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 126.72
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 112.54
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 106.11
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 104.47
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 107.35
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 107.1
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 100.22
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 108.48
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 111
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 114.38
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 113.76
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 122.55
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 110.75
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 103.28
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 107.87
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 108.13
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 107.72
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 130.34
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 140.63
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 139.43
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 130.98
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 133.61
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 121.63
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 107.95
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 117.35
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 101.28
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 114.01
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 121.64
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 128.12
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 141.07
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 157.13
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 179.25
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 189.84
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 188.58
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 185.33
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 181.36
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 187.55
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 183.21
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 164.34
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 167.54
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 159.02
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 173.96
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 184.6
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 177.69
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 169.92
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 194.04
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 185.74
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 162.01
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 132.02
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 103.66
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 103.07
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 114.6
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 134.75
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 128.52
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 145.19
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 137
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 127.03
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 137.1
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 132.7
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 126.85
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 114.4
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 120.92
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 117.87
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 130.56
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 141.92
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 140.71
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 142.12
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 144.56
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 136.98
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 145.33
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 140.03
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 126.26
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 119.35
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 124.53
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 107.48
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 127.47
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 127.28
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 138.51
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 149.54
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 146.86
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 131.74
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 138.78
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 126.01
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 128.39
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 128.86
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 132.14
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 129.08
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 140.03
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 141.95
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 142.06
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 146.66
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 156.28
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 161.67
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 159.46
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 161.76
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 138.37
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 133.72
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 139.81
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 150.48
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 155.58
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 156.38
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 160.18
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 168.11
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 174
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 160.67
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 173.23
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 177
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 157.28
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 148.25
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 146.21
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 152.57
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 163.4
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 175.21
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 176.59
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 174.13
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 180.05
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 185.66
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 203.22
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 207.06
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 180.7
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 175.76
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 160.11
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 155.57
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 166.93
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 170.55
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 171.02
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 168.22
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 172.09
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 175.24
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 184.74
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 193.82
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 173.9
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 175.62
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 181.83
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 167.19
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 182.76
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 182.78
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 193.08
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 192.89
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 198.96
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 184.68
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 200.81
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 184.93
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 163.68
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 170.08
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 165.57
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 164.66
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 167.41
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 174.31
+          }
+        ]
+      },
+      {
+        "id": 490093,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 4.88
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 4.84
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 4.82
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 4.96
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 4.96
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 4.75
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 4.88
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 4.55
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 4.28
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 4.43
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 4.49
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 4.93
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 5.07
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 4.77
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 4.81
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 4.61
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 5.08
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 4.75
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 4.67
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 4.72
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 4.62
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 5.28
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 4.71
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 5.03
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 4.82
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 4.95
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 4.67
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 4.79
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 4.63
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 5.18
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 5.54
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 5.45
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 5.06
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 4.64
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 4.39
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 4.79
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 4.83
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 5.24
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 5.62
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 5.99
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 6.4
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 6.04
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 5.84
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 5.69
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 5.66
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 5.55
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 5.12
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.33
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 5.6
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 5.67
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 6.2
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 6.01
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 5.44
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 4.93
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 4.45
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 4.76
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 5.19
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 4.79
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 4.31
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 4.29
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 4.45
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 4.31
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 4.57
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 4.55
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.77
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 4.84
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 4.96
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 5.29
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 5.27
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 5.14
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 4.47
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 4.36
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 4.42
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 4.64
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 4.61
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 4.7
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 4.99
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 5.03
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 4.78
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 4.63
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 4.67
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.24
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 4.45
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 4.91
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 5.06
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 5.14
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 5.26
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 5.18
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.71
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 4.46
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 4.77
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 4.76
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 4.95
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 5.45
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 5.44
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 5.5
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 5.14
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 4.69
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 4.82
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 4.63
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 5.08
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.04
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 4.81
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.57
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 5.81
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 5.72
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.06
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 4.89
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 4.76
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 4.71
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 4.82
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 4.69
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.1
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 4.92
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 5.02
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.17
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 5.19
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 5.39
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 4.9
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 4.88
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 4.62
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 4.74
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 5.13
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 5.13
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 5.54
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 5.47
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 4.81
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 4.7
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 4.67
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 4.71
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 4.87
+          }
+        ]
+      },
+      {
+        "id": 490100,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 3.02
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.93
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.67
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.86
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.44
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.99
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.62
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.58
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.69
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 2.84
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 2.75
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 2.78
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 2.96
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 3.49
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 3.1
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 2.94
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 2.93
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 3.06
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 3.09
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 3.19
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 3.14
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 3.38
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 3.09
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 2.87
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 2.99
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 3.03
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 3.02
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 3.65
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 3.67
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 3.76
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 3.43
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 3.09
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 3.35
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 2.89
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 3.25
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 3.46
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 3.62
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 3.98
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 5.12
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 5.43
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 5.39
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 5.32
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 5.26
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 5.47
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 5.35
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 4.83
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 5.42
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 5.21
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 4.99
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 5.65
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 4.77
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 3.07
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.02
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 3.33
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 3.93
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 3.75
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 4.25
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 4.04
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.75
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 4.03
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.79
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 3.38
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 3.58
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 3.49
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 3.86
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 4.19
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.16
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 4.24
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 4.32
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 4.09
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 4.33
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 4.22
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.81
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 3.59
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 3.76
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.24
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 3.82
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 3.84
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 4.19
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 4.54
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 4.47
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 3.99
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 4.23
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 3.81
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 4.02
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 4.27
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 4.31
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.32
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 4.77
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.95
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 4.91
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.26
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 4.14
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 4.34
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.7
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 5.1
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 5.41
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 5.01
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 5.36
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 5.5
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 4.93
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 4.64
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 4.58
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 4.84
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 5.19
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 5.54
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.53
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 5.5
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 5.68
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.88
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 6.4
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 6.5
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.72
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 5.59
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 5.16
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 5.38
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.51
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 5.48
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 5.58
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.71
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 6.25
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 5.7
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 5.78
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 6
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 5.51
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 6.03
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 6.03
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.35
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 6.4
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 6.57
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 6.13
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 6.63
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 6.1
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.48
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 5.68
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 5.58
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 5.59
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 5.73
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 6
+          }
+        ]
+      },
+      {
+        "id": 490101,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 0.18
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 0.18
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 0.18
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 0.18
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 0.18
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 0.17
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 0.15
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 0.16
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 0.16
+          }
+        ]
+      },
+      {
+        "id": 491160,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 106.04
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 106.58
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 100.2
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 99.84
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 94.67
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 100.91
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 90.43
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 103.72
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 101.22
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 100.53
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 100.44
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 103.77
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 100.35
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 97.17
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 98.49
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 99.85
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 97.97
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 100.39
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 109.77
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 117.08
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 121.96
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 110.17
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 109.39
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 111.15
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 105.84
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 93.42
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 102.67
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 107.63
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 109.03
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 109.87
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 123.69
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 109.88
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 110.24
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 116.88
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 113.4
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 115.92
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 128.64
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 132.69
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 130.8
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 127.1
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 127.55
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 117.74
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 109.34
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 121.09
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 113.45
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 122.81
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 128.02
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 134.57
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 136.65
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 148.53
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 162.81
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 178.47
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 177.14
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 175.83
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 190.19
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 192.83
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 191.12
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 193.8
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 175.64
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 166.71
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 173.18
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 171.36
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 164.19
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 167.07
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 178.8
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 173.96
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 170.79
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 141.06
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 109.3
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 114.9
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 119.84
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 135.35
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 129.84
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 134.69
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 126.84
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 125.45
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 125.43
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 127.64
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 132.08
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 123.32
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 133.52
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 132.69
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 135.39
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 143.78
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 138.66
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 133.32
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 133.33
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 132.92
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 132.95
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 133.82
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 131.94
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 128.58
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 134.24
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 121.19
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 130.82
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 125.91
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 137.6
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 140.09
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 134.13
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 129.73
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 128.65
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 117.52
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 132.23
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 138.78
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 139.36
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 143.14
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 143.44
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 144.34
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 140.33
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 141.58
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 149.13
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 157.56
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 150.66
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 150.95
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 141.65
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 150.67
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 153.01
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 161.54
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 159.76
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 156.58
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 159.3
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 163.8
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 160.24
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 156.11
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 159.98
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 160.5
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 166.12
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 160.21
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 157.25
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 169.22
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 167.76
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 174.03
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 173.72
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 172.76
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 169.34
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 185.09
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 188.69
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 188.12
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 184.71
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 183.33
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 168.3
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 171.59
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 172.23
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 166.16
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 173.76
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 165.64
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 162.37
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 170.12
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 169.09
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 177.88
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 179.33
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 181.85
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 187.02
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 186.99
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 189.53
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 183.3
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 191.1
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 191.17
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 192.74
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 181.97
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 182.32
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 169.14
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 170.94
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 179.85
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 178.04
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 180.14
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 174.44
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 178.75
+          }
+        ]
+      },
+      {
+        "id": 491161,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 104.32
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 103.38
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 102.38
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 101.54
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 100.97
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 100.69
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 100.62
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 100.68
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 100.75
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 100.7
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 100.44
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 99.99
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 99.52
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 99.28
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 99.59
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 100.66
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 102.51
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 104.86
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 107.25
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 109.12
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 110.09
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 110.05
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 109.21
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 107.97
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 106.76
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 105.97
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 105.81
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 106.25
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 107.19
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 108.48
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 110.07
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 111.99
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 114.34
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 117.12
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 120.17
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 123.08
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 125.28
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 126.24
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 125.69
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 123.75
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 120.96
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 118.09
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 116.09
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 115.76
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 117.44
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 121.15
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 126.61
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 133.48
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 141.44
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 150.11
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 159.11
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 167.92
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 175.89
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 182.32
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 186.55
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 188.22
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 187.49
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 184.92
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 181.24
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 177.3
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 173.88
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 171.5
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 170.23
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 169.87
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 170.17
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 170.96
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 172.26
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 174.23
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 119.98
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 122.26
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 124.73
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 126.9
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 128.32
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 128.76
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 128.35
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 127.48
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 126.64
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 126.34
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 126.93
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 128.43
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 130.52
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 132.73
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 134.54
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 135.6
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 135.86
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 135.42
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 134.56
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 133.49
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 132.29
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 130.97
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 129.51
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 128.01
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 126.73
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 125.95
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 125.82
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 126.28
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 127.12
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 128.1
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 129.07
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 130.04
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 131.17
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 132.59
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 134.4
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 136.51
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 138.71
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 140.8
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 142.67
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 144.34
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 145.82
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 147.16
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 148.43
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 149.57
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 150.53
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 151.36
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 152.11
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 152.95
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 153.99
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 155.22
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 156.55
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 157.81
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 158.83
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 159.5
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 159.86
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 160.08
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 160.41
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 160.97
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 161.85
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 163.08
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 164.63
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 166.48
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 168.66
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 171.23
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 174.13
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 177.23
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 180.25
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 182.74
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 184.26
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 184.53
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 183.5
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 181.33
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 178.37
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 175.05
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 171.87
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 169.3
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 167.64
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 167.12
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 167.77
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 169.53
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 172.16
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 175.32
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 178.63
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 181.85
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 184.79
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 187.26
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 189.03
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 189.93
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 189.87
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 188.86
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 187
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 184.67
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 182.27
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 180.19
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 178.75
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 178
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 177.7
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 177.64
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 177.7
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 177.94
+          }
+        ]
+      },
+      {
+        "id": 491166,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 2.91
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 2.93
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.78
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.76
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.63
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.51
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.85
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.81
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.87
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 2.68
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 2.71
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 2.76
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 2.7
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 3.22
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 3.36
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 3.05
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 3.05
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 3.11
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 2.97
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 2.63
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 2.88
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 3
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 3.05
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 3.05
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 3.42
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 3.06
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 3.07
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 3.24
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 3.16
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 3.25
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 3.6
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 3.73
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 3.67
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 3.57
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 3.59
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 3.33
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 3.13
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 3.45
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 3.23
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 3.5
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 3.63
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 3.87
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 4.2
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 5.13
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 5.08
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 5.07
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 5.59
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 5.56
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 5.68
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 5.17
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 4.9
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 5.04
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 4.9
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 5.23
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 5.13
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 4.16
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 3.24
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.36
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 3.49
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 3.96
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 3.94
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 3.73
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.7
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 3.7
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 3.63
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 3.94
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 4
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 4.26
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.11
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 3.98
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 3.98
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 3.97
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 3.97
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 4.04
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.96
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 3.86
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 4.04
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.65
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 3.81
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 4.17
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 4.27
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 4.08
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 3.93
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 3.93
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 3.57
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 4.02
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 4.21
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 4.23
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.36
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 4.36
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 4.38
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.28
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 4.3
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 4.55
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.81
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 4.61
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 4.61
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.35
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 4.74
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 5.01
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 4.98
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 4.98
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 4.98
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 4.87
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 5.03
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 5.2
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 5.01
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 4.91
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 5.32
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 5.3
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 5.48
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.48
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 5.36
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.85
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 5.97
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.85
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 5.84
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 5.4
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 5.52
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 5.35
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.62
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 5.38
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 5.27
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.53
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 5.5
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 5.79
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 5.87
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 6.14
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 6.14
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 6.2
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 6.04
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.31
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 6.33
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 6.37
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 6.04
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 6.07
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 5.64
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.72
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 6
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 6.08
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 5.93
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 6.13
+          }
+        ]
+      },
+      {
+        "id": 491167,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-01-20",
+        "obs": [
+          {
+            "TimePeriod": "2025-12",
+            "Value": 2.87
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 2.85
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.8
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.78
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2024-12",
+            "Value": 2.75
+          },
+          {
+            "TimePeriod": "2024-11",
+            "Value": 2.74
+          },
+          {
+            "TimePeriod": "2024-10",
+            "Value": 2.75
+          },
+          {
+            "TimePeriod": "2024-09",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2024-08",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2024-07",
+            "Value": 2.89
+          },
+          {
+            "TimePeriod": "2024-06",
+            "Value": 2.95
+          },
+          {
+            "TimePeriod": "2024-05",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2024-04",
+            "Value": 3.04
+          },
+          {
+            "TimePeriod": "2024-03",
+            "Value": 3.05
+          },
+          {
+            "TimePeriod": "2024-02",
+            "Value": 3.04
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 3.01
+          },
+          {
+            "TimePeriod": "2023-12",
+            "Value": 2.99
+          },
+          {
+            "TimePeriod": "2023-11",
+            "Value": 2.97
+          },
+          {
+            "TimePeriod": "2023-10",
+            "Value": 2.96
+          },
+          {
+            "TimePeriod": "2023-09",
+            "Value": 2.97
+          },
+          {
+            "TimePeriod": "2023-08",
+            "Value": 2.99
+          },
+          {
+            "TimePeriod": "2023-07",
+            "Value": 3.02
+          },
+          {
+            "TimePeriod": "2023-06",
+            "Value": 3.06
+          },
+          {
+            "TimePeriod": "2023-05",
+            "Value": 3.11
+          },
+          {
+            "TimePeriod": "2023-04",
+            "Value": 3.18
+          },
+          {
+            "TimePeriod": "2023-03",
+            "Value": 3.26
+          },
+          {
+            "TimePeriod": "2023-02",
+            "Value": 3.35
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 3.43
+          },
+          {
+            "TimePeriod": "2022-12",
+            "Value": 3.5
+          },
+          {
+            "TimePeriod": "2022-11",
+            "Value": 3.54
+          },
+          {
+            "TimePeriod": "2022-10",
+            "Value": 3.53
+          },
+          {
+            "TimePeriod": "2022-09",
+            "Value": 3.49
+          },
+          {
+            "TimePeriod": "2022-08",
+            "Value": 3.42
+          },
+          {
+            "TimePeriod": "2022-07",
+            "Value": 3.35
+          },
+          {
+            "TimePeriod": "2022-06",
+            "Value": 3.3
+          },
+          {
+            "TimePeriod": "2022-05",
+            "Value": 3.29
+          },
+          {
+            "TimePeriod": "2022-04",
+            "Value": 3.34
+          },
+          {
+            "TimePeriod": "2022-03",
+            "Value": 3.45
+          },
+          {
+            "TimePeriod": "2022-02",
+            "Value": 3.6
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 3.79
+          },
+          {
+            "TimePeriod": "2021-12",
+            "Value": 4.02
+          },
+          {
+            "TimePeriod": "2021-11",
+            "Value": 4.27
+          },
+          {
+            "TimePeriod": "2021-10",
+            "Value": 4.53
+          },
+          {
+            "TimePeriod": "2021-09",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2021-08",
+            "Value": 5.04
+          },
+          {
+            "TimePeriod": "2021-07",
+            "Value": 5.25
+          },
+          {
+            "TimePeriod": "2021-06",
+            "Value": 5.39
+          },
+          {
+            "TimePeriod": "2021-05",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2021-04",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2021-03",
+            "Value": 5.41
+          },
+          {
+            "TimePeriod": "2021-02",
+            "Value": 5.32
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 5.21
+          },
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.12
+          },
+          {
+            "TimePeriod": "2020-11",
+            "Value": 5.05
+          },
+          {
+            "TimePeriod": "2020-10",
+            "Value": 5.01
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 4.99
+          },
+          {
+            "TimePeriod": "2020-08",
+            "Value": 4.99
+          },
+          {
+            "TimePeriod": "2020-07",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 5.03
+          },
+          {
+            "TimePeriod": "2020-05",
+            "Value": 5.07
+          },
+          {
+            "TimePeriod": "2020-04",
+            "Value": 3.54
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.6
+          },
+          {
+            "TimePeriod": "2020-02",
+            "Value": 3.66
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 3.72
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 3.76
+          },
+          {
+            "TimePeriod": "2019-11",
+            "Value": 3.78
+          },
+          {
+            "TimePeriod": "2019-10",
+            "Value": 3.77
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.75
+          },
+          {
+            "TimePeriod": "2019-08",
+            "Value": 3.73
+          },
+          {
+            "TimePeriod": "2019-07",
+            "Value": 3.73
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.75
+          },
+          {
+            "TimePeriod": "2019-05",
+            "Value": 3.79
+          },
+          {
+            "TimePeriod": "2019-04",
+            "Value": 3.86
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2019-02",
+            "Value": 3.98
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 4.02
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.04
+          },
+          {
+            "TimePeriod": "2018-11",
+            "Value": 4.03
+          },
+          {
+            "TimePeriod": "2018-10",
+            "Value": 4.01
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 3.99
+          },
+          {
+            "TimePeriod": "2018-08",
+            "Value": 3.96
+          },
+          {
+            "TimePeriod": "2018-07",
+            "Value": 3.93
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.89
+          },
+          {
+            "TimePeriod": "2018-05",
+            "Value": 3.85
+          },
+          {
+            "TimePeriod": "2018-04",
+            "Value": 3.82
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2018-02",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 3.82
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 3.85
+          },
+          {
+            "TimePeriod": "2017-11",
+            "Value": 3.89
+          },
+          {
+            "TimePeriod": "2017-10",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2017-08",
+            "Value": 3.99
+          },
+          {
+            "TimePeriod": "2017-07",
+            "Value": 4.03
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 4.08
+          },
+          {
+            "TimePeriod": "2017-05",
+            "Value": 4.15
+          },
+          {
+            "TimePeriod": "2017-04",
+            "Value": 4.21
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.28
+          },
+          {
+            "TimePeriod": "2017-02",
+            "Value": 4.34
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 4.39
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2016-11",
+            "Value": 4.48
+          },
+          {
+            "TimePeriod": "2016-10",
+            "Value": 4.53
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.57
+          },
+          {
+            "TimePeriod": "2016-08",
+            "Value": 4.61
+          },
+          {
+            "TimePeriod": "2016-07",
+            "Value": 4.64
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2016-05",
+            "Value": 4.72
+          },
+          {
+            "TimePeriod": "2016-04",
+            "Value": 4.76
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.8
+          },
+          {
+            "TimePeriod": "2016-02",
+            "Value": 4.85
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 4.89
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 4.92
+          },
+          {
+            "TimePeriod": "2015-11",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2015-10",
+            "Value": 4.96
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 4.97
+          },
+          {
+            "TimePeriod": "2015-08",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2015-07",
+            "Value": 5.02
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 5.06
+          },
+          {
+            "TimePeriod": "2015-05",
+            "Value": 5.11
+          },
+          {
+            "TimePeriod": "2015-04",
+            "Value": 5.17
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 5.24
+          },
+          {
+            "TimePeriod": "2015-02",
+            "Value": 5.31
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 5.4
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2014-11",
+            "Value": 5.59
+          },
+          {
+            "TimePeriod": "2014-10",
+            "Value": 5.69
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.78
+          },
+          {
+            "TimePeriod": "2014-08",
+            "Value": 5.83
+          },
+          {
+            "TimePeriod": "2014-07",
+            "Value": 5.85
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.83
+          },
+          {
+            "TimePeriod": "2014-05",
+            "Value": 5.77
+          },
+          {
+            "TimePeriod": "2014-04",
+            "Value": 5.69
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5.6
+          },
+          {
+            "TimePeriod": "2014-02",
+            "Value": 5.52
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 5.45
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.41
+          },
+          {
+            "TimePeriod": "2013-11",
+            "Value": 5.41
+          },
+          {
+            "TimePeriod": "2013-10",
+            "Value": 5.45
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.51
+          },
+          {
+            "TimePeriod": "2013-08",
+            "Value": 5.61
+          },
+          {
+            "TimePeriod": "2013-07",
+            "Value": 5.73
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 5.85
+          },
+          {
+            "TimePeriod": "2013-05",
+            "Value": 5.96
+          },
+          {
+            "TimePeriod": "2013-04",
+            "Value": 6.07
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 6.16
+          },
+          {
+            "TimePeriod": "2013-02",
+            "Value": 6.22
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 6.26
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.27
+          },
+          {
+            "TimePeriod": "2012-11",
+            "Value": 6.24
+          },
+          {
+            "TimePeriod": "2012-10",
+            "Value": 6.19
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 6.12
+          },
+          {
+            "TimePeriod": "2012-08",
+            "Value": 6.06
+          },
+          {
+            "TimePeriod": "2012-07",
+            "Value": 6
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.97
+          },
+          {
+            "TimePeriod": "2012-05",
+            "Value": 5.96
+          },
+          {
+            "TimePeriod": "2012-04",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 6
+          },
+          {
+            "TimePeriod": "2012-02",
+            "Value": 6.02
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 6.04
+          }
+        ]
+      },
+      {
+        "id": 492026,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 178.75
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 183.23
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 132.56
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 117.47
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 136.91
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 132.28
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 120.73
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 130.12
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 142.46
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 140.78
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 123.38
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 120.74
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 144.97
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 132.17
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 129.8
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 137.02
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 148.33
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 160.96
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 137.3
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 154.15
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 167.43
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 170.3
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 150.58
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 163.73
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 176.92
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 198.65
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 172.19
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 164.35
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 170.44
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 184.6
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 177.12
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 177.58
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 194.98
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 190.14
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 166.45
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 168.8
+          }
+        ]
+      },
+      {
+        "id": 492027,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 3.2
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 3.41
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 2.9
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 2.75
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 2.81
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 2.9
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 2.51
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 2.59
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 2.81
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 3.02
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 2.6
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 2.64
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 2.75
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 2.84
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 2.68
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 2.57
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 2.84
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 3
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 2.68
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 2.79
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 3.16
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 2.96
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 3.29
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 2.74
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 2.9
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 3.03
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 2.74
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 2.94
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 2.92
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 4.3
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 4.07
+          }
+        ]
+      },
+      {
+        "id": 492034,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.25
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 5.37
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.43
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 4.01
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.58
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 3.85
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.24
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 4.22
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.72
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.64
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 4.4
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 4.01
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.18
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.51
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.91
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.25
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.81
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 5.13
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 5.29
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 4.72
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 5.19
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.57
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 6.26
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.49
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5.29
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.52
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 5.83
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 5.86
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.44
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 6.29
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.58
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 5.77
+          }
+        ]
+      },
+      {
+        "id": 492035,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 0.08
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 0.08
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 0.08
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 0.07
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 0.08
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 0.08
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 0.1
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 0.11
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 0.09
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 0.14
+          }
+        ]
+      },
+      {
+        "id": 493094,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 169.13
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 169.81
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 144.75
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 123.26
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 130.57
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 123.38
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 132.12
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 138.04
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 134.23
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 134.26
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 131.58
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 128.38
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 137.26
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 124.87
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 137.32
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 144.15
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 143.75
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 152.63
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 149.62
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 157.84
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 163.53
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 160.84
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 159.75
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 170.84
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 173.07
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 186.51
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 180.03
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 169.16
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 168.53
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 174.14
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 183
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 188.47
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 188.82
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 180.08
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 174.6
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 180.75
+          }
+        ]
+      },
+      {
+        "id": 493095,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 171.49
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 165.21
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 147.3
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 129.3
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 122.82
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 124.86
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 131.49
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 136.67
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 136.19
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 133.23
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 130.46
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 129.31
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 130.01
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 131.46
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 136.58
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 142.29
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 145.84
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 149.77
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 153.8
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 157.89
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 161.35
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 162.63
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 164.13
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 168.75
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 175.97
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 182.2
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 180.38
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 172.2
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 168.49
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 173.82
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 183
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 188.65
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 188.3
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 183.62
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 178.87
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 177.07
+          }
+        ]
+      },
+      {
+        "id": 493100,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 4.98
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 4.98
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 4.25
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.61
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 3.82
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.65
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 4.08
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 4.02
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.96
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.87
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 4.17
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 4.17
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.38
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.38
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.66
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.62
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.9
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 5.02
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 5.02
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 5.38
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.91
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.73
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5.43
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.67
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 6.01
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 6.19
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.25
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 5.98
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.85
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 6.14
+          }
+        ]
+      },
+      {
+        "id": 493101,
+        "ffu_num": {},
+        "time": {
+          "value": 2,
+          "name": "Quarter"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2021-01-24",
+        "obs": [
+          {
+            "TimePeriod": "2020-12",
+            "Value": 5.05
+          },
+          {
+            "TimePeriod": "2020-09",
+            "Value": 4.85
+          },
+          {
+            "TimePeriod": "2020-06",
+            "Value": 4.32
+          },
+          {
+            "TimePeriod": "2020-03",
+            "Value": 3.79
+          },
+          {
+            "TimePeriod": "2019-12",
+            "Value": 3.61
+          },
+          {
+            "TimePeriod": "2019-09",
+            "Value": 3.69
+          },
+          {
+            "TimePeriod": "2019-06",
+            "Value": 3.89
+          },
+          {
+            "TimePeriod": "2019-03",
+            "Value": 4.05
+          },
+          {
+            "TimePeriod": "2018-12",
+            "Value": 4.05
+          },
+          {
+            "TimePeriod": "2018-09",
+            "Value": 3.99
+          },
+          {
+            "TimePeriod": "2018-06",
+            "Value": 3.92
+          },
+          {
+            "TimePeriod": "2018-03",
+            "Value": 3.91
+          },
+          {
+            "TimePeriod": "2017-12",
+            "Value": 3.95
+          },
+          {
+            "TimePeriod": "2017-09",
+            "Value": 4
+          },
+          {
+            "TimePeriod": "2017-06",
+            "Value": 4.15
+          },
+          {
+            "TimePeriod": "2017-03",
+            "Value": 4.33
+          },
+          {
+            "TimePeriod": "2016-12",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2016-09",
+            "Value": 4.58
+          },
+          {
+            "TimePeriod": "2016-06",
+            "Value": 4.74
+          },
+          {
+            "TimePeriod": "2016-03",
+            "Value": 4.88
+          },
+          {
+            "TimePeriod": "2015-12",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2015-09",
+            "Value": 5.06
+          },
+          {
+            "TimePeriod": "2015-06",
+            "Value": 5.14
+          },
+          {
+            "TimePeriod": "2015-03",
+            "Value": 5.32
+          },
+          {
+            "TimePeriod": "2014-12",
+            "Value": 5.56
+          },
+          {
+            "TimePeriod": "2014-09",
+            "Value": 5.77
+          },
+          {
+            "TimePeriod": "2014-06",
+            "Value": 5.75
+          },
+          {
+            "TimePeriod": "2014-03",
+            "Value": 5.53
+          },
+          {
+            "TimePeriod": "2013-12",
+            "Value": 5.46
+          },
+          {
+            "TimePeriod": "2013-09",
+            "Value": 5.67
+          },
+          {
+            "TimePeriod": "2013-06",
+            "Value": 6
+          },
+          {
+            "TimePeriod": "2013-03",
+            "Value": 6.21
+          },
+          {
+            "TimePeriod": "2012-12",
+            "Value": 6.23
+          },
+          {
+            "TimePeriod": "2012-09",
+            "Value": 6.1
+          },
+          {
+            "TimePeriod": "2012-06",
+            "Value": 5.99
+          },
+          {
+            "TimePeriod": "2012-03",
+            "Value": 5.99
+          }
+        ]
+      },
+      {
+        "id": 493628,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 1,
+        "update": "2026-05-13",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 100.8
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 106.1
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 109.6
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 123.9
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 173.7
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 153
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 130
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 131.8
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 136
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 150.2
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 163
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 178
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 177.4
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 180.1
+          }
+        ]
+      },
+      {
+        "id": 493629,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-05-13",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 1.36
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 1.38
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 1.39
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 1.43
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 1.63
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 1.54
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 1.35
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 1.39
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 1.36
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 1.42
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 1.45
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 1.48
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 1.44
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 1.45
+          }
+        ]
+      },
+      {
+        "id": 493636,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 1,
+        "update": "2026-05-13",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.8
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 2.9
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 3.1
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 3.5
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 5
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 4.5
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 3.8
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 4
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 4.1
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 4.6
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 5.1
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 5.7
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 5.8
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 6
+          }
+        ]
+      },
+      {
+        "id": 493637,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 5,
+            "name": "Data from January 2025, according to the new definition, monthly LFS (based on 2022 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-05-13",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2024-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2023-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2022-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2021-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2020-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2019-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2018-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2017-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2016-01",
+            "Value": 0.04
+          },
+          {
+            "TimePeriod": "2015-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2014-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2013-01",
+            "Value": 0.05
+          },
+          {
+            "TimePeriod": "2012-01",
+            "Value": 0.05
+          }
+        ]
+      }
+    ],
+    "paging": {
+      "total_items": 20,
+      "page_size": 1000,
+      "current_page": 1,
+      "last_page": 1,
+      "first_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,5,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "previous_url": {},
+      "current_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,5,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "next_url": {},
+      "last_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,5,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "base_url": {}
+    }
+  }
+}

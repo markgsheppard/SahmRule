@@ -1,0 +1,1282 @@
+{
+  "DataSet": {
+    "Series": [
+      {
+        "id": 40092,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 100.09
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 106.95
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 92.82
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 92.76
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 85.88
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 77.5
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 84.41
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 103.92
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 107.65
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 107.04
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 103.74
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 94.18
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 91.83
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 100.29
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 84.63
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 103.67
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 93.62
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 89.77
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 93.53
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 100.62
+          }
+        ]
+      },
+      {
+        "id": 40093,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 4.99
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 5.05
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 4.69
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 4.53
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 4.48
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 4.39
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 4.74
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 4.89
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 4.86
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 4.78
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 4.68
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 4.94
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 4.91
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 4.65
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 4.83
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 4.58
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 4.3
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 4.44
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 4.51
+          }
+        ]
+      },
+      {
+        "id": 40100,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 2.73
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 2.94
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 2.57
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 2.6
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 2.4
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 2.17
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 2.35
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 2.88
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 2.98
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 2.97
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.9
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.64
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.56
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.78
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.36
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.87
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.63
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.52
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.64
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.82
+          }
+        ]
+      },
+      {
+        "id": 40101,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 0.14
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 0.13
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 0.12
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 0.12
+          }
+        ]
+      },
+      {
+        "id": 41169,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-09",
+            "Value": 99.46
+          },
+          {
+            "TimePeriod": "2026-08",
+            "Value": 101.96
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 90.3
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 96.16
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 85.61
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 84.31
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 92.98
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 107.02
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 106.46
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 101.4
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 100.79
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 96.56
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 93.52
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 88.6
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 98.86
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 87.52
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 101.64
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 102.12
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 98.84
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 97.14
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 100.51
+          }
+        ]
+      },
+      {
+        "id": 41170,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-09",
+            "Value": 97.79
+          },
+          {
+            "TimePeriod": "2026-08",
+            "Value": 97.29
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 96.55
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 95.82
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 95.37
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 95.39
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 95.86
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 96.56
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 97.23
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 97.63
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 97.69
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 97.5
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 97.32
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 97.34
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 97.61
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 98.05
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 98.52
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 98.88
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 99
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 98.85
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 98.5
+          }
+        ]
+      },
+      {
+        "id": 41175,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 2,
+          "name": "Seasonal Adjusted Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 2.81
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 2.51
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 2.69
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 2.39
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 2.35
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 2.58
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 2.95
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 2.94
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 2.83
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 2.82
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.7
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.63
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.48
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.76
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.45
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.81
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.86
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.73
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.81
+          }
+        ]
+      },
+      {
+        "id": 41176,
+        "ffu_num": {},
+        "time": {
+          "value": 3,
+          "name": "Month"
+        },
+        "data": {
+          "value": 3,
+          "name": "Trend"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-09-16",
+        "obs": [
+          {
+            "TimePeriod": "2026-08",
+            "Value": 2.69
+          },
+          {
+            "TimePeriod": "2026-07",
+            "Value": 2.67
+          },
+          {
+            "TimePeriod": "2026-06",
+            "Value": 2.66
+          },
+          {
+            "TimePeriod": "2026-05",
+            "Value": 2.65
+          },
+          {
+            "TimePeriod": "2026-04",
+            "Value": 2.65
+          },
+          {
+            "TimePeriod": "2026-03",
+            "Value": 2.66
+          },
+          {
+            "TimePeriod": "2026-02",
+            "Value": 2.68
+          },
+          {
+            "TimePeriod": "2026-01",
+            "Value": 2.7
+          },
+          {
+            "TimePeriod": "2025-12",
+            "Value": 2.72
+          },
+          {
+            "TimePeriod": "2025-11",
+            "Value": 2.72
+          },
+          {
+            "TimePeriod": "2025-10",
+            "Value": 2.72
+          },
+          {
+            "TimePeriod": "2025-09",
+            "Value": 2.72
+          },
+          {
+            "TimePeriod": "2025-08",
+            "Value": 2.72
+          },
+          {
+            "TimePeriod": "2025-07",
+            "Value": 2.73
+          },
+          {
+            "TimePeriod": "2025-06",
+            "Value": 2.74
+          },
+          {
+            "TimePeriod": "2025-05",
+            "Value": 2.76
+          },
+          {
+            "TimePeriod": "2025-04",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2025-03",
+            "Value": 2.77
+          },
+          {
+            "TimePeriod": "2025-02",
+            "Value": 2.76
+          },
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.74
+          }
+        ]
+      },
+      {
+        "id": 240092,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 1,
+        "update": "2026-02-25",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 97.6
+          }
+        ]
+      },
+      {
+        "id": 240093,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 3,
+          "name": "Thousands"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-02-25",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 1.36
+          }
+        ]
+      },
+      {
+        "id": 240100,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 1,
+          "name": "Original Data"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 16,
+          "name": "As percent of total"
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 1,
+        "update": "2026-02-25",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 2.7
+          }
+        ]
+      },
+      {
+        "id": 240101,
+        "ffu_num": {},
+        "time": {
+          "value": 1,
+          "name": "Year"
+        },
+        "data": {
+          "value": 63,
+          "name": "Sampling error"
+        },
+        "unit": {
+          "value": 16,
+          "name": "percentages"
+        },
+        "calc": {
+          "value": 0,
+          "name": ""
+        },
+        "price": {
+          "value": 0,
+          "name": ""
+        },
+        "path": {
+          "level1": {
+            "value": 11,
+            "name": "Labour Data Based on Labour Force Surveys"
+          },
+          "level2": {
+            "value": 6,
+            "name": "Data From January 2012 to December 2025 according to the old definition, monthly LFS (based on 2008 census estimates)"
+          },
+          "level3": {
+            "value": 1,
+            "name": "Population Aged 15 And Over and Population aged 25-64, By Labour Force Characteristics"
+          },
+          "level4": {
+            "value": 5,
+            "name": "Unemployed Persons"
+          },
+          "name_id": {
+            "value": 2238,
+            "name": "Jews aged 15 and other"
+          }
+        },
+        "precis": 2,
+        "update": "2026-02-25",
+        "obs": [
+          {
+            "TimePeriod": "2025-01",
+            "Value": 0.05
+          }
+        ]
+      }
+    ],
+    "paging": {
+      "total_items": 12,
+      "page_size": 1000,
+      "current_page": 1,
+      "last_page": 1,
+      "first_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,6,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "previous_url": {},
+      "current_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,6,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "next_url": {},
+      "last_url": "https://apis.cbs.gov.il//series/data/path?Page=1&PageSize=1000&id=11,6,1,5,2238&startPeriod=01-2010&endPeriod=12-2030&format=json&download=false&lang=en",
+      "base_url": {}
+    }
+  }
+}
