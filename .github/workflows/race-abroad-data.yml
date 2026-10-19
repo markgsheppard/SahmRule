@@ -9,9 +9,6 @@ on:
     # Times are UTC. Canada publishes monthly, the ONS quarterly and Israel monthly; check on the 20th at 14:10 UTC.
     - cron: "10 14 20 * *"
   workflow_dispatch:
-  push:
-    branches: [race-abroad]
-    paths: [".github/workflows/race-abroad-data.yml", "data-source/Race_Abroad.Rmd"]
 
 concurrency:
   group: race-abroad-update
