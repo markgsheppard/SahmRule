@@ -182,8 +182,20 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-intl .race-tab td { text-align: right; padding: 3px 0 3px 6px; color: #262626; border-bottom: 1px solid #f2f2f2; }
 #v-intl .race-tab .l { text-align: left; padding-left: 0; color: #737373; font-weight: 400; }
 #v-intl .race-tab td { white-space: normal; } #v-intl .race-tab td.m { color: #8a8a8a; }
-#v-well-being .wb-thwrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-#v-well-being .wb-thlab { font-size: 12px; color: #737373; }
+#v-well-being .wb-head { display: grid; gap: 6px; margin: 0 0 14px; }
+#v-well-being .wb-key { position: relative; display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; margin: 0 0 4px; font-size: 12px; color: #6b6b6b; cursor: default; outline: none; }
+#v-well-being .wb-key i { width: 22px; height: 8px; display: inline-block; }
+#v-well-being .wb-key .wb-key-i { margin-left: 6px; color: #8a8a8a; }
+#v-well-being .wb-key .readme-tip { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
+#v-well-being .wb-key .readme-tip p { margin: 0 0 7px; } #v-well-being .wb-key .readme-tip p:last-child { margin: 0; }
+#v-well-being .wb-key:hover .readme-tip, #v-well-being .wb-key:focus .readme-tip, #v-well-being .wb-key:focus-within .readme-tip { display: block; }
+#v-well-being .wb-foot { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-top: 10px; }
+#v-well-being .wb-foot .readme { position: static; margin: 0; font-size: 11.5px; color: #a3a3a3; } #v-well-being .wb-foot .readme:hover { color: #333; }
+#v-well-being .wb-foot .readme .readme-tip { top: auto; bottom: calc(100% + 6px); }
+#v-well-being .wb-notes-btn { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-size: 11.5px; color: #a3a3a3; cursor: pointer; }
+#v-well-being .wb-notes-btn::before { content: "+ "; } #v-well-being .wb-notes-btn[aria-expanded="true"]::before { content: "− "; }
+#v-well-being .wb-notes-btn:hover { color: #333; }
+#v-well-being .wb-notes p { margin: 6px 0 0; font-size: 12px; line-height: 1.55; color: #8a8a8a; max-width: 75ch; }
 #v-well-being .wb-canvas canvas { cursor: default; }
 #v-well-being #fig-wb-row select { font: inherit; font-size: 14px; padding: 6px 10px; border: 1px solid #d4d4d4; border-radius: 8px; background: #fff; color: #262626; max-width: 100%; }
 #v-intl .race-sub { display: block; font-size: 10.5px; color: #8a8a8a; line-height: 1.2; }
@@ -1363,7 +1375,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="results" id="res-wb"></div>
   <div id="fig-wb-heat"></div>
   <div id="fig-wb-row"></div>
-  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How the grid is built</h2><p><b>The rule.</b> Every rate row uses the site’s turning-point indicator, the Modified Sahm Rule: the six-month average of an unemployment rate less the lowest value of that average over the past twelve months. A cell darkens as the indicator approaches the threshold and turns the deepest blue when the alarm is on. Region rows are different: they show the share of the region’s counties whose own indicators are above the threshold, as on the spatial page, and turn the deepest blue when most of them are, which counts as the region’s alarm.</p><p><b>The data.</b> Labor utilization, race and ethnicity, gender, age, education, birthplace, industry and occupation are the Bureau of Labor Statistics’ unemployment rates from the Current Population Survey, by way of FRED. Where BLS publishes a seasonally adjusted series it is used as published; the rest are adjusted with the STL procedure used across the site. Industry and occupation refer to the unemployed person’s last job. Family income deciles come from the IPUMS CPS microdata behind the income page, and county rates from the BLS Local Area Unemployment Statistics behind the spatial page. The grid updates after each BLS and CPS release.</p><p><b>Reading it.</b> The rows overlap: every worker appears in several of them, so the strip on top, the share of rows with the alarm on, is a count of signals rather than of people. Small groups rest on small samples, and their indicators swing more and cross the threshold more often. Rows begin when their data do: industry and occupation in 2000, birthplace in 2007, and every indicator about a year and a half after its series starts.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How the grid is built</h2><p><b>The rule.</b> Every rate row uses the site’s turning-point indicator, the Modified Sahm Rule: the six-month average of an unemployment rate less the lowest value of that average over the past twelve months, with the alarm at 0.5 points. A cell darkens as the indicator approaches the threshold and turns the deepest blue when the alarm is on. Region rows are different: they show the share of the region’s counties whose own indicators are above the threshold, as on the spatial page, and turn the deepest blue when most of them are, which counts as the region’s alarm.</p><p><b>The data.</b> Labor utilization, race and ethnicity, gender, age, education, birthplace, industry and occupation are the Bureau of Labor Statistics’ unemployment rates from the Current Population Survey, by way of FRED. Where BLS publishes a seasonally adjusted series it is used as published; the rest are adjusted with the STL procedure used across the site. Industry and occupation refer to the unemployed person’s last job. Family income deciles come from the IPUMS CPS microdata behind the income page, and county rates from the BLS Local Area Unemployment Statistics behind the spatial page. The grid updates after each BLS and CPS release.</p><p><b>Reading it.</b> The rows overlap: every worker appears in several of them, so the strip on top, the share of rows with the alarm on, is a count of signals rather than of people. Small groups rest on small samples, and their indicators swing more and cross the threshold more often. Rows begin when their data do: industry and occupation in 2000, birthplace in 2007, and every indicator about a year and a half after its series starts.</p></section>
 </div>
 </div>
 
@@ -5689,9 +5701,9 @@ async function renderIntl() {
 }
 
 /* ---------- Well-being: one grid of recession indicators across the labor market (unlisted) ---------- */
-const WB = { th: null, from: "1994", sel: "U3", rowView: "ind" };
-const WB_TH = [0.3, 0.4, 0.5, 0.6, 0.8, 1.0];
-const WB_FROM = [["1994", "Since 1994"], ["2007", "Since 2007"], ["2019", "Since 2019"]];
+const WB = { th: 0.5, from: "1994", sel: "U3", rowView: "ind", notes: false };   // one window and one threshold
+// category names as drawn beside their rows ("\n" marks a preferred line break)
+const WB_CAT = { educ: "Education,\n25 and over" };
 let _wb = null;
 function loadWb() {
   if (!_wb) _wb = d3.json("data/wellbeing.json").then(J => {
@@ -5720,7 +5732,6 @@ async function renderWb() {
   if (!window.d3) return;
   let D; try { D = await loadWb(); } catch (e) { console.error(e); const l = document.querySelector("#v-well-being .needs-wb"); if (l) l.textContent = "The indicators could not be loaded."; return; }
   document.querySelectorAll(".needs-wb").forEach(x => x.remove());
-  if (WB.th === null) WB.th = ST.p.alpha;
   const run = f => { try { f(); } catch (e) { console.error(e); } };
   run(() => { const el = document.querySelector("#v-well-being .wb-fetched"), u = D.J.updated || "", d = /^\d{4}-\d{2}-\d{2}$/.test(u) ? new Date(u + "T12:00:00Z") : null;
     if (el) el.textContent = `${d ? `${LFPMONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ` : ""}BLS, IPUMS CPS and LAUS Data Through ${mLab(D.T)}`; });
@@ -5743,23 +5754,24 @@ function wbCards(el, D) {
 function wbHeat(el, D) {
   if (!el) return;
   const th = WB.th;
-  el.innerHTML = figure("Where Recessions Are Happening: Every Group, Sector and Region, Month by Month",
-    `Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points). Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of rows with the alarm on: the rows overlap, so it counts signals, not people. Light gray: no data yet. Dashed lines: NBER recessions.`,
-    `${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a group of workers, an industry, an occupation, an income decile or a region. A cell turns the deepest blue when that row’s alarm is on.</p><p><b>What to look for.</b> National recessions run down the grid as dark columns. Rows that darken first are where downturns begin; dark patches between recessions are downturns the aggregate never called. Click a row to follow it in the chart below.</p>`)}
-     <div class="fig-ctl"><div class="segs" id="wb-from">${WB_FROM.map(([v, l]) => `<button data-v="${v}" aria-pressed="${v === WB.from}">${l}</button>`).join("")}</div><span class="wb-thwrap"><span class="wb-thlab">Threshold, points</span><div class="segs" id="wb-th">${WB_TH.map(v => `<button data-v="${v}" aria-pressed="${Math.abs(v - th) < 1e-9}">${f1(v, 1)}</button>`).join("")}</div></span></div>
-     <div class="val-canvas wb-canvas" id="wb-heat-cv"><canvas role="img" aria-label="Turning-point indicators for every group, industry, occupation, income decile and region, month by month"></canvas><div class="tip" hidden></div></div>
-     <div class="sp-legend">0 ${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")} Alarm <span class="lab">Indicator as a share of the threshold; for regions, the share of counties in recession, darkest when most are</span></div>`,
-    "Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.");
-  el.querySelectorAll("#wb-from button").forEach(b => b.onclick = () => { WB.from = b.dataset.v; wbHeat(el, D); wbRow(document.getElementById("fig-wb-row"), D); });
-  el.querySelectorAll("#wb-th button").forEach(b => b.onclick = () => { WB.th = +b.dataset.v; renderWb(); });
+  el.innerHTML = `<figure class="vfig wb-fig">
+    <div class="wb-head"><span class="ov-kicker">At a glance</span><h2 class="ov-h">The well-being of the labor market</h2></div>
+    <div class="wb-key" tabindex="0" aria-label="Legend">No rise ${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")} Alarm <span class="wb-key-i" aria-hidden="true">ⓘ</span><span class="readme-tip"><p><b>How the cells are shaded.</b> Each row’s turning-point indicator as a share of the ${f1(th, 1)}-point threshold: the palest blue means unemployment has not risen above its recent low, and the deepest blue means the alarm is on.</p><p>Region rows show the share of the region’s counties in recession, deepest when most of them are. Light gray: no data yet. Dashed lines: NBER recessions.</p></span></div>
+    <div class="val-canvas wb-canvas" id="wb-heat-cv"><canvas role="img" aria-label="Turning-point indicators for every group, industry, occupation, income decile and region, month by month"></canvas><div class="tip" hidden></div></div>
+    <div class="wb-foot"><button type="button" class="wb-notes-btn" aria-expanded="${WB.notes}" aria-controls="wb-notes">Notes and source</button>${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a group of workers, an industry, an occupation, an income decile or a region. A cell turns the deepest blue when that row’s alarm is on.</p><p><b>What to look for.</b> National recessions run down the grid as dark columns. Rows that darken first are where downturns begin; dark patches between recessions are downturns the aggregate never called. Click a row to follow it in the chart below.</p>`)}</div>
+    <div class="wb-notes" id="wb-notes" ${WB.notes ? "" : "hidden"}><p>Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points), ${mLab(Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))))} to ${mLab(D.t1)}. Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of rows with the alarm on: the rows overlap, so it counts signals, not people. Light gray: no data yet. Dashed lines: NBER recessions.</p><p>Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.</p></div>
+  </figure>`;
+  const btn = el.querySelector(".wb-notes-btn"), box = el.querySelector("#wb-notes");
+  btn.onclick = () => { WB.notes = box.hidden; box.hidden = !WB.notes; btn.setAttribute("aria-expanded", String(WB.notes)); };
   wbDraw(el.querySelector("#wb-heat-cv"), D);
 }
 function wbDraw(wrap, D) {
   const cv = wrap.querySelector("canvas"), tip = wrap.querySelector(".tip"), th = WB.th;
   const a = Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))), b = D.t1, n = b - a + 1;
-  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = narrow ? 8 : 10, gh = narrow ? 17 : 19, top = 96, labW = narrow ? 84 : 158, M = { r: 8, b: 26 };
-  const Ly = []; let y = top;
-  for (const g of D.groups) { Ly.push({ g, y }); y += gh; for (const r of g.rows) { Ly.push({ r, y }); y += rh; } y += 3; }
+  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = narrow ? 8 : 10, gap = narrow ? 5 : 6, top = 92, M = { r: 8, b: 26 };
+  const catW = narrow ? 60 : 118, labW = (narrow ? 72 : 150) + catW;   // category names, then row names, then the cells
+  const Ly = [], Gy = []; let y = top;
+  D.groups.forEach((g, gi) => { if (gi) y += gap; Gy.push({ g, y }); for (const r of g.rows) { Ly.push({ r, y }); y += rh; } });
   const yEnd = y, H = y + M.b, dpr = window.devicePixelRatio || 1;
   cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
   const c = cv.getContext("2d"); c.scale(dpr, dpr);
@@ -5774,9 +5786,16 @@ function wbDraw(wrap, D) {
     c.beginPath(); sg.forEach(([px, py], j) => j ? c.lineTo(px, py) : c.moveTo(px, py)); c.strokeStyle = "#17397c"; c.lineWidth = 1.4; c.stroke(); }
   c.font = "10px " + font; c.fillStyle = "#a3a3a3"; c.textAlign = "right"; c.fillText("100%", labW - 5, SY(1) + 3); c.fillText("0%", labW - 5, SY(0) + 3);
   c.textAlign = "left"; c.fillStyle = "#737373"; c.fillText(narrow ? "Share of rows in alarm" : "Share of rows with the alarm on", labW + 2, sTop - 10);
-  // cells, labels and group headings
+  // categories: a rule between them, and the name beside the first rows, wrapped to the column
+  const wrapText = (txt, w) => txt.split("\n").flatMap(part => { const out = []; let line = ""; for (const word of part.split(" ")) { const t = line ? line + " " + word : word; if (line && c.measureText(t).width > w) { out.push(line); line = word; } else line = t; } if (line) out.push(line); return out; });
+  Gy.forEach((G, gi) => {
+    if (gi) { c.strokeStyle = "#ebebeb"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, G.y - gap / 2); c.lineTo(W - M.r, G.y - gap / 2); c.stroke(); }
+    c.font = "600 " + (narrow ? "8.5px " : "10.5px ") + font; c.fillStyle = "#404040"; c.textAlign = "left";
+    const name = WB_CAT[G.g.g] || G.g.name, lines = (narrow || name.includes("\n")) ? wrapText(name, catW - 8) : [name], lh = narrow ? 9.5 : 12;
+    lines.forEach((ln, j) => c.fillText(ln, 0, G.y + (narrow ? 7 : 9) + j * lh));
+  });
+  // cells and row names
   for (const L of Ly) {
-    if (L.g) { c.font = "600 " + (narrow ? "9.5px " : "10.5px ") + font; c.fillStyle = "#404040"; c.textAlign = "left"; c.fillText(L.g.name, 0, L.y + gh - 6); continue; }
     for (let i = 0; i < n; i++) { const z = wbCell(L.r, a + i, th); c.fillStyle = isFinite(z.x) ? ramp(z.x) : "#f5f5f5"; c.fillRect(X(i), L.y, Math.ceil(cw + .5), rh - 1); }
     const sel = L.r.k === WB.sel;
     c.font = (sel ? "600 " : "") + (narrow ? "8.5px " : "10px ") + font; c.fillStyle = sel ? "#171717" : "#6b6b6b"; c.textAlign = "right";
