@@ -102,6 +102,7 @@ raw <- function(code) {
   d[, value := approx(t[!is.na(value)], value[!is.na(value)], xout = t)$y]   # interior gaps
   d
 }
+missing <- list()   # series that could not be refreshed, and why (written to the file, without the key)
 rows <- lapply(seq_len(nrow(R)), function(i) {
   r <- R[i]
   tryCatch({
@@ -110,7 +111,7 @@ rows <- lapply(seq_len(nrow(R)), function(i) {
     keep <- d$t >= FROM
     list(g = r$g, k = r$k, lab = r$lab, short = r$short, desc = r$desc, code = r$code, adj = if (isTRUE(r$sa)) "BLS" else "STL",
          start = ym(d$t[keep][1]), v = round(v[keep], 3))
-  }, error = function(e) { message(r$code, ": ", quiet(conditionMessage(e))); oldrow(r$k) })
+  }, error = function(e) { why <- quiet(conditionMessage(e)); message(r$code, ": ", why); missing[[length(missing) + 1L]] <<- list(code = r$code, why = substr(why, 1, 160)); oldrow(r$k) })
 })
 rows <- Filter(Negate(is.null), rows)
 ```
@@ -148,7 +149,7 @@ area <- lapply(names(REG), function(nm) {
 ## Write
 
 ```{r write}
-res <- list(updated = format(Sys.Date()), groups = G, rows = c(rows, inc, area),
+res <- list(updated = format(Sys.Date()), fred_key = nzchar(KEY), missing = missing, groups = G, rows = c(rows, inc, area),
             counties = list(start = S$start, on = S$nat_on, n = S$nat_n))
 write_json(res, dest, auto_unbox = TRUE, digits = NA, na = "null")
 data.table(k = vapply(res$rows, `[[`, "", "k"), start = vapply(res$rows, `[[`, "", "start"),
