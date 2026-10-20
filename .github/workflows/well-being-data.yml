@@ -67,8 +67,8 @@ jobs:
           set +e
           Rscript -e 'rmarkdown::render("data-source/Well_Being_Summary.Rmd", output_dir = tempdir())' > summary.log 2>&1
           status=$?
-          grep -E "^(template|model) :|Using the template|have not changed|^Error" summary.log | tail -5
-          { echo "### Summary paragraph"; echo; grep -E "^(template|model) :|Using the template|have not changed" summary.log | tail -3; } >> "$GITHUB_STEP_SUMMARY"
+          grep -E "^(template|model) :|Using the template|it stays|^Error" summary.log | tail -5
+          { echo "### Summary paragraph"; echo; grep -E "^(template|model) :|Using the template|it stays" summary.log | tail -3; } >> "$GITHUB_STEP_SUMMARY"
           rm -f summary.log
           exit $status
       - name: Commit the new data if anything changed
