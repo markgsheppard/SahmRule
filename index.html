@@ -5709,7 +5709,7 @@ const WB = { th: 0.5, from: "1994", sel: "U3", rowView: "ind", notes: false };  
 // group names as shown (the details, such as "25 and over", are in the notes)
 const WB_GNAME = { lu: "Labor Utilization", race: "Race", sex: "Gender", age: "Age", educ: "Education", born: "Birthplace", ind: "Industry", occ: "Occupation", inc: "Family Income", area: "Region" };
 // official (NBER) recessions boxed on the selected row: [name, short name for narrow screens]
-const WB_REC = { "1990": ["1990–91 recession", "1990–91"], "2001": ["2001 recession", "2001"], "2007": ["Great Recession", "2007–09"], "2020": ["COVID-19 recession", "2020"] };
+const WB_REC = { "1990": ["1990–91", "1990–91"], "2001": ["Dot-Com", "Dot-Com"], "2007": ["Financial Collapse", "Financial"], "2020": ["Covid-19", "Covid"] };
 const WB_NOCAT = new Set(["sex", "born"]);   // groups drawn without a category name: two rows are too thin for one
 let _wb = null;
 function loadWb() {
@@ -5808,8 +5808,7 @@ function wbDraw(wrap, D) {
   // cells and row names
   for (const L of Ly) {
     for (let i = 0; i < n; i++) { const z = wbCell(L.r, a + i, th); c.fillStyle = isFinite(z.x) ? ramp(z.x) : "#f5f5f5"; c.fillRect(X(i), L.y, Math.ceil(cw + .5), rh - 1); }
-    const sel = L.r.k === WB.sel;
-    c.font = (sel ? "600 " : "") + (narrow ? "8.5px " : "10px ") + font; c.fillStyle = sel ? "#171717" : "#6b6b6b"; c.textAlign = "right";
+    c.font = (narrow ? "8.5px " : "10px ") + font; c.fillStyle = "#6b6b6b"; c.textAlign = "right";
     c.fillText(narrow ? L.r.short : L.r.lab, labW - 5, L.y + rh - 2);
   }
   // recession guides
@@ -5820,17 +5819,24 @@ function wbDraw(wrap, D) {
   const selL = Ly.find(L => L.r.k === WB.sel);
   if (selL) {
     const boxes = NBER.filter(r => mIdx(r.trough) >= a && mIdx(r.peak) <= b).map(r => ({ r, x0: X(Math.max(0, mIdx(r.peak) - a)) - .5, x1: X(Math.min(n - 1, mIdx(r.trough) - a) + 1) + .5 }));
-    const yc = selL.y + rh / 2 - .5; let used = X(0) + 2;   // the right edge of the last box or name drawn
-    c.font = "600 " + (narrow ? "8.5px " : "10px ") + font; c.textAlign = "left"; c.textBaseline = "middle"; c.lineJoin = "round";
-    boxes.forEach((B, k) => {
-      c.lineWidth = 3.4; c.strokeStyle = "rgba(255,255,255,.95)"; c.strokeRect(B.x0, selL.y - 1, B.x1 - B.x0, rh + 1);
-      c.lineWidth = 1.6; c.strokeStyle = "#1e3a8a"; c.strokeRect(B.x0, selL.y - 1, B.x1 - B.x0, rh + 1);
-      // the name goes before the box if it fits there, otherwise after it, otherwise it is left to the tooltip
-      const nm = (WB_REC[B.r.id] || [B.r.name + " recession", B.r.name])[narrow ? 1 : 0], tw = c.measureText(nm).width, next = k + 1 < boxes.length ? boxes[k + 1].x0 - 4 : W - M.r;
-      const lx = B.x0 - 6 - tw >= used + 4 ? B.x0 - 6 - tw : B.x1 + 6 + tw <= next ? B.x1 + 6 : null;
-      if (lx !== null) { c.fillStyle = "rgba(255,255,255,.92)"; c.fillRect(lx - 3, selL.y - 2, tw + 6, rh + 3); c.fillStyle = "#1e3a8a"; c.fillText(nm, lx, yc); }   // on a white label, so the cells do not show between the words
-      used = Math.max(B.x1, lx !== null ? lx + tw : 0);
-    });
+    const yc = selL.y + rh / 2 - .5, placed = [];
+    c.font = (narrow ? "8.5px " : "10px ") + font; c.textAlign = "left"; c.textBaseline = "middle";
+    for (const B of boxes) { c.lineWidth = 3.4; c.strokeStyle = "rgba(255,255,255,.95)"; c.strokeRect(B.x0, selL.y - 1, B.x1 - B.x0, rh + 1); c.lineWidth = 1.6; c.strokeStyle = "#1e3a8a"; c.strokeRect(B.x0, selL.y - 1, B.x1 - B.x0, rh + 1); }
+    // each name in gray beside its box, on light cells only (gray text cannot be read on the dark ones): just before the box,
+    // or just after it, sliding a little away from the box if needed; a name with no such place is left to the tooltip
+    const clear = (x0, x1) => { if (x0 < X(0) || x1 > W - M.r) return false;
+      if (boxes.some(B => x1 > B.x0 - 2 && x0 < B.x1 + 2) || placed.some(([p0, p1]) => x1 > p0 - 4 && x0 < p1 + 4)) return false;
+      for (let i = Math.max(0, Math.floor((x0 - X(0)) / cw)); i <= Math.min(n - 1, Math.floor((x1 - X(0)) / cw)); i++) { const z = wbCell(selL.r, a + i, th); if (isFinite(z.x) && z.x > 0.45) return false; }
+      return true; };
+    for (const B of boxes) {
+      const nm = (WB_REC[B.r.id] || [B.r.name, B.r.name])[narrow ? 1 : 0], tw = c.measureText(nm).width, maxSlide = narrow ? 26 : 44;
+      let lx = null;
+      for (let d = 0; d <= maxSlide && lx === null; d += 1) {
+        if (clear(B.x0 - 5 - d - tw, B.x0 - 5 - d)) lx = B.x0 - 5 - d - tw;
+        else if (clear(B.x1 + 5 + d, B.x1 + 5 + d + tw)) lx = B.x1 + 5 + d;
+      }
+      if (lx !== null) { placed.push([lx, lx + tw]); c.fillStyle = "#6b6b6b"; c.fillText(nm, lx, yc); }
+    }
     c.textBaseline = "alphabetic";
   }
   // years
