@@ -183,12 +183,16 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-intl .race-tab .l { text-align: left; padding-left: 0; color: #737373; font-weight: 400; }
 #v-intl .race-tab td { white-space: normal; } #v-intl .race-tab td.m { color: #8a8a8a; }
 #v-well-being .wb-head { display: grid; gap: 6px; margin: 0 0 14px; }
-#v-well-being .wb-key { position: relative; display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; margin: 0 0 4px; font-size: 12px; color: #6b6b6b; cursor: default; outline: none; }
-#v-well-being .wb-key i { width: 22px; height: 8px; display: inline-block; }
-#v-well-being .wb-key .wb-key-i { margin-left: 6px; color: #8a8a8a; }
-#v-well-being .wb-key .readme-tip { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
-#v-well-being .wb-key .readme-tip p { margin: 0 0 7px; } #v-well-being .wb-key .readme-tip p:last-child { margin: 0; }
-#v-well-being .wb-key:hover .readme-tip, #v-well-being .wb-key:focus .readme-tip, #v-well-being .wb-key:focus-within .readme-tip { display: block; }
+#v-well-being .wb-top { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 20px; margin: 0 0 2px; }
+#v-well-being .wb-strip-t { font-size: 12px; color: #737373; }
+#v-well-being .wb-key { display: grid; gap: 3px; cursor: default; }
+#v-well-being .wb-key-lab { display: flex; justify-content: space-between; gap: 14px; font-size: 11px; color: #8a8a8a; white-space: nowrap; }
+#v-well-being .wb-key-ramp { display: flex; gap: 2px; cursor: default; outline: none; }
+#v-well-being .wb-key-ramp i { width: 24px; height: 9px; display: inline-block; }
+#v-well-being .wb-key-ramp:focus-visible { outline: 2px solid #4f8ad7; outline-offset: 2px; }
+#v-well-being .wb-top .readme-tip { display: none; position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
+#v-well-being .wb-top .readme-tip p { margin: 0 0 7px; } #v-well-being .wb-top .readme-tip p:last-child { margin: 0; }
+#v-well-being .wb-key-ramp:hover ~ .readme-tip, #v-well-being .wb-key-ramp:focus ~ .readme-tip { display: block; }
 #v-well-being .wb-foot { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-top: 10px; }
 #v-well-being .wb-foot .readme { position: static; margin: 0; font-size: 11.5px; color: #a3a3a3; } #v-well-being .wb-foot .readme:hover { color: #333; }
 #v-well-being .wb-foot .readme .readme-tip { top: auto; bottom: calc(100% + 6px); }
@@ -1375,7 +1379,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
   <div class="results" id="res-wb"></div>
   <div id="fig-wb-heat"></div>
   <div id="fig-wb-row"></div>
-  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How the grid is built</h2><p><b>The rule.</b> Every rate row uses the site’s turning-point indicator, the Modified Sahm Rule: the six-month average of an unemployment rate less the lowest value of that average over the past twelve months, with the alarm at 0.5 points. A cell darkens as the indicator approaches the threshold and turns the deepest blue when the alarm is on. Region rows are different: they show the share of the region’s counties whose own indicators are above the threshold, as on the spatial page, and turn the deepest blue when most of them are, which counts as the region’s alarm.</p><p><b>The data.</b> Labor utilization, race and ethnicity, gender, age, education, birthplace, industry and occupation are the Bureau of Labor Statistics’ unemployment rates from the Current Population Survey, by way of FRED. Where BLS publishes a seasonally adjusted series it is used as published; the rest are adjusted with the STL procedure used across the site. Industry and occupation refer to the unemployed person’s last job. Family income deciles come from the IPUMS CPS microdata behind the income page, and county rates from the BLS Local Area Unemployment Statistics behind the spatial page. The grid updates after each BLS and CPS release.</p><p><b>Reading it.</b> The rows overlap: every worker appears in several of them, so the strip on top, the share of rows with the alarm on, is a count of signals rather than of people. Small groups rest on small samples, and their indicators swing more and cross the threshold more often. Rows begin when their data do: industry and occupation in 2000, birthplace in 2007, and every indicator about a year and a half after its series starts.</p></section>
+  <section class="pbreak"><span class="ov-kicker">Notes</span><h2 class="ov-h">How the grid is built</h2><p><b>The rule.</b> Every rate row uses the site’s turning-point indicator, the Modified Sahm Rule: the six-month average of an unemployment rate less the lowest value of that average over the past twelve months, with the alarm at 0.5 points. A cell darkens as the indicator approaches the threshold and turns the deepest blue when the alarm is on. Region rows are different: they show the share of the region’s counties whose own indicators are above the threshold, as on the spatial page, and turn the deepest blue when most of them are, which counts as the region’s alarm.</p><p><b>The data.</b> Labor utilization, race and ethnicity, gender, age, education, birthplace, industry and occupation are the Bureau of Labor Statistics’ unemployment rates from the Current Population Survey, by way of FRED. Where BLS publishes a seasonally adjusted series it is used as published; the rest are adjusted with the STL procedure used across the site. Industry and occupation refer to the unemployed person’s last job. Family income deciles come from the IPUMS CPS microdata behind the income page, and county rates from the BLS Local Area Unemployment Statistics behind the spatial page. The grid updates after each BLS and CPS release.</p><p><b>Reading it.</b> The rows overlap: every worker appears in several of them, so the strip on top, the share of indicators signaling a recession, is a count of signals rather than of people. Small groups rest on small samples, and their indicators swing more and cross the threshold more often. Rows begin when their data do: industry and occupation in 2000, birthplace in 2007, and every indicator about a year and a half after its series starts.</p></section>
 </div>
 </div>
 
@@ -5702,12 +5706,12 @@ async function renderIntl() {
 
 /* ---------- Well-being: one grid of recession indicators across the labor market (unlisted) ---------- */
 const WB = { th: 0.5, from: "1994", sel: "U3", rowView: "ind", notes: false };   // one window and one threshold
-// category names as drawn beside their rows ("\n" marks a preferred line break)
-const WB_CAT = { educ: "Education,\n25 and over" };
+const WB_GNAME = { educ: "Education" };   // shorter group names; the detail ("25 and over") is in the notes
+const WB_NOCAT = new Set(["born"]);        // groups drawn without a category name: two rows are too thin for one
 let _wb = null;
 function loadWb() {
   if (!_wb) _wb = d3.json("data/wellbeing.json").then(J => {
-    const G = (J.groups || []).map(g => ({ g: g.g, name: g.name, rows: [] })), byG = Object.fromEntries(G.map(g => [g.g, g]));
+    const G = (J.groups || []).map(g => ({ g: g.g, name: WB_GNAME[g.g] || g.name, rows: [] })), byG = Object.fromEntries(G.map(g => [g.g, g]));
     for (const r of J.rows) {
       const row = { k: r.k, g: r.g, lab: r.lab, short: r.short || r.lab, desc: r.desc, code: r.code, adj: r.adj, share: r.type === "share" };
       if (row.share) { row.t0 = mIdx(r.start); row.on = r.on; row.tot = r.tot; row.val = r.on.map((o, i) => r.tot[i] ? o / r.tot[i] : NaN); row.t1 = row.t0 + row.val.length - 1; }
@@ -5755,11 +5759,11 @@ function wbHeat(el, D) {
   if (!el) return;
   const th = WB.th;
   el.innerHTML = `<figure class="vfig wb-fig">
-    <div class="wb-head"><span class="ov-kicker">At a glance</span><h2 class="ov-h">The well-being of the labor market</h2></div>
-    <div class="wb-key" tabindex="0" aria-label="Legend">No rise ${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")} Alarm <span class="wb-key-i" aria-hidden="true">ⓘ</span><span class="readme-tip"><p><b>How the cells are shaded.</b> Each row’s turning-point indicator as a share of the ${f1(th, 1)}-point threshold: the palest blue means unemployment has not risen above its recent low, and the deepest blue means the alarm is on.</p><p>Region rows show the share of the region’s counties in recession, deepest when most of them are. Light gray: no data yet. Dashed lines: NBER recessions.</p></span></div>
+    <div class="wb-head"><span class="ov-kicker">At a glance</span><h2 class="ov-h">The Well-Being of the Labor Market</h2></div>
+    <div class="wb-top"><span class="wb-strip-t">Share of indicators signaling a recession</span><div class="wb-key"><div class="wb-key-lab" aria-hidden="true"><span>← No recession</span><span>Recession →</span></div><div class="wb-key-ramp" tabindex="0" role="img" aria-label="Color key, from no recession to recession">${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")}</div><span class="readme-tip" role="tooltip"><p><b>How the cells are shaded.</b> Each row’s turning-point indicator as a share of the ${f1(th, 1)}-point threshold. The palest blue means unemployment has not risen above its recent low; the deepest blue means the alarm is on, signaling a recession for that group.</p><p>Region rows show the share of the region’s counties in recession, deepest when most of them are. Light gray: no data yet. Dashed lines: NBER recessions.</p></span></div></div>
     <div class="val-canvas wb-canvas" id="wb-heat-cv"><canvas role="img" aria-label="Turning-point indicators for every group, industry, occupation, income decile and region, month by month"></canvas><div class="tip" hidden></div></div>
     <div class="wb-foot"><button type="button" class="wb-notes-btn" aria-expanded="${WB.notes}" aria-controls="wb-notes">Notes and source</button>${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a group of workers, an industry, an occupation, an income decile or a region. A cell turns the deepest blue when that row’s alarm is on.</p><p><b>What to look for.</b> National recessions run down the grid as dark columns. Rows that darken first are where downturns begin; dark patches between recessions are downturns the aggregate never called. Click a row to follow it in the chart below.</p>`)}</div>
-    <div class="wb-notes" id="wb-notes" ${WB.notes ? "" : "hidden"}><p>Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points), ${mLab(Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))))} to ${mLab(D.t1)}. Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of rows with the alarm on: the rows overlap, so it counts signals, not people. Light gray: no data yet. Dashed lines: NBER recessions.</p><p>Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.</p></div>
+    <div class="wb-notes" id="wb-notes" ${WB.notes ? "" : "hidden"}><p>Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points), ${mLab(Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))))} to ${mLab(D.t1)}. Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of indicators signaling a recession, that is, with the alarm on: the rows overlap, so it counts signals, not people. Education rows cover adults aged 25 and over. The native-born and foreign-born rows group workers by birthplace. Industry and occupation refer to the unemployed person’s last job; family income deciles rank households by family income. Light gray: no data yet. Dashed lines: NBER recessions.</p><p>Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.</p></div>
   </figure>`;
   const btn = el.querySelector(".wb-notes-btn"), box = el.querySelector("#wb-notes");
   btn.onclick = () => { WB.notes = box.hidden; box.hidden = !WB.notes; btn.setAttribute("aria-expanded", String(WB.notes)); };
@@ -5768,8 +5772,9 @@ function wbHeat(el, D) {
 function wbDraw(wrap, D) {
   const cv = wrap.querySelector("canvas"), tip = wrap.querySelector(".tip"), th = WB.th;
   const a = Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))), b = D.t1, n = b - a + 1;
-  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = narrow ? 8 : 10, gap = narrow ? 5 : 6, top = 92, M = { r: 8, b: 26 };
+  const W = Math.max(320, wrap.clientWidth || 860), narrow = W < 560, rh = narrow ? 8 : 10, gap = narrow ? 5 : 7, top = 74, M = { r: 8, b: 26 };
   const catW = narrow ? 60 : 118, labW = (narrow ? 72 : 150) + catW;   // category names, then row names, then the cells
+  { const t = wrap.parentElement.querySelector(".wb-strip-t"); if (t) t.style.paddingLeft = narrow ? "0" : labW + "px"; }   // the strip's title starts over the cells
   const Ly = [], Gy = []; let y = top;
   D.groups.forEach((g, gi) => { if (gi) y += gap; Gy.push({ g, y }); for (const r of g.rows) { Ly.push({ r, y }); y += rh; } });
   const yEnd = y, H = y + M.b, dpr = window.devicePixelRatio || 1;
@@ -5778,21 +5783,21 @@ function wbDraw(wrap, D) {
   const font = getComputedStyle(document.body).fontFamily, cw = (W - labW - M.r) / n, X = i => labW + i * cw;
   const ramp = d3.scaleLinear().domain([0, .2, .4, .6, .8, 1]).range(HEXCOL).clamp(true);
   // the strip: share of rows with the alarm on
-  const br = Array.from({ length: n }, (_, i) => wbBreadth(D, a + i, th)), sTop = 24, sBot = top - 20, SY = v => sBot - v * (sBot - sTop);
+  const br = Array.from({ length: n }, (_, i) => wbBreadth(D, a + i, th)), sTop = 8, sBot = top - 16, SY = v => sBot - v * (sBot - sTop);
   const recs = NBER.filter(r => mIdx(r.trough) >= a).map(r => [Math.max(0, mIdx(r.peak) - a), Math.min(n - 1, mIdx(r.trough) - a)]);
   c.fillStyle = "#f2f2f2"; for (const [p, q] of recs) c.fillRect(X(p), sTop - 6, Math.max(2, X(q + 1) - X(p)), sBot - sTop + 6);
   const segs = []; let cur = null; br.forEach((z, i) => { if (isFinite(z.sh)) { if (!cur) segs.push(cur = []); cur.push([X(i + .5), SY(z.sh)]); } else cur = null; });
   for (const sg of segs) { c.beginPath(); c.moveTo(sg[0][0], SY(0)); sg.forEach(([px, py]) => c.lineTo(px, py)); c.lineTo(sg[sg.length - 1][0], SY(0)); c.closePath(); c.fillStyle = "rgba(106,167,230,.28)"; c.fill();
     c.beginPath(); sg.forEach(([px, py], j) => j ? c.lineTo(px, py) : c.moveTo(px, py)); c.strokeStyle = "#17397c"; c.lineWidth = 1.4; c.stroke(); }
   c.font = "10px " + font; c.fillStyle = "#a3a3a3"; c.textAlign = "right"; c.fillText("100%", labW - 5, SY(1) + 3); c.fillText("0%", labW - 5, SY(0) + 3);
-  c.textAlign = "left"; c.fillStyle = "#737373"; c.fillText(narrow ? "Share of rows in alarm" : "Share of rows with the alarm on", labW + 2, sTop - 10);
-  // categories: a rule between them, and the name beside the first rows, wrapped to the column
+  // categories: the name centered on its rows, wrapped to the column
   const wrapText = (txt, w) => txt.split("\n").flatMap(part => { const out = []; let line = ""; for (const word of part.split(" ")) { const t = line ? line + " " + word : word; if (line && c.measureText(t).width > w) { out.push(line); line = word; } else line = t; } if (line) out.push(line); return out; });
-  Gy.forEach((G, gi) => {
-    if (gi) { c.strokeStyle = "#ebebeb"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, G.y - gap / 2); c.lineTo(W - M.r, G.y - gap / 2); c.stroke(); }
-    c.font = "600 " + (narrow ? "8.5px " : "10.5px ") + font; c.fillStyle = "#404040"; c.textAlign = "left";
-    const name = WB_CAT[G.g.g] || G.g.name, lines = (narrow || name.includes("\n")) ? wrapText(name, catW - 8) : [name], lh = narrow ? 9.5 : 12;
-    lines.forEach((ln, j) => c.fillText(ln, 0, G.y + (narrow ? 7 : 9) + j * lh));
+  Gy.forEach(G => {
+    if (WB_NOCAT.has(G.g.g)) return;
+    c.font = "600 " + (narrow ? "8.5px " : "10.5px ") + font; c.fillStyle = "#404040"; c.textAlign = "left"; c.textBaseline = "middle";
+    const lines = wrapText(G.g.name, catW - 8), lh = narrow ? 9.5 : 12, yc = G.y + G.g.rows.length * rh / 2 - .5;
+    lines.forEach((ln, j) => c.fillText(ln, 0, yc + (j - (lines.length - 1) / 2) * lh));
+    c.textBaseline = "alphabetic";
   });
   // cells and row names
   for (const L of Ly) {
@@ -5816,7 +5821,7 @@ function wbDraw(wrap, D) {
   const show = ev => {
     const { px, py, rc } = at(ev), i = Math.floor((px - labW) / cw);
     let html = "";
-    if (py < top - 6 && i >= 0 && i < n) { const z = br[i]; if (isFinite(z.sh)) html = `<div class="h">${mLab(a + i)}</div><div class="r"><span>Rows with the alarm on</span><span class="num">${Math.round(100 * z.sh)}%</span></div><div class="r"><span>Rows</span><span class="num">${z.on} of ${z.n}</span></div>`; }
+    if (py < top - 6 && i >= 0 && i < n) { const z = br[i]; if (isFinite(z.sh)) html = `<div class="h">${mLab(a + i)}</div><div class="r"><span>Signaling a recession</span><span class="num">${Math.round(100 * z.sh)}%</span></div><div class="r"><span>Indicators</span><span class="num">${z.on} of ${z.n}</span></div>`; }
     else { const L = rowAt(px, py); if (L) { const t = i >= 0 && i < n ? a + i : D.T, r = L.r, z = wbCell(r, t, th);
       html = `<div class="h">${esc(r.lab)} · ${mLab(t)}</div>` + (r.share
         ? `<div class="r"><span>Counties above threshold</span><span class="num">${isFinite(z.v) ? Math.round(100 * z.v) + "%" : "–"}</span></div><div class="r"><span>Counties</span><span class="num">${isFinite(z.v) ? `${r.on[z.i].toLocaleString()} of ${r.tot[z.i].toLocaleString()}` : "–"}</span></div>`
