@@ -1,0 +1,86 @@
+name: Well-being data (grab bag of recession indicators)
+
+# Rebuilds data/wellbeing.json for the unlisted well-being page (#well-being): unemployment rates across labor
+# utilization, race and ethnicity, gender, age, education, birthplace, industry, occupation and family income, and the
+# share of each region's counties in recession. Renders data-source/Well_Being.Rmd after the BLS and CPS updates, and
+# commits the file when it changed. No keys are needed.
+
+on:
+  workflow_run:
+    workflows: ["Fetch all data and compute sahm rule", "CPS monthly update (IPUMS microdata)"]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [well-being]
+    paths: ["data-source/Well_Being.Rmd", ".github/workflows/well-being-data.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: well-being-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.ref }}
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::data.table
+            any::jsonlite
+            any::rmarkdown
+            any::knitr
+      - name: Rebuild the file
+        shell: bash
+        run: |
+          set +e
+          Rscript -e 'rmarkdown::render("data-source/Well_Being.Rmd", output_dir = tempdir())' > render.log 2>&1
+          status=$?
+          tail -60 render.log
+          if [ $status -ne 0 ]; then { echo "### The update stopped with an R error"; echo; echo '```'; tail -40 render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"; fi
+          rm -f render.log
+          exit $status
+      - name: Commit the new data if anything changed
+        id: commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch=$(git rev-parse --abbrev-ref HEAD)
+          changed=$(python3 -c '
+          import json, subprocess
+          def load(t):
+              d = json.loads(t) if t else None
+              if d: d.pop("updated", None)
+              return d
+          old = subprocess.run(["git", "show", "HEAD:data/wellbeing.json"], capture_output=True, text=True).stdout
+          print("true" if load(old) != load(open("data/wellbeing.json").read()) else "false")
+          ')
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          if [ "$changed" = "true" ]; then
+            git add data/wellbeing.json
+            git commit -m "chore: refresh the well-being indicators"
+            git pull --rebase origin "$branch"
+            git push origin "HEAD:$branch"
+          else
+            echo "No new data."
+          fi
+      - name: Trigger webpage deployment
+        if: steps.commit.outputs.changed == 'true' && steps.commit.outputs.branch == 'main'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: webpage-deployment.yaml
+          ref: main

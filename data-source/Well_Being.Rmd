@@ -1,0 +1,150 @@
+---
+title: "Well-Being: Recession Indicators Across the Labor Market"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+# One file for the unlisted well-being page (#well-being): a grab bag of unemployment rates across labor utilization,
+# race and ethnicity, gender, age, education, birthplace, industry, occupation and family income, plus the share of each
+# Census region's counties in recession. The page computes each series' turning-point indicator with the site's rule.
+#   BLS series: from the files the interactive tool already keeps (data-source/tool-data, refreshed by data-update.yml)
+#     when they are there, otherwise straight from FRED's public CSV files (no key needed). Series BLS publishes seasonally
+#     adjusted are used as published; the others are adjusted with the site's STL procedure. A month missing inside a
+#     series (October 2025: the federal shutdown cancelled that survey) is interpolated, as everywhere on the site.
+#   Family income deciles: data/explorer_series.csv (IPUMS CPS, already seasonally adjusted for the income page).
+#   Regions: data/spatial_states.json (counties above the county threshold, by state, from the spatial page).
+# Writes data/wellbeing.json. A series that cannot be reached keeps its previous values.
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(data.table); library(jsonlite)
+options(timeout = 300, HTTPUserAgent = "Mozilla/5.0 (X11; Linux x86_64) inequalityofrecession.com data update")
+root <- normalizePath(file.path(dirname(knitr::current_input(dir = TRUE)), ".."))
+dest <- file.path(root, "data", "wellbeing.json")
+old <- if (file.exists(dest)) fromJSON(dest, simplifyVector = FALSE) else list()
+oldrow <- function(k) { for (r in old$rows) if (identical(r$k, k)) return(r); NULL }
+mi <- function(s) as.integer(substr(s, 1, 4)) * 12L + as.integer(substr(s, 6, 7)) - 1L   # month index
+ym <- function(t) sprintf("%04d-%02d", t %/% 12L, t %% 12L + 1L)
+FROM <- mi("1990-01")                                                                  # the file starts here
+# the site's STL: a periodic seasonal, robust, a trend window of 13 months
+stl_sa <- function(x) {
+  fit <- stl(ts(x, frequency = 12L), s.window = "periodic", robust = TRUE, t.window = 13L)
+  as.numeric(x - fit$time.series[, "seasonal"])
+}
+```
+
+## The series
+
+```{r rows}
+G <- data.table(g = c("lu", "race", "sex", "age", "educ", "born", "ind", "occ", "inc", "area"),
+                name = c("Labor utilization", "Race and ethnicity", "Gender", "Age", "Education, 25 and over", "Birthplace",
+                         "Industry", "Occupation", "Family income", "Region"))
+# g, key, label, short label (narrow screens), description, code, published seasonally adjusted
+R <- rbindlist(lapply(list(
+  list("lu", "U1", "U-1", "U-1", "Unemployed 15 weeks or longer", "U1RATE", TRUE),
+  list("lu", "U2", "U-2", "U-2", "Job losers and people who completed temporary jobs", "U2RATE", TRUE),
+  list("lu", "U3", "U-3", "U-3", "The official unemployment rate", "UNRATE", TRUE),
+  list("lu", "U4", "U-4", "U-4", "U-3 plus discouraged workers", "U4RATE", TRUE),
+  list("lu", "U5", "U-5", "U-5", "U-4 plus all other marginally attached workers", "U5RATE", TRUE),
+  list("lu", "U6", "U-6", "U-6", "U-5 plus part-time workers who want full-time work", "U6RATE", TRUE),
+  list("race", "White", "White", "White", "White workers, 16 and over", "LNS14000003", TRUE),
+  list("race", "Black", "Black", "Black", "Black workers, 16 and over", "LNS14000006", TRUE),
+  list("race", "Hispanic", "Hispanic", "Hispanic", "Hispanic workers, 16 and over", "LNS14000009", TRUE),
+  list("race", "Asian", "Asian", "Asian", "Asian workers, 16 and over", "LNU04032183", FALSE),
+  list("sex", "Men", "Men", "Men", "Men, 16 and over", "LNS14000001", TRUE),
+  list("sex", "Women", "Women", "Women", "Women, 16 and over", "LNS14000002", TRUE),
+  list("age", "A16", "16 to 19", "16–19", "Aged 16 to 19", "LNS14000012", TRUE),
+  list("age", "A20", "20 to 24", "20–24", "Aged 20 to 24", "LNS14000036", TRUE),
+  list("age", "A25", "25 to 34", "25–34", "Aged 25 to 34", "LNS14000089", TRUE),
+  list("age", "A35", "35 to 44", "35–44", "Aged 35 to 44", "LNS14000091", TRUE),
+  list("age", "A45", "45 to 54", "45–54", "Aged 45 to 54", "LNS14000093", TRUE),
+  list("age", "A55", "55 to 64", "55–64", "Aged 55 to 64", "LNU04000095", FALSE),
+  list("age", "A65", "65 and over", "65+", "Aged 65 and over", "LNU04000097", FALSE),
+  list("educ", "LTHS", "Less than high school", "No diploma", "Less than a high school diploma, 25 and over", "LNS14027659", TRUE),
+  list("educ", "HS", "High school", "High school", "High school graduates, no college, 25 and over", "LNS14027660", TRUE),
+  list("educ", "SC", "Some college", "Some college", "Some college or associate degree, 25 and over", "LNS14027689", TRUE),
+  list("educ", "BA", "Bachelor’s or more", "Bachelor’s+", "Bachelor’s degree and higher, 25 and over", "LNS14027662", TRUE),
+  list("born", "Native", "Native-born", "Native-born", "Born in the United States", "LNU04073413", FALSE),
+  list("born", "Foreign", "Foreign-born", "Foreign-born", "Born outside the United States", "LNU04073395", FALSE),
+  list("ind", "Constr", "Construction", "Construction", "Construction (industry of last job)", "LNU04032231", FALSE),
+  list("ind", "Manuf", "Manufacturing", "Manufacturing", "Manufacturing", "LNU04032232", FALSE),
+  list("ind", "Trade", "Wholesale and retail", "Trade", "Wholesale and retail trade", "LNU04032235", FALSE),
+  list("ind", "Transp", "Transportation, utilities", "Transport", "Transportation and utilities", "LNU04032236", FALSE),
+  list("ind", "Info", "Information", "Information", "Information", "LNU04032237", FALSE),
+  list("ind", "Fin", "Financial activities", "Finance", "Financial activities", "LNU04032238", FALSE),
+  list("ind", "Prof", "Professional services", "Professional", "Professional and business services", "LNU04032239", FALSE),
+  list("ind", "EdHealth", "Education and health", "Ed. and health", "Education and health services", "LNU04032240", FALSE),
+  list("ind", "Leisure", "Leisure and hospitality", "Leisure", "Leisure and hospitality", "LNU04032241", FALSE),
+  list("ind", "OthServ", "Other services", "Other services", "Other services", "LNU04032242", FALSE),
+  list("ind", "Mining", "Mining, oil and gas", "Mining", "Mining, quarrying, and oil and gas extraction", "LNU04032230", FALSE),
+  list("ind", "Agri", "Agriculture", "Agriculture", "Agriculture and related private wage and salary workers", "LNU04035109", FALSE),
+  list("ind", "Gov", "Government", "Government", "Government workers", "LNU04028615", FALSE),
+  list("occ", "Mgmt", "Management, professional", "Professional", "Management, professional, and related occupations", "LNU04032215", FALSE),
+  list("occ", "Serv", "Service", "Service", "Service occupations", "LNU04032218", FALSE),
+  list("occ", "Sales", "Sales and office", "Sales, office", "Sales and office occupations", "LNU04032219", FALSE),
+  list("occ", "NatRes", "Construction, maintenance", "Constr., maint.", "Natural resources, construction, and maintenance occupations", "LNU04032222", FALSE),
+  list("occ", "Prod", "Production, transportation", "Production", "Production, transportation, and material moving occupations", "LNU04032226", FALSE)
+), function(z) setNames(as.list(z), c("g", "k", "lab", "short", "desc", "code", "sa"))))
+# a series from the tool's files, or from FRED's public CSV
+raw <- function(code) {
+  f <- file.path(root, "data-source", "tool-data", paste0(code, ".csv"))
+  d <- if (file.exists(f)) fread(f, select = c("date", "value")) else {
+    x <- fread(paste0("https://fred.stlouisfed.org/graph/fredgraph.csv?id=", code), na.strings = c(".", ""), colClasses = "character")
+    setnames(x, c("date", "value")); x[, value := as.numeric(value)]; x
+  }
+  d <- d[!is.na(value)][, t := mi(as.character(date))][order(t)]
+  if (nrow(d) < 36L) stop("too few observations")
+  full <- data.table(t = min(d$t):max(d$t)); d <- d[full, on = "t"]
+  d[, value := approx(t[!is.na(value)], value[!is.na(value)], xout = t)$y]   # interior gaps
+  d
+}
+rows <- lapply(seq_len(nrow(R)), function(i) {
+  r <- R[i]
+  tryCatch({
+    d <- raw(r$code)
+    v <- if (isTRUE(r$sa)) d$value else stl_sa(d$value)
+    keep <- d$t >= FROM
+    list(g = r$g, k = r$k, lab = r$lab, short = r$short, desc = r$desc, code = r$code, adj = if (isTRUE(r$sa)) "BLS" else "STL",
+         start = ym(d$t[keep][1]), v = round(v[keep], 3))
+  }, error = function(e) { message(r$code, ": ", conditionMessage(e)); oldrow(r$k) })
+})
+rows <- Filter(Negate(is.null), rows)
+```
+
+## Family income
+
+```{r income}
+E <- fread(file.path(root, "data", "explorer_series.csv"), select = c("panel", "series_id", "date", "value_sa"))
+DEC <- c("Poorest decile", "2nd decile", "3rd decile", "4th decile", "5th decile", "6th decile", "7th decile", "8th decile", "9th decile", "Richest decile")
+SHORT <- c("Poorest 10%", "2nd decile", "3rd decile", "4th decile", "5th decile", "6th decile", "7th decile", "8th decile", "9th decile", "Richest 10%")
+inc <- lapply(1:10, function(j) {
+  x <- E[panel == "income" & series_id == paste0("D", j)][, t := mi(date)][t >= FROM][order(t)]
+  full <- data.table(t = min(x$t):max(x$t)); x <- x[full, on = "t"]
+  x[, value_sa := approx(t[!is.na(value_sa)], value_sa[!is.na(value_sa)], xout = t)$y]
+  list(g = "inc", k = paste0("D", j), lab = DEC[j], short = SHORT[j], desc = paste0(DEC[j], " of family income (IPUMS CPS)"), code = paste0("D", j),
+       adj = "IPUMS", start = ym(x$t[1]), v = round(x$value_sa, 3))
+})
+```
+
+## Regions
+
+```{r regions}
+S <- fromJSON(file.path(root, "data", "spatial_states.json"))
+REG <- list(Northeast = c("CT", "ME", "MA", "NH", "RI", "VT", "NJ", "NY", "PA"),
+            Midwest = c("IL", "IN", "MI", "OH", "WI", "IA", "KS", "MN", "MO", "NE", "ND", "SD"),
+            South = c("DE", "DC", "FL", "GA", "MD", "NC", "SC", "VA", "WV", "AL", "KY", "MS", "TN", "AR", "LA", "OK", "TX"),
+            West = c("AZ", "CO", "ID", "MT", "NV", "NM", "UT", "WY", "AK", "CA", "HI", "OR", "WA"))
+area <- lapply(names(REG), function(nm) {
+  ix <- which(S$states %in% REG[[nm]])
+  list(g = "area", k = nm, lab = nm, short = nm, desc = paste0("Counties in the ", nm, " above the county threshold"), code = "LAUS",
+       type = "share", start = S$start, on = as.integer(colSums(S$on[ix, , drop = FALSE])), tot = as.integer(colSums(S$tot[ix, , drop = FALSE])))
+})
+```
+
+## Write
+
+```{r write}
+res <- list(updated = format(Sys.Date()), groups = G, rows = c(rows, inc, area),
+            counties = list(start = S$start, on = S$nat_on, n = S$nat_n))
+write_json(res, dest, auto_unbox = TRUE, digits = NA, na = "null")
+data.table(k = vapply(res$rows, `[[`, "", "k"), start = vapply(res$rows, `[[`, "", "start"),
+           n = vapply(res$rows, function(r) length(if (is.null(r$v)) r$on else r$v), 1L))
+```
