@@ -26,6 +26,8 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-24.04
+    # the FRED key is kept in this environment, as for the other data jobs
+    environment: github-pages
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
