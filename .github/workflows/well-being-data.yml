@@ -10,9 +10,6 @@ on:
     workflows: ["Fetch all data and compute sahm rule", "CPS monthly update (IPUMS microdata)", "Fetch data fro FRED api for interactive tool"]
     types: [completed]
     branches: [main]
-  push:
-    branches: [well-being]
-    paths: ["data-source/Well_Being.Rmd", ".github/workflows/well-being-data.yml"]
   workflow_dispatch:
 
 concurrency:
