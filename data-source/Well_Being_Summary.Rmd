@@ -1,0 +1,224 @@
+---
+title: "Well-Being: The Labor Market at a Glance"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+# The summary paragraph under the heading of the unlisted well-being page (#well-being), written to
+# data/wellbeing_summary.json. Run after Well_Being.Rmd, by the same workflow.
+#   Facts: data/wellbeing.json (the grid) and the BLS series the interactive tool keeps (data-source/tool-data): the Sahm
+#     Rule from UNRATE, and the Michez Rule (Michaillat and Saez) from UNEMPLOY, CLF16OV and JTSJOL, built as on the
+#     Indicator Comparisons page.
+#   Writing: a large language model (Claude, through the Anthropic API) writes the paragraph from those facts, following the
+#     author's instructions below. The key comes from the environment (ANTHROPIC_API_KEY, a GitHub secret); it is never
+#     written to a file or printed.
+#   Checks: every number, every group, industry or region named, the indicators said to be flashing now and the readings of
+#     the two rules are checked against the facts. If a check fails, or no key is set, a plain template is written instead.
+#   The paragraph is rewritten when a new month of data arrives. Within a month, revised data keep the published paragraph
+#   as long as it still passes every check against the revised facts.
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(data.table); library(jsonlite)
+root <- normalizePath(file.path(dirname(knitr::current_input(dir = TRUE)), ".."))
+dest <- file.path(root, "data", "wellbeing_summary.json")
+old <- if (file.exists(dest)) fromJSON(dest, simplifyVector = TRUE) else list()
+KEY <- Sys.getenv("ANTHROPIC_API_KEY"); MODEL <- Sys.getenv("WB_MODEL", "claude-opus-5-5")
+SEED <- Sys.getenv("WB_SEED_FILE")        # a written paragraph to check and publish in place of calling the model (used to start)
+FORCE <- nzchar(Sys.getenv("WB_FORCE"))   # rewrite even if the facts have not changed
+quiet <- function(msg) if (nzchar(KEY)) gsub(KEY, "***", msg, fixed = TRUE) else msg   # never print the key
+mi <- function(s) as.integer(substr(s, 1, 4)) * 12L + as.integer(substr(s, 6, 7)) - 1L
+ym <- function(t) sprintf("%04d-%02d", t %/% 12L, t %% 12L + 1L)
+mon <- function(t) paste(month.name[t %% 12L + 1L], t %/% 12L)
+num <- function(v) vapply(v, function(x) if (is.null(x)) NA_real_ else as.numeric(x), 0)
+lst <- function(x) if (length(x) <= 1) paste(x) else if (length(x) == 2) paste(x, collapse = " and ") else paste0(paste(head(x, -1), collapse = ", "), " and ", tail(x, 1))
+```
+
+## Facts
+
+```{r facts}
+K <- 6L; M <- 12L; A <- 0.5    # the site's rule, as in the grid
+W <- fromJSON(file.path(root, "data", "wellbeing.json"), simplifyVector = FALSE)
+GNAME <- c(lu = "Labor Utilization", race = "Race", sex = "Gender", age = "Age", educ = "Education", born = "Birthplace",
+           ind = "Industry", occ = "Occupation", inc = "Family Income", area = "Region")
+ind_of <- function(v) { n <- length(v); avg <- rep(NA_real_, n); out <- rep(NA_real_, n)
+  if (n >= K) for (i in K:n) { w <- v[(i - K + 1):i]; if (!anyNA(w)) avg[i] <- mean(w) }
+  if (n >= M) for (i in M:n) { w <- avg[(i - M + 1):i]; if (!is.na(avg[i]) && !anyNA(w)) out[i] <- avg[i] - min(w) }
+  out }
+L <- rbindlist(lapply(W$rows, function(r) {
+  t0 <- mi(r$start)
+  if (identical(r$type, "share")) {
+    on <- num(r$on); tot <- num(r$tot); x <- ifelse(tot > 0, on / tot, NA_real_)
+    data.table(k = r$k, g = r$g, lab = r$lab, share = TRUE, t = t0 + seq_along(x) - 1L, x = x, on = x >= 0.5)
+  } else {
+    v <- num(r$v); x <- ind_of(v)
+    data.table(k = r$k, g = r$g, lab = r$lab, share = FALSE, t = t0 + seq_along(x) - 1L, x = x, on = x >= A - 1e-9)
+  }
+}))
+# the latest month most rows have reached, as on the page; the window is the two years ending then
+ends <- L[share == FALSE, .(t1 = max(t)), by = k]
+T <- max(ends$t1); while (ends[t1 >= T, .N] < 0.8 * nrow(ends)) T <- T - 1L
+w0 <- T - 23L
+B <- L[t >= w0 & t <= T & !is.na(on), .(on = sum(on), n = .N), by = t][order(t)][, share := on / n]
+now <- L[t == T & on %in% TRUE, k]
+R <- L[t >= w0 & t <= T][order(k, t)][, {
+  o <- !is.na(on) & on; r <- rle(o); e <- cumsum(r$lengths); s <- e - r$lengths + 1L; sp <- which(r$values)
+  .(name = lab[1], g = g[1], category = GNAME[[g[1]]], months_on = sum(o),
+    spells = if (length(sp)) paste(sprintf("%s to %s", ym(t[s[sp]]), ym(t[e[sp]])), collapse = "; ") else "",
+    on_now = k[1] %in% now)
+}, by = k]
+sig <- R[months_on > 0, k]
+# the Sahm Rule and the Michez Rule, as on the Indicator Comparisons page
+tool <- function(code) {
+  d <- fread(file.path(root, "data-source", "tool-data", paste0(code, ".csv")), select = c("date", "value"))
+  d <- d[!is.na(value)][, t := mi(as.character(date))][order(t)]
+  full <- data.table(t = min(d$t):max(d$t)); d <- d[full, on = "t"]
+  d[, value := approx(t[!is.na(value)], value[!is.na(value)], xout = t)$y][]
+}
+un <- tool("UNRATE")[, a3 := frollmean(value, 3)]
+un[, sahm := vapply(seq_len(.N), function(i) if (i > 14 && !anyNA(a3[(i - 12):i])) a3[i] - min(a3[(i - 12):(i - 1)]) else NA_real_, 0)]
+lf <- tool("CLF16OV")
+u <- merge(tool("UNEMPLOY")[, .(t, ul = value)], lf[, .(t, lf = value)], by = "t")[, .(t, u = 100 * ul / lf)]
+v <- merge(tool("JTSJOL")[, .(t = t + 1L, jo = value)], lf[, .(t, lf = value)], by = "t")[t >= mi("2001-01"), .(t, v = 100 * jo / lf)]
+uv <- merge(u, v, by = "t")[order(t)][, `:=`(ub = frollmean(u, 3), vb = frollmean(v, 3))]
+uv[, mich := { out <- rep(NA_real_, .N); for (i in seq_len(.N)) if (i >= 13) { a <- ub[(i - 12):i]; b <- vb[(i - 12):i]
+  if (!anyNA(a) && !anyNA(b)) out[i] <- min(round(ub[i] - min(a), 2), round(max(b) - vb[i], 2)) }; out }]
+prob <- function(m) max(0, min(1, (m - 0.3) / 0.5))    # Michaillat and Saez: may have begun at 0.3, has begun at 0.8
+S <- un[!is.na(sahm)]; tS <- max(S$t); Sw <- S[t >= tS - 23L]
+Mz <- uv[!is.na(mich)]; tM <- max(Mz$t); Mw <- Mz[t >= tM - 23L]
+pk <- B[which.max(share)]
+facts <- list(
+  data_month = ym(T), window = c(ym(w0), ym(T)),
+  sahm_rule = list(signals_at = 0.5, now = round(S[t == tS, sahm], 2), month = ym(tS),
+                   highest_in_window = round(max(Sw$sahm), 2), highest_month = ym(Sw[which.max(sahm), t])),
+  michez_rule = list(band = c(0.3, 0.8), now = Mz[t == tM, mich], month = ym(tM), probability_now = round(prob(Mz[t == tM, mich]), 2),
+                     highest_in_window = max(Mw$mich), highest_month = ym(Mw[which.max(mich), t]), probability_at_highest = round(prob(max(Mw$mich)), 2)),
+  flashing_now = R[k %in% now, .(key = k, name, category)],
+  indicators_reporting_now = B[t == T, n],
+  share_signaling_by_month = B[, .(month = ym(t), signaling = on, of = n)],
+  peak = list(month = ym(pk$t), signaling = pk$on, of = pk$n),
+  rows = R[, .(key = k, name, category, months_on, spells, on_now)]
+)
+# what the paragraph depends on: when none of it changes, the published paragraph stays
+facts_key <- paste(ym(T), paste(sort(now), collapse = ","), facts$sahm_rule$now, facts$michez_rule$now, ym(pk$t), pk$on,
+                   paste(R$k, R$months_on, sep = ":", collapse = ","), sep = "|")
+str(facts[c("data_month", "sahm_rule", "michez_rule", "peak")])
+```
+
+## The paragraph
+
+```{r write-and-check}
+EXAMPLE <- "Nothing in the latest data suggests a downturn is starting: the Sahm Rule and the Michez Rule both read zero, and only construction and the information sector are still flashing. Recently, though, the labor market went through a partial, maybe mild, downturn that never took hold across the whole economy. It came in two waves, a larger one in late 2024 and a smaller one through the winter of 2025–26. It fell mostly on much younger workers, especially teenagers, on Black, Hispanic and Asian workers, and on families in the poorest four income deciles. Among industries, it reached construction, manufacturing, retail, information, education and health, hospitality, mining and agriculture, with government joining in the second wave."
+SYSTEM <- "You write the short summary at the top of a dashboard on the well-being of the U.S. labor market, on a research website about how recessions reach different groups of workers. Write as the site's author would: plain, measured and human, with few numbers. You describe the data. You never forecast, never give advice and never explain causes."
+INSTRUCT <- paste(sep = "\n",
+  "Write one paragraph of 100 to 180 words from the facts below, in the voice, order and length of the example, which was written for September 2026 data.",
+  "1. Begin with whether the latest data suggest a downturn is starting. Say what the Sahm Rule and the Michez Rule read now, in words (\"both read zero\" if both are below 0.05). The Sahm Rule signals at 0.5 points. On the Michez Rule, Michaillat and Saez read 0.3 points as a recession that may have begun and 0.8 as one that has. Then name every indicator in flashing_now, and only those, as still flashing; if there are none, say that none are.",
+  "2. Then, beginning with \"Recently,\", describe the two-year window from share_signaling_by_month and rows: whether there was a downturn and how broad. If the share signaling never reached two-thirds and the Sahm Rule never reached 0.5, call it a partial, maybe mild, downturn that never took hold across the whole economy; if very few indicators ever signaled, say so plainly instead. Describe its waves by season and year. Say whom it fell on, grouped as in the example (much younger workers, especially teenagers; racial and ethnic groups; families in the poorest income deciles), and which industries it reached.",
+  "Rules: Use only the facts given. Name only rows that had at least one month with the alarm on in the window (months_on above zero). Say \"the poorest N income deciles\" only if every decile from the poorest to the Nth signaled. Use words for counts and readings; the only numerals allowed are years. No causes or explanations, no forecasts, no advice or policy, and no mention of the NBER, the data sources or how the page works. One paragraph, no lists, no headings, no colon introducing a list.",
+  "Return only a JSON object: {\"paragraph\": \"...\", \"flashing_now\": [keys of the rows you named as still flashing], \"named\": [keys of every group, industry, occupation or region you named]}.",
+  "", paste0("Example: ", EXAMPLE), "", paste0("Facts: ", toJSON(facts, auto_unbox = TRUE, dataframe = "rows", digits = NA)))
+call_model <- function() {
+  h <- curl::new_handle()
+  curl::handle_setheaders(h, "x-api-key" = KEY, "anthropic-version" = "2023-06-01", "content-type" = "application/json")
+  curl::handle_setopt(h, postfields = toJSON(list(model = MODEL, max_tokens = 1500, system = SYSTEM,
+    messages = list(list(role = "user", content = INSTRUCT))), auto_unbox = TRUE), timeout = 180L)
+  r <- curl::curl_fetch_memory("https://api.anthropic.com/v1/messages", handle = h)
+  if (r$status_code != 200) stop("the API answered with status ", r$status_code)
+  j <- fromJSON(rawToChar(r$content), simplifyVector = FALSE)
+  paste(vapply(Filter(function(b) identical(b$type, "text"), j$content), function(b) b$text, ""), collapse = "")
+}
+parse_out <- function(txt) { s <- regmatches(txt, regexpr("\\{[\\s\\S]*\\}", txt, perl = TRUE)); if (!length(s)) stop("no JSON in the reply"); fromJSON(s, simplifyVector = TRUE) }
+# words that name a row (case-insensitive): a row named in the paragraph must have signaled in the window
+TERMS <- c(U1 = "\\bU-1\\b", U2 = "\\bU-2\\b", U3 = "\\bU-3\\b", U4 = "\\bU-4\\b", U5 = "\\bU-5\\b", U6 = "\\bU-6\\b",
+  White = "\\bwhite (workers|men|women)\\b", Black = "\\bblack\\b", Hispanic = "\\bhispanic\\b", Asian = "\\basian\\b",
+  Men = "(?<!white |black |young )\\bmen\\b", Women = "\\bwomen\\b",
+  A16 = "\\bteen|16 to 19", A20 = "young adults|younger workers|20 to 24", A25 = "25 to 34", A35 = "35 to 44", A45 = "45 to 54",
+  A55 = "55 to 64", A65 = "65 and over|older workers",
+  LTHS = "without a high school|less than (a )?high school", HS = "high school graduates", SC = "some college", BA = "college graduates|bachelor",
+  Native = "native-born", Foreign = "foreign-born|immigrant",
+  Constr = "construction(?! and maintenance)", Manuf = "manufactur", Trade = "retail|wholesale", Transp = "transportation|utilities",
+  Info = "\\binformation\\b", Fin = "financ", Prof = "professional and business|business services", EdHealth = "education and health",
+  Leisure = "hospitality|leisure", OthServ = "other services", Mining = "\\bmining|oil and gas", Agri = "agricultur|farm", Gov = "government",
+  Mgmt = "managers|management", Serv = "service occupations|service workers", Sales = "sales and office", NatRes = "construction and maintenance",
+  Prod = "\\bproduction\\b", D10 = "richest", Northeast = "northeast", Midwest = "midwest", South = "\\bsouth\\b", West = "(?<!mid)\\bwest\\b")
+NUMW <- c(two = 2, three = 3, four = 4, five = 5, six = 6, seven = 7, eight = 8, nine = 9, ten = 10)
+check <- function(o) {
+  p <- o$paragraph; why <- character(0)
+  if (!is.character(p) || length(p) != 1 || !nzchar(p)) return("no paragraph")
+  nw <- length(strsplit(trimws(p), "\\s+")[[1]]); if (nw < 70 || nw > 230) why <- c(why, paste("length", nw, "words"))
+  if (grepl("\n|•|:\\s*$", p)) why <- c(why, "not one plain paragraph")
+  fl <- unlist(o$flashing_now); if (!setequal(fl, now)) why <- c(why, sprintf("flashing now: said %s, data %s", paste(fl, collapse = ","), paste(now, collapse = ",")))
+  bad <- setdiff(unlist(o$named), union(sig, now)); if (length(bad)) why <- c(why, paste("named rows that never signaled:", paste(bad, collapse = ",")))
+  hit <- names(TERMS)[vapply(TERMS, function(rx) grepl(rx, p, ignore.case = TRUE, perl = TRUE), TRUE)]
+  bad <- setdiff(hit, union(sig, now)); if (length(bad)) why <- c(why, paste("mentions rows that never signaled:", paste(bad, collapse = ",")))
+  miss <- now[!vapply(now, function(k) !k %in% names(TERMS) || grepl(TERMS[[k]], p, ignore.case = TRUE, perl = TRUE), TRUE)]
+  if (length(miss)) why <- c(why, paste("does not name what is flashing now:", paste(miss, collapse = ",")))
+  dm <- regmatches(p, regexec("poorest (\\w+) (income )?deciles", p, ignore.case = TRUE))[[1]]
+  if (length(dm)) { nd <- NUMW[tolower(dm[2])]; if (is.na(nd) || !all(paste0("D", seq_len(nd)) %in% sig)) why <- c(why, paste("deciles:", dm[1])) }
+  if (grepl("poorest (decile|families|tenth)", p, ignore.case = TRUE) && !"D1" %in% sig) why <- c(why, "the poorest decile never signaled")
+  yrs <- seq(as.integer(substr(ym(w0), 1, 4)), as.integer(substr(ym(T), 1, 4)))
+  nums <- as.numeric(regmatches(p, gregexpr("\\d+(\\.\\d+)?", p))[[1]])
+  okn <- nums %in% yrs | nums %in% (yrs %% 100)
+  if (any(!okn)) why <- c(why, paste("numbers not allowed:", paste(nums[!okn], collapse = ",")))
+  sents <- strsplit(p, "(?<=[.;])\\s+", perl = TRUE)[[1]]
+  zero_ok <- function(rx, x) all(!grepl(rx, sents, ignore.case = TRUE) | !grepl("\\bzero\\b", sents, ignore.case = TRUE)) || abs(x) < 0.05
+  if (!zero_ok("Sahm", facts$sahm_rule$now)) why <- c(why, "the Sahm Rule does not read zero")
+  if (!zero_ok("Michez", facts$michez_rule$now)) why <- c(why, "the Michez Rule does not read zero")
+  if (!any(grepl("Sahm", sents)) || !any(grepl("Michez", sents))) why <- c(why, "does not give both rules")
+  if (grepl("because|due to|driven by|caused|blame|tariff|immigration|deport|layoff|artificial intelligence|\\bAI\\b|interest rate|\\bthe Fed\\b|Federal Reserve|forecast|\\bwill\\b|expect|likely to|NBER|National Bureau", p, ignore.case = TRUE, perl = TRUE))
+    why <- c(why, "gives causes, forecasts or sources")
+  if (grepl("partial|mild", p, ignore.case = TRUE) && !(pk$share < 2 / 3 && facts$sahm_rule$highest_in_window < 0.5)) why <- c(why, "'partial, maybe mild' does not fit the data")
+  if (grepl("(is|are) (now )?in (a )?recession|recession has (begun|started)", p, ignore.case = TRUE) && !(facts$sahm_rule$now >= 0.5 || facts$michez_rule$now >= 0.8))
+    why <- c(why, "says a recession has begun")
+  why
+}
+# the plain template, if the model's paragraph is missing or fails a check
+PLAIN <- c(A16 = "teenagers", A20 = "young adults", A25 = "workers aged 25 to 34", A35 = "workers aged 35 to 44", A45 = "workers aged 45 to 54",
+  A55 = "workers aged 55 to 64", A65 = "workers 65 and over", White = "white workers", Black = "Black workers", Hispanic = "Hispanic workers",
+  Asian = "Asian workers", Men = "men", Women = "women", LTHS = "workers without a high school diploma", HS = "high school graduates",
+  SC = "workers with some college", BA = "college graduates", Native = "native-born workers", Foreign = "foreign-born workers",
+  D1 = "the poorest families", D2 = "the second income decile", D3 = "the third income decile", D4 = "the fourth income decile",
+  D5 = "the middle income decile", D6 = "the sixth income decile", D7 = "the seventh income decile", D8 = "the eighth income decile",
+  D9 = "the ninth income decile", D10 = "the richest families", Constr = "construction", Manuf = "manufacturing", Trade = "retail",
+  Transp = "transportation", Info = "information", Fin = "finance", Prof = "professional services",
+  EdHealth = "education and health", Leisure = "hospitality", OthServ = "other services", Mining = "mining",
+  Agri = "agriculture", Gov = "government", Mgmt = "managers and professionals", Serv = "service occupations", Sales = "sales and office jobs",
+  NatRes = "construction and maintenance occupations", Prod = "production and transportation jobs",
+  Northeast = "the Northeast", Midwest = "the Midwest", South = "the South", West = "the West")
+pl <- function(keys) { x <- PLAIN[keys]; x[is.na(x)] <- keys[is.na(x)]; unname(x) }
+reading <- function(x) if (abs(x) < 0.05) "zero" else sprintf("%.2f points", x)
+template <- function() {
+  rules <- if (abs(facts$sahm_rule$now) < 0.05 && abs(facts$michez_rule$now) < 0.05) "the Sahm Rule and the Michez Rule both read zero"
+    else sprintf("the Sahm Rule reads %s and the Michez Rule %s", reading(facts$sahm_rule$now), reading(facts$michez_rule$now))
+  s1 <- if (facts$sahm_rule$now < 0.5 && facts$michez_rule$now < 0.3)
+    sprintf("Nothing in the latest data suggests a downturn is starting: %s, and %s.", rules,
+            if (length(now)) paste("only", lst(pl(now)), if (length(now) == 1) "is still flashing" else "are still flashing") else "none of the indicators on this page is flashing")
+  else sprintf("The latest data show signs of a downturn: %s, and %d of the %d indicators on this page are flashing.", rules, length(now), facts$indicators_reporting_now)
+  s2 <- sprintf("Over the past two years, the share of indicators signaling peaked in %s, when %d of %d were flashing.", mon(pk$t), pk$on, pk$n)
+  grp <- R[g %in% c("race", "sex", "age", "educ", "born", "inc") & months_on >= 6][order(-months_on)][seq_len(min(.N, 4)), k]
+  ind <- R[g == "ind" & months_on >= 6][order(-months_on)][seq_len(min(.N, 4)), k]
+  s3 <- if (length(grp) || length(ind)) paste0("The longest-running alarms were ", paste(c(if (length(grp)) paste("among", lst(pl(grp))), if (length(ind)) paste("in", lst(pl(ind)))), collapse = ", and "), ".")
+        else "No group or industry signaled for long."
+  paste(s1, s2, s3)
+}
+# keep the published paragraph within the same data month if the facts are unchanged, or if it still passes every check
+recheck <- function() if (!identical(old$source, "model") || is.null(old$claims)) "not a checked paragraph" else
+  check(list(paragraph = old$text, flashing_now = unlist(old$claims$flashing_now), named = unlist(old$claims$named)))
+keep <- !FORCE && length(old$text) == 1 && nzchar(old$text) && identical(old$data_month, ym(T)) &&
+  (identical(old$facts_key, facts_key) || !length(recheck()))
+# progress goes to stderr, which knitr does not capture, so it shows in the workflow's log
+if (keep) { out <- old; out$facts_key <- facts_key; cat("Same month, and the paragraph still fits the data; it stays.\n", file = stderr()) } else {
+  res <- tryCatch({
+    o <- if (nzchar(SEED)) fromJSON(SEED, simplifyVector = TRUE) else if (nzchar(KEY)) parse_out(call_model()) else stop("no ANTHROPIC_API_KEY in the environment")
+    why <- check(o); list(o = o, why = why)
+  }, error = function(e) list(o = NULL, why = paste("not written:", quiet(conditionMessage(e)))))
+  if (!length(res$why)) {
+    out <- list(text = res$o$paragraph, source = "model", model = if (nzchar(SEED)) "reviewed by the author" else MODEL,
+                claims = list(flashing_now = I(unlist(res$o$flashing_now)), named = I(unlist(res$o$named))))
+  } else {
+    cat("Using the template:", paste(res$why, collapse = "; "), "\n", file = stderr())
+    out <- list(text = template(), source = "template", checks = res$why)
+  }
+  out <- c(list(updated = format(Sys.Date()), data_month = ym(T)), out, list(facts_key = facts_key))
+}
+write_json(out, dest, auto_unbox = TRUE, pretty = TRUE)
+cat(out$source, ":", out$text, "\n", file = stderr())
+```
