@@ -3,11 +3,11 @@ name: Well-being data (grab bag of recession indicators)
 # Rebuilds data/wellbeing.json for the unlisted well-being page (#well-being): unemployment rates across labor
 # utilization, race and ethnicity, gender, age, education, birthplace, industry, occupation and family income, and the
 # share of each region's counties in recession. Renders data-source/Well_Being.Rmd after the BLS and CPS updates, and
-# commits the file when it changed. No keys are needed.
+# commits the file when it changed. The FRED key is passed in the environment, for the few series the tool's files lack.
 
 on:
   workflow_run:
-    workflows: ["Fetch all data and compute sahm rule", "CPS monthly update (IPUMS microdata)"]
+    workflows: ["Fetch all data and compute sahm rule", "CPS monthly update (IPUMS microdata)", "Fetch data fro FRED api for interactive tool"]
     types: [completed]
     branches: [main]
   push:
@@ -44,6 +44,8 @@ jobs:
             any::knitr
       - name: Rebuild the file
         shell: bash
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: |
           set +e
           Rscript -e 'rmarkdown::render("data-source/Well_Being.Rmd", output_dir = tempdir())' > render.log 2>&1

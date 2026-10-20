@@ -8,9 +8,10 @@ output: html_document
 # race and ethnicity, gender, age, education, birthplace, industry, occupation and family income, plus the share of each
 # Census region's counties in recession. The page computes each series' turning-point indicator with the site's rule.
 #   BLS series: from the files the interactive tool already keeps (data-source/tool-data, refreshed by data-update.yml)
-#     when they are there, otherwise straight from FRED's public CSV files (no key needed). Series BLS publishes seasonally
-#     adjusted are used as published; the others are adjusted with the site's STL procedure. A month missing inside a
-#     series (October 2025: the federal shutdown cancelled that survey) is interpolated, as everywhere on the site.
+#     when they are there, otherwise from the FRED API, with the key the workflow passes in the environment (FRED_API_KEY;
+#     it is never written to a file). Series BLS publishes seasonally adjusted are used as published; the others are
+#     adjusted with the site's STL procedure. A month missing inside a series (October 2025: the federal shutdown
+#     cancelled that survey) is interpolated, as everywhere on the site.
 #   Family income deciles: data/explorer_series.csv (IPUMS CPS, already seasonally adjusted for the income page).
 #   Regions: data/spatial_states.json (counties above the county threshold, by state, from the spatial page).
 # Writes data/wellbeing.json. A series that cannot be reached keeps its previous values.
@@ -83,13 +84,18 @@ R <- rbindlist(lapply(list(
   list("occ", "NatRes", "Construction, maintenance", "Constr., maint.", "Natural resources, construction, and maintenance occupations", "LNU04032222", FALSE),
   list("occ", "Prod", "Production, transportation", "Production", "Production, transportation, and material moving occupations", "LNU04032226", FALSE)
 ), function(z) setNames(as.list(z), c("g", "k", "lab", "short", "desc", "code", "sa"))))
-# a series from the tool's files, or from FRED's public CSV
+# a series from the tool's files, or from the FRED API
+KEY <- Sys.getenv("FRED_API_KEY")
+quiet <- function(msg) if (nzchar(KEY)) gsub(KEY, "***", msg, fixed = TRUE) else msg     # never print the key
+fred_api <- function(code) {
+  if (!nzchar(KEY)) stop("not in the tool's files, and no FRED key in the environment")
+  j <- fromJSON(paste0("https://api.stlouisfed.org/fred/series/observations?series_id=", code, "&api_key=", KEY,
+                       "&file_type=json&observation_start=1990-01-01"))
+  data.table(date = j$observations$date, value = suppressWarnings(as.numeric(j$observations$value)))
+}
 raw <- function(code) {
   f <- file.path(root, "data-source", "tool-data", paste0(code, ".csv"))
-  d <- if (file.exists(f)) fread(f, select = c("date", "value")) else {
-    x <- fread(paste0("https://fred.stlouisfed.org/graph/fredgraph.csv?id=", code), na.strings = c(".", ""), colClasses = "character")
-    setnames(x, c("date", "value")); x[, value := as.numeric(value)]; x
-  }
+  d <- if (file.exists(f)) fread(f, select = c("date", "value")) else fred_api(code)
   d <- d[!is.na(value)][, t := mi(as.character(date))][order(t)]
   if (nrow(d) < 36L) stop("too few observations")
   full <- data.table(t = min(d$t):max(d$t)); d <- d[full, on = "t"]
@@ -104,7 +110,7 @@ rows <- lapply(seq_len(nrow(R)), function(i) {
     keep <- d$t >= FROM
     list(g = r$g, k = r$k, lab = r$lab, short = r$short, desc = r$desc, code = r$code, adj = if (isTRUE(r$sa)) "BLS" else "STL",
          start = ym(d$t[keep][1]), v = round(v[keep], 3))
-  }, error = function(e) { message(r$code, ": ", conditionMessage(e)); oldrow(r$k) })
+  }, error = function(e) { message(r$code, ": ", quiet(conditionMessage(e))); oldrow(r$k) })
 })
 rows <- Filter(Negate(is.null), rows)
 ```
