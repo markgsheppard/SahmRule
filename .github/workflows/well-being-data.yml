@@ -2,8 +2,11 @@ name: Well-being data (grab bag of recession indicators)
 
 # Rebuilds data/wellbeing.json for the unlisted well-being page (#well-being): unemployment rates across labor
 # utilization, race and ethnicity, gender, age, education, birthplace, industry, occupation and family income, and the
-# share of each region's counties in recession. Renders data-source/Well_Being.Rmd after the BLS and CPS updates, and
-# commits the file when it changed. The FRED key is passed in the environment, for the few series the tool's files lack.
+# share of each region's counties in recession. Renders data-source/Well_Being.Rmd after the BLS and CPS updates, then
+# data-source/Well_Being_Summary.Rmd, which writes the summary paragraph at the top of the page (data/wellbeing_summary.json),
+# and commits whatever changed. Keys are passed in the environment from GitHub secrets and never written to a file:
+# FRED_API_KEY for the few series the tool's files lack, and ANTHROPIC_API_KEY for the summary (without it, the summary
+# falls back to a plain template).
 
 on:
   workflow_run:
@@ -39,6 +42,7 @@ jobs:
           packages: |
             any::data.table
             any::jsonlite
+            any::curl
             any::rmarkdown
             any::knitr
       - name: Rebuild the file
@@ -53,6 +57,20 @@ jobs:
           if [ $status -ne 0 ]; then { echo "### The update stopped with an R error"; echo; echo '```'; tail -40 render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"; fi
           rm -f render.log
           exit $status
+      - name: Write the summary paragraph
+        # a failure here must not hold back the data, so the commit step runs regardless
+        continue-on-error: true
+        shell: bash
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set +e
+          Rscript -e 'rmarkdown::render("data-source/Well_Being_Summary.Rmd", output_dir = tempdir())' > summary.log 2>&1
+          status=$?
+          grep -E "^(template|model) :|Using the template|have not changed|^Error" summary.log | tail -5
+          { echo "### Summary paragraph"; echo; grep -E "^(template|model) :|Using the template|have not changed" summary.log | tail -3; } >> "$GITHUB_STEP_SUMMARY"
+          rm -f summary.log
+          exit $status
       - name: Commit the new data if anything changed
         id: commit
         shell: bash
@@ -66,13 +84,17 @@ jobs:
               d = json.loads(t) if t else None
               if d: d.pop("updated", None)
               return d
-          old = subprocess.run(["git", "show", "HEAD:data/wellbeing.json"], capture_output=True, text=True).stdout
-          print("true" if load(old) != load(open("data/wellbeing.json").read()) else "false")
+          def changed(path):
+              old = subprocess.run(["git", "show", "HEAD:" + path], capture_output=True, text=True).stdout
+              try: new = open(path).read()
+              except FileNotFoundError: return False
+              return load(old) != load(new)
+          print("true" if changed("data/wellbeing.json") or changed("data/wellbeing_summary.json") else "false")
           ')
           echo "changed=$changed" >> "$GITHUB_OUTPUT"
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
           if [ "$changed" = "true" ]; then
-            git add data/wellbeing.json
+            git add data/wellbeing.json data/wellbeing_summary.json
             git commit -m "chore: refresh the well-being indicators"
             git pull --rebase origin "$branch"
             git push origin "HEAD:$branch"
