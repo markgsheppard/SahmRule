@@ -1,12 +1,12 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "data_month": "2026-09",
-  "text": "Nothing in the latest data suggests a downturn is starting: the Sahm Rule and the Michez Rule both read zero, and only construction and the information sector are still flashing. Recently, though, the labor market went through a partial, maybe mild, downturn that never took hold across the whole economy. It came in two waves, a larger one in late 2024 and a smaller one through the winter of 2025–26. It fell mostly on much younger workers, especially teenagers, on Black, Hispanic and Asian workers, and on families in the poorest four income deciles. Among industries, it reached construction, manufacturing, retail, information, education and health, hospitality, mining and agriculture, with government joining in the second wave.",
+  "text": "Nothing in the latest data suggests a downturn is starting. The Sahm Rule, the U-6 Modified Sahm Rule and the Michez Rule all read zero, and only construction and the information sector are still showing signs of weakness. Recently, though, the labor market went through a partial, maybe mild, downturn that never took hold across the whole economy. It came in two waves, a larger one in late 2024 and a smaller one through the winter of 2025–26. It fell mostly on much younger workers, especially teenagers, on Black, Hispanic and Asian workers, and on families in the poorest four income deciles. Among industries, it reached construction, manufacturing, retail, information, education and health, hospitality, mining and agriculture, with government joining in the second wave.",
   "source": "model",
   "model": "reviewed by the author",
   "claims": {
-    "flashing_now": ["Constr", "Info"],
+    "weak_now": ["Constr", "Info"],
     "named": ["Constr", "Info", "A16", "A20", "Black", "Hispanic", "Asian", "D1", "D2", "D3", "D4", "Manuf", "Trade", "EdHealth", "Leisure", "Mining", "Agri", "Gov"]
   },
-  "facts_key": "2026-09|Constr,Info|0|0|2024-11|27|A16:21,A20:16,A25:7,A35:4,A45:0,A55:0,A65:0,Agri:17,Asian:9,BA:0,Black:14,Constr:12,D1:16,D10:0,D2:6,D3:11,D4:9,D5:3,D6:0,D7:0,D8:0,D9:0,EdHealth:6,Fin:0,Foreign:5,Gov:8,HS:0,Hispanic:2,Info:15,LTHS:6,Leisure:14,Manuf:4,Men:0,Mgmt:0,Midwest:4,Mining:19,NatRes:7,Native:0,Northeast:3,OthServ:7,Prod:3,Prof:0,SC:0,Sales:5,Serv:8,South:0,Trade:12,Transp:6,U1:0,U2:0,U3:0,U4:0,U5:0,U6:10,West:6,White:0,Women:3"
+  "facts_key": "2026-09|Constr,Info|0|0|0|2024-11|27|A16:21,A20:16,A25:7,A35:4,A45:0,A55:0,A65:0,Agri:17,Asian:9,BA:0,Black:14,Constr:12,D1:16,D10:0,D2:6,D3:11,D4:9,D5:3,D6:0,D7:0,D8:0,D9:0,EdHealth:6,Fin:0,Foreign:5,Gov:8,HS:0,Hispanic:2,Info:15,LTHS:6,Leisure:14,Manuf:4,Men:0,Mgmt:0,Midwest:4,Mining:19,NatRes:7,Native:0,Northeast:3,OthServ:7,Prod:3,Prof:0,SC:0,Sales:5,Serv:8,South:0,Trade:12,Transp:6,U1:0,U2:0,U3:0,U4:0,U5:0,U6:10,West:6,White:0,Women:3"
 }
