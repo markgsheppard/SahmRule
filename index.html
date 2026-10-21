@@ -187,6 +187,9 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-well-being .wb-sum-p { margin: 0; max-width: none; font-family: var(--f-body); color: var(--prose); font-size: 16px; line-height: 1.7; }
 #v-well-being .wb-foot .wb-sum-note .readme-tip { width: min(520px, 86vw); }
 #v-well-being .wb-foot .readme.down .readme-tip { top: calc(100% + 6px); bottom: auto; }
+#v-overview .ov-glance-note { margin: 0; font-size: 11.5px; color: #a3a3a3; } #v-overview .ov-glance-note:hover { color: #333; }
+#v-overview .ov-glance-note .readme-tip { width: min(520px, 86vw); }
+#v-overview .ov-glance-note.up .readme-tip { top: auto; bottom: calc(100% + 6px); }
 #v-well-being .wb-top { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 20px; margin: 0 0 2px; }
 #v-well-being .wb-strip-t { font-size: 12px; color: #737373; }
 #v-well-being .wb-key { display: grid; gap: 3px; cursor: default; }
@@ -1062,6 +1065,13 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
     <p class="ov-lead">Read together, the papers are less about any single gap than about timing. A downturn that the national chronology dates to one month is, for many workers and communities, already under way before it, and often still under way after the official trough.</p>
     <p class="ov-more"><a href="#series" class="plain-link">See the full series →</a></p>
     <div class="cards" id="ov-cards"></div>
+  </section>
+
+  <section class="ov-block ov-glance" id="ov-glance" hidden>
+    <span class="ov-kicker">At a glance</span>
+    <h2 class="ov-h">The Well-Being of the Labor Market</h2>
+    <p class="ov-lead" id="ov-glance-p"></p>
+    <span class="readme ov-glance-note" tabindex="0">The Labor Market at a Glance ⓘ<span class="readme-tip" role="tooltip"></span></span>
   </section>
 
   <section class="ov-block">
@@ -3839,7 +3849,7 @@ function renderSite() {
   if (v === "education") renderEduFigs();
   if (v === "spatial") { renderSpatialFigs(); if (window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("county-map")); }
   if (v === "map" && window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("map-page"));
-  if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); }
+  if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); renderGlance(); }
   if (v === "compare") renderCompare();
   if (v === "vibe") renderVibeAgg();
   if (v === "prescription") renderPrescription();
@@ -5775,16 +5785,30 @@ function wbHeat(el, D) {
   </figure>`;
   wbSummary(el);
   // the footer's notes open upward; when there is no room above (under the site header), they open downward
-  el.querySelectorAll(".wb-foot .readme").forEach(n => { const place = () => wbTipPlace(n); n.addEventListener("mouseenter", place); n.addEventListener("focus", place); });
+  el.querySelectorAll(".wb-foot .readme").forEach(n => { const place = () => tipFlip(n, "up"); n.addEventListener("mouseenter", place); n.addEventListener("focus", place); });
   const btn = el.querySelector(".wb-notes-btn"), box = el.querySelector("#wb-notes");
   btn.onclick = () => { WB.notes = box.hidden; box.hidden = !WB.notes; btn.setAttribute("aria-expanded", String(WB.notes)); };
   wbDraw(el.querySelector("#wb-heat-cv"), D);
 }
-function wbTipPlace(n) {
+// a hover note opens on its preferred side ("up" or "down") unless there is no room there; it is measured against the box
+// it is positioned in, below the sticky site header and above the bottom of the window
+function tipFlip(n, prefer) {
   const tip = n.querySelector(".readme-tip"); if (!tip) return;
-  tip.style.visibility = "hidden"; tip.style.display = "block"; const h = tip.offsetHeight; tip.style.display = ""; tip.style.visibility = "";
-  const head = document.querySelector(".site-head"), top = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
-  n.classList.toggle("down", n.getBoundingClientRect().top - h - 10 < top);
+  tip.style.visibility = "hidden"; tip.style.display = "block"; const h = tip.offsetHeight, a = tip.offsetParent || n; tip.style.display = ""; tip.style.visibility = "";
+  const head = document.querySelector(".site-head"), top = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0, r = a.getBoundingClientRect();
+  const roomUp = r.top - h - 10 >= top, roomDown = r.bottom + h + 10 <= innerHeight;
+  if (prefer === "up") n.classList.toggle("down", !roomUp); else n.classList.toggle("up", !roomDown && roomUp);
+}
+// the same summary on the overview page, above "Contributions": the paragraph and its note, nothing else from the well-being page
+function renderGlance() {
+  const sec = document.getElementById("ov-glance"); if (!sec || !window.d3) return;
+  if (!_wbSum) _wbSum = d3.json("data/wellbeing_summary.json").catch(() => null);
+  _wbSum.then(S => { if (!S || !S.text) return;
+    sec.querySelector("#ov-glance-p").textContent = S.text;
+    const note = sec.querySelector(".ov-glance-note"), tip = note.querySelector(".readme-tip");
+    // the figures behind it are on the well-being page, so here the note says "this site" rather than "this page"
+    if (!tip.innerHTML) { tip.innerHTML = WB_SUM_NOTE.replace("from the data on this page", "from the data on this site"); const place = () => tipFlip(note, "down"); note.addEventListener("mouseenter", place); note.addEventListener("focus", place); }
+    sec.hidden = false; });
 }
 // what the summary is: shown on hover over "The Labor Market at a Glance ⓘ" in the footer row
 const WB_SUM_NOTE = `<p>This summary was crafted by the author, and is generated by a large language model with instruction by the author, from the data on this page, and rewritten each time the data update to provide a holistic review. Every figure it relies on is checked against the data first; if a check fails, a plain template appears instead. It describes the data; it is not a forecast.</p><p>Recessions in the United States are formally designated by the Business Cycle Dating Committee of the National Bureau of Economic Research. The Committee dates the peaks and troughs of the business cycle from a broad range of economic measures. This project charts turning points in the labor market alone, which is only a subset of the evidence the Committee weighs, and all questions of recession designation should be referred to the NBER. Its purpose is to give the public a way to follow broad trends in the labor market, and any disparate or distributional effects within it.</p>`;
