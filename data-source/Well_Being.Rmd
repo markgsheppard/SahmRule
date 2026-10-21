@@ -89,8 +89,13 @@ KEY <- Sys.getenv("FRED_API_KEY")
 quiet <- function(msg) if (nzchar(KEY)) gsub(KEY, "***", msg, fixed = TRUE) else msg     # never print the key
 fred_api <- function(code) {
   if (!nzchar(KEY)) stop("not in the tool's files, and no FRED key in the environment")
-  j <- fromJSON(paste0("https://api.stlouisfed.org/fred/series/observations?series_id=", code, "&api_key=", KEY,
-                       "&file_type=json&observation_start=1990-01-01"))
+  url <- paste0("https://api.stlouisfed.org/fred/series/observations?series_id=", code, "&api_key=", KEY,
+                "&file_type=json&observation_start=1990-01-01")
+  for (a in 1:3) {   # FRED now and then fails to answer; try twice more before keeping last run's values
+    j <- tryCatch(fromJSON(url), error = function(e) e)
+    if (!inherits(j, "error")) break
+    if (a < 3) Sys.sleep(5 * a) else stop(j)
+  }
   data.table(date = j$observations$date, value = suppressWarnings(as.numeric(j$observations$value)))
 }
 raw <- function(code) {
