@@ -182,32 +182,29 @@ table.udef tr.hl td { background: #f4f8fd; }
 #v-intl .race-tab td { text-align: right; padding: 3px 0 3px 6px; color: #262626; border-bottom: 1px solid #f2f2f2; }
 #v-intl .race-tab .l { text-align: left; padding-left: 0; color: #737373; font-weight: 400; }
 #v-intl .race-tab td { white-space: normal; } #v-intl .race-tab td.m { color: #8a8a8a; }
-#v-well-being .wb-head { display: grid; gap: 6px; margin: 0 0 14px; }
-#v-well-being .wb-sum { margin: 0 0 20px; }
-#v-well-being .wb-sum-p { margin: 0; max-width: none; font-family: var(--f-body); color: var(--prose); font-size: 16px; line-height: 1.7; }
-#v-well-being .wb-foot .wb-sum-note .readme-tip { width: min(520px, 86vw); }
-#v-well-being .wb-foot .readme.down .readme-tip { top: calc(100% + 6px); bottom: auto; }
-#v-overview .ov-glance-note { margin: 0; font-size: 11.5px; color: #a3a3a3; } #v-overview .ov-glance-note:hover { color: #333; }
-#v-overview .ov-glance-note .readme-tip { width: min(520px, 86vw); }
-#v-overview .ov-glance-note.up .readme-tip { top: auto; bottom: calc(100% + 6px); }
-#v-well-being .wb-top { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 20px; margin: 0 0 2px; }
-#v-well-being .wb-strip-t { font-size: 12px; color: #737373; }
-#v-well-being .wb-key { display: grid; gap: 3px; cursor: default; }
-#v-well-being .wb-key-lab { display: flex; justify-content: space-between; gap: 14px; font-size: 11px; color: #8a8a8a; white-space: nowrap; }
-#v-well-being .wb-key-ramp { display: flex; gap: 2px; cursor: default; outline: none; }
-#v-well-being .wb-key-ramp i { width: 24px; height: 9px; display: inline-block; }
-#v-well-being .wb-key-ramp:focus-visible { outline: 2px solid #4f8ad7; outline-offset: 2px; }
-#v-well-being .wb-top .readme-tip { display: none; position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
-#v-well-being .wb-top .readme-tip p { margin: 0 0 7px; } #v-well-being .wb-top .readme-tip p:last-child { margin: 0; }
-#v-well-being .wb-key-ramp:hover ~ .readme-tip, #v-well-being .wb-key-ramp:focus ~ .readme-tip { display: block; }
-#v-well-being .wb-foot { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-top: 10px; }
-#v-well-being .wb-foot .readme { position: static; margin: 0; font-size: 11.5px; color: #a3a3a3; } #v-well-being .wb-foot .readme:hover { color: #333; }
-#v-well-being .wb-foot .readme .readme-tip { top: auto; bottom: calc(100% + 6px); }
-#v-well-being .wb-notes-btn { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-size: 11.5px; color: #a3a3a3; cursor: pointer; }
-#v-well-being .wb-notes-btn::before { content: "+ "; } #v-well-being .wb-notes-btn[aria-expanded="true"]::before { content: "− "; }
-#v-well-being .wb-notes-btn:hover { color: #333; }
-#v-well-being .wb-notes p { margin: 6px 0 0; font-size: 12px; line-height: 1.55; color: #8a8a8a; max-width: 75ch; }
-#v-well-being .wb-canvas canvas { cursor: default; }
+:is(#v-well-being, #v-overview) .wb-head { display: grid; gap: 6px; margin: 0 0 14px; }
+:is(#v-well-being, #v-overview) .wb-sum { margin: 0 0 20px; }
+:is(#v-well-being, #v-overview) .wb-sum-p { margin: 0; max-width: none; font-family: var(--f-body); color: var(--prose); font-size: 16px; line-height: 1.7; }
+:is(#v-well-being, #v-overview) .wb-foot .wb-sum-note .readme-tip { width: min(520px, 86vw); }
+:is(#v-well-being, #v-overview) .wb-foot .readme.down .readme-tip { top: calc(100% + 6px); bottom: auto; }
+:is(#v-well-being, #v-overview) .wb-top { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 20px; margin: 0 0 2px; }
+:is(#v-well-being, #v-overview) .wb-strip-t { font-size: 12px; color: #737373; }
+:is(#v-well-being, #v-overview) .wb-key { display: grid; gap: 3px; cursor: default; }
+:is(#v-well-being, #v-overview) .wb-key-lab { display: flex; justify-content: space-between; gap: 14px; font-size: 11px; color: #8a8a8a; white-space: nowrap; }
+:is(#v-well-being, #v-overview) .wb-key-ramp { display: flex; gap: 2px; cursor: default; outline: none; }
+:is(#v-well-being, #v-overview) .wb-key-ramp i { width: 24px; height: 9px; display: inline-block; }
+:is(#v-well-being, #v-overview) .wb-key-ramp:focus-visible { outline: 2px solid #4f8ad7; outline-offset: 2px; }
+:is(#v-well-being, #v-overview) .wb-top .readme-tip { display: none; position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: min(440px, 86vw); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: #404040; cursor: default; }
+:is(#v-well-being, #v-overview) .wb-top .readme-tip p { margin: 0 0 7px; } :is(#v-well-being, #v-overview) .wb-top .readme-tip p:last-child { margin: 0; }
+:is(#v-well-being, #v-overview) .wb-key-ramp:hover ~ .readme-tip, :is(#v-well-being, #v-overview) .wb-key-ramp:focus ~ .readme-tip { display: block; }
+:is(#v-well-being, #v-overview) .wb-foot { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-top: 10px; }
+:is(#v-well-being, #v-overview) .wb-foot .readme { position: static; margin: 0; font-size: 11.5px; color: #a3a3a3; } :is(#v-well-being, #v-overview) .wb-foot .readme:hover { color: #333; }
+:is(#v-well-being, #v-overview) .wb-foot .readme .readme-tip { top: auto; bottom: calc(100% + 6px); }
+:is(#v-well-being, #v-overview) .wb-notes-btn { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-size: 11.5px; color: #a3a3a3; cursor: pointer; }
+:is(#v-well-being, #v-overview) .wb-notes-btn::before { content: "+ "; } :is(#v-well-being, #v-overview) .wb-notes-btn[aria-expanded="true"]::before { content: "− "; }
+:is(#v-well-being, #v-overview) .wb-notes-btn:hover { color: #333; }
+:is(#v-well-being, #v-overview) .wb-notes p { margin: 6px 0 0; font-size: 12px; line-height: 1.55; color: #8a8a8a; max-width: 75ch; }
+:is(#v-well-being, #v-overview) .wb-canvas canvas { cursor: default; }
 #v-well-being #fig-wb-row select { font: inherit; font-size: 14px; padding: 6px 10px; border: 1px solid #d4d4d4; border-radius: 8px; background: #fff; color: #262626; max-width: 100%; }
 #v-intl .race-sub { display: block; font-size: 10.5px; color: #8a8a8a; line-height: 1.2; }
 #v-intl .race-key { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12px; color: #737373; margin: 0 0 14px; } #v-intl .race-key span { display: inline-flex; align-items: center; gap: 6px; }
@@ -1067,12 +1064,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
     <div class="cards" id="ov-cards"></div>
   </section>
 
-  <section class="ov-block ov-glance" id="ov-glance" hidden>
-    <span class="ov-kicker">At a glance</span>
-    <h2 class="ov-h">The Well-Being of the Labor Market</h2>
-    <p class="ov-lead" id="ov-glance-p"></p>
-    <span class="readme ov-glance-note" tabindex="0">The Labor Market at a Glance ⓘ<span class="readme-tip" role="tooltip"></span></span>
-  </section>
+  <section class="ov-block ov-wb" id="ov-wb" hidden><div id="ov-wb-heat"></div></section>
 
   <section class="ov-block">
     <span class="ov-kicker">Contributions</span>
@@ -3849,7 +3841,7 @@ function renderSite() {
   if (v === "education") renderEduFigs();
   if (v === "spatial") { renderSpatialFigs(); if (window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("county-map")); }
   if (v === "map" && window.CountiesMap && window.Plot) CountiesMap.mount(document.getElementById("map-page"));
-  if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); renderGlance(); }
+  if (v === "overview") { renderCards("ov-cards"); renderPresets(); renderViews(); renderOvWb(); }
   if (v === "compare") renderCompare();
   if (v === "vibe") renderVibeAgg();
   if (v === "prescription") renderPrescription();
@@ -5772,23 +5764,23 @@ function wbCards(el, D) {
     + result("Official rate (U-3)", cu ? iF(cu.v, 2) : "–", "points", cu ? `unemployment ${f1(cu.u, 1)}% · alarm ${cu.on ? "on" : "off"}` : "")
     + result("Counties in recession", isFinite(cs) ? Math.round(100 * cs) + "%" : "–", "of all counties", mLab(ct));
 }
-function wbHeat(el, D) {
+function wbHeat(el, D, opt = {}) {
   if (!el) return;
-  const th = WB.th;
+  const th = WB.th, pre = opt.pre || "wb", onRow = opt.row === false ? "on the selected row" : "on the row charted below";
   el.innerHTML = `<figure class="vfig wb-fig">
     <div class="wb-head"><span class="ov-kicker">At a glance</span><h2 class="ov-h">The Well-Being of the Labor Market</h2></div>
     <div class="wb-sum" hidden><p class="wb-sum-p"></p></div>
     <div class="wb-top"><span class="wb-strip-t">Share of indicators signaling a recession</span><div class="wb-key"><div class="wb-key-lab" aria-hidden="true"><span>← No recession</span><span>Recession →</span></div><div class="wb-key-ramp" tabindex="0" role="img" aria-label="Color key, from no recession to recession">${HEXCOL.map(c => `<i style="background:${c}"></i>`).join("")}</div><span class="readme-tip" role="tooltip"><p><b>How the cells are shaded.</b> Each row’s turning-point indicator as a share of the ${f1(th, 1)}-point threshold. The palest blue means unemployment has not risen above its recent low; the deepest blue means the alarm is on, signaling a recession for that group.</p><p>Region rows show the share of the region’s counties in recession, deepest when most of them are. Light gray: no data yet. Dashed lines: NBER recessions.</p></span></div></div>
-    <div class="val-canvas wb-canvas" id="wb-heat-cv"><canvas role="img" aria-label="Turning-point indicators for every group, industry, occupation, income decile and region, month by month"></canvas><div class="tip" hidden></div></div>
-    <div class="wb-foot"><button type="button" class="wb-notes-btn" aria-expanded="${WB.notes}" aria-controls="wb-notes">Notes and source</button>${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a group of workers, an industry, an occupation, an income decile or a region. A cell turns the deepest blue when that row’s alarm is on.</p><p><b>What to look for.</b> National recessions run down the grid as dark columns. Rows that darken first are where downturns begin; dark patches between recessions are downturns the aggregate never called.</p><p><b>The dark blue boxes</b> mark the official recessions, as the NBER dates them, on the row charted below: U-3, the official unemployment rate, to start. Click any row to move them there.</p>`)}<span class="readme wb-sum-note" tabindex="0" hidden>The Labor Market at a Glance ⓘ<span class="readme-tip" role="tooltip">${WB_SUM_NOTE}</span></span></div>
-    <div class="wb-notes" id="wb-notes" ${WB.notes ? "" : "hidden"}><p>Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points), ${mLab(Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))))} to ${mLab(D.t1)}. Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of indicators signaling a recession, that is, with the alarm on: the rows overlap, so it counts signals, not people. Education rows cover adults aged 25 and over. The native-born and foreign-born rows group workers by birthplace. Industry and occupation refer to the unemployed person’s last job; family income deciles rank households by family income. Light gray: no data yet. Dashed lines and dark blue boxes: official recessions, as the NBER dates them, the boxes on the row charted below.</p><p>Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.</p></div>
+    <div class="val-canvas wb-canvas" id="${pre}-heat-cv"><canvas role="img" aria-label="Turning-point indicators for every group, industry, occupation, income decile and region, month by month"></canvas><div class="tip" hidden></div></div>
+    <div class="wb-foot"><button type="button" class="wb-notes-btn" aria-expanded="${WB.notes}" aria-controls="${pre}-notes">Notes and source</button>${readme(`<p><b>What you are looking at.</b> Each thin column is a month and each row a group of workers, an industry, an occupation, an income decile or a region. A cell turns the deepest blue when that row’s alarm is on.</p><p><b>What to look for.</b> National recessions run down the grid as dark columns. Rows that darken first are where downturns begin; dark patches between recessions are downturns the aggregate never called.</p><p><b>The dark blue boxes</b> mark the official recessions, as the NBER dates them, ${onRow}: U-3, the official unemployment rate, to start. Click any row to move them there.</p>`)}<span class="readme wb-sum-note" tabindex="0" hidden>The Labor Market at a Glance ⓘ<span class="readme-tip" role="tooltip">${WB_SUM_NOTE}</span></span></div>
+    <div class="wb-notes" id="${pre}-notes" ${WB.notes ? "" : "hidden"}><p>Turning Point Indicator, Modified Sahm Rule (seasonally adjusted, k = ${ST.p.k}, m = ${ST.p.m}, threshold ${f1(th, 1)} points), ${mLab(Math.max(mIdx(WB.from + "-01"), Math.min(...D.rows.map(r => r.t0))))} to ${mLab(D.t1)}. Each rate row is one unemployment rate; a cell darkens as its indicator approaches the threshold and is darkest when the alarm is on. Region rows show the share of the region’s counties above the county threshold, darkest when most of them are, which counts as the region’s alarm. The strip on top is the share of indicators signaling a recession, that is, with the alarm on: the rows overlap, so it counts signals, not people. Education rows cover adults aged 25 and over. The native-born and foreign-born rows group workers by birthplace. Industry and occupation refer to the unemployed person’s last job; family income deciles rank households by family income. Light gray: no data yet. Dashed lines and dark blue boxes: official recessions, as the NBER dates them, the boxes ${onRow}.</p><p>Sources: Bureau of Labor Statistics, Current Population Survey, via FRED (seasonally adjusted by BLS where it publishes an adjusted series, otherwise with STL); IPUMS CPS for family income deciles; BLS Local Area Unemployment Statistics for counties; NBER business-cycle dates.</p></div>
   </figure>`;
   wbSummary(el);
   // the footer's notes open upward; when there is no room above (under the site header), they open downward
   el.querySelectorAll(".wb-foot .readme").forEach(n => { const place = () => tipFlip(n, "up"); n.addEventListener("mouseenter", place); n.addEventListener("focus", place); });
-  const btn = el.querySelector(".wb-notes-btn"), box = el.querySelector("#wb-notes");
+  const btn = el.querySelector(".wb-notes-btn"), box = el.querySelector(`#${pre}-notes`);
   btn.onclick = () => { WB.notes = box.hidden; box.hidden = !WB.notes; btn.setAttribute("aria-expanded", String(WB.notes)); };
-  wbDraw(el.querySelector("#wb-heat-cv"), D);
+  wbDraw(el.querySelector(`#${pre}-heat-cv`), D);
 }
 // a hover note opens on its preferred side ("up" or "down") unless there is no room there; it is measured against the box
 // it is positioned in, below the sticky site header and above the bottom of the window
@@ -5799,16 +5791,14 @@ function tipFlip(n, prefer) {
   const roomUp = r.top - h - 10 >= top, roomDown = r.bottom + h + 10 <= innerHeight;
   if (prefer === "up") n.classList.toggle("down", !roomUp); else n.classList.toggle("up", !roomDown && roomUp);
 }
-// the same summary on the overview page, above "Contributions": the paragraph and its note, nothing else from the well-being page
-function renderGlance() {
-  const sec = document.getElementById("ov-glance"); if (!sec || !window.d3) return;
-  if (!_wbSum) _wbSum = d3.json("data/wellbeing_summary.json").catch(() => null);
-  _wbSum.then(S => { if (!S || !S.text) return;
-    sec.querySelector("#ov-glance-p").textContent = S.text;
-    const note = sec.querySelector(".ov-glance-note"), tip = note.querySelector(".readme-tip");
-    // the figures behind it are on the well-being page, so here the note says "this site" rather than "this page"
-    if (!tip.innerHTML) { tip.innerHTML = WB_SUM_NOTE.replace("from the data on this page", "from the data on this site"); const place = () => tipFlip(note, "down"); note.addEventListener("mouseenter", place); note.addEventListener("focus", place); }
-    sec.hidden = false; });
+// the well-being figure on the overview page, above "Contributions": the heading, the summary, the grid and its notes,
+// nothing else from the well-being page. The section is shown before drawing, so that the grid can measure its width.
+async function renderOvWb() {
+  const sec = document.getElementById("ov-wb"); if (!sec || !window.d3) return;
+  let D; try { D = await loadWb(); } catch (e) { console.error(e); return; }
+  if (VIEW.cur !== "overview") return;
+  sec.hidden = false;
+  try { wbHeat(document.getElementById("ov-wb-heat"), D, { pre: "ovwb", row: false }); } catch (e) { console.error(e); sec.hidden = true; }
 }
 // what the summary is: shown on hover over "The Labor Market at a Glance ⓘ" in the footer row
 const WB_SUM_NOTE = `<p>This summary was crafted by the author, and is generated by a large language model with instruction by the author, from the data on this page, and rewritten each time the data update to provide a holistic review. Every figure it relies on is checked against the data first; if a check fails, a plain template appears instead. It describes the data; it is not a forecast.</p><p>Recessions in the United States are formally designated by the Business Cycle Dating Committee of the National Bureau of Economic Research. The Committee dates the peaks and troughs of the business cycle from a broad range of economic measures. This project charts turning points in the labor market alone, which is only a subset of the evidence the Committee weighs, and all questions of recession designation should be referred to the NBER. Its purpose is to give the public a way to follow broad trends in the labor market, and any disparate or distributional effects within it.</p>`;
@@ -5908,7 +5898,7 @@ function wbDraw(wrap, D) {
     const left = ev.clientX - rc.left; tip.style.left = Math.max(0, Math.min(rc.width - tip.offsetWidth, left + 14)) + "px"; tip.style.top = Math.max(0, Math.min(ev.clientY - rc.top + 12, rc.height - tip.offsetHeight)) + "px";
   };
   wrap.onpointermove = show; wrap.onpointerdown = show; wrap.onpointerleave = () => tip.hidden = true;
-  wrap.onclick = ev => { const { px, py } = at(ev), L = rowAt(px, py); if (!L || L.r.k === WB.sel) return; WB.sel = L.r.k; wbDraw(wrap, D); wbRow(document.getElementById("fig-wb-row"), D); };
+  wrap.onclick = ev => { const { px, py } = at(ev), L = rowAt(px, py); if (!L || L.r.k === WB.sel) return; WB.sel = L.r.k; wbDraw(wrap, D); if (wrap.closest("#v-well-being")) wbRow(document.getElementById("fig-wb-row"), D); };
 }
 function wbRow(el, D) {
   if (!el) return;
