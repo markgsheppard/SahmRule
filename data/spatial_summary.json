@@ -3,17 +3,17 @@
   "data_to": "2026-08",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2818,
+  "valid": 2823,
   "excluded": 313,
-  "signals": 27803,
-  "real": 9964,
+  "signals": 27852,
+  "real": 9984,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2441,
+  "caught_all": 2446,
   "bellwethers": 22,
   "bw_lead": -2.5,
-  "gw_counties": 20,
-  "gw_lead": -2.9,
+  "gw_counties": 21,
+  "gw_lead": -2.7,
   "gw_prec": 61,
   "gw_lead_pct": 26,
   "gw_prec_pct": 91,
@@ -39,8 +39,8 @@
     "n_sig": 9,
     "lead": -4.7
   },
-  "gw_false_2025": 13,
-  "gw_false_other": 14,
+  "gw_false_2025": 14,
+  "gw_false_other": 15,
   "frontier": [
     {
       "fips": "37119",
@@ -95,12 +95,12 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 791,
+      "counties": 793,
       "prec": 42
     },
     {
       "bin": "on time",
-      "counties": 782,
+      "counties": 784,
       "prec": 44
     },
     {
@@ -110,7 +110,7 @@
     },
     {
       "bin": "very early",
-      "counties": 341,
+      "counties": 342,
       "prec": 39
     }
   ],
@@ -301,11 +301,19 @@
     },
     {
       "state": "GA",
+      "start": "1995-09",
+      "end": "1996-02",
+      "months": 6,
+      "peak": 0.54,
+      "counties": 150
+    },
+    {
+      "state": "GA",
       "start": "2004-11",
       "end": "2005-08",
       "months": 10,
       "peak": 0.86,
-      "counties": 149
+      "counties": 150
     },
     {
       "state": "HI",
@@ -465,7 +473,7 @@
       "end": "2005-11",
       "months": 14,
       "peak": 0.92,
-      "counties": 64
+      "counties": 65
     },
     {
       "state": "MS",
@@ -473,7 +481,7 @@
       "end": "2025-09",
       "months": 11,
       "peak": 1,
-      "counties": 64
+      "counties": 65
     },
     {
       "state": "MT",
@@ -718,10 +726,10 @@
     {
       "state": "WV",
       "start": "1995-07",
-      "end": "1996-04",
-      "months": 10,
-      "peak": 0.58,
-      "counties": 53
+      "end": "1996-05",
+      "months": 11,
+      "peak": 0.59,
+      "counties": 54
     },
     {
       "state": "WV",
@@ -729,7 +737,7 @@
       "end": "2024-04",
       "months": 7,
       "peak": 0.74,
-      "counties": 53
+      "counties": 54
     },
     {
       "state": "WV",
@@ -737,7 +745,7 @@
       "end": "2026-04",
       "months": 8,
       "peak": 0.94,
-      "counties": 53
+      "counties": 54
     },
     {
       "state": "WY",
