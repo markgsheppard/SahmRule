@@ -62,10 +62,16 @@ body { background: var(--bg); color: var(--fg); font-family: var(--f-body); }
 
 /* the appendix */
 .appendix { margin-top: 4px; }
-.appendix summary { width: max-content; cursor: pointer; font: 700 10.5px/1.6 var(--f-label); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
-.appendix summary:hover { color: var(--muted); }
-.appendix summary::marker { color: var(--faint); }
+.appendix > summary { width: max-content; cursor: pointer; font: 700 10.5px/1.6 var(--f-label); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.appendix > summary:hover { color: var(--muted); }
+.appendix > summary::marker { color: var(--faint); }
 .appendix summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* inside the appendix, the transcript folds away on its own, its label set like the section headings */
+.ap-acc { margin: 16px 0 0; }
+.ap-acc > summary { width: max-content; cursor: pointer; font: 700 11px/1.4 var(--f-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.ap-acc > summary:hover { color: var(--fg); }
+.ap-acc > summary::marker { color: var(--faint); }
+.ap-acc[open] > summary { margin-bottom: 8px; }
 .ap { max-width: 78ch; }
 .ap h2 { margin: 16px 0 6px; font: 700 11px/1.4 var(--f-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .ap p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
@@ -99,12 +105,14 @@ html.embed .wrap { max-width: none; padding: 0 0 4px; }
   <details class="appendix">
     <summary>Appendix</summary>
     <div class="ap">
-      <h2>Transcript</h2>
-      <ol id="transcript"></ol>
+      <details class="ap-acc">
+        <summary>Transcript</summary>
+        <ol id="transcript"></ol>
+      </details>
       <h2>Data and method</h2>
       <p>The unemployment rate (U-3), U-6, employment from the household survey and the group rates come from the Bureau of Labor Statistics via FRED, seasonally adjusted (by the BLS where it publishes an adjusted series, otherwise with STL). Family-income deciles come from IPUMS CPS microdata. Recession dates, the committee’s measures and its words on method come from the NBER’s Business Cycle Dating Committee. Two versions of the rule are used. The record since 1950 and the grid of groups use the Sahm Rule as it is usually computed: a series’ three-month average less its lowest three-month average over the previous twelve months, signaling at half a point. The chart of who is affected first and the racial, educational and income turning points use the website’s version, on its CPS series: a six-month average less its lowest six-month average of the last twelve months, this month included, with the alarm at half a point. Readings use today’s revised data, not the data available at the time.</p>
       <h2>Acknowledgments</h2>
-      <p>This work would like to thank Claudia Sahm, Trevon Logan, Pascal Michaillat, Emmanuel Saez, and James Stock, for immeasurable guidance and mentorship on this work.</p>
+      <p>This work would like to thank Claudia Sahm, Trevon Logan, Pascal Michaillat, Emmanuel Saez, Steven Durlauf, and James Stock, for immeasurable guidance and mentorship on this work.</p>
       <p id="voiceNote"></p>
     </div>
   </details>
@@ -255,7 +263,7 @@ html.embed .wrap { max-width: none; padding: 0 0 4px; }
     // the close: the setup, a held breath, then the last line on the end card
     { s: "conclusion", min: 4, tail: 0.75, say: "And the ultimate conclusion of this research is not simply that recessions are worse for some people." },
     { s: "end", min: 5, lead: 0.4, tail: 2.4, say: "It is that recessions hit some people first." },
-    { s: "thanks", min: 6.5, tail: 0, silent: true, say: "" }   // on screen only, no narration
+    { s: "thanks", min: 7, tail: 0, silent: true, say: "" }   // on screen only, no narration
   ];
   // the recorded narration: the audio, each line's length in seconds, when the words the pictures wait on are spoken (seconds into the line),
   // and, for the lines set as text, when every word is spoken. Without a recording, the device's own voice reads each line and the pictures
@@ -1096,19 +1104,20 @@ html.embed .wrap { max-width: none; padding: 0 0 4px; }
     ctx.restore();
   }
 
-  // the thanks: a line, the five names one after another, and the close of the line; it stays as the last frame
-  const THANKS = { k: "With gratitude", pre: "This work would like to thank", names: ["Claudia Sahm", "Trevon Logan", "Pascal Michaillat", "Emmanuel Saez", "James Stock"],
+  // the thanks: a line, the names one after another, and the close of the line; it stays as the last frame
+  const THANKS = { k: "With gratitude", pre: "This work would like to thank", names: ["Claudia Sahm", "Trevon Logan", "Pascal Michaillat", "Emmanuel Saez", "Steven Durlauf", "James Stock"],
     post: "for immeasurable guidance and mentorship on this work." };
   function drawThanks(t) {
     const b = BX.thanks; if (t < b.t0) return;
-    const pt = P.portrait, x = P.padX, y0 = pt ? 250 : 176, ns = pt ? 44 : 40, nl = pt ? 58 : 54, ts = pt ? 24 : 22;
+    const pt = P.portrait, x = P.padX, y0 = pt ? 236 : 150, ns = pt ? 44 : 40, nl = pt ? 58 : 54, ts = pt ? 24 : 22, n = THANKS.names.length;
     ctx.save();
     ctx.globalAlpha = easeOut(prog(t, b.t0 + 0.1, b.t0 + 0.7)); ctx.font = font(700, P.kSize, F.label); ctx.fillStyle = C.muted; tracked(THANKS.k.toUpperCase(), x, y0, P.kTrack);
     text(THANKS.pre, x, y0 + (pt ? 52 : 48), font(400, ts), C.ink2, "left", easeOut(prog(t, b.t0 + 0.3, b.t0 + 1.0)));
-    THANKS.names.forEach((n, i) => { const p = easeOut(prog(t, b.t0 + 0.8 + i * 0.35, b.t0 + 1.4 + i * 0.35)); if (p <= 0) return;
-      ctx.globalAlpha = p; ctx.font = font(400, ns, F.display, true); ctx.fillStyle = "#272727"; ctx.fillText(n, x, y0 + (pt ? 116 : 108) + i * nl + (1 - p) * 8); });
+    THANKS.names.forEach((nm, i) => { const p = easeOut(prog(t, b.t0 + 0.8 + i * 0.35, b.t0 + 1.4 + i * 0.35)); if (p <= 0) return;
+      ctx.globalAlpha = p; ctx.font = font(400, ns, F.display, true); ctx.fillStyle = "#272727"; ctx.fillText(nm, x, y0 + (pt ? 116 : 108) + i * nl + (1 - p) * 8); });
     ctx.globalAlpha = 1;
-    text(THANKS.post, x, y0 + (pt ? 116 : 108) + 4 * nl + (pt ? 62 : 56), font(400, ts), C.ink2, "left", easeOut(prog(t, b.t0 + 2.7, b.t0 + 3.4)));
+    const tp = b.t0 + 0.8 + n * 0.35 + 0.1;   // the close of the line, once the last name is in
+    text(THANKS.post, x, y0 + (pt ? 116 : 108) + (n - 1) * nl + (pt ? 62 : 56), font(400, ts), C.ink2, "left", easeOut(prog(t, tp, tp + 0.7)));
     ctx.restore();
   }
 
