@@ -649,6 +649,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--f-body); }
 .view-panel { margin-top: 16px; min-width: 0; }
 .view-panel > [hidden] { display: none !important; }
 .ov-close p { font-size: 16px; line-height: 1.7; color: var(--prose); margin: 0; }
+/* the motion graphic (motion/), in a frame that takes the height of what it holds; until it says, a guess from its width */
+.ov-motion { margin: 8px 0 4px; min-width: 0; }
+.ov-motion iframe { display: block; width: 100%; aspect-ratio: 16 / 10.4; border: 0; background: #fff; }
+@media (max-width: 679px) { .ov-motion iframe { aspect-ratio: 3 / 4.5; } }
 .ov-buttons { justify-content: flex-start; padding-block: 14px 30px; }
 .df-button { background: #111; color: #fff; border: 1px solid #111; border-radius: 3px; padding: 11px 20px; font-family: var(--f-nav); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; gap: 10px; transition: background .2s, color .2s; }
 .df-button:hover { background: #333; color: #fff; }
@@ -1025,6 +1029,7 @@ td .relax { color: #a3a3a3; font-size: 10px; vertical-align: super; }
     <span class="ov-kicker">Why it matters</span>
     <h2 class="ov-h">Recessions are understood as uniform, binary events. They are dynamic.</h2>
     <p>The business-cycle chronology marks one peak and one trough for the whole country, and a recession is either on or off. Turning-point indicators built from disaggregated data show something more dynamic: by the same real-time standard, the recession begins months earlier for some workers and places, cuts deeper, spreads unevenly, and lingers past the official end. Aggregate-triggered measures, from extended unemployment benefits to policy-rate responses, are calibrated to the national date, so they tend to arrive after the groups most exposed have already been living in a downturn.</p>
+    <div class="ov-motion"><iframe id="ov-motion" src="motion/?embed" title="The Inequality of Recessions in motion: an animated explainer with narration" loading="lazy"></iframe></div>
     <p>The indicators on this site update with each release: BLS series for the national and group rates, county unemployment from the Local Area Unemployment Statistics, and CPS microdata through IPUMS for the income and composition analyses. The interactive tool lets readers rebuild any of these signals with their own smoothing, window and threshold choices, and the code for the tool and the map is <a class="plain-link" href="https://github.com/markgsheppard/SahmRule" target="_blank" rel="noopener">on GitHub</a>.</p>
     <div class="ov-buttons">
       <a class="df-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5865282" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
@@ -3940,6 +3945,12 @@ function renderVibe() {
   splitBars(dc.querySelector(".vbody"), drows, met === "mean" ? "pp" : "mo", { comp: "Composition", res: "Residual", compTip: "The part of the gap predicted by the focal group’s mix of characteristics, priced at the reference group’s rates.", resTip: "The part of the gap that mix does not explain.", totTip: "The total gap over the period. Composition and residual add up to it." });
   if (met === "on") { const n = dc.querySelector(".sb-note"); if (n) n.textContent = "Months above threshold. Segments stack to the total (black tick). Hover a segment for what it measures."; }
 }
+
+/* ---------- The motion graphic on the overview: its frame takes the height the page inside reports ---------- */
+window.addEventListener("message", e => {
+  const f = document.getElementById("ov-motion");
+  if (f && e.source === f.contentWindow && e.data && e.data.type === "motion-height" && e.data.h > 0) f.style.height = e.data.h + "px";
+});
 
 /* ---------- Routing: one view per paper ---------- */
 const VIEW = { cur: "", full: { race: false, income: false, education: false, spatial: false, umeas: false, u7: false } };
