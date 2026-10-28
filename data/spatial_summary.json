@@ -1,15 +1,15 @@
 {
   "data_from": "1990-01",
-  "data_to": "2026-08",
+  "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
   "valid": 2823,
   "excluded": 313,
-  "signals": 27852,
-  "real": 9984,
+  "signals": 27985,
+  "real": 9985,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2446,
+  "caught_all": 2445,
   "bellwethers": 22,
   "bw_lead": -2.5,
   "gw_counties": 21,
@@ -95,22 +95,22 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 793,
+      "counties": 787,
       "prec": 42
     },
     {
       "bin": "on time",
-      "counties": 784,
+      "counties": 790,
       "prec": 44
     },
     {
       "bin": "early",
       "counties": 527,
-      "prec": 42
+      "prec": 41
     },
     {
       "bin": "very early",
-      "counties": 342,
+      "counties": 341,
       "prec": 39
     }
   ],
@@ -133,9 +133,9 @@
     },
     {
       "state": "AK",
-      "start": "1998-09",
+      "start": "1998-12",
       "end": "1999-08",
-      "months": 12,
+      "months": 9,
       "peak": 0.68,
       "counties": 25
     },
@@ -176,7 +176,7 @@
       "start": "2023-10",
       "end": "2024-03",
       "months": 6,
-      "peak": 0.66,
+      "peak": 0.64,
       "counties": 50
     },
     {
@@ -216,7 +216,7 @@
       "start": "2024-07",
       "end": "2024-12",
       "months": 6,
-      "peak": 0.65,
+      "peak": 0.63,
       "counties": 54
     },
     {
@@ -294,8 +294,8 @@
     {
       "state": "FL",
       "start": "2025-09",
-      "end": "2026-08",
-      "months": 12,
+      "end": "2026-09",
+      "months": 13,
       "peak": 0.98,
       "counties": 63
     },
@@ -368,7 +368,7 @@
       "start": "2003-12",
       "end": "2004-05",
       "months": 6,
-      "peak": 0.63,
+      "peak": 0.62,
       "counties": 101
     },
     {
@@ -384,7 +384,7 @@
       "start": "2023-11",
       "end": "2025-01",
       "months": 15,
-      "peak": 0.8,
+      "peak": 0.79,
       "counties": 82
     },
     {
@@ -392,7 +392,7 @@
       "start": "1994-03",
       "end": "1994-10",
       "months": 8,
-      "peak": 0.66,
+      "peak": 0.68,
       "counties": 59
     },
     {
@@ -454,8 +454,8 @@
     {
       "state": "MN",
       "start": "2024-08",
-      "end": "2026-08",
-      "months": 25,
+      "end": "2026-09",
+      "months": 26,
       "peak": 1,
       "counties": 84
     },
@@ -496,7 +496,7 @@
       "start": "1998-02",
       "end": "1998-09",
       "months": 8,
-      "peak": 0.75,
+      "peak": 0.73,
       "counties": 55
     },
     {
@@ -558,10 +558,18 @@
     {
       "state": "NM",
       "start": "2026-01",
-      "end": "2026-08",
-      "months": 8,
+      "end": "2026-09",
+      "months": 9,
       "peak": 0.87,
       "counties": 31
+    },
+    {
+      "state": "NV",
+      "start": "1996-02",
+      "end": "1996-07",
+      "months": 6,
+      "peak": 0.56,
+      "counties": 16
     },
     {
       "state": "NV",
@@ -590,8 +598,8 @@
     {
       "state": "OK",
       "start": "2025-11",
-      "end": "2026-08",
-      "months": 10,
+      "end": "2026-09",
+      "months": 11,
       "peak": 0.97,
       "counties": 75
     },
@@ -720,7 +728,7 @@
       "start": "2025-10",
       "end": "2026-03",
       "months": 6,
-      "peak": 0.84,
+      "peak": 0.87,
       "counties": 38
     },
     {
