@@ -3,8 +3,8 @@
 "Source dataset ID","LMS"
 "PreUnit",""
 "Unit","%"
-"Release date","15-09-2026"
-"Next release","20 October 2026"
+"Release date","20-10-2026"
+"Next release","17 November 2026"
 "Important notes",
 "1971","4.1"
 "1972","4.3"
@@ -948,3 +948,4 @@
 "2026 APR","4.9"
 "2026 MAY","4.9"
 "2026 JUN","4.9"
+"2026 JUL","4.7"
