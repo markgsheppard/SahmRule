@@ -3,10 +3,10 @@
   "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2822,
+  "valid": 2823,
   "excluded": 313,
-  "signals": 27981,
-  "real": 9984,
+  "signals": 27985,
+  "real": 9985,
   "precision": 36,
   "raw_precision": 29,
   "caught_all": 2445,
@@ -337,7 +337,7 @@
       "end": "2025-05",
       "months": 9,
       "peak": 0.89,
-      "counties": 89
+      "counties": 90
     },
     {
       "state": "IL",
