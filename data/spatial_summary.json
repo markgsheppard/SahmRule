@@ -3,13 +3,13 @@
   "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2823,
+  "valid": 2819,
   "excluded": 313,
-  "signals": 27985,
-  "real": 9985,
+  "signals": 27946,
+  "real": 9976,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2445,
+  "caught_all": 2443,
   "bellwethers": 22,
   "bw_lead": -2.5,
   "gw_counties": 21,
@@ -95,7 +95,7 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 787,
+      "counties": 785,
       "prec": 42
     },
     {
@@ -425,7 +425,7 @@
       "end": "2026-04",
       "months": 28,
       "peak": 1,
-      "counties": 21
+      "counties": 20
     },
     {
       "state": "ME",
