@@ -3,10 +3,10 @@
   "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2819,
+  "valid": 2821,
   "excluded": 313,
-  "signals": 27946,
-  "real": 9976,
+  "signals": 27971,
+  "real": 9978,
   "precision": 36,
   "raw_precision": 29,
   "caught_all": 2443,
@@ -95,12 +95,12 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 785,
+      "counties": 786,
       "prec": 42
     },
     {
       "bin": "on time",
-      "counties": 790,
+      "counties": 789,
       "prec": 44
     },
     {
@@ -361,7 +361,7 @@
       "end": "2025-01",
       "months": 8,
       "peak": 0.96,
-      "counties": 82
+      "counties": 81
     },
     {
       "state": "KS",
@@ -425,7 +425,7 @@
       "end": "2026-04",
       "months": 28,
       "peak": 1,
-      "counties": 20
+      "counties": 21
     },
     {
       "state": "ME",
