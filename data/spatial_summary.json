@@ -3,13 +3,13 @@
   "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2821,
+  "valid": 2823,
   "excluded": 313,
-  "signals": 27971,
-  "real": 9978,
+  "signals": 27985,
+  "real": 9985,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2443,
+  "caught_all": 2445,
   "bellwethers": 22,
   "bw_lead": -2.5,
   "gw_counties": 21,
@@ -95,12 +95,12 @@
   "lead_bins": [
     {
       "bin": "late",
-      "counties": 786,
+      "counties": 787,
       "prec": 42
     },
     {
       "bin": "on time",
-      "counties": 789,
+      "counties": 790,
       "prec": 44
     },
     {
@@ -361,7 +361,7 @@
       "end": "2025-01",
       "months": 8,
       "peak": 0.96,
-      "counties": 81
+      "counties": 82
     },
     {
       "state": "KS",
