@@ -3,13 +3,13 @@
   "data_to": "2026-09",
   "signals_from": "1993-01",
   "counties": 3136,
-  "valid": 2823,
+  "valid": 2821,
   "excluded": 313,
-  "signals": 27985,
-  "real": 9985,
+  "signals": 27974,
+  "real": 9977,
   "precision": 36,
   "raw_precision": 29,
-  "caught_all": 2445,
+  "caught_all": 2443,
   "bellwethers": 22,
   "bw_lead": -2.5,
   "gw_counties": 21,
@@ -105,12 +105,12 @@
     },
     {
       "bin": "early",
-      "counties": 527,
+      "counties": 526,
       "prec": 41
     },
     {
       "bin": "very early",
-      "counties": 341,
+      "counties": 340,
       "prec": 39
     }
   ],
@@ -513,7 +513,7 @@
       "end": "1996-05",
       "months": 6,
       "peak": 0.57,
-      "counties": 95
+      "counties": 93
     },
     {
       "state": "NH",
